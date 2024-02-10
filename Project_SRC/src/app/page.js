@@ -6,8 +6,8 @@ import Layout from './components/layout';
 export default function Home() {
   return (
     <Layout>
-    <h3>Welcome to UniChat</h3>
-    <h2><Link href="/login">Login</Link></h2>
+      <h1>Welcome to UniChat</h1>
+      <h2><Link href="/login">Login</Link></h2>
     </Layout>
   );
 }
