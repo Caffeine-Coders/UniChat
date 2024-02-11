@@ -20,7 +20,7 @@ export default function Content() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4  lg:px-8 lg:w-1/3 h-40">
-        <a class="no-underline  text-black" href="#">
+        <a class="no-underline  text-black" href="/prof/projectdetails">
             <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
                 <div class="px-6 py-4">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
@@ -36,7 +36,7 @@ export default function Content() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4  lg:px-8 lg:w-1/3 h-40">
-        <a class="no-underline  text-black" href="#">
+        <a class="no-underline  text-black" href="/prof/projectdetails">
             <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
                 <div class="px-6 py-4">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
@@ -52,7 +52,7 @@ export default function Content() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4  lg:px-8 lg:w-1/3 h-40">
-        <a class="no-underline  text-black" href="#">
+        <a class="no-underline  text-black" href="/prof/projectdetails">
             <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
                 <div class="px-6 py-4">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
@@ -68,7 +68,7 @@ export default function Content() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 lg:px-8 lg:w-1/3 h-40">
-        <a class="no-underline  text-black" href="#">
+        <a class="no-underline  text-black" href="/prof/projectdetails">
             <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
                 <div class="px-6 py-4">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
@@ -84,7 +84,7 @@ export default function Content() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 lg:px-8 lg:w-1/3 h-40">
-        <a class="no-underline  text-black" href="#">
+        <a class="no-underline  text-black" href="/prof/projectdetails">
             <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
                 <div class="px-6 py-4">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
@@ -100,7 +100,7 @@ export default function Content() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4  lg:px-8 lg:w-1/3 h-40">
-        <a class="no-underline  text-black" href="#">
+        <a class="no-underline  text-black" href="/prof/projectdetails">
             <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
                 <div class="px-6 py-4">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
@@ -116,7 +116,7 @@ export default function Content() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 lg:px-8 lg:w-1/3 h-40">
-        <a class="no-underline  text-black" href="#">
+        <a class="no-underline  text-black" href="/prof/projectdetails">
             <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
                 <div class="px-6 py-4">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
@@ -132,7 +132,7 @@ export default function Content() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 lg:px-8 lg:w-1/3 h-40">
-        <a class="no-underline  text-black" href="#">
+        <a class="no-underline  text-black" href="/prof/projectdetails">
             <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
                 <div class="px-6 py-4">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
