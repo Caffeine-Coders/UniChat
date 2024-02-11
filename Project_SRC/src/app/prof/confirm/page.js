@@ -1,7 +1,6 @@
 import Navdash from "../navbar"
 import Confirm from "./confirm"
-import Content from "./content"
-export default function Newproject() {
+export default function Confirmpage() {
     return (
         <div>
         <Navdash/>
