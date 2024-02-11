@@ -1,149 +1,154 @@
 export default function Content() {
     return (
-        <div class="container my-12 mx-auto px-4 md:px-12">
-    <div class="flex flex-wrap -mx-1 lg:-mx-4">
-        <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-            <article class="overflow-hidden rounded-lg shadow-lg">
-
-                <a href="#">
-                    <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random"/>
-                </a>
-
-                <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                    <h1 class="text-lg">
-                        <a class="no-underline hover:underline text-black" href="#">
-                            Article Title
-                        </a>
+<>
+        <div class="container my-12  mx-auto px-2 ">
+    <div class="flex flex-wrap -mx-1 lg:-mx-4 lg:mx-20">
+        <div class="my-1 w-full md:w-1/2 lg:my-4  lg:px-8 lg:w-1/3 h-40">
+        <a class="no-underline  text-black h-full" href="/prof/newproject">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2 mt-6 flex justify-center items-center">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+                        </svg>
+                    </div>
+                    <h1 class="text-xl text-center hover:underline">
+                            Add Project
                     </h1>
-                    <p class="text-grey-darker text-sm">
-                        11/1/19
-                    </p>
-                </header>
-
-                <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                    <a class="flex items-center no-underline hover:underline text-black" href="#">
-                        <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random"/>
-                        <p class="ml-2 text-sm">
-                            Author Name
-                        </p>
-                    </a>
-                    <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-                        <span class="hidden">Like</span>
-                        <i class="fa fa-heart"></i>
-                    </a>
-                </footer>
-
+                </div>
             </article>
+            </a>
         </div>
-  
-        <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-
-   
-            <article class="overflow-hidden rounded-lg shadow-lg">
-
-                <a href="#">
-                    <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random"/>
-                </a>
-
-                <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                    <h1 class="text-lg">
-                        <a class="no-underline hover:underline text-black" href="#">
-                            Article Title
-                        </a>
-                    </h1>
-                    <p class="text-grey-darker text-sm">
-                        11/1/19
-                    </p>
-                </header>
-
-                <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                    <a class="flex items-center no-underline hover:underline text-black" href="#">
-                        <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random"/>
-                        <p class="ml-2 text-sm">
-                            Author Name
-                        </p>
-                    </a>
-                    <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-                        <span class="hidden">Like</span>
-                        <i class="fa fa-heart"></i>
-                    </a>
-                </footer>
-
+        <div class="my-1 w-full md:w-1/2 lg:my-4  lg:px-8 lg:w-1/3 h-40">
+        <a class="no-underline  text-black" href="#">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
+                        <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
+                            Project Name 1
+                        </h1>
+                    </div>
+                    <h6 class="text-xs text-center my-0">    
+                            Grade Level
+                    </h6>
+                </div>
             </article>
-
+            </a>
         </div>
-        <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-
-            <article class="overflow-hidden rounded-lg shadow-lg">
-
-                <a href="#">
-                    <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random"/>
-                </a>
-
-                <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                    <h1 class="text-lg">
-                        <a class="no-underline hover:underline text-black" href="#">
-                            Article Title
-                        </a>
-                    </h1>
-                    <p class="text-grey-darker text-sm">
-                        11/1/19
-                    </p>
-                </header>
-
-                <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                    <a class="flex items-center no-underline hover:underline text-black" href="#">
-                        <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random"/>
-                        <p class="ml-2 text-sm">
-                            Author Name
-                        </p>
-                    </a>
-                    <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-                        <span class="hidden">Like</span>
-                        <i class="fa fa-heart"></i>
-                    </a>
-                </footer>
-
+        <div class="my-1 w-full md:w-1/2 lg:my-4  lg:px-8 lg:w-1/3 h-40">
+        <a class="no-underline  text-black" href="#">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
+                        <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
+                            Project Name 1
+                        </h1>
+                    </div>
+                    <h6 class="text-xs text-center my-0">    
+                            Grade Level
+                    </h6>
+                </div>
             </article>
+            </a>
         </div>
-        <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-
-
-            <article class="overflow-hidden rounded-lg shadow-lg">
-
-                <a href="#">
-                    <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random"/>
-                </a>
-
-                <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                    <h1 class="text-lg">
-                        <a class="no-underline hover:underline text-black" href="#">
-                            Article Title
-                        </a>
-                    </h1>
-                    <p class="text-grey-darker text-sm">
-                        11/1/19
-                    </p>
-                </header>
-
-                <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                    <a class="flex items-center no-underline hover:underline text-black" href="#">
-                        <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random"/>
-                        <p class="ml-2 text-sm">
-                            Author Name
-                        </p>
-                    </a>
-                    <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-                        <span class="hidden">Like</span>
-                        <i class="fa fa-heart"></i>
-                    </a>
-                </footer>
-
+        <div class="my-1 w-full md:w-1/2 lg:my-4  lg:px-8 lg:w-1/3 h-40">
+        <a class="no-underline  text-black" href="#">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
+                        <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
+                            Project Name 1
+                        </h1>
+                    </div>
+                    <h6 class="text-xs text-center my-0">    
+                            Grade Level
+                    </h6>
+                </div>
             </article>
-  
-
+            </a>
+        </div>
+        <div class="my-1 w-full md:w-1/2 lg:my-4 lg:px-8 lg:w-1/3 h-40">
+        <a class="no-underline  text-black" href="#">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
+                        <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
+                            Project Name 1
+                        </h1>
+                    </div>
+                    <h6 class="text-xs text-center my-0">    
+                            Grade Level
+                    </h6>
+                </div>
+            </article>
+            </a>
+        </div>
+        <div class="my-1 w-full md:w-1/2 lg:my-4 lg:px-8 lg:w-1/3 h-40">
+        <a class="no-underline  text-black" href="#">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
+                        <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
+                            Project Name 1
+                        </h1>
+                    </div>
+                    <h6 class="text-xs text-center my-0">    
+                            Grade Level
+                    </h6>
+                </div>
+            </article>
+            </a>
+        </div>
+        <div class="my-1 w-full md:w-1/2 lg:my-4  lg:px-8 lg:w-1/3 h-40">
+        <a class="no-underline  text-black" href="#">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
+                        <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
+                            Project Name 1
+                        </h1>
+                    </div>
+                    <h6 class="text-xs text-center my-0">    
+                            Grade Level
+                    </h6>
+                </div>
+            </article>
+            </a>
+        </div>
+        <div class="my-1 w-full md:w-1/2 lg:my-4 lg:px-8 lg:w-1/3 h-40">
+        <a class="no-underline  text-black" href="#">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
+                        <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
+                            Project Name 1
+                        </h1>
+                    </div>
+                    <h6 class="text-xs text-center my-0">    
+                            Grade Level
+                    </h6>
+                </div>
+            </article>
+            </a>
+        </div>
+        <div class="my-1 w-full md:w-1/2 lg:my-4 lg:px-8 lg:w-1/3 h-40">
+        <a class="no-underline  text-black" href="#">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
+                        <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
+                            Project Name 1
+                        </h1>
+                    </div>
+                    <h6 class="text-xs text-center my-0">    
+                            Grade Level
+                    </h6>
+                </div>
+            </article>
+            </a>
         </div>
   </div>
         </div>
+        </>
     )
   }
