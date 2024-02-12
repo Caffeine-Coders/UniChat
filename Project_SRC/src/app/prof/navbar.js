@@ -6,6 +6,12 @@ export default function Navdash() {
             <div class="flex items-center flex-shrink-0 mr-6">
                 <span class="font-bold text-2xl tracking-wide">UniChat</span>
             </div>
+            <button class="flex items-center gap-4">
+                <img class="w-10 h-10 rounded-full" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""/>
+                <div class="font-medium dark:text-white">
+                    <div>Professor Name</div>
+                </div>
+            </button>
         </nav>
     )
   }
