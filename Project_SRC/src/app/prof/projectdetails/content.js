@@ -1,5 +1,29 @@
+'use client'
+import React, { useState, useEffect } from "react";
+import Trial from "../loading";
+// Define a custom Loading component
+function CustomLoading() {
+  return  <Trial/>// Replace this with your loading spinner or indicator
+}
+
+// Define a custom DelayedContent component
+function DelayedContent({ children, delay }) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  return loading ? <CustomLoading /> : children;
+}
+
 export default function Content(){
     return(
+        
         <div class="p-4 sm:ml-64 -mt-8">
             <span><a class="flex hover:underline" href="/prof"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
@@ -10,6 +34,7 @@ export default function Content(){
                     Project Name 1
                 </h1>
             </div>
+            <DelayedContent delay={2000}>
             <div class="ml-28 mr-28  rounded-lg ">
                 <h1>
                     Project Goal:
@@ -86,7 +111,9 @@ export default function Content(){
                 
             </div>
             <hr class="ml-28 mr-28  mt-4 h-px  bg-gray-200 border-0"></hr>
+            </DelayedContent>
             </div>
         </div>
+
     )
 }

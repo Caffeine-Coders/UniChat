@@ -1,7 +1,31 @@
+'use client'
 import "../components/land1.css"
+import React, { useState, useEffect } from "react";
+import Trial from "./loading";
+// Define a custom Loading component
+function CustomLoading() {
+  return  <Trial/>// Replace this with your loading spinner or indicator
+}
+
+// Define a custom DelayedContent component
+function DelayedContent({ children, delay }) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  return loading ? <CustomLoading /> : children;
+}
+
 export default function Content() {
     return (
 <>
+<DelayedContent delay={2000}>
         <div class="container my-28  mx-auto px-2 ">
     <div class="flex flex-wrap -mx-1 lg:-mx-4 lg:mx-20">
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56">
@@ -150,6 +174,7 @@ export default function Content() {
         </div>
   </div>
         </div>
+        </DelayedContent>
         </>
     )
   }
