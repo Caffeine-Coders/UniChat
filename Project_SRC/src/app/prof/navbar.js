@@ -1,7 +1,7 @@
 import Link from "next/link"
 export default function Navdash() {
     return (
-        <nav class="flex items-center justify-between flex-wrap p-6 bg-white">
+        <nav class="flex items-center justify-between flex-wrap p-6 bg-transparent">
             <Link href="/">
                 <button class="flex items-center flex-shrink-0 mr-6">
                     <span class="font-bold text-2xl tracking-wide">UniChat</span>

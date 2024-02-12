@@ -1,7 +1,7 @@
 export default function Content() {
     return (
 <>
-        <div class="container my-12  mx-auto px-2 ">
+        <div class="container my-28  mx-auto px-2 ">
     <div class="flex flex-wrap -mx-1 lg:-mx-4 lg:mx-20">
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56">
             <a class="no-underline  text-black h-full" href="/prof/newproject">
