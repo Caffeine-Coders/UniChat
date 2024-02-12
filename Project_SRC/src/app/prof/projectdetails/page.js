@@ -1,7 +1,12 @@
+import Navdash from "../navbar"
+import Content from "./content"
+import Siderbar from "./sidebar"
 export default function Projectdetails() {
     return (
         <div>
-            Project Details here
+            <Navdash/>
+            <Siderbar/>
+            <Content/>
         </div>
     )
   }
