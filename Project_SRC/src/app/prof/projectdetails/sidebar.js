@@ -2,7 +2,7 @@ import Link from 'next/link'
 export default function Siderbar(){
     return(
         <aside class="fixed top-0 left-0 w-60 h-screen z-40 bg-gray-50">
-            <nav class="flex items-center justify-between flex-wrap p-6 pb-4">
+            <nav class="flex items-center justify-between flex-wrap p-6 pb-4 bg-white">
             <Link href="/">
                 <button class="flex items-center flex-shrink-0 mr-6">
                     <span class="font-bold text-2xl tracking-wide">UniChat</span>
@@ -27,8 +27,8 @@ export default function Siderbar(){
                         </a>
                     </li>
                     <li class="absolute bottom-4">
-                        <a class="cursor-pointer flex items-center text-gray-900 p-2 hover:text-blue-400 rounded-lg group">
-                        <svg class="w-6 h-6 text-gray-800 transition duration-75 group-hover:text-blue-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <a class="cursor-pointer flex items-center text-gray-900 p-2 hover:text-discordpurple-200 rounded-lg group">
+                        <svg class="w-6 h-6 text-gray-800 transition duration-75 group-hover:text-discordpurple-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
     <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 8v3c0 .6-.4 1-1 1H5m11 4h2c.6 0 1-.4 1-1V5c0-.6-.4-1-1-1h-7a1 1 0 0 0-1 1v1m4 3v10c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1v-7.1c0-.3 0-.5.2-.7l2.5-2.9c.2-.2.5-.3.8-.3H13c.6 0 1 .4 1 1Z"/>
   </svg>
                             <span class="ms-3">Copy Link</span>
