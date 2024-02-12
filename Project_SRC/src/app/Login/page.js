@@ -1,8 +1,11 @@
+import Nav from "./navbar";
+import Content from "./content";
 export default function Login() {
     return (
       <div>
-      <h1>Login Page</h1>
-      <a href="/prof">Dashboard Link</a>
+        <Nav/>
+        <Content/>
+        {/* <a href="/prof">Dashboard Link</a> */}
       </div>
     );
   }
