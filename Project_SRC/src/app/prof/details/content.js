@@ -40,9 +40,10 @@ export default function Content() {
                             </path>
                         </svg>
                     </div>
-                    Add Collaborators
+                    Add Co-Instructor
                 </button>
             </div>
+            
         </div>
     )
   }
