@@ -19,12 +19,15 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      180deg,
+      hsla(0, 1%, 21%, 1),
+      hsla(240, 32%, 30%, 1) 50%,
+      hsla(237, 48%, 26%, 1) 100%
+    );
+      /* Set body height to 100% of viewport height */
+    min-height: 100vh; /* Ensure body takes up at least the height of the viewport */
 }
+
 
 @layer utilities {
   .text-balance {
