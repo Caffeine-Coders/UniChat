@@ -23,6 +23,7 @@ module.exports = {
       'discordpurple': {
         100: '#5964f2',
         200: '#3744f0',
+        300: '#989ef5',
       },
       'discordgreen': {
         100: '#46b866',
