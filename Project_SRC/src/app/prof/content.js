@@ -1,3 +1,4 @@
+import "../components/land1.css"
 export default function Content() {
     return (
 <>
