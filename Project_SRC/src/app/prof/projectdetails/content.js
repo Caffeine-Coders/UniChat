@@ -61,11 +61,19 @@ export default function Content(){
                 
             </div>
             <hr class="ml-28 mr-28  mt-4 h-px  bg-gray-200 border-0"></hr>
-            <div class="ml-28 mr-28 mb-8 mt-4 rounded-lg flex justify-between space-between">
+            <div class="ml-28 mr-28 mb-4 mt-4 rounded-lg flex justify-between space-between">
                 <h4 class="flex ml-4 mr-4">
                 Subject Area(s):
                 </h4>
                 <h4 class="mr-4">Subject Areas Here</h4>
+                
+            </div>
+            <hr class="ml-28 mr-28 h-px  bg-gray-200 border-0"></hr>
+            <div class="ml-28 mr-28 mb-8 mt-4 rounded-lg flex justify-between space-between">
+                <h4 class="flex ml-4 mr-4">
+                Instructors Involved:
+                </h4>
+                <h4 class="mr-4">Instructor Name1, Instructor Name2</h4>
                 
             </div>
             
