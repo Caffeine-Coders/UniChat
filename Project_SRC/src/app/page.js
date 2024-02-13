@@ -17,13 +17,14 @@ export default function Home() {
       overflow: 'auto', // Add overflow: auto to enable scrolling if needed
     }}
     >
-      <Box sx={{ maxWidth: "75%", marginLeft: 43, marginTop: 2 }}>
+      <SideBar /> 
+      <Box sx={{ maxWidth: {xl: '80%', lg:"75%" }, marginLeft: 43, marginTop: 2 }}>
         <PrimarySearchAppBar />
       </Box>
-      <Box sx={{ maxWidth: "75%", marginLeft: 43, marginTop: 2, marginBottom: 2 }}>
+      <Box sx={{ maxWidth: {xl: '80%', lg:"75%" }, marginLeft: 43, marginTop: 2, marginBottom: 2 }}>
         <Discord />
-        <SideBar />  
       </Box>
+     
     </Box>
      
   );

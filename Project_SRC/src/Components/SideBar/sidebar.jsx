@@ -1,6 +1,6 @@
 // Desc: SideBar component for the application.
 "use client";
-import * as React from 'react';
+import  React from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { ThemeProvider } from '@emotion/react';
@@ -27,6 +27,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+ 
 //================================icons=======================
 import ConstructionOutlinedIcon from '@mui/icons-material/ConstructionOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
@@ -91,28 +92,29 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 const SideBar = (props) => {
     const {window} = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    
+    const [isClosing, setIsClosing] = React.useState(false);
+  
     const handleDrawerClose = () => {
-        setIsClosing(true);
-        setMobileOpen(false);
-      };
-    
-    const handleDrawerTransitionEnd = () => {
-    setIsClosing(false);
+      setIsClosing(true);
+      setMobileOpen(false);
     };
-
+  
+    const handleDrawerTransitionEnd = () => {
+      setIsClosing(false);
+    };
+  
     const handleDrawerToggle = () => {
-    if (!isClosing) {
+      if (!isClosing) {
         setMobileOpen(!mobileOpen);
-    }
+      }
     };
     {/* Home, All project discord dropdown, Port to KF, Settings, Help & getting started */}
 
     const Sidedraw = (
         <div
-            style={{ position: 'relative', height: '100%' }}
+            style={{ position: 'relative', height: '80vh' }}
         >
-            <List sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <List sx={{ display: 'flex', flexDirection: 'column', height: '80vh', pb: 1}}>
                 {/* logo and name */}
                 <Box sx={{justifyContent: 'center', alignItems:'center', display: "flex"}}>
                     <Typography variant="h4" sx={{fontFamily: (theme)=> theme.typography.fontFamily[1], fontWeight: 100, justifyContent: 'center', alignItems:'center',mb: 3, mt:3, letterSpacing: 4}}>
@@ -231,7 +233,7 @@ const SideBar = (props) => {
                         sx={{color: (theme) => theme.palette.primary.textcolor}} />
                     </ListItemButton>
                 </ListItem>
-                <ListItem sx={{ position: 'absolute', bottom: 10 }}>
+                <ListItem sx={{ position: 'absolute', bottom: 10}}>
                     <MaterialUISwitch defaultChecked />
                 </ListItem>
             </List>
@@ -242,9 +244,7 @@ const SideBar = (props) => {
     return ( 
         <ThemeProvider theme={darktheme}>    
             <Box
-                component="nav"
-                sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }}}
-                aria-label="mailbox folders"
+                sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 },  }}
             >
                 {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Drawer
@@ -258,6 +258,7 @@ const SideBar = (props) => {
                 }}
                 sx={{
                     display: { xs: 'block', sm: 'none' },
+                    
                     '& .MuiDrawer-paper':  { boxSizing: 'border-box', width: drawerWidth, backgroundColor: (theme)=> theme.palette.primary.main},
                 }}
                 >
@@ -267,7 +268,15 @@ const SideBar = (props) => {
                 variant="permanent"
                 sx={{
                     display: { xs: 'none', sm: 'block' },
-                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, border: 'none', backgroundColor: (theme)=> theme.palette.primary.main},
+                    '& .MuiDrawer-paper': {
+                        boxSizing: 'border-box',
+                        width: drawerWidth,
+                        border: 'none',
+                        height: '96vh',
+                        backgroundColor: (theme) => theme.palette.primary.main,
+                        m: 2,
+                        borderRadius: 4,
+                      }
                 }}
                 open
                 >
