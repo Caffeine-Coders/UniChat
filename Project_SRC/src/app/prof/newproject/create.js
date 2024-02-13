@@ -21,7 +21,7 @@ export default function Create() {
             
             <Content/>
             <div class=" mt-20 ">
-            <a class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-red-700 border border-2 border-black rounded-lg hover:bg-slate-300 focus:ring-4 focus:ring-blue-100" href="/prof">    
+            <a class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-red-700 border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100" href="/prof">    
                     <p class="font-bold mr-3">X </p> <span> Cancel</span>
                 </a>
                 <a class="inline-flex float-right items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-discordpurple-100 rounded-lg hover:bg-discordpurple-200 focus:ring-4 focus:ring-blue-100" href="/prof/details">    

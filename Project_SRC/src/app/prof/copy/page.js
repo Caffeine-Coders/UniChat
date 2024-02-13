@@ -1,8 +1,9 @@
 import Navdash from "../navbar"
 import Content from "./content"
+import "../../components/land.css"
 export default function copier() {
     return (
-        <div class= "h-screen bg-slate-100">
+        <div >
         <Navdash/>
         <Content/>
         </div>
