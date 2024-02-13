@@ -117,7 +117,7 @@ const SideBar = (props) => {
   const Sidedraw = (
     <div style={{ position: "relative", height: "100%" }}>
       <List
-        sx={{ display: "flex", flexDirection: "column", height: "100%", pb: 1 }}
+        sx={{ display: "flex", flexDirection: "column", height: "100%"}}
       >
         {/* logo and name */}
         <Box

@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-import Transition from "./transition";
+import Transition from "./template";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,9 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <AppRouterCacheProvider>
-          <Transition>
             {children}
-          </Transition>
         </AppRouterCacheProvider>
       </body>
     </html>
