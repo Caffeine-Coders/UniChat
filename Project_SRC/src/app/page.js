@@ -3,10 +3,9 @@ import Box from "@mui/material/Box";
 import Discord from "@/Components/discord/discord";
 import React from 'react';
 import SideBar from '../Components/SideBar/sidebar.jsx';
- 
+
 export default function Home() {
   return (
-     
     <Box
     sx={{
       width: '100vw',
@@ -26,6 +25,5 @@ export default function Home() {
       </Box>
      
     </Box>
-     
   );
 }
