@@ -4,7 +4,7 @@ export default function Navdash() {
         <nav class="flex items-center justify-between flex-wrap p-6 bg-transparent">
             <Link href="/">
                 <button class="flex items-center flex-shrink-0 mr-6">
-                    <span class="font-bold text-2xl tracking-wide">UniChat</span>
+                    <span class="font-bold text-2xl tracking-wide font-headx">UniChat</span>
                 </button>
             </Link>
             <button class="flex items-center gap-4">

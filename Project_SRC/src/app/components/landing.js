@@ -1,7 +1,7 @@
 export default function Landing() {
     return (
         <div class="text-center mt-40">
-        <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl ">UniChat</h1>
+        <h1 class="mb-4 text-8xl leading-none tracking-tight text-gray-900 font-headx ">UniChat</h1>
         <p class="mb-6 mt-4 text-lg font-normal text-white lg:text-xl sm:px-16 xl:px-48 "> Where students connect, learn, and explore. Empowered by the subtle brilliance of artificial intelligence.
         Your AI-empowered companion for creative research. Seamlessly connect, collaborate on projects, and let teachers monitor your progress effortlessly.
 

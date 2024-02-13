@@ -30,7 +30,7 @@ export default function Content(){
   </svg>Return to Dashboard</a></span>
             <div class="p-4 border-2 border-gray-200  rounded-lg dark:border-gray-700">
             <div class="flex items-center justify-center h-48 mb-4 rounded-lg bg-discordpurple-300 ">
-                <h1 class="text-4xl font-extrabold text-gray-900 ">
+                <h1 class="text-8xl text-gray-900 font-headx">
                     Project Name 1
                 </h1>
             </div>
