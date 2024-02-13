@@ -15,10 +15,6 @@ import {
   InputBase,
   Box,
   Avatar,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
   Stack,
   AppBar,
   styled,
@@ -61,6 +57,9 @@ const Search = styled("div")(({ theme }) => ({
       color: theme.palette.primary.ButtonColor,
     },
   },
+  "& .hoverIcon": {
+    color: theme.palette.primary.textcolor,
+  },
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
     width: "400px",
@@ -93,7 +92,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const StyledSearchIcon = styled(SearchIcon)(({ theme }) => ({
-
 }));
 
 export default function PrimarySearchAppBar() {
