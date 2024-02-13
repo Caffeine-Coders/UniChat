@@ -29,15 +29,15 @@ export default function Content(){
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
   </svg>Return to Dashboard</a></span>
             <div class="p-4 border-2 border-gray-200  rounded-lg dark:border-gray-700">
-            <div class="flex items-center justify-center h-48 mb-4 rounded-lg bg-discordpurple-300 ">
+            <div class="flex items-center justify-center h-48 mb-8 rounded-lg bg-discordpurple-300 shadow-lg shadow-discordpurple-100">
                 <h1 class="text-8xl text-gray-900 font-headx">
                     Project Name 1
                 </h1>
             </div>
             <DelayedContent delay={2000}>
             <div class="ml-28 mr-28  rounded-lg ">
-                <h1>
-                    Project Goal:
+                <h1 class="font-headx text-3xl">
+                    Project Goal
                     <hr class="h-px  bg-gray-400 border-0"></hr>
                 </h1>
             </div>
@@ -48,7 +48,7 @@ export default function Content(){
             </div>
 
             <div class="ml-28 mr-28  rounded-lg ">
-                <h1>
+                <h1 class="font-headx text-3xl">
                     Details
                     <hr class="h-px  bg-gray-400 border-0"></hr>
                 </h1>
@@ -78,7 +78,7 @@ export default function Content(){
             </div>
             
             <div class="ml-28 mr-28  rounded-lg ">
-                <h1>
+                <h1 class="font-headx text-3xl">
                     Students
                     <hr class="h-px  bg-gray-400 border-0"></hr>
                 </h1>

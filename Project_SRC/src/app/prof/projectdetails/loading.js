@@ -3,7 +3,7 @@ export default function Trial2() {
     return (
         <>    
             <div class="animate-pulse ml-28 mr-28 mb-8 mt-4 rounded-lg flex justify-between space-between">
-                <h1>
+                <h1 class="font-headx text-3xl">
                     Project Goal:
                     <hr class="h-px  bg-gray-400 border-0"></hr>
                 </h1>
@@ -34,7 +34,7 @@ export default function Trial2() {
             </div>
 
 <div class="animate-pulse ml-28 mr-28 rounded-lg">
-    <h1>
+    <h1 class="font-headx text-3xl">
         Details
         <hr class="h-px bg-gray-400 border-0"/>
     </h1>
@@ -62,7 +62,7 @@ export default function Trial2() {
             </div>
             
             <div class="ml-28 mr-28  rounded-lg ">
-                <h1>
+                <h1 class="font-headx text-3xl">
                     Students
                     <hr class="h-px  bg-gray-400 border-0"></hr>
                 </h1>
