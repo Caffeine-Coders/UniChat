@@ -1,7 +1,5 @@
 import { Roboto, Montserrat } from "next/font/google";
-import { Protest_Riot } from "next/font/google";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { CssBaseline } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -20,19 +18,15 @@ const lighttheme = createTheme({
     mode: "light",
     primary: {
       main: "#fcfcfc",
+      rare: "#272A2F",
       hover: "#efefef",
       textcolor: "#84888a",
-      ButtonColor: "#050386B",
-      ButtonHover: "#5cDB985",
+      ButtonColor: "#05386B",
+      ButtonHover: "#5CDB985",
     },
   },
   typography: {
-    fontFamily: [
-      roboto.style.fontFamily,
-      // protest_Riot.style.fontFamily,
-      montserrat.style.fontFamily,
-      //add more if you feel any.
-    ],
+    fontFamily: [roboto.style.fontFamily, montserrat.style.fontFamily],
   },
 });
 
@@ -40,19 +34,16 @@ const darktheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#1a1d1f",
+      main: "#1A1D1F",
+      rare: "#272A2F",
       hover: "#272b30",
-      textcolor: "#6e767e",
-      ButtonColor: "#5cDB985",
-      ButtonHover: "#050386B",
+      textcolor: "#6E767E",
+      ButtonColor: "#5CDB95",
+      ButtonHover: "#05386B",
     },
   },
   typography: {
-    fontFamily: [
-      roboto.style.fontFamily,
-      montserrat.style.fontFamily,
-      //add more if you feel any.
-    ],
+    fontFamily: [roboto.style.fontFamily, montserrat.style.fontFamily],
   },
 });
 
