@@ -1,6 +1,8 @@
 import PrimarySearchAppBar from "@/Components/navBar/navBar";
 import Box from "@mui/material/Box";
 import Discord from "@/Components/discord/discord";
+import React from 'react';
+import SideBar from '../Components/SideBar/sidebar.jsx';
 
 export default function Home() {
   return (
@@ -10,6 +12,7 @@ export default function Home() {
       </Box>
       <Box sx={{ maxWidth: "75%", marginLeft: 43, marginTop: 2, marginBottom: 2 }}>
         <Discord />
+        <SideBar />  
       </Box>
     </Box>
   );

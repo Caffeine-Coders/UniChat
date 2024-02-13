@@ -17,10 +17,10 @@ const lighttheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#fcfcfc",
+      main: "#FCFCFC",
       rare: "#272A2F",
-      hover: "#efefef",
-      textcolor: "#84888a",
+      hover: "#EFEFEF",
+      textcolor: "#84888A",
       ButtonColor: "#05386B",
       ButtonHover: "#5CDB985",
     },
@@ -36,10 +36,11 @@ const darktheme = createTheme({
     primary: {
       main: "#1A1D1F",
       rare: "#272A2F",
-      hover: "#272b30",
+      hover: "#272B30",
       textcolor: "#6E767E",
       ButtonColor: "#5CDB95",
       ButtonHover: "#05386B",
+      whites: '#FCFCFC',
     },
   },
   typography: {
