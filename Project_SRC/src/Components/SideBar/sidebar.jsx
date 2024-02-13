@@ -112,9 +112,9 @@ const SideBar = (props) => {
 
     const Sidedraw = (
         <div
-            style={{ position: 'relative', height: '80vh' }}
+            style={{ position: 'relative', height: '100%' }}
         >
-            <List sx={{ display: 'flex', flexDirection: 'column', height: '80vh', pb: 1}}>
+            <List sx={{ display: 'flex', flexDirection: 'column', height: '100%', pb: 1}}>
                 {/* logo and name */}
                 <Box sx={{justifyContent: 'center', alignItems:'center', display: "flex"}}>
                     <Typography variant="h4" sx={{fontFamily: (theme)=> theme.typography.fontFamily[1], fontWeight: 100, justifyContent: 'center', alignItems:'center',mb: 3, mt:3, letterSpacing: 4}}>
