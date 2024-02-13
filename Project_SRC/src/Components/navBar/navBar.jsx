@@ -2,6 +2,8 @@
 import * as React from "react";
 import Image from "next/image";
 import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
+import SendIcon from "@mui/icons-material/Send";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { darktheme } from "../themes";
 import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
@@ -19,7 +21,11 @@ import {
   AppBar,
   styled,
   ThemeProvider,
+  Paper,
+  InputAdornment,
 } from "@mui/material";
+import { useState } from "react";
+import Draggable from "react-draggable";
 
 const StyledButton = styled(Button)(({ theme }) => ({
   backgroundColor: theme.palette.primary.rare,
@@ -91,10 +97,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const StyledSearchIcon = styled(SearchIcon)(({ theme }) => ({
-}));
+const StyledSearchIcon = styled(SearchIcon)(({ theme }) => ({}));
 
 export default function PrimarySearchAppBar() {
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <ThemeProvider theme={darktheme}>
       <AppBar position="static" sx={{ borderRadius: 3 }}>
@@ -110,7 +122,10 @@ export default function PrimarySearchAppBar() {
                 <StyledSearchIcon />
               </div>
             </SearchIconWrapper>
-            <div className="hoverIcon" style={{width: '100%', height: '100%'}}>
+            <div
+              className="hoverIcon"
+              style={{ width: "100%", height: "100%" }}
+            >
               <StyledInputBase
                 placeholder="Search or type a command"
                 inputProps={{ "aria-label": "search" }}
@@ -129,7 +144,7 @@ export default function PrimarySearchAppBar() {
               <StyledButton>
                 <Typography variant="body2">+ Project</Typography>
               </StyledButton>
-              <StyledIconButton color="inherit">
+              <StyledIconButton color="inherit" onClick={handleClickOpen}>
                 <Image
                   src={chatGPTLogo}
                   alt="ChatGPT Icon"
@@ -159,6 +174,74 @@ export default function PrimarySearchAppBar() {
           </Box>
         </Toolbar>
       </AppBar>
+      {open && (
+        <Draggable>
+          <Paper
+            style={{
+              position: "absolute",
+              width: 350,
+              height: 500,
+              borderRadius: 8,
+              backgroundColor: (theme) => theme.palette.primary.main,
+            }}
+            sx={{ backgroundColor: (theme) => theme.palette.primary.main }}
+          >
+            <IconButton
+              onClick={handleClose}
+              sx={{
+                "&:hover": {
+                  backgroundColor: "transparent",
+                  color: (theme) => theme.palette.primary.ButtonColor,
+                },
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+            <Box
+              sx={{
+                justifyContent: "center",
+                alignItems: "center",
+                display: "flex",
+                mt: 15,
+              }}
+            >
+              <Typography variant="h5">ChatGPT Integration Here</Typography>
+            </Box>
+            <Box
+              sx={{
+                justifyContent: "center",
+                alignItems: "center",
+                display: "flex",
+                mt: 33,
+                width: 300,
+                borderRadius: 3,
+                ml: 3,
+                backgroundColor: (theme) => theme.palette.primary.ButtonColor,
+                color: (theme) => theme.palette.primary.textcolor,
+              }}
+            >
+              <InputBase
+                placeholder="Chat Here"
+                sx={{ color: (theme) => theme.palette.primary.main }}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      sx={{
+                        color: (theme) => theme.palette.primary.main,
+                        "&:hover": {
+                          backgroundColor: "transparent",
+                        },
+                      }}
+                    >
+                      <SendIcon />
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </Box>
+          </Paper>
+        </Draggable>
+      )}
     </ThemeProvider>
   );
 }
