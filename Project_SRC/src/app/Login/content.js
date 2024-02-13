@@ -4,7 +4,7 @@ export default function content() {
     <div class="text-center flex justify-center align-middle mt-40">
         <div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-2xl bg-clip-border rounded-xl w-1/4 h-60  backdrop-filter backdrop-blur-sm bg-opacity-30">
         <div class="p-6">
-            <div class="block mb-2 text-4xl font-sans antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+            <div class="block mb-2 text-6xl font-sans antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 font-headx">
                 Sign In
             </div>
         </div>
