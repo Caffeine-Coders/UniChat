@@ -1,7 +1,7 @@
+'use client';
 import { Roboto, Montserrat} from 'next/font/google'
-import { Protest_Riot } from 'next/font/google'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
+
 
     const roboto = Roboto({
         weight: ['300', '400', '500', '700'],
@@ -20,26 +20,13 @@ import { CssBaseline } from '@mui/material';
         palette: 
         {
             mode: 'light',
-            dark:
+            primary:
             {
-                primary:{
-                    main: '1a1d1f',
-                    hover: '272b30',
-                    textcolor: '6e767e',
-                    ButtonColor: '5cDB985',
-                    ButtonHover: '050386B',
-                }
-            },
-            light:
-            {  
-                primary:
-                {
-                    main: '#fcfcfc',
-                    hover: '#efefef',
-                    textcolor: '#84888a',
-                    ButtonColor: '050386B',
-                    ButtonHover: '5cDB985',
-                },
+                main: '#fcfcfc',
+                hover: '#efefef',
+                textcolor: '#84888a',
+                ButtonColor: '#050386B',
+                ButtonHover: '#5cDB985',
             },
         },
         typography: 
@@ -58,11 +45,12 @@ import { CssBaseline } from '@mui/material';
         {
             mode: 'dark',
             primary:{
-                main: '1a1d1f',
-                hover: '272b30',
-                textcolor: '6e767e',
-                ButtonColor: '5cDB985',
-                ButtonHover: '050386B',
+                main: '#1a1d1f',
+                hover: '#272b30',
+                textcolor: '#6e767e',
+                ButtonColor: '#5cDB985',
+                ButtonHover: '#050386B',
+                whites: '#fcfcfc',
             }
         },
         typography: 
