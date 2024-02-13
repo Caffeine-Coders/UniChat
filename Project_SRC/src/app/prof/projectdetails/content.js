@@ -1,9 +1,9 @@
 'use client'
 import React, { useState, useEffect } from "react";
-import Trial from "../loading";
+import Trial2 from './loading'
 // Define a custom Loading component
 function CustomLoading() {
-  return  <Trial/>// Replace this with your loading spinner or indicator
+  return  <Trial2/>// Replace this with your loading spinner or indicator
 }
 
 // Define a custom DelayedContent component
