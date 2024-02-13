@@ -24,15 +24,14 @@ const montserrat = Montserrat({
                 main: '#fcfcfc',
                 hover: '#efefef',
                 textcolor: '#84888a',
-                ButtonColor: '#050386B',
-                ButtonHover: '#5cDB985',
+                ButtonColor: '#05386B',
+                ButtonHover: '#5cdb95',
             },
         },
         typography: 
         {
             fontFamily: [
                 roboto.style.fontFamily,
-                // protest_Riot.style.fontFamily,
                 montserrat.style.fontFamily,
                 //add more if you feel any.
             ],
@@ -47,8 +46,8 @@ const montserrat = Montserrat({
                 main: '#1a1d1f',
                 hover: '#272b30',
                 textcolor: '#6e767e',
-                ButtonColor: '#5cDB985',
-                ButtonHover: '#050386B',
+                ButtonColor: '#5cdb95',
+                ButtonHover: '#05386B',
                 whites: '#fcfcfc',
             }
         },

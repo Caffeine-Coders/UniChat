@@ -184,15 +184,15 @@ const SideBar = (props) => {
                                         borderRadius: 4,
                                     }}
                             >
-                                <Button sx={{color: (theme) => theme.palette.primary.textcolor, "&:hover": {backgroundColor: (theme) => theme.palette.primary.hover}}} startIcon={<ConstructionOutlinedIcon />}>Project 1</Button>
+                                <Button sx={{color: (theme) => theme.palette.primary.ButtonColor, "&:hover": {backgroundColor: (theme) => theme.palette.primary.hover}}} startIcon={<ConstructionOutlinedIcon />}>Project 1</Button>
                                 <Divider sx={{backgroundColor: (theme) => theme.palette.primary.textcolor}} />
-                                <Button sx={{color: (theme) => theme.palette.primary.textcolor, "&:hover": {backgroundColor: (theme) => theme.palette.primary.hover}}} startIcon={<ConstructionOutlinedIcon />} >Project 2</Button>
+                                <Button sx={{color: (theme) => theme.palette.primary.ButtonColor, "&:hover": {backgroundColor: (theme) => theme.palette.primary.hover}}} startIcon={<ConstructionOutlinedIcon />} >Project 2</Button>
                                 <Divider sx={{backgroundColor: (theme) => theme.palette.primary.textcolor,  "&:hover": {backgroundColor: (theme) => theme.palette.primary.hover}}} />
-                                <Button sx={{color: (theme) => theme.palette.primary.textcolor,  "&:hover": {backgroundColor: (theme) => theme.palette.primary.hover}}} startIcon={<ConstructionOutlinedIcon />}>Project 3</Button>
+                                <Button sx={{color: (theme) => theme.palette.primary.ButtonColor,  "&:hover": {backgroundColor: (theme) => theme.palette.primary.hover}}} startIcon={<ConstructionOutlinedIcon />}>Project 3</Button>
                                 <Divider sx={{backgroundColor: (theme) => theme.palette.primary.textcolor}} />
-                                <Button sx={{color: (theme) => theme.palette.primary.textcolor,  "&:hover": {backgroundColor: (theme) => theme.palette.primary.hover}}} startIcon={<ConstructionOutlinedIcon />}>Project 4</Button>
+                                <Button sx={{color: (theme) => theme.palette.primary.ButtonColor,  "&:hover": {backgroundColor: (theme) => theme.palette.primary.hover}}} startIcon={<ConstructionOutlinedIcon />}>Project 4</Button>
                                 <Divider sx={{backgroundColor: (theme) => theme.palette.primary.textcolor}} />
-                                <Button sx={{color: (theme) => theme.palette.primary.textcolor,  "&:hover": {backgroundColor: (theme) => theme.palette.primary.hover}}} startIcon={<ConstructionOutlinedIcon />}>Project 5</Button>
+                                <Button sx={{color: (theme) => theme.palette.primary.ButtonColor,  "&:hover": {backgroundColor: (theme) => theme.palette.primary.hover}}} startIcon={<ConstructionOutlinedIcon />}>Project 5</Button>
                                 <Divider sx={{backgroundColor: (theme) => theme.palette.primary.textcolor}} />
                             </Stack>
                         </AccordionDetails>
