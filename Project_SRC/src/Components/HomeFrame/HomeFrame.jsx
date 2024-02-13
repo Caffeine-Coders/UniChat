@@ -37,14 +37,30 @@ export default function HomeComponent() {
                     overflow: 'auto', // Add overflow: auto to enable scrolling if needed
                     }}
                     >
-                    <SideBar /> 
-                    <Box sx={{ maxWidth: {xl: '80%', lg:"75%" }, marginLeft: 43, marginTop: 2 }}>
+                    <SideBar />
+                    <Box
+                        sx={{
+                        maxWidth: { xl: "80%", lg: "75%" },
+                        marginLeft: 43,
+                        marginTop: 2,
+                        }}
+                    >
                         <PrimarySearchAppBar />
                     </Box>
-                    <Box sx={{ maxWidth: {xl: '80%', lg:"75%" }, marginLeft: 43, marginTop: 2, marginBottom: 2 }}>
+                    <Box
+                        sx={{
+                        maxWidth: { xl: "80%", lg: "75%" },
+                        height: { xl: "80", lg: "86%", md: "70%" },
+                        marginLeft: 43,
+                        marginTop: 2,
+                        marginBottom: 2,
+                        backgroundColor: "#2F3035",
+                        borderRadius: 3,
+                        padding: 0.5,
+                        }}
+                    >
                         <Discord />
                     </Box>
-                    
                     </Box>
                 </motion.div>
                 :
