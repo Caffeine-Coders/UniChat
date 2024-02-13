@@ -28,9 +28,9 @@ export default function Content() {
 <DelayedContent delay={2000}>
         <div class="container my-28  mx-auto px-2 ">
     <div class="flex flex-wrap -mx-1 lg:-mx-4 lg:mx-20">
-        <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56">
+        <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56" >
             <a class="no-underline  text-black h-full" href="/prof/newproject">
-                <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+                <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                     <div class="px-6 py-12">
                         <div class="font-bold text-xl mb-2 mt-6 flex justify-center items-center">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -46,7 +46,7 @@ export default function Content() {
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56">
             <a class="no-underline  text-black" href="/prof/projectdetails">
-                <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+                <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                     <div class="px-6 py-12">
                         <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
                             <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
@@ -62,7 +62,7 @@ export default function Content() {
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56">
         <a class="no-underline  text-black" href="/prof/projectdetails">
-            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                 <div class="px-6 py-12">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
                         <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
@@ -78,7 +78,7 @@ export default function Content() {
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4  pb-4 lg:px-6 lg:w-1/3 h-56">
         <a class="no-underline  text-black" href="/prof/projectdetails">
-            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                 <div class="px-6 py-12">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
                         <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
@@ -94,7 +94,7 @@ export default function Content() {
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56">
         <a class="no-underline  text-black" href="/prof/projectdetails">
-            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                 <div class="px-6 py-12">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
                         <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
@@ -110,7 +110,7 @@ export default function Content() {
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56">
         <a class="no-underline  text-black" href="/prof/projectdetails">
-            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                 <div class="px-6 py-12">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
                         <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
@@ -126,7 +126,7 @@ export default function Content() {
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4  pb-4 lg:px-6 lg:w-1/3 h-56">
         <a class="no-underline  text-black" href="/prof/projectdetails">
-            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                 <div class="px-6 py-12">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
                         <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
@@ -142,7 +142,7 @@ export default function Content() {
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56">
         <a class="no-underline  text-black" href="/prof/projectdetails">
-            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                 <div class="px-6 py-12">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
                         <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
@@ -158,7 +158,7 @@ export default function Content() {
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56">
         <a class="no-underline  text-black" href="/prof/projectdetails">
-            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full">
+            <article class="overflow-hidden border bg-white rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                 <div class="px-6 py-12">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
                         <h1 class="mt-2 mb-0 text-xl text-center hover:underline">
