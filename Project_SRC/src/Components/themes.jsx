@@ -1,7 +1,5 @@
-'use client';
-import { Roboto, Montserrat} from 'next/font/google'
-import { createTheme } from '@mui/material/styles';
-
+import { Roboto, Montserrat } from "next/font/google";
+import { createTheme } from "@mui/material/styles";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -15,50 +13,39 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-    const lighttheme = createTheme({
-        palette: 
-        {
-            mode: 'light',
-            primary:
-            {
-                main: '#fcfcfc',
-                hover: '#efefef',
-                textcolor: '#84888a',
-                ButtonColor: '#05386B',
-                ButtonHover: '#5cdb95',
-            },
-        },
-        typography: 
-        {
-            fontFamily: [
-                roboto.style.fontFamily,
-                montserrat.style.fontFamily,
-                //add more if you feel any.
-            ],
-        },
-    });
+const lighttheme = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#FCFCFC",
+      rare: "#272A2F",
+      hover: "#EFEFEF",
+      textcolor: "#84888A",
+      ButtonColor: "#05386B",
+      ButtonHover: "#5CDB985",
+    },
+  },
+  typography: {
+    fontFamily: [roboto.style.fontFamily, montserrat.style.fontFamily],
+  },
+});
 
-    const darktheme = createTheme({
-        palette: 
-        {
-            mode: 'dark',
-            primary:{
-                main: '#1a1d1f',
-                hover: '#272b30',
-                textcolor: '#6e767e',
-                ButtonColor: '#5cdb95',
-                ButtonHover: '#05386B',
-                whites: '#fcfcfc',
-            }
-        },
-        typography: 
-        {
-            fontFamily: [
-                roboto.style.fontFamily,
-                montserrat.style.fontFamily,
-                //add more if you feel any.
-            ],
-        },
-    });
-  
-  export {lighttheme, darktheme};
+const darktheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#1A1D1F",
+      rare: "#272A2F",
+      hover: "#272B30",
+      textcolor: "#6E767E",
+      ButtonColor: "#5CDB95",
+      ButtonHover: "#05386B",
+      whites: '#FCFCFC',
+    },
+  },
+  typography: {
+    fontFamily: [roboto.style.fontFamily, montserrat.style.fontFamily],
+  },
+});
+
+export { lighttheme, darktheme };
