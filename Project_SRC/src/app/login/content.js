@@ -4,34 +4,9 @@ import {auth} from '../firebase'
 import { signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword} from "firebase/auth"
 import { Router } from "next/navigation";
 import { useState } from "react";
-const handler = (email,password) => {
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    });
-  
-}
 
-const newhandler = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed up 
-      const user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
-  
-}
+
+
 export default function content() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -47,7 +22,37 @@ export default function content() {
     const handleSubmit = (event) => {
         event.preventDefault();
         
-        handler(email, password);
+        newhandler(email, password);
+    }
+
+    const newhandler = () => {
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed up 
+          const user = userCredential.user;
+          console.log(user)
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorMessage)
+          // ..
+        });
+      
+    }
+    const handler = (email,password) => {
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
+      
     }
 
     return (
@@ -77,7 +82,7 @@ export default function content() {
         </form>
         <div class="text-sm -mt-5">
             Don't have an account? 
-            <button class="ml-1 text-blue" onClick={newhandler}>Sign up</button>
+            <button class="ml-1 text-blue">Sign up</button>
         </div>
         </div>  
     </div>
