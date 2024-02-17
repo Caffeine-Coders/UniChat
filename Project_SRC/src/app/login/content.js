@@ -1,4 +1,31 @@
+"use client"
 import "../components/land.css"
+import {auth} from '../firebase'
+import { signInWithPopup, GoogleAuthProvider} from "firebase/auth"
+const provider = new GoogleAuthProvider();
+
+const handler = () => {
+    signInWithPopup(auth, provider)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      // IdP data available using getAdditionalUserInfo(result)
+      // ...
+    }).catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });
+}
+
 export default function content() {
     return (
     <div class="text-center flex justify-center align-middle mt-40">
@@ -17,7 +44,7 @@ export default function content() {
         </div>
         <div class="text-sm -mt-5">
             Don't have an account? 
-            <a class="ml-1 text-blue" href="/prof/signup">Sign up</a>
+            <button class="ml-1 text-blue" onClick={handler}>Sign up</button>
         </div>
         </div>  
     </div>
