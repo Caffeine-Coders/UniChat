@@ -5,10 +5,11 @@ import { signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPass
 import { Router } from "next/navigation";
 import { useState } from "react";
 import { collection, getDocs,query, where } from "firebase/firestore";
+import { loginaccount } from "../essentials/conn";
 
 export default function content() {
-    const [email1, setEmail] = useState('');
-    const [password1, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -20,33 +21,7 @@ export default function content() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        handler(email1, password1);
-    }
-
-    
-    const handler = (email1,password1) => {
-        signInWithEmailAndPassword(auth, email1, password1)
-        .then((userCredential) => {
-          // Signed in 
-          const user = userCredential.user;
-          console.log(user)
-          const q = query(collection(db, "teacher"), where("email", "==", email1));
-          getDocs(q).then((querySnapshot)=>{
-            console.log(querySnapshot)
-            querySnapshot.forEach((doc)=>{
-                console.log(doc.data())
-            })
-          }).catch((error)=>{
-            console.log("error",error)
-          })
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorMessage)
-        });
-      
+        loginaccount(email, password);
     }
 
     return (
@@ -60,10 +35,10 @@ export default function content() {
         <form onSubmit={handleSubmit}>
         <div>
         <div>
-                      <input type="email" value={email1} onChange={handleEmailChange} name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required=""/>
+                      <input type="email" value={email} onChange={handleEmailChange} name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required=""/>
                   </div>
                   <div>
-                      <input type="password" value={password1} onChange={handlePasswordChange} name="password" id="password" placeholder="••••••••" class=" mt-5 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""/>
+                      <input type="password" value={password} onChange={handlePasswordChange} name="password" id="password" placeholder="••••••••" class=" mt-5 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""/>
                   </div>
         </div>
         <div class="p-6 pt-0 mt-5">

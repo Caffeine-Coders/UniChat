@@ -5,11 +5,12 @@ import { signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPass
 import { Router } from "next/navigation";
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
-
+import { signupaccount, handleEmailChange, handleNameChange, handlePasswordChange } from "../essentials/conn";
 export default function content() {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
+    
     const handleNameChange = (event) => {
         setName(event.target.value);
     }
@@ -23,50 +24,10 @@ export default function content() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        
-        newhandler(email, password);
+        signupaccount(name, email, password);
     }
 
-    const newhandler = () => {
-        createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed up 
-          const user = userCredential.user;
-          console.log(user)
-          try {
-            const docRef =  addDoc(collection(db, "teacher"), {
-              name:name,
-              email:email,
-              password:password
-            });
-            console.log("Document written with ID: ", docRef.id);
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorMessage)
-          // ..
-        });
-      
-    }
-    const handler = (email,password) => {
-        signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in 
-          const user = userCredential.user;
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-        });
-      
-    }
-
+   
     return (
     <div class="text-center flex justify-center align-middle mt-40">
         <div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-2xl bg-clip-border rounded-xl w-1/4 h-60  backdrop-filter backdrop-blur-sm bg-opacity-30">
@@ -90,8 +51,6 @@ export default function content() {
         <div class="p-6 pt-0 mt-5">
             <button type="submit" class="inline-flex align-middle items-center w-10/12 justify-center px-5 py-3 text-base text-xl text-center text-black bg-slate-200 rounded-lg hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" >    
                 Sign Up!
-                {/* <img class="w-6 h-6 ml-3" src="https://img.icons8.com/color/48/000000/google-logo.png"/> */}
-               
             </button>
         </div>
         </form>
