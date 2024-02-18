@@ -25,14 +25,14 @@ import {
 } from "@mui/material";
 import { useState, useContext } from "react";
 import Draggable from "react-draggable";
-import ThemeContext from '../themeContext';
+import ThemeContext from "../themeContext";
 
 const StyledButton = styled(Button)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.rare,
   width: "135px",
   height: "30px",
   borderRadius: 5,
   color: theme.palette.primary.textcolor,
+  backgroundColor: theme.palette.primary.hover,
   "&:hover": {
     backgroundColor: theme.palette.primary.ButtonColor,
     color: theme.palette.primary.main,
@@ -101,8 +101,8 @@ const StyledSearchIcon = styled(SearchIcon)(({ theme }) => ({}));
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
+  const toggleChatGPT = () => {
+    setOpen(!open);
   };
   const handleClose = () => {
     setOpen(false);
@@ -112,7 +112,15 @@ export default function NavBar() {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppBar sx={{ borderRadius: 3, position: "fixed", width: 1080, left: 344, top: 16 }}>
+      <AppBar
+        sx={{
+          borderRadius: 3,
+          position: "fixed",
+          width: 1080,
+          left: 344,
+          top: 16,
+        }}
+      >
         <Toolbar
           sx={{
             backgroundColor: (theme) => theme.palette.primary.main,
@@ -147,7 +155,7 @@ export default function NavBar() {
               <StyledButton>
                 <Typography variant="body2">+ Project</Typography>
               </StyledButton>
-              <StyledIconButton color="inherit" onClick={handleClickOpen}>
+              <StyledIconButton color="inherit" onClick={toggleChatGPT}>
                 <Image
                   src={chatGPTLogo}
                   alt="ChatGPT Icon"
@@ -178,11 +186,12 @@ export default function NavBar() {
         </Toolbar>
       </AppBar>
       {open && (
-        <Draggable>
+        <Draggable bounds={{ left: 0, top: 0, right: 1090, bottom: 295 }}>
           <Paper
             style={{
-              position: "absolute",
+              position: "relative",
               width: 350,
+              zIndex: 9999,
               height: 500,
               borderRadius: 8,
               backgroundColor: (theme) => theme.palette.primary.main,
