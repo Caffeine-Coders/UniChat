@@ -5,7 +5,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { darktheme } from "../themes";
 import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
 import studentAvatar from "../../Assets/Student_Avatar.jpg";
 import {
@@ -24,15 +23,16 @@ import {
   Paper,
   InputAdornment,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Draggable from "react-draggable";
+import ThemeContext from "../themeContext";
 
 const StyledButton = styled(Button)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.rare,
   width: "135px",
   height: "30px",
   borderRadius: 5,
   color: theme.palette.primary.textcolor,
+  backgroundColor: theme.palette.primary.hover,
   "&:hover": {
     backgroundColor: theme.palette.primary.ButtonColor,
     color: theme.palette.primary.main,
@@ -44,6 +44,7 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
   transition: theme.transitions.create("transform", {
     duration: theme.transitions.duration.shortest,
   }),
+  color: theme.palette.primary.textcolor,
   "&:hover": {
     transform: "scale(1.17)",
     backgroundColor: "transparent",
@@ -99,17 +100,100 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const StyledSearchIcon = styled(SearchIcon)(({ theme }) => ({}));
 
-export default function PrimarySearchAppBar() {
+export default function NavBar() {
   const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
+  const toggleChatGPT = () => {
+    setOpen(!open);
   };
   const handleClose = () => {
     setOpen(false);
   };
+
+  const { theme } = useContext(ThemeContext);
+
+  const ChatGPTBox = () => {
+    return (
+      <Draggable bounds={{ left: 0, top: 0, right: 1090, bottom: 295 }}>
+        <Paper
+          style={{
+            position: "relative",
+            width: 350,
+            zIndex: 9999,
+            height: 500,
+            borderRadius: 8,
+            backgroundColor: (theme) => theme.palette.primary.main,
+          }}
+          sx={{ backgroundColor: (theme) => theme.palette.primary.main }}
+        >
+          <IconButton
+            onClick={handleClose}
+            sx={{
+              "&:hover": {
+                backgroundColor: "transparent",
+                color: (theme) => theme.palette.primary.ButtonColor,
+              },
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <Box
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+              mt: 15,
+            }}
+          >
+            <Typography variant="h5">ChatGPT Integration Here</Typography>
+          </Box>
+          <Box
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+              mt: 33,
+              width: 300,
+              borderRadius: 3,
+              ml: 3,
+              backgroundColor: (theme) => theme.palette.primary.ButtonColor,
+              color: (theme) => theme.palette.primary.textcolor,
+            }}
+          >
+            <InputBase
+              placeholder="Chat Here"
+              sx={{ color: (theme) => theme.palette.primary.main }}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    sx={{
+                      color: (theme) => theme.palette.primary.main,
+                      "&:hover": {
+                        backgroundColor: "transparent",
+                      },
+                    }}
+                  >
+                    <SendIcon />
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </Box>
+        </Paper>
+      </Draggable>
+    );
+  };
+
   return (
-    <ThemeProvider theme={darktheme}>
-      <AppBar position="static" sx={{ borderRadius: 3 }}>
+    <ThemeProvider theme={theme}>
+      <AppBar
+        sx={{
+          borderRadius: 3,
+          position: "fixed",
+          width: 1080,
+          left: 344,
+          top: 16,
+        }}
+      >
         <Toolbar
           sx={{
             backgroundColor: (theme) => theme.palette.primary.main,
@@ -144,7 +228,7 @@ export default function PrimarySearchAppBar() {
               <StyledButton>
                 <Typography variant="body2">+ Project</Typography>
               </StyledButton>
-              <StyledIconButton color="inherit" onClick={handleClickOpen}>
+              <StyledIconButton color="inherit" onClick={toggleChatGPT}>
                 <Image
                   src={chatGPTLogo}
                   alt="ChatGPT Icon"
@@ -174,74 +258,7 @@ export default function PrimarySearchAppBar() {
           </Box>
         </Toolbar>
       </AppBar>
-      {open && (
-        <Draggable>
-          <Paper
-            style={{
-              position: "absolute",
-              width: 350,
-              height: 500,
-              borderRadius: 8,
-              backgroundColor: (theme) => theme.palette.primary.main,
-            }}
-            sx={{ backgroundColor: (theme) => theme.palette.primary.main }}
-          >
-            <IconButton
-              onClick={handleClose}
-              sx={{
-                "&:hover": {
-                  backgroundColor: "transparent",
-                  color: (theme) => theme.palette.primary.ButtonColor,
-                },
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
-            <Box
-              sx={{
-                justifyContent: "center",
-                alignItems: "center",
-                display: "flex",
-                mt: 15,
-              }}
-            >
-              <Typography variant="h5">ChatGPT Integration Here</Typography>
-            </Box>
-            <Box
-              sx={{
-                justifyContent: "center",
-                alignItems: "center",
-                display: "flex",
-                mt: 33,
-                width: 300,
-                borderRadius: 3,
-                ml: 3,
-                backgroundColor: (theme) => theme.palette.primary.ButtonColor,
-                color: (theme) => theme.palette.primary.textcolor,
-              }}
-            >
-              <InputBase
-                placeholder="Chat Here"
-                sx={{ color: (theme) => theme.palette.primary.main }}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      sx={{
-                        color: (theme) => theme.palette.primary.main,
-                        "&:hover": {
-                          backgroundColor: "transparent",
-                        },
-                      }}
-                    >
-                      <SendIcon />
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </Box>
-          </Paper>
-        </Draggable>
-      )}
+      {open && <ChatGPTBox />}
     </ThemeProvider>
   );
 }

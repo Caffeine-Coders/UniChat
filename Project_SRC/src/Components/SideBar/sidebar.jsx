@@ -27,6 +27,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import ThemeContext from "../themeContext";
 
 //================================icons=======================
 import ConstructionOutlinedIcon from "@mui/icons-material/ConstructionOutlined";
@@ -49,9 +50,9 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     margin: 1,
     padding: 0,
     transform: "translateX(0%)",
+    backgroundColor: theme.palette.primary.hover,
     "&.Mui-checked": {
-      color: "#fff",
-      transform: "translateX(680%)",
+      transform: "translateX(750%)",
       "& .MuiSwitch-thumb:before": {
         backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
           "#fff"
@@ -59,15 +60,12 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
       },
       "& + .MuiSwitch-track": {
         opacity: 1,
-        backgroundColor:
-          theme.palette.mode === "dark"
-            ? theme.palette.primary.hover
-            : "#fcfcfc",
+        backgroundColor: theme.palette.primary.hover,
       },
     },
   },
   "& .MuiSwitch-thumb": {
-    backgroundColor: theme.palette.mode === "dark" ? "#47147B" : "#fdb813",
+    backgroundColor: theme.palette.hover === "dark" ? "#47147B" : "#fdb813",
     width: 32,
     height: 32,
     "&::before": {
@@ -86,8 +84,8 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
   "& .MuiSwitch-track": {
     opacity: 1,
-    //   backgroundColor: theme.palette.mode === 'dark' ?  theme.palette.primary.highlight: '#fcfcfc',
     borderRadius: 20 / 2,
+    backgroundColor: theme.palette.primary.hover,
   },
 }));
 
@@ -97,6 +95,7 @@ const SideBar = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+  const { setTheme, theme } = React.useContext(ThemeContext);
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -116,11 +115,13 @@ const SideBar = (props) => {
     /* Home, All project discord dropdown, Port to KF, Settings, Help & getting started */
   }
 
+  const toggleTheme = () => {
+    setTheme(theme === lighttheme ? darktheme : lighttheme);
+  };
+
   const Sidedraw = (
     <div style={{ position: "relative", height: "100%" }}>
-      <List
-        sx={{ display: "flex", flexDirection: "column", height: "100%"}}
-      >
+      <List sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
         {/* logo and name */}
         <Box
           sx={{
@@ -367,8 +368,9 @@ const SideBar = (props) => {
         {/* footer of bar */}
         <Divider
           sx={{
-            position: "relative",
-            width: "95%",
+            position: "fixed",
+            width: 285,
+            bottom: 100,
             mt: 45,
             ml: 1,
             mr: 1,
@@ -385,21 +387,26 @@ const SideBar = (props) => {
             }}
           >
             <ListItemIcon
-              sx={{ color: (theme) => theme.palette.primary.textcolor }}
+              sx={{
+                color: (theme) => theme.palette.primary.textcolor,
+                position: "fixed",
+                bottom: 80,
+              }}
             >
               <HelpOutlineOutlinedIcon fontSize="small" />
+              <Typography
+                variant="body2"
+                sx={{
+                  color: (theme) => theme.palette.primary.textcolor,
+                }}
+              >
+                Help & Getting Started
+              </Typography>
             </ListItemIcon>
-
-            <Typography
-              variant="body2"
-              sx={{ color: (theme) => theme.palette.primary.textcolor }}
-            >
-              Help & Getting Started
-            </Typography>
           </ListItemButton>
         </ListItem>
-        <ListItem sx={{ position: "relative" }}>
-          <MaterialUISwitch defaultChecked />
+        <ListItem sx={{ position: "fixed", width: 320, bottom: 20 }}>
+          <MaterialUISwitch defaultChecked onChange={toggleTheme} />
         </ListItem>
       </List>
     </div>
@@ -408,7 +415,7 @@ const SideBar = (props) => {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <ThemeProvider theme={darktheme}>
+    <ThemeProvider theme={theme}>
       <Box sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
