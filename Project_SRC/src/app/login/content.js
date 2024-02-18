@@ -4,7 +4,7 @@ import {auth, db} from '../firebase'
 import { signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword} from "firebase/auth"
 import { Router } from "next/navigation";
 import { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, getDocs,query, where } from "firebase/firestore";
 
 export default function content() {
     const [email1, setEmail] = useState('');
@@ -20,45 +20,31 @@ export default function content() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        try {
-            const docRef =  addDoc(collection(db, "teacher"), {
-              name:"random name",
-              email:email1,
-              password:password1
-            });
-            console.log("Document written with ID: ", docRef.id);
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
-        newhandler(email1, password1);
+        handler(email1, password1);
     }
 
-    const newhandler = () => {
-        createUserWithEmailAndPassword(auth, email1, password1)
+    
+    const handler = (email1,password1) => {
+        signInWithEmailAndPassword(auth, email1, password1)
         .then((userCredential) => {
-          // Signed up 
+          // Signed in 
           const user = userCredential.user;
           console.log(user)
+          const q = query(collection(db, "teacher"), where("email", "==", email1));
+          getDocs(q).then((querySnapshot)=>{
+            console.log(querySnapshot)
+            querySnapshot.forEach((doc)=>{
+                console.log(doc.data())
+            })
+          }).catch((error)=>{
+            console.log("error",error)
+          })
           // ...
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorMessage)
-          // ..
-        });
-      
-    }
-    const handler = (email1,password1) => {
-        signInWithEmailAndPassword(auth, email1, password1)
-        .then((userCredential) => {
-          // Signed in 
-          const user = userCredential.user;
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
         });
       
     }
