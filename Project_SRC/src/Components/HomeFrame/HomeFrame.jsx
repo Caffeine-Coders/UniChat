@@ -46,9 +46,10 @@ export default function HomeComponent() {
             </ThemeContext.Provider>
             <Box
               sx={{
+                position: "fixed",
                 maxWidth: { xl: "80%", lg: "75%" },
-                marginLeft: 43,
-                marginTop: 2,
+                //marginLeft: 43,
+                //marginTop: 2,
               }}
             >
               <ThemeContext.Provider value={{ theme, setTheme }}>
@@ -59,9 +60,10 @@ export default function HomeComponent() {
               sx={{
                 maxWidth: { xl: "80%", lg: "75%" },
                 height: { xl: "80", lg: "86%", md: "70%" },
-                marginLeft: 43,
-                marginTop: 2,
-                marginBottom: 2,
+                position: "fixed",
+                left: 344,
+                top: 95,
+                width: 1080,
                 backgroundColor: "#2F3035",
                 borderRadius: 3,
                 padding: 0.5,

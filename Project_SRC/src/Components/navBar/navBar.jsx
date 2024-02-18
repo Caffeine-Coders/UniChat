@@ -112,7 +112,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppBar position="static" sx={{ borderRadius: 3 }}>
+      <AppBar sx={{ borderRadius: 3, position: "fixed", width: 1080, left: 344, top: 16 }}>
         <Toolbar
           sx={{
             backgroundColor: (theme) => theme.palette.primary.main,
