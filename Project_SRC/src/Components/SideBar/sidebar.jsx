@@ -52,7 +52,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     transform: "translateX(0%)",
     backgroundColor: theme.palette.primary.hover,
     "&.Mui-checked": {
-      transform: "translateX(680%)",
+      transform: "translateX(750%)",
       "& .MuiSwitch-thumb:before": {
         backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
           "#fff"
@@ -62,7 +62,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         opacity: 1,
         backgroundColor: theme.palette.primary.hover,
       },
-    }
+    },
   },
   "& .MuiSwitch-thumb": {
     backgroundColor: theme.palette.hover === "dark" ? "#47147B" : "#fdb813",
@@ -366,8 +366,9 @@ const SideBar = (props) => {
         {/* footer of bar */}
         <Divider
           sx={{
-            position: "relative",
-            width: "95%",
+            position: "fixed",
+            width: 285,
+            bottom: 100,
             mt: 45,
             ml: 1,
             mr: 1,
@@ -384,20 +385,25 @@ const SideBar = (props) => {
             }}
           >
             <ListItemIcon
-              sx={{ color: (theme) => theme.palette.primary.textcolor }}
+              sx={{
+                color: (theme) => theme.palette.primary.textcolor,
+                position: "fixed",
+                bottom: 80,
+              }}
             >
               <HelpOutlineOutlinedIcon fontSize="small" />
+              <Typography
+                variant="body2"
+                sx={{
+                  color: (theme) => theme.palette.primary.textcolor,
+                }}
+              >
+                Help & Getting Started
+              </Typography>
             </ListItemIcon>
-
-            <Typography
-              variant="body2"
-              sx={{ color: (theme) => theme.palette.primary.textcolor }}
-            >
-              Help & Getting Started
-            </Typography>
           </ListItemButton>
         </ListItem>
-        <ListItem sx={{ position: "relative" }}>
+        <ListItem sx={{ position: "fixed", width: 320, bottom: 20 }}>
           <MaterialUISwitch defaultChecked onChange={toggleTheme} />
         </ListItem>
       </List>
