@@ -5,7 +5,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { darktheme } from "../themes";
 import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
 import studentAvatar from "../../Assets/Student_Avatar.jpg";
 import {
@@ -24,8 +23,9 @@ import {
   Paper,
   InputAdornment,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Draggable from "react-draggable";
+import ThemeContext from '../themeContext';
 
 const StyledButton = styled(Button)(({ theme }) => ({
   backgroundColor: theme.palette.primary.rare,
@@ -107,8 +107,11 @@ export default function PrimarySearchAppBar() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const { theme } = useContext(ThemeContext);
+
   return (
-    <ThemeProvider theme={darktheme}>
+    <ThemeProvider theme={theme}>
       <AppBar position="static" sx={{ borderRadius: 3 }}>
         <Toolbar
           sx={{
