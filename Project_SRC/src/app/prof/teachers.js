@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 export default function Teachers(){
     return(
         
-        <div class="p-4 sm:ml-64">
+        <div class="p-4">
 
             <div class="ml-28 mr-28  rounded-lg ">
                 <h1 class="font-headx text-3xl">
