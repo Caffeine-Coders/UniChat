@@ -91,7 +91,9 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
+
 const SideBar = (props) => {
+   
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
