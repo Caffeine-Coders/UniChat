@@ -44,6 +44,7 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
   transition: theme.transitions.create("transform", {
     duration: theme.transitions.duration.shortest,
   }),
+  color: theme.palette.primary.textcolor,
   "&:hover": {
     transform: "scale(1.17)",
     backgroundColor: "transparent",
