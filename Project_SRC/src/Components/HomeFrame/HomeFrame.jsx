@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import PrimarySearchAppBar from "../navBar/navBar.jsx";
+import NavBar from "../navBar/navBar.jsx";
 import Box from "@mui/material/Box";
 import Discord from "../discord/discord";
 import React from "react";
@@ -53,7 +53,7 @@ export default function HomeComponent() {
               }}
             >
               <ThemeContext.Provider value={{ theme, setTheme }}>
-                <PrimarySearchAppBar />
+                <NavBar />
               </ThemeContext.Provider>
             </Box>
             <Box

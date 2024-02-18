@@ -99,7 +99,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const StyledSearchIcon = styled(SearchIcon)(({ theme }) => ({}));
 
-export default function PrimarySearchAppBar() {
+export default function NavBar() {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
