@@ -1,11 +1,8 @@
 "use client"
 import "../components/land.css"
-import {auth, db} from '../firebase'
-import { signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword} from "firebase/auth"
-import { Router } from "next/navigation";
 import { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
-import { signupaccount, handleEmailChange, handleNameChange, handlePasswordChange } from "../essentials/conn";
+import { signupaccount } from "../essentials/conn";
+
 export default function content() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
