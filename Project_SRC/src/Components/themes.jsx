@@ -1,4 +1,4 @@
-import { Roboto, Montserrat } from "next/font/google";
+import { Roboto, Montserrat, Raleway_Dots } from "next/font/google";
 import { createTheme } from "@mui/material/styles";
 
 const roboto = Roboto({
@@ -9,6 +9,12 @@ const roboto = Roboto({
 
 const montserrat = Montserrat({
   weight: ["300", "400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const ralewaydots = Raleway_Dots({
+  weight: ["400"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -44,7 +50,7 @@ const darktheme = createTheme({
     },
   },
   typography: {
-    fontFamily: [roboto.style.fontFamily, montserrat.style.fontFamily],
+    fontFamily: [roboto.style.fontFamily, montserrat.style.fontFamily, ralewaydots.style.fontFamily],
   },
 });
 

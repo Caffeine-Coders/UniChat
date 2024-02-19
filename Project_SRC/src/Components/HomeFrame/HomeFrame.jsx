@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import NavBar from "../navBar/navBar.jsx";
+import NavBar from "../NavBar/NavBar.jsx";
 import Box from "@mui/material/Box";
 import Discord from "../discord/discord";
 import React from "react";
