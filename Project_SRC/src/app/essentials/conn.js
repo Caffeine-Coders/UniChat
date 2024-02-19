@@ -2,8 +2,11 @@
 import {auth, db} from '../firebase'
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword} from "firebase/auth"
 import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
+import { useRouter } from 'next/navigation';
 
-export function signupaccount(name, email, password) {
+export function Signuplogin(){
+  const router = useRouter()
+ function signupaccount(name, email, password) {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         const user = userCredential.user;
@@ -26,8 +29,9 @@ export function signupaccount(name, email, password) {
     });
 }
 
-export function loginaccount(email, password) {
+ function loginaccount(email, password) {
   let statusVal
+
   const q =  query(collection(db, "teacher"), where("email", "==", email));
   getDocs(q).then((querySnapshot)=>{
     querySnapshot.forEach((doc)=>{
@@ -39,7 +43,8 @@ export function loginaccount(email, password) {
           .then((userCredential) => {
             const user = userCredential.user;
             console.log("user",doc.data().name,user.email)
-      
+
+            router.push('/prof')
           })
           .catch((error) => {
             const errorCode = error.code;
@@ -54,5 +59,11 @@ export function loginaccount(email, password) {
   }).catch((error)=>{
     console.log("error",error)
   })
+
+}
+return{
+  loginaccount:loginaccount,
+  signupaccount:signupaccount
+}
 
 }

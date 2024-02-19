@@ -2,7 +2,8 @@
 import "../components/land.css"
 import { useState } from "react";
 import * as React from 'react';
-import { loginaccount } from "../essentials/conn";
+// import { loginaccount } from "../essentials/conn";
+import {Signuplogin} from "../essentials/conn"
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -15,7 +16,7 @@ export default function content() {
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const loginInstance = Signuplogin()
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     }
@@ -24,9 +25,9 @@ export default function content() {
         setPassword(event.target.value);
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event) => {
         event.preventDefault();
-        loginaccount(email, password);
+        await loginInstance.loginaccount(email, password);
     }
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
