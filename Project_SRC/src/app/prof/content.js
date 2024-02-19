@@ -28,8 +28,8 @@ export default function Content() {
     }
     return(
         <>
-
-        <ul class="container my-8  mx-40 -mb-12  flex w-3/4  grid grid-cols-3 divide-x-2 divide-gray-700 divide-opacity-50  rounded-xl bg-discordpurple-300 ">
+      <div class="container w-3/4 mx-auto">
+        <ul class=" my-8  -mb-12   w-full  grid grid-cols-3 divide-x-2 divide-gray-700 divide-opacity-50  rounded-xl bg-discordpurple-300 ">
   <li class={`text-center ${dashVisible?'bg-discordpurple-100':'bg-transparent'} ${dashVisible?'opacity-50':''} ${dashVisible?'text-white':''} rounded-l-xl hover:text-white hover:bg-discordpurple-100 hover:opacity-50 hover:cursor-pointer`}>
     <a class=" rounded-xl cursor-pointer bg-transparent border-none inline-block rounded-t-lg py-2 px-4  font-semibold  " onClick={handleFirstLinkClick}>Projects</a>
   </li>
@@ -41,10 +41,11 @@ export default function Content() {
   </li>
 
 </ul>
-<div class="container flex w-3/4 my-28 mx-40 ml-42 content-center justify-center">
+<div class="  w-full my-28 ml-42 ">
 {dashVisible && <Dash/>}
 {studentsVisible && <Students/>}
 {teachersVisible && <Teachers/>}
+</div>
 </div>
 </>
     )
