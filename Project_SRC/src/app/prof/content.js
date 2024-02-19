@@ -28,21 +28,24 @@ export default function Content() {
     }
     return(
         <>
-        <ul class="flex border-b">
-  <li class="-mb-px mr-1">
-    <a class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold" onClick={handleFirstLinkClick}>Projects</a>
+
+        <ul class="container my-8  mx-40 -mb-12  flex w-3/4  grid grid-cols-3 divide-x-2 divide-gray-700 divide-opacity-50  rounded-xl bg-discordpurple-300 ">
+  <li class={`text-center ${dashVisible?'bg-discordpurple-100':'bg-transparent'} ${dashVisible?'opacity-50':''} ${dashVisible?'text-white':''} rounded-l-xl hover:text-white hover:bg-discordpurple-100 hover:opacity-50 hover:cursor-pointer`}>
+    <a class=" rounded-xl cursor-pointer bg-transparent border-none inline-block rounded-t-lg py-2 px-4  font-semibold  " onClick={handleFirstLinkClick}>Projects</a>
   </li>
-  <li class="mr-1">
-    <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#" onClick={showStudents}>Students</a>
+  <li class={`text-center ${studentsVisible?'bg-discordpurple-100':'bg-transparent'} ${studentsVisible?'opacity-50':''} ${studentsVisible?'text-white':''}  hover:text-white hover:bg-discordpurple-100 hover:opacity-50 hover:cursor-pointer`}>
+    <a class=" rounded-xl bg-transparent inline-block py-2 px-4 font-semibold" href="#" onClick={showStudents}>Students</a>
   </li>
-  <li class="mr-1">
-    <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#" onClick={showTeachers}>Teachers</a>
+  <li class={`text-center ${teachersVisible?'bg-discordpurple-100':'bg-transparent'} ${teachersVisible?'opacity-50':''} ${teachersVisible?'text-white':''} rounded-r-xl hover:text-white hover:bg-discordpurple-100 hover:opacity-50 hover:cursor-pointer`}>
+    <a class="  bg-transparent  inline-block py-2 px-4   font-semibold" href="#" onClick={showTeachers}>Teachers</a>
   </li>
 
 </ul>
+<div class="container flex w-3/4 my-28 mx-40 ml-42 content-center justify-center">
 {dashVisible && <Dash/>}
 {studentsVisible && <Students/>}
 {teachersVisible && <Teachers/>}
+</div>
 </>
     )
 }
