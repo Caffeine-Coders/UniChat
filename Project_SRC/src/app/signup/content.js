@@ -12,25 +12,36 @@ import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormControl from '@mui/material/FormControl';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 export default function content() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
+    const signupinstance = Signuplogin()
+    const [open, setOpen] = React.useState(false);
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
     const handleNameChange = (event) => {
         setName(event.target.value);
     }
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     }
-
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     }
 
-    const handleSubmit = async(event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        await Signuplogin().signupaccount(name, email, password);
+        signupinstance.signupaccount(name, email, password);
+        setOpen(true);
     }
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -96,10 +107,30 @@ export default function content() {
                 <button type="submit" class="inline-flex align-middle items-center w-3/5 justify-center px-5 py-3 text-base text-xl text-center text-black bg-slate-200 rounded-lg hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" >    
                     Sign Up!
                 </button>
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"Account Create Success!"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      Your account has been sent for approval. Please wait for the admin to approve your account.
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <a href="/login" autoFocus class="ml-1 text-blue">
+                      Agree
+                    </a>
+                  </DialogActions>
+                </Dialog>
             </div>
           </form>
           <div class="text-sm -mt-5 mb-10">
-              Already have an Account? 
+              Already have an Accound? 
               <a class="ml-1 text-blue" href="/login">Sign in</a>
           </div>
         </div>  
