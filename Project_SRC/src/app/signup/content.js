@@ -43,33 +43,33 @@ export default function content() {
                 Sign Up
             </div>
         </div>
-        <form onSubmit={handleSubmit}>
-          <TextField 
-                id="outlined-basic" 
-                label="Name" 
-                variant="outlined" 
-                required="true"
-                onChange={handleNameChange}
-                sx={{
-                        width: '80%',
-                        margin: 'auto',
-                        marginTop: '5px'
-                    }}
-            />
+          <form onSubmit={handleSubmit}>
             <TextField 
-                id="outlined-basic" 
-                label="Email ID" 
-                variant="outlined" 
-                required="true"
-                onChange={handleEmailChange}
-                sx={{
-                        width: '80%',
-                        margin: 'auto',
-                        marginTop: '20px'
-                    }}
-            />
+                  id="outlined-basic" 
+                  label="Name" 
+                  variant="outlined" 
+                  required="true"
+                  onChange={handleNameChange}
+                  sx={{
+                          width: '80%',
+                          margin: 'auto',
+                          marginTop: '5px'
+                      }}
+              />
+              <TextField 
+                  id="outlined-basic" 
+                  label="Email ID" 
+                  variant="outlined" 
+                  required="true"
+                  onChange={handleEmailChange}
+                  sx={{
+                          width: '80%',
+                          margin: 'auto',
+                          marginTop: '20px'
+                      }}
+              />
 
-            <FormControl sx={{ m: 1, width: '80%', marginTop: '20px' }} variant="outlined">
+              <FormControl sx={{ m: 1, width: '80%', marginTop: '20px' }} variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-password"
@@ -90,17 +90,17 @@ export default function content() {
                         required="true"
                         onChange={handlePasswordChange}
                     />
-            </FormControl>
-        <div class="p-6 pt-0 mt-10">
-            <button type="submit" class="inline-flex align-middle items-center w-3/5 justify-center px-5 py-3 text-base text-xl text-center text-black bg-slate-200 rounded-lg hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" >    
-                Sign Up!
-            </button>
-        </div>
-        </form>
-        <div class="text-sm -mt-5 mb-10">
-            Already have an Accound? 
-            <a class="ml-1 text-blue" href="/login">Sign in</a>
-        </div>
+              </FormControl>
+            <div class="p-6 pt-0 mt-10">
+                <button type="submit" class="inline-flex align-middle items-center w-3/5 justify-center px-5 py-3 text-base text-xl text-center text-black bg-slate-200 rounded-lg hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" >    
+                    Sign Up!
+                </button>
+            </div>
+          </form>
+          <div class="text-sm -mt-5 mb-10">
+              Already have an Accound? 
+              <a class="ml-1 text-blue" href="/login">Sign in</a>
+          </div>
         </div>  
     </div>
     )
