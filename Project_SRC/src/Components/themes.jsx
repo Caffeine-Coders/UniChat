@@ -17,7 +17,7 @@ const lighttheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#FCFCFC",
+      main: "#fcfcfc",
       rare: "#272A2F",
       hover: "#EFEFEF",
       textcolor: "#84888A",
