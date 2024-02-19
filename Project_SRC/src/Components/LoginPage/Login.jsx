@@ -1,24 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import LoginBackground from "../../Assets/loginPage2.png";
-import {
-  IconButton,
-  Badge,
-  Button,
-  Typography,
-  Toolbar,
-  InputBase,
-  Box,
-  Avatar,
-  Stack,
-  AppBar,
-  styled,
-  ThemeProvider,
-  Paper,
-  InputAdornment,
-} from "@mui/material";
+import { Button, Typography, Box } from "@mui/material";
 import { darktheme } from "../themes";
 import GoogleIcon from "@mui/icons-material/Google";
+import Link from "next/link";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -121,23 +107,25 @@ const Login = () => {
                 alignItems: "center",
               }}
             >
-              <Button
-                variant="contained"
-                startIcon={<GoogleIcon />}
-                sx={{
-                  backgroundColor: "#300e54",
-                  height: 40,
-                  width: 400,
-                  borderRadius: 4,
-                  "&:hover": {
-                    backgroundColor: "#cbabed",
-                    color: "#300e54",
-                  },
-                  fontFamily: '"Kode Mono", monospace',
-                }}
-              >
-                Login with Google
-              </Button>
+              <Link href="/home">
+                <Button
+                  variant="contained"
+                  startIcon={<GoogleIcon />}
+                  sx={{
+                    backgroundColor: "#300e54",
+                    height: 40,
+                    width: 400,
+                    borderRadius: 4,
+                    "&:hover": {
+                      backgroundColor: "#cbabed",
+                      color: "#300e54",
+                    },
+                    fontFamily: '"Kode Mono", monospace',
+                  }}
+                >
+                  Login with Google
+                </Button>
+              </Link>
             </Box>
           </Box>
         </Box>
