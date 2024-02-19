@@ -27,10 +27,10 @@ export default function Confirmation() {
 
             <Content/>
             <div class=" mt-20 ">
-            <a class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100" href="/prof/details">    
+            <a class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100" href="/prof/projectdetails">    
                     <span> Back</span>
                 </a>
-                <a class="inline-flex float-right items-center justify-center px-5 py-3 text-base font-medium text-center text-discordgreen-100 bg-white border-2 border-black rounded-lg hover:bg-slate-200 focus:ring-4 focus:ring-blue-100 group" href="/prof">    
+                <a class="inline-flex float-right items-center justify-center px-5 py-3 text-base font-medium text-center text-discordgreen-100 bg-white border-2 border-black rounded-lg hover:bg-slate-200 focus:ring-4 focus:ring-blue-100 group" href="/prof/projectdetails">    
                     Create Project 
                     <svg class="w-5 h-5 ms-2 group:text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="check"><rect width="256" height="256" fill="none"></rect><polyline fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" points="216 72.005 104 184 48 128.005" ></polyline></svg>
                 </a>

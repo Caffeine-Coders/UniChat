@@ -2,7 +2,8 @@
 import "../components/land.css"
 import { useState } from "react";
 import * as React from 'react';
-import { signupaccount } from "../essentials/conn";
+// import { signupaccount } from "../essentials/conn";
+import { Signuplogin } from "../essentials/conn";
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -27,9 +28,9 @@ export default function content() {
         setPassword(event.target.value);
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event) => {
         event.preventDefault();
-        signupaccount(name, email, password);
+        await Signuplogin().signupaccount(name, email, password);
     }
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -98,7 +99,7 @@ export default function content() {
             </div>
           </form>
           <div class="text-sm -mt-5 mb-10">
-              Already have an Accound? 
+              Already have an Account? 
               <a class="ml-1 text-blue" href="/login">Sign in</a>
           </div>
         </div>  
