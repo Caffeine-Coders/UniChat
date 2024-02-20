@@ -1,7 +1,7 @@
 "use client";
-import React, { use, useState , useEffect} from "react";
+import React, { use, useState, useEffect } from "react";
 import loginImage1 from "../../Assets/loginImage1.png";
-import { Button, Typography, Box, TextField, Grid } from "@mui/material";
+import { Button, Typography, Box, TextField, Grid, Alert } from "@mui/material";
 import { darktheme } from "../themes";
 import GoogleIcon from "@mui/icons-material/Google";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -12,6 +12,7 @@ import Link from "next/link";
 import { getAuth } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import app from "../../../config.js";
+import { useRouter } from 'next/navigation';
 
 const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
@@ -36,86 +37,146 @@ const StyledTextField = styled(TextField)`
   }
 `;
 
-const Login = () => {
-  const [user, setUser] = useState(null); 
-
-  const [isLoginFormVisible, setLoginFormVisible] = useState(false);
- 
-  const handleAdditionalInfoSubmit = (e) => {
-    e.preventDefault();
-  };
-
-  const LoginForm = () => {
-    return (
-      <Box
+const InvalidUser = () => {
+  return (
+    <Box
+      sx={{
+        width: "100vw",
+        height: "100vh",
+        background:
+          "linear-gradient(145deg, hsl(0deg 0% 0%) 0%, hsl(270deg 75% 3%) 40%, hsl(271deg 74% 6%) 62%, hsl(270deg 71% 9%) 72%, hsl(270deg 72% 13%) 79%, hsl(269deg 72% 15%) 84%, hsl(270deg 73% 19%) 89%, hsl(269deg 71% 22%) 93%, hsl(270deg 72% 25%) 96%, hsl(270deg 72% 28%) 100%)",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+    >
+      <Typography
+        variant="h2"
+        color="#cbabed"
         sx={{
-          marginTop: 0,
-          padding: 4,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          fontFamily: darktheme.typography.fontFamily[2],
+          userSelect: "none",
+          WebkitUserSelect: "none",
+          MozUserSelect: "none",
+          msUserSelect: "none",
         }}
       >
-        <Box
-          component="form"
-          noValidate
-          onSubmit={handleAdditionalInfoSubmit}
-          sx={{ mt: 3 }}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <StyledTextField
-                autoComplete="given-name"
-                name="firstName"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <StyledTextField
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="family-name"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <StyledTextField
-                fullWidth
-                id="email"
-                label="School Email"
-                name="email"
-                autoComplete="email"
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 2,
-              borderRadius: 4,
-              backgroundColor: "#300e54",
-              "&:hover": {
-                backgroundColor: "#cbabed",
-                color: "#300e54",
-              },
-              fontFamily: '"Kode Mono", monospace',
-            }}
-          >
-            Go
-          </Button>
-        </Box>
-      </Box>
-    );
+        <span>You are not authorized to access this content</span>
+      </Typography>
+    </Box>
+  );
+};
+
+const LoginForm = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [alert, setAlert] = useState(null);
+  const router = useRouter();
+
+  const handleAdditionalInfoSubmit = (e) => {
+    e.preventDefault();
+    validate();
   };
+
+  const validate = () => {
+    if (!firstName || !lastName) {
+      setAlert("Please fill out all fields marked with *.");
+      return;
+    } else {
+      setAlert(null);
+      router.push('/home');
+    }
+  }
+
+  return (
+    <Box
+      sx={{
+        marginTop: 0,
+        padding: 4,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      {alert && <Alert severity="error">{alert}</Alert>}
+      <Box
+        component="form"
+        noValidate
+        onSubmit={handleAdditionalInfoSubmit}
+        sx={{ mt: 3 }}
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <StyledTextField
+              autoComplete="given-name"
+              name="firstName"
+              required
+              fullWidth
+              id="firstName"
+              label="First Name"
+              autoFocus
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <StyledTextField
+              required
+              fullWidth
+              id="lastName"
+              label="Last Name"
+              name="lastName"
+              autoComplete="family-name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <StyledTextField
+              fullWidth
+              id="email"
+              label="School Email"
+              name="email"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Grid>
+        </Grid>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{
+            mt: 3,
+            mb: 2,
+            borderRadius: 4,
+            backgroundColor: "#300e54",
+            "&:hover": {
+              backgroundColor: "#cbabed",
+              color: "#300e54",
+            },
+            fontFamily: '"Kode Mono", monospace',
+          }}
+        >
+          Go
+        </Button>
+      </Box>
+    </Box>
+  );
+};
+
+const Login = () => {
+  const [user, setUser] = useState(null);
+
+  const [isLoginFormVisible, setLoginFormVisible] = useState(false);
+
+  const [invalidUser, setInvalidUser] = useState(false);
 
   const signInWithGoogle = async () => {
     const auth = getAuth(app);
@@ -123,6 +184,17 @@ const Login = () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     setUser(user);
+    if (user.email === "satwikbhasin@gmail.com") {
+      setLoginFormVisible(true); // Unregistered User
+    } else if (user.email === "anudeepsai88@gmail.com") {
+      <Link href="/home"></Link>; // Registered User
+    } else {
+      setInvalidUser(true); // Invalid User
+    }
+  };
+
+  if (invalidUser) {
+    return <InvalidUser />;
   }
 
   return (
@@ -171,7 +243,7 @@ const Login = () => {
                 msUserSelect: "none",
               }}
             >
-              <span>About You</span>
+              <span>More About You</span>
             </Typography>
           </Slide>
         </Box>
@@ -261,11 +333,13 @@ const Login = () => {
                   alignItems: "center",
                 }}
               >
-                {/* {/* <Link href="/home"> */} 
+                {/* {/* <Link href="/home"> */}
                 <Button
                   variant="contained"
                   startIcon={<GoogleIcon />}
-                  // onClick={() => setLoginFormVisible(true)}
+                  onClick={() => {
+                    signInWithGoogle();
+                  }}
                   sx={{
                     backgroundColor: "#300e54",
                     height: 40,
@@ -277,8 +351,6 @@ const Login = () => {
                     },
                     fontFamily: '"Kode Mono", monospace',
                   }}
-
-                  onClick={signInWithGoogle}
                 >
                   Login with Google
                 </Button>
