@@ -6,6 +6,8 @@ import fullscreen from '../../Assets/Layering/whitefull.jpg';
 import layer1 from '../../Assets/Layering/whitelayer.png';
 import { ThemeProvider, Typography } from '@mui/material';
 import { darktheme, lighttheme } from '../themes';
+import { Button } from '@mui/base';
+
 
 export default function MultiLayerParallax() {
     const ref = useRef(null);
@@ -39,24 +41,27 @@ export default function MultiLayerParallax() {
             backgroundSize: "cover",
           }}
         />
-        <motion.Typography
+        <motion.div
                 style={{ y: textY }}
                 className="font-bold text-7xl md:text-9xl relative z-20"
                 >
                 <Typography variant='h1' sx={{
-                    fontFamily: '"Protest Riot", sans-serif',
-                    fontWeight: 700,
+                    fontFamily:darktheme.typography.fontFamily[2],
+                    fontWeight: 400,
                     justifyContent: "center",
                     alignItems: "center",
                     color: (theme) => theme.palette.primary.main,
                     mb: 2,
                     mt: 2,
-                    letterSpacing: 5,
-                    fontSize: 150
+                    letterSpacing: 10,
+                    fontSize: 180
                     }}>
                     UNICHAT
                 </Typography>
-        </motion.Typography>
+        </motion.div>
+
+         
+         
       </div>
       </ThemeProvider>
     )

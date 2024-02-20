@@ -2,8 +2,8 @@
 import React from 'react';
 import MultiLayerParallax from './MultiLayerParallax.jsx';
 import { Box, Typography } from '@mui/material';
-import { ThemeProvider } from 'styled-components';
-import { lighttheme } from '../themes.jsx';
+import { ThemeConsumer, ThemeProvider } from 'styled-components';
+import { darktheme, lighttheme } from '../themes.jsx';
 import layerer from '../../Assets/aboutimg2.jpeg';
 import logo from "../../Assets/aboutimg1.png";
 import logo2 from "../../Assets/collab.jpeg";
@@ -12,10 +12,18 @@ import logo4 from "../../Assets/AI.jpeg";
 import Image from 'next/image';
 import { motion, useAnimation } from 'framer-motion';
 import { useEffect } from 'react';
+import Fab from '@mui/material/Fab';
+import LoginIcon from '@mui/icons-material/Login';
+import { useRouter } from 'next/navigation.js';
 export default function LandingPage() {
+    const router = useRouter();
     return (
         <div>
             <MultiLayerParallax />
+            <Fab variant="extended" color = 'inherit' sx={{position: 'fixed', bottom: '20px', right: '20px', backgroundColor: '#300e54', color: "white", '&:hover': {backgroundColor: '#cbabed'}}} onClick={()=> router.push("/login")}>
+                <LoginIcon  sx={{ mr: 1, color: "white" }} />
+                Login
+            </Fab>
             <ThemeProvider theme={lighttheme}>
             <Box
                 sx={{
@@ -27,6 +35,7 @@ export default function LandingPage() {
                     flexDirection: "column",
                 }}
             >
+             
                 <Box 
                     sx={{
                         display: "flex",
@@ -39,8 +48,8 @@ export default function LandingPage() {
                 >
                      <Typography variant='h2'
                         sx={{
-                            fontFamily: '"Protest Riot", sans-serif',
-                            fontWeight: 700,
+                            fontFamily: '"Kode Mono", monospace',
+                            fontWeight: 100,
                             textAlign : "center",
                             color: (theme) => theme.palette.primary.rare,
                             mb: 2,
@@ -116,8 +125,8 @@ export default function LandingPage() {
                         }}
                     >
                             <Typography variant = "body1" sx={{ 
-                                fontFamily: '"Protest Riot", sans-serif',
-                                fontWeight: 700,
+                                fontFamily: '"Kode Mono", monospace',
+                                fontWeight: 100,
                                 textAlign : "center",
                                 color: (theme) => theme.palette.primary.hover,
                                 mb: 2,
@@ -160,8 +169,8 @@ export default function LandingPage() {
                             }}
                         >
                                 <Typography variant = "body1" sx={{ 
-                                    fontFamily: '"Protest Riot", sans-serif',
-                                    fontWeight: 700,
+                                   fontFamily: '"Kode Mono", monospace',
+                                    fontWeight: 100,
                                     textAlign : "center",
                                     color: (theme) => theme.palette.primary.hover,
                                     mb: 2,
@@ -263,8 +272,8 @@ export default function LandingPage() {
                             }}
                         >
                                 <Typography variant = "body1" sx={{ 
-                                    fontFamily: '"Protest Riot", sans-serif',
-                                    fontWeight: 700,
+                                    fontFamily: '"Kode Mono", monospace',
+                                    fontWeight: 100,
                                     textAlign : "center",
                                     color: (theme) => theme.palette.primary.hover,
                                     mb: 2,
@@ -310,8 +319,8 @@ export default function LandingPage() {
                             }}
                         >
                                 <Typography variant = "body1" sx={{ 
-                                    fontFamily: '"Protest Riot", sans-serif',
-                                    fontWeight: 700,
+                                    fontFamily: '"Kode Mono", monospace',
+                                    fontWeight: 100,
                                     textAlign : "center",
                                     color: (theme) => theme.palette.primary.hover,
                                     mb: 2,
@@ -360,8 +369,8 @@ export default function LandingPage() {
                         }}
                     >
                     </Box>          
-            </Box>
-            </ThemeProvider>
+                </Box>
+                </ThemeProvider>
         </div>
       
     );
