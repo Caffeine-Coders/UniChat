@@ -54,7 +54,7 @@ export default function MultiLayerParallax() {
                     mb: 2,
                     mt: 2,
                     letterSpacing: 10,
-                    fontSize: 180
+                    fontSize: 130
                     }}>
                     UNICHAT
                 </Typography>

@@ -8,7 +8,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Slide from "@mui/material/Slide";
 import styled from "styled-components";
 import Fade from "@mui/material/Fade";
-import Link from "next/link";
 import { getAuth } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import app from "../../../config.js";
@@ -173,10 +172,10 @@ const LoginForm = () => {
 
 const Login = () => {
   const [user, setUser] = useState(null);
-
   const [isLoginFormVisible, setLoginFormVisible] = useState(false);
-
   const [invalidUser, setInvalidUser] = useState(false);
+  const router = useRouter();
+
 
   const signInWithGoogle = async () => {
     const auth = getAuth(app);
@@ -187,7 +186,7 @@ const Login = () => {
     if (user.email === "satwikbhasin@gmail.com") {
       setLoginFormVisible(true); // Unregistered User
     } else if (user.email === "anudeepsai88@gmail.com") {
-      <Link href="/home"></Link>; // Registered User
+      router.push('/home');
     } else {
       setInvalidUser(true); // Invalid User
     }
