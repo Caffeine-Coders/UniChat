@@ -261,11 +261,11 @@ const Login = () => {
                   alignItems: "center",
                 }}
               >
-                {/* {/* <Link href="/home"> */} */}
+                {/* {/* <Link href="/home"> */} 
                 <Button
                   variant="contained"
                   startIcon={<GoogleIcon />}
-                  onClick={() => setLoginFormVisible(true)}
+                  // onClick={() => setLoginFormVisible(true)}
                   sx={{
                     backgroundColor: "#300e54",
                     height: 40,
