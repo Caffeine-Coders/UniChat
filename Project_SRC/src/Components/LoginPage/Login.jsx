@@ -1,15 +1,20 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useState , useEffect} from "react";
 import LoginBackground from "../../Assets/loginPage2.png";
 import { Button, Typography, Box } from "@mui/material";
 import { darktheme } from "../themes";
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
+import { getAuth } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import app from "../../../config.js";
 
 const Login = () => {
+  const [user, setUser] = useState(null); 
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+ 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
@@ -22,6 +27,14 @@ const Login = () => {
     e.preventDefault();
     // Perform login logic here
   };
+
+  const signInWithGoogle = async () => {
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    setUser(user);
+  }
 
   return (
     <Box
@@ -107,7 +120,7 @@ const Login = () => {
                 alignItems: "center",
               }}
             >
-              <Link href="/home">
+              {/* <Link href="/home"> */}
                 <Button
                   variant="contained"
                   startIcon={<GoogleIcon />}
@@ -122,10 +135,12 @@ const Login = () => {
                     },
                     fontFamily: '"Kode Mono", monospace',
                   }}
+
+                  onClick={signInWithGoogle}
                 >
                   Login with Google
                 </Button>
-              </Link>
+              {/* </Link> */}
             </Box>
           </Box>
         </Box>
