@@ -54,6 +54,7 @@ export function Signuplogin(){
             }
             else{
                 console.log("user not approved")
+                window.alert("User is not approved yet!") 
             }
             })
         }).catch((error)=>{
