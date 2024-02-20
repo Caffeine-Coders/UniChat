@@ -184,7 +184,9 @@ export default function NavBar() {
   };
 
   return (
+
     <ThemeProvider theme={theme}>
+      {    console.log(localStorage.getItem("photo"))}
       <AppBar
         sx={{
           borderRadius: 3,
@@ -251,7 +253,7 @@ export default function NavBar() {
                 color="inherit"
               >
                 <Avatar sx={{ height: 30, width: 30 }}>
-                  <Image src={studentAvatar} />
+                  <Image src={localStorage.getItem("photo")} />
                 </Avatar>
               </StyledIconButton>
             </Stack>
