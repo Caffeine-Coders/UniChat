@@ -12,6 +12,7 @@ import Link from "next/link";
 import { getAuth } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import app from "../../../config.js";
+import { useRouter } from 'next/navigation'
 
 const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
@@ -38,7 +39,7 @@ const StyledTextField = styled(TextField)`
 
 const Login = () => {
   const [user, setUser] = useState(null); 
-
+  const Router = useRouter();
   const [isLoginFormVisible, setLoginFormVisible] = useState(false);
  
   const handleAdditionalInfoSubmit = (e) => {
@@ -123,6 +124,7 @@ const Login = () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     setUser(user);
+    Router.push('/home',  { scroll: false });
   }
 
   return (
@@ -278,7 +280,7 @@ const Login = () => {
                     fontFamily: '"Kode Mono", monospace',
                   }}
 
-                  onClick={signInWithGoogle}
+                  onClick={() => { signInWithGoogle(); } }
                 >
                   Login with Google
                 </Button>
