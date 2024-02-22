@@ -8,8 +8,7 @@ import SideBar from "../SideBar/sidebar.jsx";
 import Loader from "../Loading/loader";
 import ThemeContext from "../themeContext.jsx";
 import { darktheme } from "../themes.jsx";
-import { useState } from "react";
-import { useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import AuthContext, { AuthProvider } from "../authContext";
 
@@ -19,10 +18,10 @@ export default function HomeComponent() {
   const [theme, setTheme] = useState(darktheme);
 
   const [show, setShow] = React.useState(false);
-  
+
   const router = useRouter();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timeoutId = setTimeout(() => {
       setShow(true);
     }, 1500); // Show Box after 500 milliseconds
@@ -30,9 +29,17 @@ export default function HomeComponent() {
     return () => clearTimeout(timeoutId);
   }, []);
 
-  // if (!isAuthenticated) {
-  //   router.push("/login");
-  // }
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.replace("/login");
+    }
+  }, [isAuthenticated]);
+
+  // ... rest of your code
+
+  if (!isAuthenticated) {
+    return null; // or return a different component or some 'loading' indicator
+  }
 
   return (
     <Box>

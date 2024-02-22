@@ -112,6 +112,8 @@ export default function NavBar() {
 
   const { theme } = useContext(ThemeContext);
 
+  const { userImage } = useContext(AuthContext);
+
   const ChatGPTBox = () => {
     return (
       <Draggable bounds={{ left: 0, top: 0, right: 1090, bottom: 295 }}>
@@ -252,7 +254,7 @@ export default function NavBar() {
                 color="inherit"
               >
                 <Avatar sx={{ height: 30, width: 30 }}>
-                  <Image src={studentAvatar} />
+                  <Image src={userImage} width={30} height={30} />
                 </Avatar>
               </StyledIconButton>
             </Stack>

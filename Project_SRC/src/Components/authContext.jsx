@@ -9,8 +9,14 @@ export const AuthProvider = ({ children }) => {
       localStorage.getItem("isAuthenticated") === "true"
   );
 
+  const [userImage, setUserImage] = useState(
+    typeof window !== "undefined" ? localStorage.getItem("userImage") : null
+  );
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, setIsAuthenticated, userImage, setUserImage }}
+    >
       {children}
     </AuthContext.Provider>
   );

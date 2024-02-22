@@ -186,11 +186,12 @@ const Login = () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     setUser(user);
-    console.log(user);
     if (user.email === "satwikbhasin@gmail.com") {
       setLoginFormVisible(true); // Unregistered User
       setIsAuthenticated(true);
+      setUserImage(user.photoURL);
       localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("userImage", user.photoURL);
     } else if (user.email === "anudeepsai88@gmail.com") {
       setIsAuthenticated(true);
       localStorage.setItem("isAuthenticated", "true");
