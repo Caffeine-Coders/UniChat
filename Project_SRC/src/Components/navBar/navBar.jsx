@@ -26,6 +26,7 @@ import {
 import { useState, useContext } from "react";
 import Draggable from "react-draggable";
 import ThemeContext from "../themeContext";
+import AuthContext from "../authContext";
 
 const StyledButton = styled(Button)(({ theme }) => ({
   width: "135px",
@@ -184,9 +185,7 @@ export default function NavBar() {
   };
 
   return (
-
     <ThemeProvider theme={theme}>
-      {    console.log(localStorage.getItem("photo"))}
       <AppBar
         sx={{
           borderRadius: 3,
@@ -253,7 +252,7 @@ export default function NavBar() {
                 color="inherit"
               >
                 <Avatar sx={{ height: 30, width: 30 }}>
-                  <Image src={localStorage.getItem("photo")} />
+                  <Image src={studentAvatar} />
                 </Avatar>
               </StyledIconButton>
             </Stack>

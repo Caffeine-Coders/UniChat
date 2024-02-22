@@ -9,11 +9,19 @@ import Loader from "../Loading/loader";
 import ThemeContext from "../themeContext.jsx";
 import { darktheme } from "../themes.jsx";
 import { useState } from "react";
+import { useContext } from "react";
+import { useRouter } from "next/navigation";
+import AuthContext, { AuthProvider } from "../authContext";
 
 export default function HomeComponent() {
+  const { isAuthenticated } = useContext(AuthContext);
+
   const [theme, setTheme] = useState(darktheme);
 
   const [show, setShow] = React.useState(false);
+  
+  const router = useRouter();
+
   React.useEffect(() => {
     const timeoutId = setTimeout(() => {
       setShow(true);
@@ -21,6 +29,10 @@ export default function HomeComponent() {
 
     return () => clearTimeout(timeoutId);
   }, []);
+
+  // if (!isAuthenticated) {
+  //   router.push("/login");
+  // }
 
   return (
     <Box>
@@ -54,7 +66,9 @@ export default function HomeComponent() {
               }}
             >
               <ThemeContext.Provider value={{ theme, setTheme }}>
-                <NavBar />
+                <AuthProvider>
+                  <NavBar />
+                </AuthProvider>
               </ThemeContext.Provider>
             </Box>
             <Box

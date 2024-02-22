@@ -11,7 +11,9 @@ import Fade from "@mui/material/Fade";
 import { getAuth } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import app from "../../../config.js";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import AuthContext from "@/Components/authContext";
+import { useContext } from "react";
 
 const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
@@ -88,9 +90,9 @@ const LoginForm = () => {
       return;
     } else {
       setAlert(null);
-      router.push('/home');
+      router.push("/home");
     }
-  }
+  };
 
   return (
     <Box
@@ -176,6 +178,7 @@ const Login = () => {
   const [invalidUser, setInvalidUser] = useState(false);
   const router = useRouter();
 
+  const { setIsAuthenticated, setUserImage } = useContext(AuthContext);
 
   const signInWithGoogle = async () => {
     const auth = getAuth(app);
@@ -183,10 +186,15 @@ const Login = () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     setUser(user);
+    console.log(user);
     if (user.email === "satwikbhasin@gmail.com") {
       setLoginFormVisible(true); // Unregistered User
+      setIsAuthenticated(true);
+      localStorage.setItem("isAuthenticated", "true");
     } else if (user.email === "anudeepsai88@gmail.com") {
-      router.push('/home');
+      setIsAuthenticated(true);
+      localStorage.setItem("isAuthenticated", "true");
+      router.push("/home");
     } else {
       setInvalidUser(true); // Invalid User
     }
