@@ -35,11 +35,10 @@ export default function HomeComponent() {
     }
   }, [isAuthenticated]);
 
-  // ... rest of your code
 
-  if (!isAuthenticated) {
-    return null; // or return a different component or some 'loading' indicator
-  }
+  // if (!isAuthenticated) {
+  //   return null; // or return a different component or some 'loading' indicator
+  // }
 
   return (
     <Box>
