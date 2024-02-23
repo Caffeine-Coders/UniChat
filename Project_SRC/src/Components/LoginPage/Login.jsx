@@ -2,7 +2,7 @@
 import React, { use, useState, useEffect } from "react";
 import loginImage1 from "../../Assets/loginImage1.png";
 import { Button, Typography, Box, TextField, Grid, Alert } from "@mui/material";
-import { darktheme } from "../themes";
+import { darktheme } from "../Themes/themes";
 import GoogleIcon from "@mui/icons-material/Google";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ArrowForward } from "@mui/icons-material";
@@ -12,7 +12,7 @@ import Fade from "@mui/material/Fade";
 import { getAuth } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import AuthContext from "@/Components/authContext";
+import AuthContext from "@/Components/Contexts/authContext";
 import { useContext } from "react";
 import app from "../../../config";
 
@@ -369,7 +369,6 @@ const Login = () => {
                   alignItems: "center",
                 }}
               >
-                {/* {/* <Link href="/home"> */}
                 <Button
                   variant="contained"
                   startIcon={<GoogleIcon />}
@@ -390,7 +389,6 @@ const Login = () => {
                 >
                   Login with Google
                 </Button>
-                {/* </Link> */}
               </Box>
             </Box>
           </Fade>

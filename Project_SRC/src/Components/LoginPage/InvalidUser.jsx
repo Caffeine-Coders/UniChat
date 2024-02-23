@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import { darktheme } from "../themes";
+import { darktheme } from "../Themes/themes";
 
 const InvalidUser = () => {
   return (

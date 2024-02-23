@@ -4,7 +4,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import { ThemeProvider } from "@emotion/react";
-import { lighttheme, darktheme } from "../themes";
+import { lighttheme, darktheme } from "../Themes/themes";
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Image from "next/image";
@@ -27,7 +27,8 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import ThemeContext from "../themeContext";
+import ThemeContext from "../Contexts/themeContext";
+import { useContext, useState } from "react";
 
 //================================icons=======================
 import ConstructionOutlinedIcon from "@mui/icons-material/ConstructionOutlined";
@@ -93,9 +94,9 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 const SideBar = (props) => {
    
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [isClosing, setIsClosing] = React.useState(false);
-  const { setTheme, theme } = React.useContext(ThemeContext);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const { setTheme, theme } = useContext(ThemeContext);
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -111,9 +112,6 @@ const SideBar = (props) => {
       setMobileOpen(!mobileOpen);
     }
   };
-  {
-    /* Home, All project discord dropdown, Port to KF, Settings, Help & getting started */
-  }
 
   const toggleTheme = () => {
     setTheme(theme === lighttheme ? darktheme : lighttheme);
@@ -122,7 +120,6 @@ const SideBar = (props) => {
   const Sidedraw = (
     <div style={{ position: "relative", height: "100%" }}>
       <List sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        {/* logo and name */}
         <Box
           sx={{
             justifyContent: "center",

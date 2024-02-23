@@ -2,15 +2,15 @@
 import { motion } from "framer-motion";
 import NavBar from "../NavBar/NavBar.jsx";
 import Box from "@mui/material/Box";
-import Discord from "../discord/discord";
+import Discord from "../Discord/Discord.jsx";
 import React from "react";
-import SideBar from "../SideBar/sidebar.jsx";
-import Loader from "../Loading/loader";
-import ThemeContext from "../themeContext.jsx";
-import { darktheme } from "../themes.jsx";
+import SideBar from "../SideBar/Sidebar.jsx";
+import Loader from "../Loading/Loader.jsx";
+import ThemeContext from "../Contexts/themeContext.jsx";
+import { darktheme } from "../Themes/themes.jsx";
 import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import AuthContext, { AuthProvider } from "../authContext";
+import AuthContext, { AuthProvider } from "../Contexts/authContext.jsx";
 
 export default function HomeComponent() {
   const { isAuthenticated } = useContext(AuthContext);

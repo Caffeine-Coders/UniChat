@@ -3,7 +3,7 @@ import React from 'react';
 import MultiLayerParallax from './MultiLayerParallax.jsx';
 import { Box, Typography } from '@mui/material';
 import { ThemeConsumer, ThemeProvider } from 'styled-components';
-import { darktheme, lighttheme } from '../themes.jsx';
+import { darktheme, lighttheme } from '../Themes/themes.jsx';
 import layerer from '../../Assets/aboutimg2.jpeg';
 import logo from "../../Assets/aboutimg1.png";
 import logo2 from "../../Assets/collab.jpeg";

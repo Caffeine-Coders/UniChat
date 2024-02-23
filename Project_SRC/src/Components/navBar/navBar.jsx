@@ -6,7 +6,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
-import studentAvatar from "../../Assets/Student_Avatar.jpg";
 import {
   IconButton,
   Badge,
@@ -25,8 +24,8 @@ import {
 } from "@mui/material";
 import { useState, useContext } from "react";
 import Draggable from "react-draggable";
-import ThemeContext from "../themeContext";
-import AuthContext from "../authContext";
+import ThemeContext from "../Contexts/themeContext";
+import AuthContext from "../Contexts/authContext";
 
 const StyledButton = styled(Button)(({ theme }) => ({
   width: "135px",
@@ -39,7 +38,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
     color: theme.palette.primary.main,
   },
   fontFamily: theme.typography.fontFamily[0],
-}));s
+}));
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   transition: theme.transitions.create("transform", {

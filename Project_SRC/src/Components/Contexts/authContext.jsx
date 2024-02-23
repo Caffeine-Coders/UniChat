@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import { useState, createContext } from "react";
 
-const AuthContext = React.createContext();
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(
