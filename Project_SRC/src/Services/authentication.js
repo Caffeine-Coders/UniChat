@@ -29,12 +29,3 @@ export const getLoggedInUserDetails = () => {
     });
   });
 };
-
-export const getUserDetails = async () => {
-  const user = auth.currentUser;
-  if (user) {
-    return user;
-  } else {
-    return null;
-  }
-};

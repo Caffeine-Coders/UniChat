@@ -39,7 +39,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
     color: theme.palette.primary.main,
   },
   fontFamily: theme.typography.fontFamily[0],
-}));
+}));s
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   transition: theme.transitions.create("transform", {

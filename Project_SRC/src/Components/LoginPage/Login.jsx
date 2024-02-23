@@ -5,6 +5,7 @@ import { Button, Typography, Box, TextField, Grid, Alert } from "@mui/material";
 import { darktheme } from "../themes";
 import GoogleIcon from "@mui/icons-material/Google";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { ArrowForward } from "@mui/icons-material";
 import Slide from "@mui/material/Slide";
 import styled from "styled-components";
 import Fade from "@mui/material/Fade";
@@ -18,8 +19,7 @@ import app from "../../../config";
 import {
   classifyUser,
   getLoggedInUserDetails,
-  getUserDetails,
-} from "../../Services/authenticationAPIs";
+} from "../../Services/authentication";
 
 const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
@@ -413,6 +413,7 @@ const Login = () => {
             bottom: 20,
             width: "100%",
             display: "flex",
+            justifyContent: "space-between",
             padding: 2,
           }}
         >
@@ -431,6 +432,22 @@ const Login = () => {
             }}
           >
             Back
+          </Button>
+          <Button
+            variant="contained"
+            endIcon={<ArrowForward />}
+            onClick={() => router.push("/home")}
+            sx={{
+              backgroundColor: "#300e54",
+              width: 100,
+              "&:hover": {
+                backgroundColor: "#cbabed",
+                color: "#300e54",
+              },
+              fontFamily: '"Kode Mono", monospace',
+            }}
+          >
+            Skip
           </Button>
         </Box>
       )}
