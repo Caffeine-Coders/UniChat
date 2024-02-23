@@ -19,8 +19,6 @@ export default function HomeComponent() {
 
   const [show, setShow] = React.useState(false);
 
-  const router = useRouter();
-
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setShow(true);
@@ -28,17 +26,6 @@ export default function HomeComponent() {
 
     return () => clearTimeout(timeoutId);
   }, []);
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.replace("/login");
-    }
-  }, [isAuthenticated]);
-
-
-  // if (!isAuthenticated) {
-  //   return null; // or return a different component or some 'loading' indicator
-  // }
 
   return (
     <Box>

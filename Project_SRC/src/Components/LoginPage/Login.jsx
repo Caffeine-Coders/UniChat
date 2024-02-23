@@ -10,11 +10,16 @@ import styled from "styled-components";
 import Fade from "@mui/material/Fade";
 import { getAuth } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import app from "../../../config.js";
 import { useRouter } from "next/navigation";
 import AuthContext from "@/Components/authContext";
 import { useContext } from "react";
-import { classifyUser } from "../../Services/authenticationAPIs";
+import app from "../../../config";
+
+import {
+  classifyUser,
+  getLoggedInUserDetails,
+  getUserDetails,
+} from "../../Services/authenticationAPIs";
 
 const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
@@ -182,27 +187,46 @@ const Login = () => {
   const { setIsAuthenticated, setUserImage } = useContext(AuthContext);
 
   const signInWithGoogle = async () => {
-    const auth = getAuth(app);
+    const loggedInUser = await getLoggedInUserDetails();
+    if (loggedInUser) {
+      // User is logged in.
+      console.log("User is logged in");
+      const userClassification = await classifyUser(loggedInUser.email);
+      console.log(userClassification.isFirstTimeLogin);
+      if (userClassification.type === "Registered") {
+        console.log("Registered User");
+        // Registered User
+        setIsAuthenticated(true);
+        setUserImage(loggedInUser.photoURL);
+        localStorage.setItem("userImage", loggedInUser.photoURL);
+        console.log("isFirstTimeLogin: ", userClassification.isFirstTimeLogin);
+        if (userClassification.isFirstTimeLogin === "true") {
+          console.log("First Time Login");
+          setLoginFormVisible(true);
+        } else if (userClassification.isFirstTimeLogin === "false") {
+          console.log("Not First Time Login");
+          router.push("/home");
+        }
+      } else if (userClassification.type === "Unregistered") {
+        console.log("Unregistered/Invalid User");
+        // Unregistered/Invalid User
+        setInvalidUser(true);
+      }
+    } else {
+      console.log("No user is signed in");
+      // No user is signed in.
+      signInUser();
+    }
+  };
+
+  const signInUser = async () => {
     const provider = new GoogleAuthProvider();
+    const auth = getAuth(app);
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     setUser(user);
-    const userClassification = await classifyUser(user.email);
-    if (userClassification.type === "Registered") {
-      setIsAuthenticated(true);
-      setUserImage(user.photoURL);
-      localStorage.setItem("isAuthenticated", "true");
-      localStorage.setItem("userImage", user.photoURL);
-      // Registered User
-      if (userClassification.isFirstTimeLogin) {
-        setLoginFormVisible(true);
-      } else if (!userClassification.isFirstTimeLogin) {
-        router.push("/home");
-      }
-    } else if (userClassification.type === "Unregistered") {
-      // Unregistered/Invalid User
-      setInvalidUser(true);
-    }
+    console.loh(" User signed in");
+    signInWithGoogle();
   };
 
   if (invalidUser) {

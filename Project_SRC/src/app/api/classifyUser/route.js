@@ -17,7 +17,7 @@ export async function POST(request) {
   if (user) {
     return NextResponse.json({
       type: "Registered",
-      isFirsTimeLogin: user.isFirstTimeLogin,
+      isFirstTimeLogin: user.isFirstTimeLogin,
     });
   } else {
     return NextResponse.json({ type: "Unregistered" });
