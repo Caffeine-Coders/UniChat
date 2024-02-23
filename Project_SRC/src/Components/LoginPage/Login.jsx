@@ -14,6 +14,7 @@ import app from "../../../config.js";
 import { useRouter } from "next/navigation";
 import AuthContext from "@/Components/authContext";
 import { useContext } from "react";
+import { classifyUser } from "../../Services/authenticationAPIs";
 
 const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
@@ -186,18 +187,21 @@ const Login = () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     setUser(user);
-    if (user.email === "satwikbhasin@gmail.com") {
-      setLoginFormVisible(true); // Unregistered User
+    const userClassification = await classifyUser(user.email);
+    if (userClassification.type === "Registered") {
       setIsAuthenticated(true);
       setUserImage(user.photoURL);
       localStorage.setItem("isAuthenticated", "true");
       localStorage.setItem("userImage", user.photoURL);
-    } else if (user.email === "anudeepsai88@gmail.com") {
-      setIsAuthenticated(true);
-      localStorage.setItem("isAuthenticated", "true");
-      router.push("/home");
-    } else {
-      setInvalidUser(true); // Invalid User
+      // Registered User
+      if (userClassification.isFirstTimeLogin) {
+        setLoginFormVisible(true);
+      } else if (!userClassification.isFirstTimeLogin) {
+        router.push("/home");
+      }
+    } else if (userClassification.type === "Unregistered") {
+      // Unregistered/Invalid User
+      setInvalidUser(true);
     }
   };
 
