@@ -86,6 +86,11 @@ export default function content() {
                     </button>
                 </div>
             </form>
+            <div class="p-6 pt-0 mt-10">
+                    <button type="submit" class="inline-flex align-middle items-center w-3/5 justify-center px-5 py-3 text-xl text-center text-black bg-slate-200 rounded-md hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" >    
+                        Sign in with google
+                    </button>
+                </div>
             <div class="text-sm -mt-5 mb-10">
                 Don't have an account? 
                 <a class="ml-1 text-blue" href="/te@cher/signup">Sign up</a>
