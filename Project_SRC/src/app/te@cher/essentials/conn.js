@@ -65,5 +65,4 @@ export function Signuplogin(){
         loginaccount:loginaccount,
         signupaccount:signupaccount
     }
-
 }

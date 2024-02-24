@@ -12,8 +12,12 @@ import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormControl from '@mui/material/FormControl';
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+
+
 export default function content() {
-    
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const loginInstance = Signuplogin()
@@ -30,6 +34,20 @@ export default function content() {
         await loginInstance.loginaccount(email, password);
         
     }
+    const handlegoogle = async(event) => {
+        signInWithPopup(auth, provider)
+        .then((result) => {
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            const user = result.user;
+        }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            const email = error.email;
+            const credential = GoogleAuthProvider.credentialFromError(error);
+        });
+    }
+
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => { event.preventDefault(); };
@@ -87,7 +105,7 @@ export default function content() {
                 </div>
             </form>
             <div class="p-6 pt-0 mt-10">
-                    <button type="submit" class="inline-flex align-middle items-center w-3/5 justify-center px-5 py-3 text-xl text-center text-black bg-slate-200 rounded-md hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" >    
+                    <button type="submit" class="inline-flex align-middle items-center w-3/5 justify-center px-5 py-3 text-xl text-center text-black bg-slate-200 rounded-md hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" onClick={handlegoogle}>    
                         Sign in with google
                     </button>
                 </div>
