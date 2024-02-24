@@ -1,8 +1,19 @@
 "use client";
 import React, { use, useState, useEffect } from "react";
 import loginImage1 from "../../Assets/loginImage1.png";
-import { Button, Typography, Box, TextField, Grid, Alert } from "@mui/material";
+import {
+  Button,
+  Typography,
+  Box,
+  TextField,
+  Grid,
+  Alert,
+  AppBar,
+  Toolbar,
+  IconButton,
+} from "@mui/material";
 import { darktheme } from "../Themes/themes";
+import Image from "next/image";
 import GoogleIcon from "@mui/icons-material/Google";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ArrowForward } from "@mui/icons-material";
@@ -15,11 +26,13 @@ import { useRouter } from "next/navigation";
 import AuthContext from "@/Components/Contexts/authContext";
 import { useContext } from "react";
 import app from "../../../config";
+import Logo from "../../Assets/logo.png";
 
 import {
   classifyUser,
   getLoggedInUserDetails,
 } from "../../Services/authentication";
+import Link from "next/link";
 
 const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
@@ -190,30 +203,23 @@ const Login = () => {
     const loggedInUser = await getLoggedInUserDetails();
     if (loggedInUser) {
       // User is logged in.
-      console.log("User is logged in");
       const userClassification = await classifyUser(loggedInUser.email);
-      console.log(userClassification.isFirstTimeLogin);
       if (userClassification.type === "Registered") {
-        console.log("Registered User");
         // Registered User
         setIsAuthenticated(true);
         setUserImage(loggedInUser.photoURL);
         localStorage.setItem("userImage", loggedInUser.photoURL);
         console.log("isFirstTimeLogin: ", userClassification.isFirstTimeLogin);
         if (userClassification.isFirstTimeLogin === "true") {
-          console.log("First Time Login");
           setLoginFormVisible(true);
         } else if (userClassification.isFirstTimeLogin === "false") {
-          console.log("Not First Time Login");
           router.push("/home");
         }
       } else if (userClassification.type === "Unregistered") {
-        console.log("Unregistered/Invalid User");
         // Unregistered/Invalid User
         setInvalidUser(true);
       }
     } else {
-      console.log("No user is signed in");
       // No user is signed in.
       signInUser();
     }
@@ -249,6 +255,37 @@ const Login = () => {
         flexDirection: "column",
       }}
     >
+      <AppBar
+        position="absolute"
+        sx={{
+          backgroundColor: "rgba(255, 255, 255, 0)",
+          boxShadow: "0 10px 100px 0 rgba(31, 38, 135, 0.7)",
+          backdropFilter: "blur(4px)",
+          WebkitBackdropFilter: "blur(4px)",
+          WebkitBackdropFilter: "blur(16.3px)",
+          height: 50,
+          justifyContent: "center",
+          alignItems: "center",
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <Toolbar>
+          <Link href="/">
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{
+                flexGrow: 1,
+                color: "",
+                fontFamily: '"Kode Mono", monospace',
+              }}
+            >
+              UniChat
+            </Typography>
+          </Link>
+        </Toolbar>
+      </AppBar>
       <Box
         sx={{
           display: "flex",
@@ -283,7 +320,7 @@ const Login = () => {
             </Typography>
           </Slide>
         </Box>
-        <Box sx={{ overflow: "hidden", height: 380 }}>
+        <Box sx={{ overflow: "hidden", height: 360 }}>
           <Slide
             direction="up"
             in={!isLoginFormVisible}
