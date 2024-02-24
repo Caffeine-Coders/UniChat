@@ -1,11 +1,25 @@
 "use client"
-import {auth, db} from '../firebase'
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword} from "firebase/auth"
+import {auth, db, provider} from '../firebase'
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider} from "firebase/auth"
 import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { useRouter } from 'next/navigation';
 
 export function Signuplogin(){
     const router = useRouter()
+    const provider = new GoogleAuthProvider()
+    function googleLogin(){
+        signInWithPopup(auth,provider).then((result) =>{
+            const credential = GoogleAuthProvider.credentialFromResult(result)
+            const token = credential.accessToken
+            const user = result.user
+
+        }).catch((error)=>{
+            const errorCode = error.code
+            const errorMessage = error.message
+            const email = error.customData.email
+            const credential  = GoogleAuthProvider.credentialFromError(error)
+        })
+    }
     function signupaccount(name, email, password) {
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -61,9 +75,12 @@ export function Signuplogin(){
         console.log("error",error)
     })
     }
+
+
     return{
         loginaccount:loginaccount,
-        signupaccount:signupaccount
+        signupaccount:signupaccount,
+        googleLogin: googleLogin
     }
 
 }

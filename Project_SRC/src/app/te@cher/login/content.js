@@ -30,6 +30,11 @@ export default function content() {
         await loginInstance.loginaccount(email, password);
         
     }
+    const handeGoogle = (event) =>{
+        console.log("hereee")
+        event.preventDefault()
+        loginInstance.googleLogin();
+    }
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => { event.preventDefault(); };
@@ -87,7 +92,7 @@ export default function content() {
                 </div>
             </form>
             <div class="p-6 pt-0 mt-10">
-                    <button type="submit" class="inline-flex align-middle items-center w-3/5 justify-center px-5 py-3 text-xl text-center text-black bg-slate-200 rounded-md hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" >    
+                    <button type="button" onClick={handeGoogle} class="inline-flex align-middle items-center w-3/5 justify-center px-5 py-3 text-xl text-center text-black bg-slate-200 rounded-md hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" >    
                         Sign in with google
                     </button>
                 </div>
