@@ -10,7 +10,7 @@ import styled from "styled-components";
 import Fade from "@mui/material/Fade";
 import { getAuth } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import app from "../../../config.js";
+import app from "../../../config";
 import { useRouter } from 'next/navigation';
 
 const StyledTextField = styled(TextField)`
@@ -176,14 +176,16 @@ const Login = () => {
   const [invalidUser, setInvalidUser] = useState(false);
   const router = useRouter();
 
-
+ 
   const signInWithGoogle = async () => {
+    console.log(app)
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     setUser(user);
-    if (user.email === "satwikbhasin@gmail.com") {
+
+    if (user.email === "saivishnuanudeepk@gmail.com") {
       setLoginFormVisible(true); // Unregistered User
     } else if (user.email === "anudeepsai88@gmail.com") {
       router.push('/home');

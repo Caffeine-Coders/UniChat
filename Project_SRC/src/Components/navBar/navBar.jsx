@@ -253,7 +253,7 @@ export default function NavBar() {
                 color="inherit"
               >
                 <Avatar sx={{ height: 30, width: 30 }}>
-                  <Image src={localStorage.getItem("photo")} />
+                  <Image src={studentAvatar}/>
                 </Avatar>
               </StyledIconButton>
             </Stack>

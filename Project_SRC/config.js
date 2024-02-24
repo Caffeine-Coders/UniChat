@@ -1,17 +1,24 @@
-import {initializeApp} from 'firebase/app';
+import { initializeApp } from 'firebase/app';
 import 'firebase/auth';
+var apiKey = process.env.NEXT_PUBLIC_AUTH_APIKEY;
+var authDomain = process.env.NEXT_PUBLIC_AUTH_AUTHDOMAIN;
+var projectId = process.env.NEXT_PUBLIC_AUTH_PROJECTID;
+var storageBucket = process.env.NEXT_PUBLIC_AUTH_STORAGEBUCKET;
+var messagingSenderId = process.env.NEXT_PUBLIC_AUTH_MESSAGINGSENDERID;
+var appId = process.env.NEXT_PUBLIC_AUTH_APPID;
+var measurementId = process.env.NEXT_PUBLIC_AUTH_MEASUREMENTID;
+
 const firebaseConfig = {
-    apiKey: "AIzaSyAuUFSlygnKK7FU3WPGs0V-GecUd2oRMjc",
-    authDomain: "unichat-d3231.firebaseapp.com",
-    projectId: "unichat-d3231",
-    storageBucket: "unichat-d3231.appspot.com",
-    messagingSenderId: "390698529758",
-    appId: "1:390698529758:web:bf0e6d924170633913634f",
-    measurementId: "G-NLND6J49SD"
-  };
-  
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-//   const analytics = getAnalytics(app);
+  apiKey:  apiKey,
+  authDomain:  authDomain,
+  projectId:  projectId,
+  storageBucket:  storageBucket,
+  messagingSenderId:  messagingSenderId,
+  appId:  appId,
+  measurementId:  measurementId
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 export default app;

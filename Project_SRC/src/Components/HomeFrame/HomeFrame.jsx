@@ -1,11 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
-import NavBar from "../NavBar/NavBar.jsx";
+import NavBar from "../NavBar/NavBar.js";
 import Box from "@mui/material/Box";
-import Discord from "../discord/discord";
+import Discord from "../discord/discord.jsx";
 import React from "react";
 import SideBar from "../SideBar/sidebar.jsx";
-import Loader from "../Loading/loader";
+import Loader from "../Loading/loader.jsx";
 import ThemeContext from "../themeContext.jsx";
 import { darktheme } from "../themes.jsx";
 import { useState } from "react";
@@ -21,7 +21,6 @@ export default function HomeComponent() {
 
     return () => clearTimeout(timeoutId);
   }, []);
-
   return (
     <Box>
       {show ? (

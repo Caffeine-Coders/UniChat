@@ -20,7 +20,7 @@ export default function LandingPage() {
     return (
         <div>
             <MultiLayerParallax />
-            <Fab variant="extended" color = 'inherit' sx={{position: 'fixed', bottom: '20px', right: '20px', backgroundColor: '#300e54', color: "white", '&:hover': {backgroundColor: '#cbabed'}}} onClick={()=> router.push("/login")}>
+            <Fab variant="extended" color = 'inherit' sx={{position: 'fixed', bottom: '20px', right: '20px', backgroundColor: '#300e54', color: "white", '&:hover': {backgroundColor: '#cbabed'}}} onClick={()=> router.push("/Student/login")}>
                 <LoginIcon  sx={{ mr: 1, color: "white" }} />
                 Login
             </Fab>
