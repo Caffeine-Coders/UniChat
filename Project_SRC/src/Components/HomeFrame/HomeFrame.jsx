@@ -1,20 +1,25 @@
 "use client";
 import { motion } from "framer-motion";
-import NavBar from "../NavBar/NavBar.js";
+import NavBar from "../NavBar/NavBar.jsx";
 import Box from "@mui/material/Box";
-import Discord from "../discord/discord.jsx";
+import Discord from "../Discord/Discord.jsx";
 import React from "react";
-import SideBar from "../SideBar/sidebar.jsx";
-import Loader from "../Loading/loader.jsx";
-import ThemeContext from "../themeContext.jsx";
-import { darktheme } from "../themes.jsx";
-import { useState } from "react";
+import SideBar from "../SideBar/Sidebar.jsx";
+import Loader from "../Loading/Loader.jsx";
+import ThemeContext from "../Contexts/themeContext.jsx";
+import { darktheme } from "../Themes/themes.jsx";
+import { useState, useContext, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import AuthContext, { AuthProvider } from "../Contexts/authContext.jsx";
 
 export default function HomeComponent() {
+  const { isAuthenticated } = useContext(AuthContext);
+
   const [theme, setTheme] = useState(darktheme);
 
   const [show, setShow] = React.useState(false);
-  React.useEffect(() => {
+
+  useEffect(() => {
     const timeoutId = setTimeout(() => {
       setShow(true);
     }, 1500); // Show Box after 500 milliseconds
@@ -53,7 +58,9 @@ export default function HomeComponent() {
               }}
             >
               <ThemeContext.Provider value={{ theme, setTheme }}>
-                <NavBar />
+                <AuthProvider>
+                  <NavBar />
+                </AuthProvider>
               </ThemeContext.Provider>
             </Box>
             <Box

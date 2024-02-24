@@ -6,7 +6,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
-import studentAvatar from "../../Assets/Student_Avatar.jpg";
 import {
   IconButton,
   Badge,
@@ -25,7 +24,8 @@ import {
 } from "@mui/material";
 import { useState, useContext } from "react";
 import Draggable from "react-draggable";
-import ThemeContext from "../themeContext";
+import ThemeContext from "../Contexts/themeContext";
+import AuthContext from "../Contexts/authContext";
 
 const StyledButton = styled(Button)(({ theme }) => ({
   width: "135px",
@@ -111,6 +111,8 @@ export default function NavBar() {
 
   const { theme } = useContext(ThemeContext);
 
+  const { userImage } = useContext(AuthContext);
+
   const ChatGPTBox = () => {
     return (
       <Draggable bounds={{ left: 0, top: 0, right: 1090, bottom: 295 }}>
@@ -184,9 +186,7 @@ export default function NavBar() {
   };
 
   return (
-
     <ThemeProvider theme={theme}>
-      {    console.log(localStorage.getItem("photo"))}
       <AppBar
         sx={{
           borderRadius: 3,
@@ -253,7 +253,7 @@ export default function NavBar() {
                 color="inherit"
               >
                 <Avatar sx={{ height: 30, width: 30 }}>
-                  <Image src={studentAvatar}/>
+                  <Image src={userImage} width={30} height={30} />
                 </Avatar>
               </StyledIconButton>
             </Stack>

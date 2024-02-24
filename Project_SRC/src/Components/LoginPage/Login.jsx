@@ -1,17 +1,38 @@
 "use client";
 import React, { use, useState, useEffect } from "react";
 import loginImage1 from "../../Assets/loginImage1.png";
-import { Button, Typography, Box, TextField, Grid, Alert } from "@mui/material";
-import { darktheme } from "../themes";
+import {
+  Button,
+  Typography,
+  Box,
+  TextField,
+  Grid,
+  Alert,
+  AppBar,
+  Toolbar,
+  IconButton,
+} from "@mui/material";
+import { darktheme } from "../Themes/themes";
+import Image from "next/image";
 import GoogleIcon from "@mui/icons-material/Google";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { ArrowForward } from "@mui/icons-material";
 import Slide from "@mui/material/Slide";
 import styled from "styled-components";
 import Fade from "@mui/material/Fade";
 import { getAuth } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import AuthContext from "@/Components/Contexts/authContext";
+import { useContext } from "react";
 import app from "../../../config";
-import { useRouter } from 'next/navigation';
+import Logo from "../../Assets/logo.png";
+
+import {
+  classifyUser,
+  getLoggedInUserDetails,
+} from "../../Services/authentication";
+import Link from "next/link";
 
 const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
@@ -88,9 +109,9 @@ const LoginForm = () => {
       return;
     } else {
       setAlert(null);
-      router.push('/home');
+      router.push("/home");
     }
-  }
+  };
 
   return (
     <Box
@@ -176,22 +197,42 @@ const Login = () => {
   const [invalidUser, setInvalidUser] = useState(false);
   const router = useRouter();
 
- 
+  const { setIsAuthenticated, setUserImage } = useContext(AuthContext);
+
   const signInWithGoogle = async () => {
-    console.log(app)
-    const auth = getAuth(app);
+    const loggedInUser = await getLoggedInUserDetails();
+    if (loggedInUser) {
+      // User is logged in.
+      const userClassification = await classifyUser(loggedInUser.email);
+      if (userClassification.type === "Registered") {
+        // Registered User
+        setIsAuthenticated(true);
+        setUserImage(loggedInUser.photoURL);
+        localStorage.setItem("userImage", loggedInUser.photoURL);
+        console.log("isFirstTimeLogin: ", userClassification.isFirstTimeLogin);
+        if (userClassification.isFirstTimeLogin === "true") {
+          setLoginFormVisible(true);
+        } else if (userClassification.isFirstTimeLogin === "false") {
+          router.push("/home");
+        }
+      } else if (userClassification.type === "Unregistered") {
+        // Unregistered/Invalid User
+        setInvalidUser(true);
+      }
+    } else {
+      // No user is signed in.
+      signInUser();
+    }
+  };
+
+  const signInUser = async () => {
     const provider = new GoogleAuthProvider();
+    const auth = getAuth(app);
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     setUser(user);
-
-    if (user.email === "saivishnuanudeepk@gmail.com") {
-      setLoginFormVisible(true); // Unregistered User
-    } else if (user.email === "anudeepsai88@gmail.com") {
-      router.push('/home');
-    } else {
-      setInvalidUser(true); // Invalid User
-    }
+    console.log(" User signed in");
+    signInWithGoogle();
   };
 
   if (invalidUser) {
@@ -214,6 +255,37 @@ const Login = () => {
         flexDirection: "column",
       }}
     >
+      <AppBar
+        position="absolute"
+        sx={{
+          backgroundColor: "rgba(255, 255, 255, 0)",
+          boxShadow: "0 10px 100px 0 rgba(31, 38, 135, 0.7)",
+          backdropFilter: "blur(4px)",
+          WebkitBackdropFilter: "blur(4px)",
+          WebkitBackdropFilter: "blur(16.3px)",
+          height: 50,
+          justifyContent: "center",
+          alignItems: "center",
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <Toolbar>
+          <Link href="/">
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{
+                flexGrow: 1,
+                color: "",
+                fontFamily: '"Kode Mono", monospace',
+              }}
+            >
+              UniChat
+            </Typography>
+          </Link>
+        </Toolbar>
+      </AppBar>
       <Box
         sx={{
           display: "flex",
@@ -248,7 +320,7 @@ const Login = () => {
             </Typography>
           </Slide>
         </Box>
-        <Box sx={{ overflow: "hidden", height: 380 }}>
+        <Box sx={{ overflow: "hidden", height: 360 }}>
           <Slide
             direction="up"
             in={!isLoginFormVisible}
@@ -334,7 +406,6 @@ const Login = () => {
                   alignItems: "center",
                 }}
               >
-                {/* {/* <Link href="/home"> */}
                 <Button
                   variant="contained"
                   startIcon={<GoogleIcon />}
@@ -355,7 +426,6 @@ const Login = () => {
                 >
                   Login with Google
                 </Button>
-                {/* </Link> */}
               </Box>
             </Box>
           </Fade>
@@ -378,6 +448,7 @@ const Login = () => {
             bottom: 20,
             width: "100%",
             display: "flex",
+            justifyContent: "space-between",
             padding: 2,
           }}
         >
@@ -396,6 +467,22 @@ const Login = () => {
             }}
           >
             Back
+          </Button>
+          <Button
+            variant="contained"
+            endIcon={<ArrowForward />}
+            onClick={() => router.push("/home")}
+            sx={{
+              backgroundColor: "#300e54",
+              width: 100,
+              "&:hover": {
+                backgroundColor: "#cbabed",
+                color: "#300e54",
+              },
+              fontFamily: '"Kode Mono", monospace',
+            }}
+          >
+            Skip
           </Button>
         </Box>
       )}

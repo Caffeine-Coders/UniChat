@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import fullscreen from '../../Assets/Layering/whitefull.jpg';
 import layer1 from '../../Assets/Layering/whitelayer.png';
 import { ThemeProvider, Typography } from '@mui/material';
-import { darktheme, lighttheme } from '../themes';
+import { darktheme, lighttheme } from '../Themes/themes';
 import { Button } from '@mui/base';
 
 
