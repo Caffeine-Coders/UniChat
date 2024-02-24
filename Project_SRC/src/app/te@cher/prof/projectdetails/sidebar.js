@@ -3,7 +3,7 @@ export default function Siderbar(){
     return(
         <aside class="fixed top-0 left-0 w-60 h-screen z-40 bg-gray-50">
             <nav class="flex items-center justify-between flex-wrap p-6 pb-4 bg-white">
-            <Link href="/">
+            <Link href="/te@cher/">
                 <button class="flex items-center flex-shrink-0 mr-6">
                     <span class="font-bold text-2xl tracking-wide font-headx">UniChat</span>
                 </button>

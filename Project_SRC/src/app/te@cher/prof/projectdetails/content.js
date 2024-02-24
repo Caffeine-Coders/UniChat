@@ -25,7 +25,7 @@ export default function Content(){
     return(
         
         <div class="p-4 sm:ml-64 -mt-8">
-            <span><a class="flex hover:underline" href="/prof"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <span><a class="flex hover:underline" href="/te@cher/prof"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
   </svg>Return to Dashboard</a></span>
             <div class="p-4 border-2 border-gray-200  rounded-lg dark:border-gray-700">

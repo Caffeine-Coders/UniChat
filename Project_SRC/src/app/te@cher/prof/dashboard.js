@@ -29,7 +29,7 @@ export default function Dash() {
 
     <div class="flex flex-wrap">
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56 bg-transparent" >
-            <a class="no-underline  text-black h-full bg-transparent" href="/prof/newproject">
+            <a class="no-underline  text-black h-full bg-transparent" href="/te@cher/prof/newproject">
                 <article class="overflow-hidden  bg-white backdrop-filter backdrop-blur-sm bg-opacity-80 rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                     <div class="px-6 py-12">
                         <div class="font-bold text-xl mb-2 mt-6 flex justify-center items-center">
@@ -45,7 +45,7 @@ export default function Dash() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56 bg-transparent">
-            <a class="no-underline  text-black  bg-transparent" href="/prof/projectdetails">
+            <a class="no-underline  text-black  bg-transparent" href="/te@cher/prof/projectdetails">
                 <article class="overflow-hidden   bg-white backdrop-filter backdrop-blur-sm bg-opacity-80  rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                     <div class="px-6 py-12">
                         <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
@@ -61,7 +61,7 @@ export default function Dash() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56 bg-transparent">
-        <a class="no-underline  text-black bg-transparent" href="/prof/projectdetails">
+        <a class="no-underline  text-black bg-transparent" href="/te@cher/prof/projectdetails">
             <article class="overflow-hidden  bg-white backdrop-filter backdrop-blur-sm bg-opacity-80  rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                 <div class="px-6 py-12">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
@@ -77,7 +77,7 @@ export default function Dash() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4  pb-4 lg:px-6 lg:w-1/3 h-56 bg-transparent">
-        <a class="no-underline  text-black bg-transparent" href="/prof/projectdetails">
+        <a class="no-underline  text-black bg-transparent" href="/te@cher/prof/projectdetails">
             <article class="overflow-hidden  bg-white backdrop-filter backdrop-blur-sm bg-opacity-80  rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                 <div class="px-6 py-12">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
@@ -93,7 +93,7 @@ export default function Dash() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56 bg-transparent">
-        <a class="no-underline  text-black" href="/prof/projectdetails bg-transparent">
+        <a class="no-underline  text-black" href="/te@cher/prof/projectdetails bg-transparent">
             <article class="overflow-hidden  bg-white backdrop-filter backdrop-blur-sm bg-opacity-80  rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                 <div class="px-6 py-12">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
@@ -109,7 +109,7 @@ export default function Dash() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56 bg-transparent">
-        <a class="no-underline  text-black bg-transparent" href="/prof/projectdetails">
+        <a class="no-underline  text-black bg-transparent" href="/te@cher/prof/projectdetails">
             <article class="overflow-hidden  bg-white backdrop-filter backdrop-blur-sm bg-opacity-80  rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                 <div class="px-6 py-12">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
@@ -125,7 +125,7 @@ export default function Dash() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4  pb-4 lg:px-6 lg:w-1/3 h-56 bg-transparent">
-        <a class="no-underline  text-black bg-transparent" href="/prof/projectdetails">
+        <a class="no-underline  text-black bg-transparent" href="/te@cher/prof/projectdetails">
             <article class="overflow-hidden  bg-white backdrop-filter backdrop-blur-sm bg-opacity-80  rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                 <div class="px-6 py-12">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
@@ -141,7 +141,7 @@ export default function Dash() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56 bg-transparent">
-        <a class="no-underline  text-black bg-transparent" href="/prof/projectdetails">
+        <a class="no-underline  text-black bg-transparent" href="/te@cher/prof/projectdetails">
             <article class="overflow-hidden bg-white backdrop-filter backdrop-blur-sm bg-opacity-80  rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                 <div class="px-6 py-12">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
@@ -157,7 +157,7 @@ export default function Dash() {
             </a>
         </div>
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56 bg-transparent">
-        <a class="no-underline  text-black bg-transparent" href="/prof/projectdetails">
+        <a class="no-underline  text-black bg-transparent" href="/te@cher/prof/projectdetails">
             <article class="overflow-hidden  bg-white backdrop-filter backdrop-blur-sm bg-opacity-80  rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
                 <div class="px-6 py-12">
                     <div class="font-bold text-xl mb-0 mt-6 flex justify-center items-center">
