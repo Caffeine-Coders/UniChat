@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { client } from "@/MongoDB/MongoDB_Routines";
+import { client } from "@/Services/MongoDB_Routines";
 
 export async function POST(request) {
   const data = await request.json();

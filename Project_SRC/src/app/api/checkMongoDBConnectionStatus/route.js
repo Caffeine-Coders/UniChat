@@ -1,4 +1,4 @@
-const { connectToMongoDB } = require("../../../MongoDB/MongoDB_Routines");
+const { connectToMongoDB } = require("../../../Services/MongoDB_Routines");
 
 export async function GET() {
   const isConnected = await connectToMongoDB();
