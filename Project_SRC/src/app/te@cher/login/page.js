@@ -5,7 +5,6 @@ export default function Login() {
       <div>
         <Nav/>
         <Content/>
-        {/* <a href="/prof">Dashboard Link</a> */}
       </div>
     );
   }

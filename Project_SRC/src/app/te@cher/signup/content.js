@@ -122,8 +122,8 @@ export default function content() {
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
-                    <a href="/login" autoFocus class="ml-1 text-blue">
-                      Agree
+                    <a href="/te@cher/login" autoFocus class="ml-1 text-blue">
+                      Continue
                     </a>
                   </DialogActions>
                 </Dialog>
@@ -131,7 +131,7 @@ export default function content() {
           </form>
           <div class="text-sm -mt-5 mb-10">
               Already have an Accound? 
-              <a class="ml-1 text-blue" href="/login">Sign in</a>
+              <a class="ml-1 text-blue" href="/te@cher/login">Sign in</a>
           </div>
         </div>  
     </div>

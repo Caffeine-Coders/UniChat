@@ -88,7 +88,7 @@ export default function content() {
             </form>
             <div class="text-sm -mt-5 mb-10">
                 Don't have an account? 
-                <a class="ml-1 text-blue" href="/signup">Sign up</a>
+                <a class="ml-1 text-blue" href="/te@cher/signup">Sign up</a>
             </div>
         </div>  
     </div>

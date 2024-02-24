@@ -44,7 +44,7 @@ export function Signuplogin(){
                 const user = userCredential.user;
                 console.log("user",doc.data().name,user.email)
 
-                router.push('/prof')
+                router.push('/te@cher/prof')
             })
             .catch((error) => {
                 const errorCode = error.code;
