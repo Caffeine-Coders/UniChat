@@ -12,8 +12,12 @@ import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormControl from '@mui/material/FormControl';
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+
+
 export default function content() {
-    
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const loginInstance = Signuplogin()

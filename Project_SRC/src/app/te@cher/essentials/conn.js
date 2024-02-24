@@ -82,5 +82,4 @@ export function Signuplogin(){
         signupaccount:signupaccount,
         googleLogin: googleLogin
     }
-
 }
