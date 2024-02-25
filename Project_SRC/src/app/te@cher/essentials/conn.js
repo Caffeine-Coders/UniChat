@@ -1,6 +1,6 @@
 "use client"
 import {auth, db, provider} from '../dbconnections/firebase'
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider} from "firebase/auth"
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut} from "firebase/auth"
 import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { useRouter } from 'next/navigation';
 import {classifyUser} from '../dbconnections/getDetails'
@@ -43,6 +43,17 @@ export function Signuplogin(){
             const email = error.customData.email;
             const credential = GoogleAuthProvider.credentialFromError(error);
             // Handle errors here
+        }
+    }
+
+    async function signout(){
+        try{
+            await signOut(auth)
+            localStorage.clear()
+            console.log("signed out")
+            router.push('/te@cher/')
+        } catch (error){
+            console.log("error",error)
         }
     }
     
@@ -88,6 +99,7 @@ export function Signuplogin(){
     return{
         loginaccount:loginaccount,
         signupaccount:signupaccount,
-        googleLogin: googleLogin
+        googleLogin: googleLogin,
+        signout: signout
     }
 }
