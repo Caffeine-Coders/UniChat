@@ -42,6 +42,11 @@ export default function content() {
         await loginInstance.loginaccount(email, password);
         
     }
+    const handleSignup = async (event) =>{
+        event.preventDefault()
+        console.log("sending",email)
+        await loginInstance.signupaccount(email)
+    }
 
     const handleClose = () => {
         setOpen(false);
@@ -57,6 +62,7 @@ export default function content() {
             } else if (verificationStatus=="in db and false"){
                 setOpen(true)
             } else{
+                setEmail(verificationStatus)
                 setOpen1(true)
             }
         })
@@ -143,6 +149,9 @@ export default function content() {
                 </a>
                 </DialogActions>
             </Dialog>
+            
+            {/* dialog for email not in db */}
+
             <Dialog
                   open={open1}
                   onClose={handleClose}
@@ -161,7 +170,7 @@ export default function content() {
                   <a href="/te@cher" autoFocus class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100">
                       Cancel
                     </a>
-                    <a href="/te@cher" autoFocus class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100">
+                    <a onClick={handleSignup} autoFocus class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100">
                       Send for Approval
                     </a>
                   </DialogActions>

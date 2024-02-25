@@ -4,16 +4,23 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithP
 import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { useRouter } from 'next/navigation';
 import {classifyUser} from '../dbconnections/getDetails'
+import {addUser} from '../dbconnections/addDetails'
 async function userChecker(user){
     const userClassification = await classifyUser(user.email);
     console.log(userClassification.type)
     if (userClassification.type == "Not Verified"){
-        return "not in db"
+        return user.email
     } else if(userClassification.type == "Verified False"){
         return "in db and false"
     } else{
         return "in db and true"
     }
+
+}
+
+async function userAdd(email){
+    console.log("here in conn user add",email)
+    await addUser(email)
 
 }
 export function Signuplogin(){
@@ -39,44 +46,9 @@ export function Signuplogin(){
         }
     }
     
-    // async function googleLogin(){
-    //     signInWithPopup(auth,provider).then((result) =>{
-    //         const credential = GoogleAuthProvider.credentialFromResult(result)
-    //         const token = credential.accessToken
-    //         const user = result.user
-    //         userChecker(user).then((verificationStatus)=>{
-    //             console.log("got it",verificationStatus)
-    //             return verificationStatus
-    //         })
-    //         // return verificationStatus
-    //     }).catch((error)=>{
-    //         const errorCode = error.code
-    //         const errorMessage = error.message
-    //         const email = error.customData.email
-    //         const credential  = GoogleAuthProvider.credentialFromError(error)
-    //     })
-    // }
-    function signupaccount(name, email, password) {
-        createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log(user)
-            try {
-                const docRef =  addDoc(collection(db, "teacher"), {
-                name:name,
-                email:email,
-                status:false
-            });
-            console.log("Document written with ID: ", docRef.id);
-            } catch (e) {
-                console.error("Error adding document: ", e);
-            }
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorMessage);
-        });
+   async function signupaccount(email) {
+    console.log("here in conn sign up",email)
+      await userAdd(email)
     }
 
     function loginaccount(email, password) {
