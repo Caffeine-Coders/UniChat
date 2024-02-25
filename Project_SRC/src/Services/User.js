@@ -18,6 +18,34 @@ export const classifyUser = async (email) => {
   return data;
 };
 
+export const updateFirstTimeLogin = async (email) => {
+  const res = await fetch(`/api/updateFirstTimeLogin`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email: email }),
+  });
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`);
+  }
+  const data = await res.json();
+  return data;
+};
+
+export const logoutUser = () => {
+  return new Promise((resolve, reject) => {
+    auth
+      .signOut()
+      .then(() => {
+        resolve(true);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
 export const getLoggedInUserDetails = () => {
   return new Promise((resolve, reject) => {
     onAuthStateChanged(auth, (currentUser) => {

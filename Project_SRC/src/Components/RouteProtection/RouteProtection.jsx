@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import {
   classifyUser,
   getLoggedInUserDetails,
-} from "../../Services/authentication";
+} from "../../Services/User";
 import { Box, CircularProgress } from "@mui/material";
 
 function RouteProtection({ children }) {

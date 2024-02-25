@@ -31,7 +31,8 @@ import Logo from "../../Assets/logo.png";
 import {
   classifyUser,
   getLoggedInUserDetails,
-} from "../../Services/authentication";
+  updateFirstTimeLogin,
+} from "../../Services/User";
 import Link from "next/link";
 
 const StyledTextField = styled(TextField)`
@@ -94,7 +95,7 @@ const InvalidUser = () => {
 const LoginForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [schoolEmail, setSchoolEmail] = useState("");
   const [alert, setAlert] = useState(null);
   const router = useRouter();
 
@@ -103,7 +104,7 @@ const LoginForm = () => {
     validate();
   };
 
-  const validate = () => {
+  const validate = async () => {
     if (!firstName || !lastName) {
       setAlert("Please fill out all fields marked with *.");
       return;
@@ -159,12 +160,12 @@ const LoginForm = () => {
           <Grid item xs={12}>
             <StyledTextField
               fullWidth
-              id="email"
+              id="schoolEmail"
               label="School Email"
-              name="email"
-              autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="schoolEmail"
+              autoComplete="schoolEmail"
+              value={schoolEmail}
+              onChange={(e) => setSchoolEmail(e.target.value)}
             />
           </Grid>
         </Grid>
@@ -209,10 +210,12 @@ const Login = () => {
         setIsAuthenticated(true);
         setUserImage(loggedInUser.photoURL);
         localStorage.setItem("userImage", loggedInUser.photoURL);
-        console.log("isFirstTimeLogin: ", userClassification.isFirstTimeLogin);
-        if (userClassification.isFirstTimeLogin === "true") {
-          setLoginFormVisible(true);
-        } else if (userClassification.isFirstTimeLogin === "false") {
+        if (userClassification.isFirstTimeLogin) {
+          const response = await updateFirstTimeLogin(loggedInUser.email);
+          if (response.status === "Updated") {
+            setLoginFormVisible(true);
+          }
+        } else if (!userClassification.isFirstTimeLogin) {
           router.push("/home");
         }
       } else if (userClassification.type === "Unregistered") {
@@ -435,9 +438,7 @@ const Login = () => {
             mountOnEnter
             unmountOnExit
           >
-            <Box>
-              <LoginForm />
-            </Box>
+            <Box>{isLoginFormVisible && <LoginForm />}</Box>
           </Fade>
         </Box>
       </Box>
