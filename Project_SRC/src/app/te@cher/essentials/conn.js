@@ -8,7 +8,7 @@ async function userChecker(user){
     const userClassification = await classifyUser(user.email);
     console.log(userClassification.type)
     if (userClassification.type == "Not Verified"){
-        return "not in db"
+        return user.email
     } else if(userClassification.type == "Verified False"){
         return "in db and false"
     } else{

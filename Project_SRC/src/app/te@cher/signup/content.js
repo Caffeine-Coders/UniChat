@@ -10,13 +10,13 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
 export default function content() {
-    const [name, setName] = useState('');
+  const [name, setName] = useState('');
     const [schoolname, setSchoolName] = useState('');
     const signupinstance = Signuplogin()
     const [open, setOpen] = React.useState(false);
-  
+    const email1 = JSON.parse(localStorage.getItem("emailID"));
+    console.log("email", email1);
     const handleClose = () => {
       setOpen(false);
     };
@@ -45,7 +45,7 @@ export default function content() {
                   id="standard-disabled" 
                   label="Email ID" 
                   variant="outlined" 
-                  defaultValue="unichat@gmail.com"
+                  defaultValue={email1}
                   disabled="true"
                   sx={{
                           width: '80%',

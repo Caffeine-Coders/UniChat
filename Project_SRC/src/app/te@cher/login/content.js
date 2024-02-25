@@ -19,7 +19,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
 export default function content() {
     const auth = getAuth();
     const router = useRouter()
@@ -57,6 +56,11 @@ export default function content() {
             } else if (verificationStatus=="in db and false"){
                 setOpen(true)
             } else{
+                const emailID = JSON.stringify(verificationStatus);
+                localStorage.setItem("emailID", emailID, () => {
+                    const retrievedEmail = JSON.parse(localStorage.getItem("emailID"));
+                    console.log("retrieved email:", retrievedEmail);
+                });
                 setOpen1(true)
             }
         })
@@ -161,7 +165,7 @@ export default function content() {
                   <a href="/te@cher" autoFocus class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100">
                       Cancel
                     </a>
-                    <a href="/te@cher" autoFocus class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100">
+                    <a href="/te@cher/signup" autoFocus class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100">
                       Send for Approval
                     </a>
                   </DialogActions>
