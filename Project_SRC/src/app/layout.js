@@ -12,7 +12,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" style={{scrollbarColor:"inherit", scrollBehavior:"smooth"}}>
       <body className={inter.className}>
         <AppRouterCacheProvider>
             {children}

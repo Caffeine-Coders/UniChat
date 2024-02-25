@@ -2,8 +2,8 @@
 import {motion, useScroll, useTransform} from 'framer-motion';
 import React from 'react';
 import { useRef } from 'react';
-import fullscreen from '../../Assets/Layering/whitefull.jpg';
-import layer1 from '../../Assets/Layering/whitelayer.png';
+import BaseLayer from '../../Assets/Layering/BaseLayerB.png';
+import BaseLayer1 from '../../Assets/Layering/BaseLayer3.png';
 import { ThemeProvider, Typography } from '@mui/material';
 import { darktheme, lighttheme } from '../Themes/themes';
 import { Button } from '@mui/base';
@@ -23,26 +23,31 @@ export default function MultiLayerParallax() {
         <div
             ref={ref}
             className="w-full h-screen overflow-hidden relative grid place-items-center"
+            style={{
+              justifyContent: "center",
+            alignItems: "center",
+            display: "flex",
+            }}
         >
         <motion.div
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: `url('${fullscreen.src}')`,
+            backgroundImage: `url('${BaseLayer.src}')`,
             backgroundPosition: "bottom",
-            backgroundSize: "cover",
+            backgroundSize: "contain",
             y: backgroundY,
           }}
         />
         <div
           className="absolute inset-0 z-10"
           style={{
-            backgroundImage: `url(${layer1.src})`,
+            backgroundImage: `url(${BaseLayer1.src})`,
             backgroundPosition: "bottom",
-            backgroundSize: "cover",
+            backgroundSize: "contain",
           }}
         />
-        <motion.div
-                style={{ y: textY }}
+        {/* <motion.div
+                style={{ y: textY  }}
                 className="font-bold text-7xl md:text-9xl relative z-20"
                 >
                 <Typography variant='h1' sx={{
@@ -54,11 +59,12 @@ export default function MultiLayerParallax() {
                     mb: 2,
                     mt: 2,
                     letterSpacing: 10,
-                    fontSize: 130
+                    fontSize: 130,
+                    textshapeOutside: "circle(50% at 50% 50%)",
                     }}>
                     UNICHAT
                 </Typography>
-        </motion.div>
+        </motion.div> */}
 
          
          
