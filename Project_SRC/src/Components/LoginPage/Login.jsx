@@ -13,6 +13,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { darktheme } from "../Themes/themes";
+import { logoutUser } from "../../Services/User";
 import Image from "next/image";
 import GoogleIcon from "@mui/icons-material/Google";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -27,7 +28,6 @@ import AuthContext from "../Contexts/authContext";
 import { useContext } from "react";
 import app from "../../../config";
 import Logo from "../../Assets/logo.png";
-
 import {
   classifyUser,
   getLoggedInUserDetails,
@@ -77,7 +77,7 @@ const InvalidUser = () => {
     >
       <Typography
         variant="h2"
-        color="#cbabed"
+        color="#ffffff"
         sx={{
           fontFamily: darktheme.typography.fontFamily[2],
           userSelect: "none",
@@ -220,6 +220,7 @@ const Login = () => {
         }
       } else if (userClassification.type === "Unregistered") {
         // Unregistered/Invalid User
+        logoutUser();
         setInvalidUser(true);
       }
     } else {
@@ -310,7 +311,7 @@ const Login = () => {
           >
             <Typography
               variant="h1"
-              color="#cbabed"
+              color="#ffffff"
               sx={{
                 fontFamily: darktheme.typography.fontFamily[2],
                 userSelect: "none",
