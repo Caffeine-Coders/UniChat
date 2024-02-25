@@ -33,11 +33,10 @@ export function Signuplogin(){
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
             const user = result.user;
-            console.log("name",user.displayName)
-            console.log("img",user.photoURL)
-            // Wait for userChecker to complete and return its result
+            let name = user.displayName;
+            let photourl = user.photoURL;
             const verificationStatus = await userChecker(user);
-            return verificationStatus;
+            return {verificationStatus: verificationStatus, name: name, photourl: photourl};
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;

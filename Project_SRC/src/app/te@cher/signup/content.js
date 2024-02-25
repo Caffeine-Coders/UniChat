@@ -20,6 +20,10 @@ export default function content() {
     if (typeof window !== 'undefined') {
         email1 = JSON.parse(localStorage.getItem("emailID"));
     }
+    let name1;
+    if (typeof window !== 'undefined') {
+        name1 = JSON.parse(localStorage.getItem("Tname"));
+    }
     const handleClose = () => {
       setOpen(false);
     };
@@ -65,6 +69,7 @@ export default function content() {
                   label="Name" 
                   variant="outlined" 
                   required="true"
+                  defaultValue={name1}
                   InputProps={{
                     startAdornment: <InputAdornment position="start"></InputAdornment>,
                   }}
