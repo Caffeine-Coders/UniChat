@@ -34,10 +34,14 @@ export default function content() {
         await loginInstance.loginaccount(email, password);
         
     }
-    const handeGoogle = (event) =>{
+    const handeGoogle =  (event) =>{
         console.log("hereee")
         event.preventDefault()
-        loginInstance.googleLogin();
+        loginInstance.googleLogin().then((verificationStatus)=>{
+            console.log(verificationStatus)
+        })
+        // const verificationStatus  = loginInstance.googleLogin();
+        // console.log("login got it",verificationStatus)
     }
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);

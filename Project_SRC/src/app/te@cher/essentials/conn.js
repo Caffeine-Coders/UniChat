@@ -8,21 +8,27 @@ async function userChecker(user){
     const userClassification = await classifyUser(user.email);
     console.log(userClassification.type)
     if (userClassification.type == "Not Verified"){
-        alert("User not in DB")
+        // alert("User not in DB")
+        return "not in db"
     } else{
-        alert("User in DB")
+        // alert("User in DB")
+        return "in db"
     }
 }
 export function Signuplogin(){
     const router = useRouter()
     const provider = new GoogleAuthProvider()
-    function googleLogin(){
+
+    async function googleLogin(){
         signInWithPopup(auth,provider).then((result) =>{
             const credential = GoogleAuthProvider.credentialFromResult(result)
             const token = credential.accessToken
             const user = result.user
-            userChecker(user)
-            
+            userChecker(user).then((verificationStatus)=>{
+                console.log("got it",verificationStatus)
+                return verificationStatus
+            })
+            // return verificationStatus
         }).catch((error)=>{
             const errorCode = error.code
             const errorMessage = error.message
