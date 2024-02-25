@@ -27,8 +27,9 @@ export default function content() {
         setSchoolName(event.target.value);
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event) => {
         event.preventDefault();
+        await signupinstance.signupaccount(name,email1,schoolname)
         setOpen(true);
     }
    

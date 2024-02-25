@@ -41,12 +41,6 @@ export default function content() {
         await loginInstance.loginaccount(email, password);
         
     }
-    const handleSignup = async (event) =>{
-        event.preventDefault()
-        console.log("sending",email)
-        await loginInstance.signupaccount(email)
-    }
-
     const handleClose = () => {
         setOpen(false);
     };

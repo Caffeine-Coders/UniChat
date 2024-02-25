@@ -18,9 +18,9 @@ async function userChecker(user){
 
 }
 
-async function userAdd(email){
-    console.log("here in conn user add",email)
-    await addUser(email)
+async function userAdd(name,email,schoolname){
+    console.log("here in conn user add",name,email,schoolname)
+    await addUser(name,email,schoolname)
 
 }
 export function Signuplogin(){
@@ -46,9 +46,9 @@ export function Signuplogin(){
         }
     }
     
-   async function signupaccount(email) {
-    console.log("here in conn sign up",email)
-      await userAdd(email)
+   async function signupaccount(name,email,schoolname) {
+    console.log("here in conn sign up",name,email,schoolname)
+      await userAdd(name,email,schoolname)
     }
 
     function loginaccount(email, password) {
