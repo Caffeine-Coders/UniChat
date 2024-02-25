@@ -105,6 +105,9 @@ export default function Content() {
   const handleListItemClick = (index) => { 
     setSelectedIndex(index);
     console.log("clicked",index)
+    const indexval = JSON.stringify(index);
+    localStorage.setItem("indexval", indexval, () => {
+    });
     if (index === 0){
       setaddproject(true)
       setviewprojects(false)
@@ -137,6 +140,13 @@ export default function Content() {
     if (typeof window !== 'undefined') {
       setName1(JSON.parse(localStorage.getItem("Tname")));
       setPhotoUrl(JSON.parse(localStorage.getItem("photoURL")));
+
+      const indexfromlocal = JSON.parse(localStorage.getItem("indexval"))
+      console.log("here",indexfromlocal)
+      if (indexfromlocal!=null){
+        setSelectedIndex(indexfromlocal)
+        handleListItemClick(indexfromlocal)
+      }
     }
   }, []);
   const handleOpenUserMenu = (event) => {
@@ -205,8 +215,9 @@ return (
               justifyContent: open ? 'initial' : 'center',
               px: 2.5,
             }}
-            selected={selectedIndex === index} 
+ 
             onClick={() => handleListItemClick(index)} 
+            selected={selectedIndex === index}
           >
             <ListItemIcon
               sx={{
