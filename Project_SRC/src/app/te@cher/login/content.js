@@ -1,17 +1,8 @@
 "use client"
 import "../components/land.css"
-import { useState } from "react";
 import * as React from 'react';
 // import { loginaccount } from "../essentials/conn";
 import {Signuplogin} from "../essentials/conn"
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import TextField from '@mui/material/TextField';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import FormControl from '@mui/material/FormControl';
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { useRouter } from 'next/navigation';
 import Dialog from '@mui/material/Dialog';
@@ -34,18 +25,32 @@ export default function content() {
     const handeGoogle =  (event) =>{
         console.log("hereee")
         event.preventDefault()
-        loginInstance.googleLogin().then((verificationStatus)=>{
+        loginInstance.googleLogin().then((data)=>{
+            const verificationStatus = data.verificationStatus
+            const name = data.name
+            const photourl = data.photourl
+            const emailID = JSON.stringify(verificationStatus);
+            localStorage.setItem("emailID", emailID, () => {
+                const retrievedEmail = JSON.parse(localStorage.getItem("emailID"));
+                console.log("retrieved email:", retrievedEmail);
+            });
+            const Tname = JSON.stringify(name);
+            localStorage.setItem("Tname", Tname, () => {
+                const retrievedName = JSON.parse(localStorage.getItem("Tname"));
+                console.log("retrieved name:", retrievedName);
+            });
+            const photoURL = JSON.stringify(photourl);
+            localStorage.setItem("photoURL", photoURL, () => {
+                const retrievedurl = JSON.parse(localStorage.getItem("photoURL"));
+                console.log("retrieved url:", retrievedurl);
+            });
+            console.log("name",name)
             console.log("login ",verificationStatus)
             if (verificationStatus=="in db and true"){
                 router.push("/te@cher/prof")
             } else if (verificationStatus=="in db and false"){
                 setOpen(true)
             } else{
-                const emailID = JSON.stringify(verificationStatus);
-                localStorage.setItem("emailID", emailID, () => {
-                    const retrievedEmail = JSON.parse(localStorage.getItem("emailID"));
-                    console.log("retrieved email:", retrievedEmail);
-                });
                 setOpen1(true)
             }
         })
