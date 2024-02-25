@@ -333,7 +333,7 @@ const Login = () => {
           >
             <Typography
               variant="h1"
-              color="#cbabed"
+              color="#ffffff"
               sx={{
                 fontFamily: darktheme.typography.fontFamily[2],
                 userSelect: "none",
