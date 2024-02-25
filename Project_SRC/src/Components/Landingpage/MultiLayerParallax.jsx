@@ -2,10 +2,8 @@
 import {motion, useScroll, useTransform} from 'framer-motion';
 import React from 'react';
 import { useRef } from 'react';
-// import fullscreen from '../../Assets/Layering/whitefull.jpg';
-// import layer1 from '../../Assets/Layering/whitelayer.png';
- import BaseLayer from '../../Assets/Layering/BaseLayerB.png';
-  import BaseLayer1 from '../../Assets/Layering/BaseLayer3.png';
+import BaseLayer from '../../Assets/Layering/BaseLayerB.png';
+import BaseLayer1 from '../../Assets/Layering/BaseLayer3.png';
 import { ThemeProvider, Typography } from '@mui/material';
 import { darktheme, lighttheme } from '../Themes/themes';
 import { Button } from '@mui/base';
@@ -25,6 +23,11 @@ export default function MultiLayerParallax() {
         <div
             ref={ref}
             className="w-full h-screen overflow-hidden relative grid place-items-center"
+            style={{
+              justifyContent: "center",
+            alignItems: "center",
+            display: "flex",
+            }}
         >
         <motion.div
           className="absolute inset-0 z-0"

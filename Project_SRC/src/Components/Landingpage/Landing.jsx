@@ -28,6 +28,9 @@ export default function LandingPage() {
             <Box
                 sx={{
                     display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+
                     width: "100%",
                     height: "100%",
                     zIndex: 9999,
@@ -73,6 +76,7 @@ export default function LandingPage() {
                 >
                     <Box sx={{
                         display: "flex",
+                        justifyContent: "center",
                         alignItems: "center",
                         height: "100%",
                         mt: 10,
@@ -153,6 +157,7 @@ export default function LandingPage() {
                     <Box sx={{
                         display: "flex",
                         alignItems: "center",
+                        justifyContent: "center",
                         height: "100%",
                         mt: 15,
                         ml: 5
@@ -234,6 +239,7 @@ export default function LandingPage() {
                     <Box sx={{
                         display: "flex",
                         alignItems: "center",
+                        justifyContent: "center",
                         height: "100%",
                         mt: 15,
                         ml: 5
@@ -317,6 +323,7 @@ export default function LandingPage() {
                     <Box sx={{
                         display: "flex",
                         alignItems: "center",
+                        justifyContent: "center",
                         height: "100%",
                         mt: 15,
                         ml: 5
