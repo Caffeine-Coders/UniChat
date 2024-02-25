@@ -27,6 +27,7 @@ export default function MultiLayerParallax() {
               justifyContent: "center",
             alignItems: "center",
             display: "flex",
+            zIndex: 10
             }}
         >
         <motion.div
