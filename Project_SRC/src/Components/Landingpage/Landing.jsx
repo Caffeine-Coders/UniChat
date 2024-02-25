@@ -16,11 +16,20 @@ import Fab from '@mui/material/Fab';
 import LoginIcon from '@mui/icons-material/Login';
 import { useRouter } from 'next/navigation.js';
 import LandingNav from '../LandingNav/LandingNav.jsx';
+import TimeLine from './TimeLine.jsx';
+
+
+
+
+
+
+
 export default function LandingPage() {
     const router = useRouter();
     return (
         <div>
             <LandingNav />
+            <TimeLine />
             <MultiLayerParallax />
             <Fab variant="extended" color = 'inherit' sx={{position: 'fixed', bottom: '20px', right: '20px', backgroundColor: '#300e54', color: "white", '&:hover': {backgroundColor: '#cbabed'}}} onClick={()=> router.push("/login")}>
                 <LoginIcon  sx={{ mr: 1, color: "white" }} />
