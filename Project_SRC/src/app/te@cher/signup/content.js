@@ -18,6 +18,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+
 export default function content() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');

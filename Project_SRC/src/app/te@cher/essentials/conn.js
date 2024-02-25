@@ -8,12 +8,13 @@ async function userChecker(user){
     const userClassification = await classifyUser(user.email);
     console.log(userClassification.type)
     if (userClassification.type == "Not Verified"){
-        // alert("User not in DB")
         return "not in db"
+    } else if(userClassification.type == "Verified False"){
+        return "in db and false"
     } else{
-        // alert("User in DB")
-        return "in db"
+        return "in db and true"
     }
+
 }
 export function Signuplogin(){
     const router = useRouter()
@@ -28,7 +29,6 @@ export function Signuplogin(){
             
             // Wait for userChecker to complete and return its result
             const verificationStatus = await userChecker(user);
-            console.log("got it", verificationStatus);
             return verificationStatus;
         } catch (error) {
             const errorCode = error.code;

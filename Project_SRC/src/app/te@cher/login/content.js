@@ -13,14 +13,22 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormControl from '@mui/material/FormControl';
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-
+import { useRouter } from 'next/navigation';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 export default function content() {
     const auth = getAuth();
+    const router = useRouter()
     const provider = new GoogleAuthProvider();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const loginInstance = Signuplogin()
+    const [open, setOpen] = React.useState(false);
+    const [open1, setOpen1] = React.useState(false);
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     }
@@ -35,14 +43,23 @@ export default function content() {
         
     }
 
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     const handeGoogle =  (event) =>{
         console.log("hereee")
         event.preventDefault()
         loginInstance.googleLogin().then((verificationStatus)=>{
             console.log("login ",verificationStatus)
+            if (verificationStatus=="in db and true"){
+                router.push("/te@cher/prof")
+            } else if (verificationStatus=="in db and false"){
+                setOpen(true)
+            } else{
+                setOpen1(true)
+            }
         })
-        // const verificationStatus  = loginInstance.googleLogin();
-        // console.log("login got it",verificationStatus)
     }
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -105,7 +122,50 @@ export default function content() {
                     <button type="button" onClick={handeGoogle} class="inline-flex align-middle items-center w-3/5 justify-center px-5 py-3 text-xl text-center text-black bg-slate-200 rounded-md hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" >    
                         Sign in with google
                     </button>
-                </div>
+            </div>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                {"Account Not Approved yet!"}
+                </DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Your account is currently under review with team. Please wait for the approval.
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <a href="/te@cher" autoFocus class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100">
+                    Continue
+                </a>
+                </DialogActions>
+            </Dialog>
+            <Dialog
+                  open={open1}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"User not Found!"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      Account doesn't exist. Do you want to send this account for Admin Approval?
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                  <a href="/te@cher" autoFocus class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100">
+                      Cancel
+                    </a>
+                    <a href="/te@cher" autoFocus class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100">
+                      Send for Approval
+                    </a>
+                  </DialogActions>
+                </Dialog>
             <div class="text-sm -mt-5 mb-10">
                 Don't have an account? 
                 <a class="ml-1 text-blue" href="/te@cher/signup">Sign up</a>

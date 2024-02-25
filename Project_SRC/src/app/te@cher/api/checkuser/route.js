@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { client, connectToMongoDB } from "../../dbconnections/mongo";
+import { client, connectToMongoDB } from "../../dbconnections/mongo.js"
 
 export async function POST(request) {
   const data = await request.json();
@@ -15,11 +15,18 @@ export async function POST(request) {
 
   // Check if the user exists
   if (user) {
-    console.log("Verified")
-    return NextResponse.json({
-      type: "Verified",
-      isFirstTimeLogin: user.isFirstTimeLogin,
-    });
+    if(user.status){
+      console.log("verified and status true")
+      return NextResponse.json({
+        type: "Verified True",
+      });
+    }
+    else{
+      console.log("verified and status false")
+      return NextResponse.json({
+        type: "Verified False",
+      });
+    }
   } else {
     console.log("not Verified")
     return NextResponse.json({ type: "Not Verified" });
