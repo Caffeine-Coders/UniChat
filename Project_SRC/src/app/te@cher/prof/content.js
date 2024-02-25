@@ -27,7 +27,6 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
-import Icon from '../../../Assets/sidebaricon.png';
 
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
@@ -130,22 +129,24 @@ export default function Content() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  let name1;
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [name1, setName1] = React.useState(null);
+  const [photourl, setPhotoUrl] = React.useState(null);
+
+  React.useEffect(() => {
     if (typeof window !== 'undefined') {
-        name1 = JSON.parse(localStorage.getItem("Tname"));
+      setName1(JSON.parse(localStorage.getItem("Tname")));
+      setPhotoUrl(JSON.parse(localStorage.getItem("photoURL")));
     }
-    let photourl;
-    if (typeof window !== 'undefined') {
-        photourl = JSON.parse(localStorage.getItem("photoURL"));
-    }
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-      };
-      const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-      };
-  const settings = ['Profile', 'Logout'];
+  }, []);
+  const handleOpenUserMenu = (event) => {
+      setAnchorElUser(event.currentTarget);
+    };
+    const handleCloseUserMenu = () => {
+      setAnchorElUser(null);
+    };
+const settings = ['Profile', 'Logout'];
+  const sidebar=['New Project', 'All Projects', 'Classroom']
 
 return (
   <Box sx={{ display: 'flex' }}>
@@ -153,9 +154,6 @@ return (
   <AppBar position="fixed" open={open}>
   <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
     <Link href="/te@cher/">
-    {/* <IconButton sx={{ p: 0, mr: 1 }}>
-    <img src={ Icon } alt="Icon description" />
-  </IconButton> */}
     <Typography variant="h4" noWrap component="div" sx={{fontFamily: 'caveat'}}>
       UniChat
     </Typography>
@@ -163,10 +161,8 @@ return (
 
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-        <Avatar src={photourl} />
-        <Typography style={{ fontSize: '16px' }} mx={1} className="text-">
-          {name1}
-        </Typography>
+        {photourl && <Avatar src={photourl} />}
+        {name1 && <Typography style={{ fontSize: '16px' }} mx={1} className="text-">{name1}</Typography>}
       </IconButton>
       <Menu
         sx={{ mt: '45px' }}
@@ -201,7 +197,7 @@ return (
     </DrawerHeader>
     <Divider />
     <List>
-      {['New Project', 'All Projects', 'Classroom'].map((text, index) => (
+      {sidebar.map((text, index) => (
         <ListItem key={text} disablePadding sx={{ display: 'block' }}>
           <ListItemButton
             sx={{
