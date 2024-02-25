@@ -27,7 +27,7 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
-
+import { Signuplogin } from "../essentials/conn.js"
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -132,6 +132,7 @@ export default function Content() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const signoutinstance = Signuplogin()
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [name1, setName1] = React.useState(null);
   const [photourl, setPhotoUrl] = React.useState(null);
@@ -155,8 +156,12 @@ export default function Content() {
     const handleCloseUserMenu = () => {
       setAnchorElUser(null);
     };
-const settings = ['Profile', 'Logout'];
+  const settings = ['Profile', 'Logout'];
   const sidebar=['New Project', 'All Projects', 'Classroom']
+
+  const handleLogout = () => {
+    signoutinstance.signout();
+  }
 
 return (
   <Box sx={{ display: 'flex' }}>
@@ -191,9 +196,9 @@ return (
         onClose={handleCloseUserMenu}
       >
         {settings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center">{setting}</Typography>
-          </MenuItem>
+          <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu}>
+          <Typography textAlign="center">{setting}</Typography>
+        </MenuItem>
         ))}
       </Menu>
     </Box>
@@ -240,9 +245,9 @@ return (
   </Drawer>
   <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
     <DrawerHeader />
-   {viewProjects && <Dash/>}
-   {addProject && <Teachers/>}
-   {viewClassroom && <Students/>}
+      {viewProjects && <Dash/>}
+      {addProject && <Teachers/>}
+      {viewClassroom && <Students/>}
   </Box>
 </Box>
 )
