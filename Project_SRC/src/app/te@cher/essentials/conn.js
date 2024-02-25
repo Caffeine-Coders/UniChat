@@ -3,7 +3,16 @@ import {auth, db, provider} from '../firebase'
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider} from "firebase/auth"
 import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { useRouter } from 'next/navigation';
-
+import {classifyUser} from '../getDetails'
+async function userChecker(user){
+    const userClassification = await classifyUser(user.email);
+    console.log(userClassification.type)
+    if (userClassification.type == "Not Verified"){
+        alert("User not in DB")
+    } else{
+        alert("User in DB")
+    }
+}
 export function Signuplogin(){
     const router = useRouter()
     const provider = new GoogleAuthProvider()
@@ -12,7 +21,8 @@ export function Signuplogin(){
             const credential = GoogleAuthProvider.credentialFromResult(result)
             const token = credential.accessToken
             const user = result.user
-
+            userChecker(user)
+            
         }).catch((error)=>{
             const errorCode = error.code
             const errorMessage = error.message
