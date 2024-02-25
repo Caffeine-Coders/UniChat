@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { client, connectToMongoDB } from "../../mongo";
+import { client, connectToMongoDB } from "../../dbconnections/mongo";
 
 export async function POST(request) {
   const data = await request.json();

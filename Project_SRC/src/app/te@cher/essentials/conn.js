@@ -1,9 +1,9 @@
 "use client"
-import {auth, db, provider} from '../firebase'
+import {auth, db, provider} from '../dbconnections/firebase'
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider} from "firebase/auth"
 import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { useRouter } from 'next/navigation';
-import {classifyUser} from '../getDetails'
+import {classifyUser} from '../dbconnections/getDetails'
 async function userChecker(user){
     const userClassification = await classifyUser(user.email);
     console.log(userClassification.type)
