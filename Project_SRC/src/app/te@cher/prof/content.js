@@ -23,7 +23,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-
+import Avatar from '@mui/material/Avatar';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Link from 'next/link';
+import Icon from '../../../Assets/sidebaricon.png';
 
 const drawerWidth = 240;
 
@@ -103,31 +107,72 @@ export default function Content() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  let name1;
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
+    if (typeof window !== 'undefined') {
+        name1 = JSON.parse(localStorage.getItem("Tname"));
+    }
+    let photourl;
+    if (typeof window !== 'undefined') {
+        photourl = JSON.parse(localStorage.getItem("photoURL"));
+    }
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+      };
+      const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+      };
+  const settings = ['Profile', 'Logout'];
 
 return (
   <Box sx={{ display: 'flex' }}>
   <CssBaseline />
-  <AppBar position="fixed" open={open} onMouseEnter={handleDrawerOpen} onMouseLeave={handleDrawerClose}>
-    <Toolbar>
-      <IconButton
-        color="inherit"
-        aria-label="open drawer"
-        edge="start"
-        sx={{
-          marginRight: 5,
-          ...(open && { display: 'none' }),
-        }}
-      >
-        <MenuIcon />
+  <AppBar position="fixed" open={open}>
+  <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+    <Link href="/te@cher/">
+    {/* <IconButton sx={{ p: 0, mr: 1 }}>
+    <img src={ Icon } alt="Icon description" />
+  </IconButton> */}
+    <Typography variant="h4" noWrap component="div" sx={{fontFamily: 'caveat'}}>
+      UniChat
+    </Typography>
+    </Link>
+
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+        <Avatar src={photourl} />
+        <Typography style={{ fontSize: '16px' }} mx={1} className="text-">
+          {name1}
+        </Typography>
       </IconButton>
-      <Typography variant="h6" noWrap component="div">
-        UniChat
-      </Typography>
-    </Toolbar>
-  </AppBar>
+      <Menu
+        sx={{ mt: '45px' }}
+        id="menu-appbar"
+        anchorEl={anchorElUser}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={Boolean(anchorElUser)}
+        onClose={handleCloseUserMenu}
+      >
+        {settings.map((setting) => (
+          <MenuItem key={setting} onClick={handleCloseUserMenu}>
+            <Typography textAlign="center">{setting}</Typography>
+          </MenuItem>
+        ))}
+      </Menu>
+    </Box>
+  </Toolbar>
+</AppBar>
   <Drawer variant="permanent" open={open} onMouseEnter={handleDrawerOpen} onMouseLeave={handleDrawerClose}>
     <DrawerHeader>
-      <IconButton >
+      <IconButton onMouseEnter={handleDrawerOpen}>
         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
       </IconButton>
     </DrawerHeader>
