@@ -19,23 +19,43 @@ export function Signuplogin(){
     const router = useRouter()
     const provider = new GoogleAuthProvider()
 
-    async function googleLogin(){
-        signInWithPopup(auth,provider).then((result) =>{
-            const credential = GoogleAuthProvider.credentialFromResult(result)
-            const token = credential.accessToken
-            const user = result.user
-            userChecker(user).then((verificationStatus)=>{
-                console.log("got it",verificationStatus)
-                return verificationStatus
-            })
-            // return verificationStatus
-        }).catch((error)=>{
-            const errorCode = error.code
-            const errorMessage = error.message
-            const email = error.customData.email
-            const credential  = GoogleAuthProvider.credentialFromError(error)
-        })
+    async function googleLogin() {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            const user = result.user;
+            
+            // Wait for userChecker to complete and return its result
+            const verificationStatus = await userChecker(user);
+            console.log("got it", verificationStatus);
+            return verificationStatus;
+        } catch (error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            const email = error.customData.email;
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            // Handle errors here
+        }
     }
+    
+    // async function googleLogin(){
+    //     signInWithPopup(auth,provider).then((result) =>{
+    //         const credential = GoogleAuthProvider.credentialFromResult(result)
+    //         const token = credential.accessToken
+    //         const user = result.user
+    //         userChecker(user).then((verificationStatus)=>{
+    //             console.log("got it",verificationStatus)
+    //             return verificationStatus
+    //         })
+    //         // return verificationStatus
+    //     }).catch((error)=>{
+    //         const errorCode = error.code
+    //         const errorMessage = error.message
+    //         const email = error.customData.email
+    //         const credential  = GoogleAuthProvider.credentialFromError(error)
+    //     })
+    // }
     function signupaccount(name, email, password) {
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
