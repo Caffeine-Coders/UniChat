@@ -10,13 +10,16 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import InputAdornment from '@mui/material/InputAdornment';
 export default function content() {
   const [name, setName] = useState('');
     const [schoolname, setSchoolName] = useState('');
     const signupinstance = Signuplogin()
     const [open, setOpen] = React.useState(false);
-    const email1 = JSON.parse(localStorage.getItem("emailID"));
-    console.log("email", email1);
+    let email1;
+    if (typeof window !== 'undefined') {
+        email1 = JSON.parse(localStorage.getItem("emailID"));
+    }
     const handleClose = () => {
       setOpen(false);
     };
@@ -47,6 +50,9 @@ export default function content() {
                   label="Email ID" 
                   variant="outlined" 
                   defaultValue={email1}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start"></InputAdornment>,
+                  }}
                   disabled="true"
                   sx={{
                           width: '80%',
@@ -59,6 +65,9 @@ export default function content() {
                   label="Name" 
                   variant="outlined" 
                   required="true"
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start"></InputAdornment>,
+                  }}
                   onChange={handleNameChange}
                   sx={{
                           width: '80%',
@@ -71,6 +80,9 @@ export default function content() {
                   label="School Name" 
                   variant="outlined" 
                   required="true"
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start"></InputAdornment>,
+                  }}
                   onChange={handleSchoolNameChange}
                   sx={{
                           width: '80%',
