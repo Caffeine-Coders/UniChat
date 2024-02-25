@@ -10,5 +10,6 @@ console.log("route file",data)
 
   // Get the collection you want to work with
   const collection = db.collection("teachers");
-   await collection.insertOne(data)
+   await collection.insertOne({email: data.email, status:false})
+return new Response("User added successfully", { status: 200 });
 }
