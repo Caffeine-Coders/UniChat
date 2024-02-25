@@ -23,10 +23,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Link from 'next/link';
 
 
 const drawerWidth = 240;
-
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -84,6 +84,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     ...(open && {
       ...openedMixin(theme),
       '& .MuiDrawer-paper': openedMixin(theme),
+      
     }),
     ...(!open && {
       ...closedMixin(theme),
@@ -95,6 +96,29 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function Content() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [selectedIndex, setSelectedIndex] = React.useState(null); 
+  const [viewProjects, setviewprojects] = React.useState(true)
+  const[addProject,setaddproject] = React.useState(false)
+  const[viewClassroom, setviewclassroom] = React.useState(false)
+  const handleListItemClick = (index) => { 
+    setSelectedIndex(index);
+    console.log("clicked",index)
+    if (index === 0){
+      setaddproject(true)
+      setviewprojects(false)
+      setviewclassroom(false)
+    }
+    else if(index === 1){
+      setviewprojects(true)
+      setaddproject(false)
+      setviewclassroom(false)
+    }
+    else{
+      setviewclassroom(true)
+      setaddproject(false)
+      setviewprojects(false)
+    }
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -107,19 +131,9 @@ export default function Content() {
 return (
   <Box sx={{ display: 'flex' }}>
   <CssBaseline />
-  <AppBar position="fixed" open={open} onMouseEnter={handleDrawerOpen} onMouseLeave={handleDrawerClose}>
-    <Toolbar>
-      <IconButton
-        color="inherit"
-        aria-label="open drawer"
-        edge="start"
-        sx={{
-          marginRight: 5,
-          ...(open && { display: 'none' }),
-        }}
-      >
-        <MenuIcon />
-      </IconButton>
+  <AppBar position="fixed" open={open} >
+    <Toolbar >
+
       <Typography variant="h6" noWrap component="div">
         UniChat
       </Typography>
@@ -141,6 +155,8 @@ return (
               justifyContent: open ? 'initial' : 'center',
               px: 2.5,
             }}
+            selected={selectedIndex === index} 
+            onClick={() => handleListItemClick(index)} 
           >
             <ListItemIcon
               sx={{
@@ -148,6 +164,7 @@ return (
                 mr: open ? 3 : 'auto',
                 justifyContent: 'center',
               }}
+
             >
               {index === 0 ? <AddBoxIcon />: ''}
               {index === 1 ? <GridViewIcon/>:''}
@@ -162,12 +179,9 @@ return (
   </Drawer>
   <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
     <DrawerHeader />
-    <Typography paragraph>
-              <Dash/>
-    </Typography>
-    <Typography paragraph>
-
-    </Typography>
+   {viewProjects && <Dash/>}
+   {addProject && <Teachers/>}
+   {viewClassroom && <Students/>}
   </Box>
 </Box>
 )
