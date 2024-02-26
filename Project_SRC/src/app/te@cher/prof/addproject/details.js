@@ -3,7 +3,14 @@ import React, { useState, useEffect } from "react";
 import { Box, Button, Grid, IconButton, TextField, Typography } from '@mui/material'
 
 
-export default function Details({fornext, forback}){
+export default function Details({fornext, forback, loader}){
+    const [gradelevel, setGradelevel] = useState('');
+    const [subjectareas, setSubjectareas] = useState('');
+    const [projectgoal, setProjectgoal] = useState('');
+    const handleNext = () => {
+        fornext();
+        loader(gradelevel, subjectareas, projectgoal);
+    }
     return (
             <>
                     <div class="mt-16">
@@ -12,6 +19,7 @@ export default function Details({fornext, forback}){
                         <input placeholder="Grade Level"
                         class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 text-lg font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                         <label
+                        onChange={(e) => setGradelevel(e.target.value)}
                         class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-lg font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-lg peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:after:scale-x-100 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                         Grade Level
                         </label>
@@ -20,6 +28,7 @@ export default function Details({fornext, forback}){
                         <input placeholder="Subject Areas"
                         class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 text-lg font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                         <label
+                        onChange={(e) => setSubjectareas(e.target.value)}
                         class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-lg font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-lg peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:after:scale-x-100 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                         Subject Areas
                         </label>
@@ -28,6 +37,7 @@ export default function Details({fornext, forback}){
                         <input placeholder="Project Goal"
                         class="peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 text-lg font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100" />
                         <label
+                        onChange={(e) => setProjectgoal(e.target.value)}
                         class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-lg font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-lg peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:after:scale-x-100 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                         Project Goal
                         </label>
@@ -63,7 +73,7 @@ export default function Details({fornext, forback}){
                     <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center bg-white text-black border-2 border-black rounded-lg hover:bg-slate-300 focus:ring-4 focus:ring-blue-100" onClick={forback}>    
                          <span> Back</span>
                      </button>
-                     <button class="inline-flex float-right items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-discordpurple-100 rounded-lg hover:bg-discordpurple-200 focus:ring-4 focus:ring-blue-100" onClick={fornext}>    
+                     <button class="inline-flex float-right items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-discordpurple-100 rounded-lg hover:bg-discordpurple-200 focus:ring-4 focus:ring-blue-100" onClick={handleNext}>    
                          Continue
                          <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>

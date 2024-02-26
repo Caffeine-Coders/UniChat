@@ -2,8 +2,14 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, Grid, IconButton, TextField, Typography } from '@mui/material'
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
-export default function Confirm({forback}){
+export default function Confirm({forback, loader}){
+    const router = useRouter()
+    const handleContinue = () => {
+        loader();
+        router.push('/te@cher/prof/projectdetails');
+    }
     return (
             <>
             <div class="mt-16">
@@ -14,7 +20,7 @@ export default function Confirm({forback}){
                             Project Name
                         </button>
                         <div class="relative w-full">
-                        <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value="Project Name 1"/> 
+                        <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value="name"/> 
                         </div>
                     </div>
                     <div class="flex mt-4">
@@ -71,10 +77,10 @@ export default function Confirm({forback}){
                     <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100" onClick={forback}>    
                         <span> Back</span>
                     </button>
-                    <a class="inline-flex float-right items-center justify-center px-5 py-3 text-base font-medium text-center text-discordgreen-100 bg-white border-2 border-black rounded-lg hover:bg-slate-200 focus:ring-4 focus:ring-blue-100 group" href="/te@cher/prof/projectdetails">    
+                    <button class="inline-flex float-right items-center justify-center px-5 py-3 text-base font-medium text-center text-discordgreen-100 bg-white border-2 border-black rounded-lg hover:bg-slate-200 focus:ring-4 focus:ring-blue-100 group" onClick={handleContinue}>    
                         Create Project 
                         <svg class="w-5 h-5 ms-2 group:text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="check"><rect width="256" height="256" fill="none"></rect><polyline fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" points="216 72.005 104 184 48 128.005" ></polyline></svg>
-                    </a>
+                    </button>
                 </div>
             </>
     );

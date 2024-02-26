@@ -11,7 +11,22 @@ import Confirm from './confirm';
 const steps = ['Create a Project', 'Project Details', 'Confirmation'];
 
 export default function Newproject(){
-  const [activeStep, setActiveStep] = React.useState(0);
+     const [activeStep, setActiveStep] = React.useState(0);
+    //Page 1
+    const [projectname, setProjectname] = useState('');
+    //Page 2
+    const [gradelevel, setGradelevel] = useState('');
+    const [subjectareas, setSubjectareas] = useState('');
+    const [projectgoal, setProjectgoal] = useState('');
+
+    const handlePage1Complete = (projectname) => {
+        setProjectname(projectname);
+    }
+    const handlePage2Complete = (gradelevel, subjectareas, projectgoal) => {
+        setGradelevel(gradelevel);
+        setSubjectareas(subjectareas);
+        setProjectgoal(projectgoal);
+    }
   const handleNext = () => {
     setActiveStep(activeStep+ 1);
     }
@@ -20,8 +35,17 @@ export default function Newproject(){
     setActiveStep(activeStep - 1);
   };
 
+  const handleLast = () => {
+    const data = [{
+        "projectname": projectname,
+        "gradelevel": gradelevel,
+        "subjectareas": subjectareas,
+        "projectgoal": projectgoal
+    }]
+    console.log("data",data);
+    }
   return (
-    <div class=" backdrop-filter backdrop-blur-sm bg-opacity-80 rounded-2xl w-3/4 mx-auto">
+    <div class="p-8 backdrop-filter backdrop-blur-sm bg-opacity-80 rounded-2xl w-3/4 mx-auto">
         <Container component="main" maxWidth="xl" sx={{ mb: 4, minWidth:500}}>
                     <Stepper activeStep={activeStep}  sx={{ pt: 2, pb: 5}}>
                         {steps.map((label) => (
@@ -31,11 +55,11 @@ export default function Newproject(){
                         ))}
                     </Stepper>
 
-                    {activeStep===0? <Create fornext = {handleNext} forback = {handleBack} />
+                    {activeStep===0? <Create fornext = {handleNext} forback = {handleBack} loader = {handlePage1Complete}/>
                     :
-                    activeStep===1? <Details fornext = {handleNext} forback = {handleBack}/>
+                    activeStep===1? <Details fornext = {handleNext} forback = {handleBack} loader = {handlePage2Complete}/>
                     :
-                    activeStep===2? <Confirm fornext = {handleNext} forback = {handleBack}/>
+                    activeStep===2? <Confirm fornext = {handleNext} forback = {handleBack} loader={handleLast}/>
                     :
                       null
                     }
