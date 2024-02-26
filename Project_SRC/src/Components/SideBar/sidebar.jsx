@@ -1,10 +1,10 @@
 // Desc: SideBar component for the application.
 "use client";
-import React from "react";
+import React, { use } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import { ThemeProvider } from "@emotion/react";
-import { lighttheme, darktheme } from "../Themes/themes";
+import { lighttheme, darktheme } from "../Themes/Themes";
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Image from "next/image";
@@ -28,7 +28,9 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import ThemeContext from "../Contexts/themeContext";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
+import { fetchStudentProjects } from "../../Services/StudentProjects";
+import AuthContext from "../Contexts/authContext";
 
 //================================icons=======================
 import ConstructionOutlinedIcon from "@mui/icons-material/ConstructionOutlined";
@@ -90,10 +92,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-
-const SideBar = (props) => {
-   
-  const { window } = props;
+const SideBar = ({ projects }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const { setTheme, theme } = useContext(ThemeContext);
@@ -136,8 +135,9 @@ const SideBar = (props) => {
               mb: 2,
               mt: 2,
               letterSpacing: 5,
+              fontFamily: '"Kode Mono", monospace',
             }}
-            style={{ fontSize: "25px" }}
+            // style={{ fontSize: "25px" }}
           >
             UniChat
           </Typography>
@@ -231,89 +231,45 @@ const SideBar = (props) => {
                 borderRadius: 4,
               }}
             >
-              <Button
-                sx={{
-                  color: (theme) => theme.palette.primary.ButtonColor,
-                  "&:hover": {
-                    backgroundColor: (theme) => theme.palette.primary.hover,
-                  },
-                }}
-                startIcon={<ConstructionOutlinedIcon />}
-              >
-                <Typography style={{ fontSize: "13px" }}>Project 1</Typography>
-              </Button>
-              <Divider
-                sx={{
-                  backgroundColor: (theme) => theme.palette.primary.textcolor,
-                }}
-              />
-              <Button
-                sx={{
-                  color: (theme) => theme.palette.primary.ButtonColor,
-                  "&:hover": {
-                    backgroundColor: (theme) => theme.palette.primary.hover,
-                  },
-                }}
-                startIcon={<ConstructionOutlinedIcon />}
-              >
-                <Typography style={{ fontSize: "13px" }}>Project 2</Typography>
-              </Button>
-              <Divider
-                sx={{
-                  backgroundColor: (theme) => theme.palette.primary.textcolor,
-                  "&:hover": {
-                    backgroundColor: (theme) => theme.palette.primary.hover,
-                  },
-                }}
-              />
-              <Button
-                sx={{
-                  color: (theme) => theme.palette.primary.ButtonColor,
-                  "&:hover": {
-                    backgroundColor: (theme) => theme.palette.primary.hover,
-                  },
-                }}
-                startIcon={<ConstructionOutlinedIcon />}
-              >
-                <Typography style={{ fontSize: "13px" }}>Project 3</Typography>
-              </Button>
-              <Divider
-                sx={{
-                  backgroundColor: (theme) => theme.palette.primary.textcolor,
-                }}
-              />
-              <Button
-                sx={{
-                  color: (theme) => theme.palette.primary.ButtonColor,
-                  "&:hover": {
-                    backgroundColor: (theme) => theme.palette.primary.hover,
-                  },
-                }}
-                startIcon={<ConstructionOutlinedIcon />}
-              >
-                <Typography style={{ fontSize: "13px" }}>Project 4</Typography>
-              </Button>
-              <Divider
-                sx={{
-                  backgroundColor: (theme) => theme.palette.primary.textcolor,
-                }}
-              />
-              <Button
-                sx={{
-                  color: (theme) => theme.palette.primary.ButtonColor,
-                  "&:hover": {
-                    backgroundColor: (theme) => theme.palette.primary.hover,
-                  },
-                }}
-                startIcon={<ConstructionOutlinedIcon />}
-              >
-                <Typography style={{ fontSize: "13px" }}>Project 5</Typography>
-              </Button>
-              <Divider
-                sx={{
-                  backgroundColor: (theme) => theme.palette.primary.textcolor,
-                }}
-              />
+              {projects ? (
+                projects.map((project) => (
+                  <React.Fragment key={project.id}>
+                    <Button
+                      sx={{
+                        color: (theme) => theme.palette.primary.ButtonColor,
+                        "&:hover": {
+                          backgroundColor: (theme) =>
+                            theme.palette.primary.hover,
+                        },
+                      }}
+                      startIcon={<ConstructionOutlinedIcon />}
+                      onClick={() => {
+                        localStorage.setItem(
+                          "discordServerId",
+                          project.discordServerId
+                        );
+                      }}
+                    >
+                      <Typography style={{ fontSize: "13px" }}>
+                        {project.projectName}
+                      </Typography>
+                    </Button>
+                    <Divider
+                      sx={{
+                        backgroundColor: (theme) =>
+                          theme.palette.primary.textcolor,
+                      }}
+                    />
+                  </React.Fragment>
+                ))
+              ) : (
+                <Typography
+                  variant="body2"
+                  sx={{ color: (theme) => theme.palette.primary.textcolor }}
+                >
+                  No Projects Found!
+                </Typography>
+              )}
             </Stack>
           </AccordionDetails>
         </Accordion>
@@ -409,7 +365,7 @@ const SideBar = (props) => {
     </div>
   );
   const container =
-    window !== undefined ? () => window().document.body : undefined;
+    typeof window !== undefined ? () => window.document.body : undefined;
 
   return (
     <ThemeProvider theme={theme}>

@@ -18,6 +18,7 @@ export async function POST(request) {
     return NextResponse.json({
       type: "Registered",
       isFirstTimeLogin: user.isFirstTimeLogin,
+      studentId: user._id,
     });
   } else {
     return NextResponse.json({ type: "Unregistered" });

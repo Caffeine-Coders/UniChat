@@ -198,18 +198,21 @@ const Login = () => {
   const [invalidUser, setInvalidUser] = useState(false);
   const router = useRouter();
 
-  const { setIsAuthenticated, setUserImage } = useContext(AuthContext);
+  const { setIsAuthenticated, setUserImage, setStudentId, studentId } =
+    useContext(AuthContext);
 
   const signInWithGoogle = async () => {
     const loggedInUser = await getLoggedInUserDetails();
     if (loggedInUser) {
-      // User is logged in.
+      // User is logged in
       const userClassification = await classifyUser(loggedInUser.email);
       if (userClassification.type === "Registered") {
         // Registered User
         setIsAuthenticated(true);
         setUserImage(loggedInUser.photoURL);
+        setStudentId(userClassification.studentId);
         localStorage.setItem("userImage", loggedInUser.photoURL);
+        localStorage.setItem("studentId", userClassification.studentId);
         if (userClassification.isFirstTimeLogin) {
           const response = await updateFirstTimeLogin(loggedInUser.email);
           if (response.status === "Updated") {

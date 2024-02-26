@@ -13,9 +13,28 @@ export const AuthProvider = ({ children }) => {
     typeof window !== "undefined" ? localStorage.getItem("userImage") : null
   );
 
+  const [studentId, setStudentId] = useState(
+    typeof window !== "undefined" ? localStorage.getItem("studentId") : null
+  );
+
+  const [discordServerId, setDiscordServerId] = useState(
+    typeof window !== "undefined"
+      ? localStorage.getItem("discordServerId")
+      : null
+  );
+
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, setIsAuthenticated, userImage, setUserImage }}
+      value={{
+        isAuthenticated,
+        setIsAuthenticated,
+        userImage,
+        setUserImage,
+        studentId,
+        setStudentId,
+        discordServerId,
+        setDiscordServerId,
+      }}
     >
       {children}
     </AuthContext.Provider>
