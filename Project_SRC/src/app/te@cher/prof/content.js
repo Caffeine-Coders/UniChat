@@ -3,7 +3,14 @@ import Dash from './dashboard'
 import Newproject from './addproject/newproject';
 import Students from './students'
 import * as React from 'react';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import Fab from '@mui/material/Fab';
+import NavigationIcon from '@mui/icons-material/Navigation';
+import FloatingActionsButtons from './float'
 import GridViewIcon from '@mui/icons-material/GridView';
 import SchoolIcon from '@mui/icons-material/School';
 import { styled, useTheme } from '@mui/material/styles';
@@ -119,6 +126,7 @@ export default function Content() {
       setviewclassroom(false)
     }
     else{
+
       setviewclassroom(true)
       setaddproject(false)
       setviewprojects(false)
@@ -234,6 +242,7 @@ return (
               {index === 0 ? <AddBoxIcon />: ''}
               {index === 1 ? <GridViewIcon/>:''}
               {index === 2 ? <SchoolIcon/>:''}
+ 
             </ListItemIcon>
             <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
@@ -247,9 +256,51 @@ return (
     <div class="border-2 border-gray-300 rounded-md p-4 shadow shadow-lg " >
       {viewProjects && <Dash/>}
       {addProject && <Newproject/>}
-      {viewClassroom && <Students/>}
+      {viewClassroom && <>
+        <Accordion>
+        <AccordionSummary
+          expandIcon={<ArrowDropDownIcon />}
+          aria-controls="panel2-content"
+          id="panel2-header"
+        >
+          <Typography>680 Master's Project</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+        <Students/>
+        </AccordionDetails>
+      </Accordion> 
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ArrowDropDownIcon />}
+          aria-controls="panel2-content"
+          id="panel2-header"
+        >
+          <Typography>680 Master's Project</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+        <Students/>
+        </AccordionDetails>
+      </Accordion> 
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ArrowDropDownIcon />}
+          aria-controls="panel2-content"
+          id="panel2-header"
+        >
+          <Typography>680 Master's Project</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+        <Students/>
+        </AccordionDetails>
+      </Accordion> 
+
+      </>}
       </div>
+      {viewClassroom &&
+      <FloatingActionsButtons/>
+}
   </Box>
+
 </Box>
 )
 }
