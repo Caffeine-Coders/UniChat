@@ -28,22 +28,7 @@ export default function Dash() {
 <DelayedContent delay={2000}>
 
     <div class="flex flex-wrap">
-        <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56 bg-transparent" >
-            <a class="no-underline  text-black h-full bg-transparent" href="/te@cher/prof/newproject">
-                <article class="overflow-hidden  bg-white backdrop-filter backdrop-blur-sm bg-opacity-80 rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">
-                    <div class="px-6 py-12">
-                        <div class="font-bold text-xl mb-2 mt-6 flex justify-center items-center">
-                            <svg class="w-6 h-6 text-gray-800 dark:text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
-                            </svg>
-                        </div>
-                        <h1 class="text-xl text-center hover:underline">
-                                Add Project
-                        </h1>
-                    </div>
-                </article>
-            </a>
-        </div>
+       
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56 bg-transparent">
             <a class="no-underline  text-black  bg-transparent" href="/te@cher/prof/projectdetails">
                 <article class="overflow-hidden   bg-white backdrop-filter backdrop-blur-sm bg-opacity-80  rounded-lg shadow-lg h-full  hover:bg-gray-100 hover:shadow-xl hover:shadow-discordpurple-100">

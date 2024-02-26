@@ -5,8 +5,8 @@ import Siderbar from "./sidebar"
 export default function Projectdetails() {
     return (
         <div>
-            <Navdash/>
-            <Siderbar/>
+            {/* <Navdash/>
+            <Siderbar/> */}
             <Content/>
         </div>
     )

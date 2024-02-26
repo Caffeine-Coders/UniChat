@@ -98,7 +98,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function Content() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(null); 
+  const [selectedIndex, setSelectedIndex] = React.useState(1); 
   const [viewProjects, setviewprojects] = React.useState(true)
   const[addProject,setaddproject] = React.useState(false)
   const[viewClassroom, setviewclassroom] = React.useState(false)
@@ -136,7 +136,6 @@ export default function Content() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [name1, setName1] = React.useState(null);
   const [photourl, setPhotoUrl] = React.useState(null);
-
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
       setName1(JSON.parse(localStorage.getItem("Tname")));
