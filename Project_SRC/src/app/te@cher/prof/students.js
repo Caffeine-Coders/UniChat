@@ -6,7 +6,12 @@ export default function Students(){
     return(
         
         <div class=" backdrop-filter backdrop-blur-sm bg-opacity-80 rounded-2xl w-3/4 mx-auto">
-
+            <div class="rounded-lg mb-12 justify-center flex ">
+                <h1 class="font-headx text-5xl">
+                    680 - Student Detail's
+                    <hr class="h-px bg-discordpurple-200 border border-2"></hr>
+                </h1>
+            </div>
           
             <div class="  mt-4 rounded-lg flex justify-between space-between">
                 <h4 class="flex ">

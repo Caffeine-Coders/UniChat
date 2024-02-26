@@ -11,15 +11,16 @@ import Confirm from './confirm';
 const steps = ['Create a Project', 'Project Details', 'Confirmation'];
 
 export default function Newproject(){
-     const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = React.useState(0);
     //Page 1
     const [projectname, setProjectname] = useState('');
     //Page 2
     const [gradelevel, setGradelevel] = useState('');
     const [subjectareas, setSubjectareas] = useState('');
     const [projectgoal, setProjectgoal] = useState('');
-
+    const [projectData, setProjectData] = useState([{}]);
     const handlePage1Complete = (projectname) => {
+        
         setProjectname(projectname);
     }
     const handlePage2Complete = (gradelevel, subjectareas, projectgoal) => {
@@ -35,15 +36,19 @@ export default function Newproject(){
     setActiveStep(activeStep - 1);
   };
 
-  const handleLast = () => {
+  const handleNext2 = () => {
+    setActiveStep(activeStep+ 1);
     const data = [{
         "projectname": projectname,
         "gradelevel": gradelevel,
         "subjectareas": subjectareas,
         "projectgoal": projectgoal
     }]
-    console.log("data",data);
+    setProjectData(data);
     }
+    useEffect(() => {
+        console.log("pdata", projectData);
+    }, [projectData]);
   return (
     <div class="p-8 backdrop-filter backdrop-blur-sm bg-opacity-80 rounded-2xl w-3/4 mx-auto">
         <Container component="main" maxWidth="xl" sx={{ mb: 4, minWidth:500}}>
@@ -59,7 +64,7 @@ export default function Newproject(){
                     :
                     activeStep===1? <Details fornext = {handleNext} forback = {handleBack} loader = {handlePage2Complete}/>
                     :
-                    activeStep===2? <Confirm fornext = {handleNext} forback = {handleBack} loader={handleLast}/>
+                    activeStep===2? <Confirm forback = {handleBack} data={projectData}/>
                     :
                       null
                     }

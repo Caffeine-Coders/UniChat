@@ -4,12 +4,22 @@ import { Box, Button, Grid, IconButton, TextField, Typography } from '@mui/mater
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 
-export default function Confirm({forback, loader}){
+export default function Confirm({forback, projectData}){
     const router = useRouter()
     const handleContinue = () => {
-        loader();
         router.push('/te@cher/prof/projectdetails');
     }
+    let projectname="";
+    let gradelevel="";
+    let subjectareas="";
+    let projectgoal="";
+    if (typeof window !== 'undefined') {
+        projectname = localStorage.getItem("projectname") ? JSON.parse(localStorage.getItem("projectname")) : "";
+        gradelevel = localStorage.getItem("gradelevel") ? JSON.parse(localStorage.getItem("gradelevel")) : "";
+        subjectareas = localStorage.getItem("subjectareas") ? JSON.parse(localStorage.getItem("subjectareas")) : "";
+        projectgoal = localStorage.getItem("projectgoal") ? JSON.parse(localStorage.getItem("projectgoal")) : "";
+    }
+    console.log("projectData from confirm", projectname, gradelevel, subjectareas, projectgoal);
     return (
             <>
             <div class="mt-16">
@@ -20,7 +30,7 @@ export default function Confirm({forback, loader}){
                             Project Name
                         </button>
                         <div class="relative w-full">
-                        <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value="name"/> 
+                        <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value={projectname}/> 
                         </div>
                     </div>
                     <div class="flex mt-4">
@@ -28,7 +38,7 @@ export default function Confirm({forback, loader}){
                             Grade Level
                         </button>
                         <div class="relative w-full">
-                        <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value="Grade Level"/> 
+                        <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value={gradelevel}/> 
                         </div>
                     </div>
                     <div class="flex mt-4">
@@ -36,7 +46,7 @@ export default function Confirm({forback, loader}){
                             Subject Areas
                         </button>
                         <div class="relative w-full">
-                        <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value="Subject Areas"/> 
+                        <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value={subjectareas}/> 
                         </div>
                     </div>
                     <div class="flex mt-4">
@@ -44,7 +54,7 @@ export default function Confirm({forback, loader}){
                             Project Goal
                         </button>
                         <div class="relative w-full">
-                        <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value="Project Goal"/> 
+                        <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value={projectgoal}/> 
                         </div>
                     </div>
                     <div class="flex mt-4">
