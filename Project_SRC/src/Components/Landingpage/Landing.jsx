@@ -3,7 +3,7 @@ import React from 'react';
 import MultiLayerParallax from './MultiLayerParallax.jsx';
 import { Box, Typography } from '@mui/material';
 import { ThemeConsumer, ThemeProvider } from 'styled-components';
-import { darktheme, lighttheme } from '../Themes/themes.jsx';
+import { darktheme, lighttheme } from '../Themes/Themes.jsx';
 import layerer from '../../Assets/aboutimg2.jpeg';
 import logo from "../../Assets/aboutimg1.png";
 import logo2 from "../../Assets/collab.jpeg";
@@ -15,10 +15,21 @@ import { useEffect } from 'react';
 import Fab from '@mui/material/Fab';
 import LoginIcon from '@mui/icons-material/Login';
 import { useRouter } from 'next/navigation.js';
+import LandingNav from '../LandingNav/LandingNav.jsx';
+import TimeLine from './TimeLine.jsx';
+
+
+
+
+
+
+
 export default function LandingPage() {
     const router = useRouter();
     return (
         <div>
+            <LandingNav />
+            <TimeLine />
             <MultiLayerParallax />
             <Fab variant="extended" color = 'inherit' sx={{position: 'fixed', bottom: '20px', right: '20px', backgroundColor: '#300e54', color: "white", '&:hover': {backgroundColor: '#cbabed'}}} onClick={()=> router.push("/login")}>
                 <LoginIcon  sx={{ mr: 1, color: "white" }} />

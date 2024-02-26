@@ -1,9 +1,10 @@
 // Desc: SideBar component for the application.
 "use client";
-import React, { use } from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import { ThemeProvider } from "@emotion/react";
+import { lighttheme, darktheme } from "../Themes/Themes";
 import { lighttheme, darktheme } from "../Themes/Themes";
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
@@ -31,6 +32,7 @@ import ThemeContext from "../Contexts/themeContext";
 import { useContext, useState, useEffect } from "react";
 import { fetchStudentProjects } from "../../Services/StudentProjects";
 import AuthContext from "../Contexts/authContext";
+import useDrivePicker from 'react-google-drive-picker';
 
 //================================icons=======================
 import ConstructionOutlinedIcon from "@mui/icons-material/ConstructionOutlined";
@@ -39,6 +41,7 @@ import DvrOutlinedIcon from "@mui/icons-material/DvrOutlined";
 import AirlineStopsOutlinedIcon from "@mui/icons-material/AirlineStopsOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 
 import "./sidebar.css";
 import sidebarlogo from "../../Assets/sidebaricon.png";
@@ -97,6 +100,45 @@ const SideBar = ({ projects }) => {
   const [isClosing, setIsClosing] = useState(false);
   const { setTheme, theme } = useContext(ThemeContext);
 
+  const[openPicker, data, authresponse] = useDrivePicker();
+
+  const handleOpenPicker = () => {
+      <Box
+        sx={{
+          position: "fixed",
+          width: "100%",
+          height: "100%",
+          zIndex: 10000,
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+        }}
+      >
+        {openPicker(
+          {
+              clientId: "138137956795-v39pk9il5o18s8fvb6nusumdh0ckrugn.apps.googleusercontent.com",
+              developerKey: "AIzaSyCUEwSsinL08-FGU48bz4mt8lXMMwKvIcQ",
+              viewId: "DOCS",
+              showUploadView: true,
+              showUploadFolders: true,
+              supportDrives: true,
+              multiselect: true,
+              callbackFunction: (data) => {
+                if (data.action === 'cancel') {
+                  console.log('User clicked cancel/close button')
+                }
+                console.log(data)
+              },
+          }
+      )}
+      </Box>
+  }
+
+  useEffect(() => {
+      if(data)
+      {
+           console.log(data)
+      }
+  }, [data])
+
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
@@ -117,7 +159,7 @@ const SideBar = ({ projects }) => {
   };
 
   const Sidedraw = (
-    <div style={{ position: "relative", height: "100%" }}>
+    <div style={{  height: "100%" }}>
       <List sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
         <Box
           sx={{
@@ -304,20 +346,23 @@ const SideBar = ({ projects }) => {
               },
               borderRadius: 4,
             }}
+            onClick={handleOpenPicker}
           >
             <ListItemIcon
               sx={{ color: (theme) => theme.palette.primary.textcolor }}
             >
-              <SettingsOutlinedIcon />
+              <DriveFolderUploadIcon />
             </ListItemIcon>
             <Typography
               variant="body2"
               sx={{ color: (theme) => theme.palette.primary.textcolor }}
             >
-              Settings
+              My Google Drive
             </Typography>
           </ListItemButton>
         </ListItem>
+
+        
         {/* footer of bar */}
         <Divider
           sx={{
@@ -353,7 +398,7 @@ const SideBar = ({ projects }) => {
                   color: (theme) => theme.palette.primary.textcolor,
                 }}
               >
-                Help & Getting Started
+                Help & Getting Started 
               </Typography>
             </ListItemIcon>
           </ListItemButton>
@@ -395,7 +440,6 @@ const SideBar = ({ projects }) => {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: "none", sm: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,

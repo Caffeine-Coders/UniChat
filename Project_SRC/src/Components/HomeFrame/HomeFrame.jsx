@@ -102,6 +102,7 @@ export default function HomeComponent() {
               }}
             >
               <ThemeContext.Provider value={{ theme, setTheme }}>
+                <SideBar />
                 <AuthProvider>
                   <NavBar />
                 </AuthProvider>

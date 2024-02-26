@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import BaseLayer from '../../Assets/Layering/BaseLayerB.png';
 import BaseLayer1 from '../../Assets/Layering/BaseLayer3.png';
 import { ThemeProvider, Typography } from '@mui/material';
-import { darktheme, lighttheme } from '../Themes/themes';
+import { darktheme, lighttheme } from '../Themes/Themes';
 import { Button } from '@mui/base';
 
 
@@ -27,6 +27,7 @@ export default function MultiLayerParallax() {
               justifyContent: "center",
             alignItems: "center",
             display: "flex",
+            zIndex: 10
             }}
         >
         <motion.div

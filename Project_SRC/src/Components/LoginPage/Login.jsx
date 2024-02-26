@@ -12,8 +12,8 @@ import {
   Toolbar,
   IconButton,
 } from "@mui/material";
-import { darktheme } from "../Themes/themes";
-import { logoutUser } from "../../Services/User";
+import { darktheme } from "../Themes/Themes";
+import { LogoutUser } from "../../Services/User";
 import Image from "next/image";
 import GoogleIcon from "@mui/icons-material/Google";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -29,11 +29,12 @@ import { useContext } from "react";
 import app from "../../../config";
 import Logo from "../../Assets/logo.png";
 import {
-  classifyUser,
-  getLoggedInUserDetails,
-  updateFirstTimeLogin,
+  ClassifyUser,
+  GetLoggedInUserDetails,
+  UpdateFirstTimeLogin,
 } from "../../Services/User";
 import Link from "next/link";
+import { Logout } from "faunadb";
 
 const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
@@ -202,7 +203,7 @@ const Login = () => {
     useContext(AuthContext);
 
   const signInWithGoogle = async () => {
-    const loggedInUser = await getLoggedInUserDetails();
+    const loggedInUser = await GetLoggedInUserDetails();
     if (loggedInUser) {
       // User is logged in
       const userClassification = await classifyUser(loggedInUser.email);
@@ -214,7 +215,7 @@ const Login = () => {
         localStorage.setItem("userImage", loggedInUser.photoURL);
         localStorage.setItem("studentId", userClassification.studentId);
         if (userClassification.isFirstTimeLogin) {
-          const response = await updateFirstTimeLogin(loggedInUser.email);
+          const response = await UpdateFirstTimeLogin(loggedInUser.email);
           if (response.status === "Updated") {
             setLoginFormVisible(true);
           }
@@ -223,7 +224,7 @@ const Login = () => {
         }
       } else if (userClassification.type === "Unregistered") {
         // Unregistered/Invalid User
-        logoutUser();
+        LogoutUser();
         setInvalidUser(true);
       }
     } else {

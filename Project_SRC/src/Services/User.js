@@ -3,7 +3,7 @@ import app from "../../config";
 
 const auth = getAuth(app);
 
-export const classifyUser = async (email) => {
+export const ClassifyUser = async (email) => {
   const res = await fetch(`/api/classifyUser`, {
     method: "POST",
     headers: {
@@ -18,7 +18,7 @@ export const classifyUser = async (email) => {
   return data;
 };
 
-export const updateFirstTimeLogin = async (email) => {
+export const UpdateFirstTimeLogin = async (email) => {
   const res = await fetch(`/api/updateFirstTimeLogin`, {
     method: "PUT",
     headers: {
@@ -33,7 +33,7 @@ export const updateFirstTimeLogin = async (email) => {
   return data;
 };
 
-export const logoutUser = () => {
+export const LogoutUser = () => {
   return new Promise((resolve, reject) => {
     auth
       .signOut()
@@ -46,7 +46,7 @@ export const logoutUser = () => {
   });
 }
 
-export const getLoggedInUserDetails = () => {
+export const GetLoggedInUserDetails = () => {
   return new Promise((resolve, reject) => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
