@@ -1,6 +1,6 @@
 'use client'
 import Dash from './dashboard'
-import Teachers from './teachers'
+import Newproject from './addproject/newproject';
 import Students from './students'
 import * as React from 'react';
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -246,7 +246,7 @@ return (
   <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
     <DrawerHeader />
       {viewProjects && <Dash/>}
-      {addProject && <Teachers/>}
+      {addProject && <Newproject/>}
       {viewClassroom && <Students/>}
   </Box>
 </Box>
