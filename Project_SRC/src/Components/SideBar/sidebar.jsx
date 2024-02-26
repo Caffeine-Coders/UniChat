@@ -30,7 +30,7 @@ import Button from "@mui/material/Button";
 import ThemeContext from "../Contexts/themeContext";
 import { useContext, useState } from "react";
 import useDrivePicker from 'react-google-drive-picker';
-
+import { GetLoggedInUserDetails } from "../../Services/User";
 //================================icons=======================
 import ConstructionOutlinedIcon from "@mui/icons-material/ConstructionOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -43,6 +43,7 @@ import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import "./sidebar.css";
 import sidebarlogo from "../../Assets/sidebaricon.png";
 import { palette } from "@mui/system";
+import { Get } from "faunadb";
 
 const drawerWidth = 300;
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -95,6 +96,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 const SideBar = (props) => {
    
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -102,7 +104,11 @@ const SideBar = (props) => {
 
   const[openPicker, data, authresponse] = useDrivePicker();
 
-  const handleOpenPicker = () => {
+
+  const handleOpenPicker = async () => {
+    const user = await GetLoggedInUserDetails();
+    console.log(user)
+    {
       <Box
         sx={{
           position: "fixed",
@@ -114,13 +120,15 @@ const SideBar = (props) => {
       >
         {openPicker(
           {
-              clientId: "138137956795-v39pk9il5o18s8fvb6nusumdh0ckrugn.apps.googleusercontent.com",
+              clientId: "390698529758-97a4j6gnlmlv6mrmjlerb6l4qejt8r7s.apps.googleusercontent.com",
               developerKey: "AIzaSyCUEwSsinL08-FGU48bz4mt8lXMMwKvIcQ",
               viewId: "DOCS",
+              token: user.access_token,
               showUploadView: true,
               showUploadFolders: true,
               supportDrives: true,
               multiselect: true,
+              customScopes:['https://www.googleapis.com/auth/drive.readonly'],
               callbackFunction: (data) => {
                 if (data.action === 'cancel') {
                   console.log('User clicked cancel/close button')
@@ -130,6 +138,7 @@ const SideBar = (props) => {
           }
       )}
       </Box>
+    }
   }
 
   useEffect(() => {

@@ -35,6 +35,8 @@ import {
 } from "../../Services/User";
 import Link from "next/link";
 import { Logout } from "faunadb";
+import LandingNav from "../LandingNav/LandingNav";
+
 
 const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
@@ -260,37 +262,7 @@ const Login = () => {
         flexDirection: "column",
       }}
     >
-      <AppBar
-        position="absolute"
-        sx={{
-          backgroundColor: "rgba(255, 255, 255, 0)",
-          boxShadow: "0 10px 100px 0 rgba(31, 38, 135, 0.7)",
-          backdropFilter: "blur(4px)",
-          WebkitBackdropFilter: "blur(4px)",
-          WebkitBackdropFilter: "blur(16.3px)",
-          height: 50,
-          justifyContent: "center",
-          alignItems: "center",
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <Toolbar>
-          <Link href="/">
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{
-                flexGrow: 1,
-                color: "",
-                fontFamily: '"Kode Mono", monospace',
-              }}
-            >
-              UniChat
-            </Typography>
-          </Link>
-        </Toolbar>
-      </AppBar>
+      <LandingNav />
       <Box
         sx={{
           display: "flex",

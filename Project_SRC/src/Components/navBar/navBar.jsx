@@ -1,5 +1,4 @@
 "use client";
-import * as React from "react";
 import Image from "next/image";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";

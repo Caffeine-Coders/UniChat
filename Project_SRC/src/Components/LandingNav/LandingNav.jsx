@@ -56,7 +56,7 @@ const LandingNav = () => {
                 border: "1px solid transparent",
                 boxShadow: "none",
                 }}>
-                   Instructor Portal
+                       Login 
             </Typography>
             <Typography variant='body2' sx={{
                 fontFamily:darktheme.typography.fontFamily[1],
@@ -75,7 +75,7 @@ const LandingNav = () => {
                 border: "1px solid transparent",
                 boxShadow: "none",
                 }}>
-                    Lets Chat
+                 Instructor Portal
             </Typography>
             <Typography variant='body2' sx={{
                 fontFamily:darktheme.typography.fontFamily[1],
@@ -94,7 +94,7 @@ const LandingNav = () => {
                 border: "1px solid transparent",
                 boxShadow: "none",
                 }}>
-                    Contact Us
+                    Register your school
             </Typography>
          </Box>
         </ThemeProvider>
