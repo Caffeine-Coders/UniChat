@@ -21,7 +21,7 @@ export default function Newproject(){
   };
 
   return (
-    <div class="bg-white shadow-xl  p-8 backdrop-filter backdrop-blur-sm bg-opacity-80 rounded-2xl w-3/4 mx-auto">
+    <div class=" backdrop-filter backdrop-blur-sm bg-opacity-80 rounded-2xl w-3/4 mx-auto">
         <Container component="main" maxWidth="xl" sx={{ mb: 4, minWidth:500}}>
                     <Stepper activeStep={activeStep}  sx={{ pt: 2, pb: 5}}>
                         {steps.map((label) => (

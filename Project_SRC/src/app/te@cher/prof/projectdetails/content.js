@@ -3,7 +3,8 @@ import Trial2 from './loading'
 import * as React from 'react';
 import AddToDriveIcon from '@mui/icons-material/AddToDrive';
 import ArticleIcon from '@mui/icons-material/Article';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -175,7 +176,7 @@ export default function Content(){
       };
     const settings = ['Profile', 'Logout'];
     const sidebar=['Project Details','Discord', 'Chat GPT', 'Google Drive']
-    const lowerhalf = ['Copy Link']
+    const lowerhalf = ['Invite Students', 'Invite Co-Instructors']
     const handleLogout = () => {
       signoutinstance.signout();
     }
@@ -287,7 +288,8 @@ export default function Content(){
                     }}
       
                   >
-                    {index === 0 ? <ContentCopyIcon/>:''}
+                    {index === 0 ? <GroupAddIcon/>:''}
+                    {index === 1 ? <PersonAddAltIcon/>:''}
                  
                   </ListItemIcon>
                   <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />

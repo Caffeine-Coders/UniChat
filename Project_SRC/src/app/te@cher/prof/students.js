@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 export default function Students(){
     return(
         
-        <div class="bg-white shadow-xl  p-8 backdrop-filter backdrop-blur-sm bg-opacity-80 rounded-2xl w-3/4 mx-auto">
+        <div class=" backdrop-filter backdrop-blur-sm bg-opacity-80 rounded-2xl w-3/4 mx-auto">
 
           
             <div class="  mt-4 rounded-lg flex justify-between space-between">
