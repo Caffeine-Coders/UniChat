@@ -7,7 +7,7 @@ import React from "react";
 import SideBar from "../SideBar/Sidebar.jsx";
 import Loader from "../Loading/Loader.jsx";
 import ThemeContext from "../Contexts/themeContext.jsx";
-import { darktheme } from "../Themes/themes.jsx";
+import { darktheme } from "../Themes/Themes.jsx";
 import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import AuthContext, { AuthProvider } from "../Contexts/authContext.jsx";
@@ -45,19 +45,16 @@ export default function HomeComponent() {
               overflow: "auto", // Add overflow: auto to enable scrolling if needed
             }}
           >
-            <ThemeContext.Provider value={{ theme, setTheme }}>
-              <SideBar />
-            </ThemeContext.Provider>
             <Box
               sx={{
                 position: "fixed",
                 maxWidth: { xl: "80%", lg: "75%" },
-                zIndex: 9999,
                 //marginLeft: 43,
                 //marginTop: 2,
               }}
             >
               <ThemeContext.Provider value={{ theme, setTheme }}>
+                <SideBar />
                 <AuthProvider>
                   <NavBar />
                 </AuthProvider>
@@ -74,6 +71,7 @@ export default function HomeComponent() {
                 backgroundColor: "#2F3035",
                 borderRadius: 3,
                 padding: 0.5,
+ 
               }}
             >
               <Discord />

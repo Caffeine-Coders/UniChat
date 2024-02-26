@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import {Box, ThemeProvider, Typography} from '@mui/material';
-import { darktheme } from '../Themes/themes';
+import { darktheme } from '../Themes/Themes';
 
 const LandingNav = () => {
     return (

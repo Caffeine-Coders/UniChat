@@ -7,7 +7,7 @@ import SendIcon from "@mui/icons-material/Send";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
 import Logout from "@mui/icons-material/Logout";
-import { logoutUser } from "../../Services/User";
+import { LogoutUser } from "../../Services/User";
 import Settings from "@mui/icons-material/Settings";
 import {
   IconButton,
@@ -134,7 +134,7 @@ export default function NavBar() {
 
   const logout = () => {
     console.log("Logout clicked!");
-    logoutUser()
+    LogoutUser()
       .then(() => {
         window.location.reload();
       })
