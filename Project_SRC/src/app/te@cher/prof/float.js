@@ -12,6 +12,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material';
+import Papa from 'papaparse'
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
     clipPath: 'inset(50%)',
@@ -28,6 +29,7 @@ export default function FloatingActionButtons() {
     const [hovering, setHovering] = React.useState(false);
     const [open, setOpen] = React.useState(false);
     const [filename,setfilename] = React.useState(null)
+
     const handleHover = () => {
         setHovering(true);
     };
@@ -36,21 +38,29 @@ export default function FloatingActionButtons() {
         setHovering(false);
     };
 
-    const handleAddClass = () =>{
-        setaddClass(true)
-    };
     const handleClickOpen = () => {
         setOpen(true);
       };
     
       const handleClose = () => {
         setOpen(false);
+        setfilename(null)
       };
-
+      const csvParser = (file) =>{
+        console.log(file)
+        Papa.parse(file,{
+            complete:function(results){
+                console.log(results.data)
+            },
+            header:true
+        })
+       
+      }
       const handleFileName = (event) =>{
         const file = event.target.files[0];
         if (file) {
             setfilename(file.name);
+            csvParser(file)
         }
       }
     
