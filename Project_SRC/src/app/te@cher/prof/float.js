@@ -29,7 +29,8 @@ export default function FloatingActionButtons() {
     const [hovering, setHovering] = React.useState(false);
     const [open, setOpen] = React.useState(false);
     const [filename,setfilename] = React.useState(null)
-
+    const [parsedData, setParsedData] = React.useState(null);
+    const [className, setClassName] = React.useState('');
     const handleHover = () => {
         setHovering(true);
     };
@@ -51,8 +52,11 @@ export default function FloatingActionButtons() {
         Papa.parse(file,{
             complete:function(results){
                 console.log(results.data)
+                setParsedData(results.data);
             },
-            header:true
+            header:true, 
+            skipEmptyLines:true,
+            
         })
        
       }
@@ -63,7 +67,37 @@ export default function FloatingActionButtons() {
             csvParser(file)
         }
       }
+      const getEmailAndName = () => {
+        if (parsedData) {
+            const emailAndName = parsedData.map(row => {
+                if (row['Email Address']) {
+                    return {
+                        email: row['Email Address'],
+                        name: row['First Name'] + ' ' + row['Last Name'],
+                    };
+                }
+                return null;
+            }).filter(entry => entry !== null);
+            return emailAndName;
+        }
+        return [];
+    };
     
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const emailAndName = getEmailAndName();
+        if (!className.trim()) {
+          alert("Please enter a class name.");
+          return;
+        } else if (emailAndName.length === 0) {
+          alert("Please upload a valid CSV file.");
+          return;
+        } else {
+          console.log("class name",className);
+          console.log("email name",emailAndName);
+          handleClose();
+        }
+    };
     return (
         <>
         <Box sx={{ position: 'fixed', bottom: '20px', right: '20px' }}>
@@ -86,18 +120,6 @@ export default function FloatingActionButtons() {
            <Dialog
            open={open}
            onClose={handleClose}
-           PaperProps={{
-             component: 'form',
-             onSubmit: (event) => {
-               event.preventDefault();
-               const formData = new FormData(event.currentTarget);
-               const formJson = Object.fromEntries(formData.entries());
-               const email = formJson.email;
-               console.log(email);
-               handleClose();
-               
-             },
-           }}
          >
            <DialogTitle>Create New Classroom</DialogTitle>
            <DialogContent>
@@ -114,6 +136,7 @@ export default function FloatingActionButtons() {
                type="text"
                fullWidth
                variant="standard"
+               onChange={(e) => setClassName(e.target.value)}
              />
              <div class=" mt-4">
                <Button
@@ -125,7 +148,7 @@ export default function FloatingActionButtons() {
       sx={{justifyContent:'justify', alignItems:'center'}}
     >
       Upload file
-      <VisuallyHiddenInput type="file" onChange={handleFileName} />
+      <VisuallyHiddenInput type="file" onChange={handleFileName} required />
     
     </Button>
     <span class="ml-4 ">
@@ -135,7 +158,7 @@ export default function FloatingActionButtons() {
            </DialogContent>
            <DialogActions>
              <Button onClick={handleClose}>Cancel</Button>
-             <Button type="submit">Create Class</Button>
+             <Button type='submit' onClick={(event) => handleSubmit(event)}>Create Class</Button>
            </DialogActions>
          </Dialog>
          </>
