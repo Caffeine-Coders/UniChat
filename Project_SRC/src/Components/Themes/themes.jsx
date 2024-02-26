@@ -27,8 +27,10 @@ const lighttheme = createTheme({
       rare: "#272A2F",
       hover: "#EFEFEF",
       textcolor: "#84888A",
-      ButtonColor: "#05386B",
-      ButtonHover: "#5CDB985",
+      ButtonColor: "#9182b6",
+      ButtonHover: "#300e54",
+      whites: "#FCFCFC",
+      shadowGlow: "5px 5px 5px 5px rgba(31, 38, 135, 0.7)",
     },
   },
   typography: {
@@ -43,14 +45,19 @@ const darktheme = createTheme({
       main: "#1A1D1F",
       rare: "#272A2F",
       hover: "#272B30",
-      textcolor: "#6E767E",
-      ButtonColor: "#5CDB95",
-      ButtonHover: "#05386B",
-      whites: '#FCFCFC',
+      textcolor: "#ffffff",
+      ButtonColor: "#9182b6",
+      ButtonHover: "#B8AED2",
+      whites: "#FCFCFC",
+      shadowGlow: "3px 3px 3px 3px rgba(203, 176, 202, 0.7)",
     },
   },
   typography: {
-    fontFamily: [roboto.style.fontFamily, montserrat.style.fontFamily, ralewaydots.style.fontFamily],
+    fontFamily: [
+      roboto.style.fontFamily,
+      montserrat.style.fontFamily,
+      ralewaydots.style.fontFamily,
+    ],
   },
 });
 

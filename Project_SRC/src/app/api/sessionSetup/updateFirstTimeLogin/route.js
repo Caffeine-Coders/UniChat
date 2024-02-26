@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { client } from "../../../Services/MongoDB_Routines";
+import { client } from "../../../../Services/MongoDB_Routines";
 
-export async function POST(request) {
+export async function PUT(request) {
   const data = await request.json();
 
   // Connect to the MongoDB database
@@ -15,12 +15,16 @@ export async function POST(request) {
 
   // Check if the user exists
   if (user) {
+    // Update the user data
+    await collection.updateOne(
+      { email: data.email },
+      { $set: { isFirstTimeLogin: false } }
+    );
+
     return NextResponse.json({
-      type: "Registered",
-      isFirstTimeLogin: user.isFirstTimeLogin,
-      studentId: user._id,
+      status: "Updated",
     });
   } else {
-    return NextResponse.json({ type: "Unregistered" });
+    return NextResponse.json({ type: "User not found" });
   }
 }

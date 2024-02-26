@@ -1,38 +1,27 @@
 // Desc: SideBar component for the application.
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import { ThemeProvider } from "@emotion/react";
 import { lighttheme, darktheme } from "../Themes/Themes";
-import { lighttheme, darktheme } from "../Themes/Themes";
 import { Typography } from "@mui/material";
-import Grid from "@mui/material/Grid";
-import Image from "next/image";
-import AppBar from "@mui/material/AppBar";
-import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import Toolbar from "@mui/material/Toolbar";
 import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import ThemeContext from "../Contexts/themeContext";
 import { useContext, useState, useEffect } from "react";
-import { fetchStudentProjects } from "../../Services/StudentProjects";
-import AuthContext from "../Contexts/authContext";
-import useDrivePicker from 'react-google-drive-picker';
+import useDrivePicker from "react-google-drive-picker";
 
 //================================icons=======================
 import ConstructionOutlinedIcon from "@mui/icons-material/ConstructionOutlined";
@@ -40,12 +29,9 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import DvrOutlinedIcon from "@mui/icons-material/DvrOutlined";
 import AirlineStopsOutlinedIcon from "@mui/icons-material/AirlineStopsOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
+import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 
 import "./sidebar.css";
-import sidebarlogo from "../../Assets/sidebaricon.png";
-import { palette } from "@mui/system";
 
 const drawerWidth = 300;
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -99,45 +85,49 @@ const SideBar = ({ projects }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const { setTheme, theme } = useContext(ThemeContext);
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
-  const[openPicker, data, authresponse] = useDrivePicker();
+  const handleHomeClick = () => {
+    localStorage.setItem("discordServerId", "noProjectSelected");
+    setIsAccordionOpen(false); // Close the accordion
+  };
+
+  const [openPicker, data, authresponse] = useDrivePicker();
 
   const handleOpenPicker = () => {
-      <Box
-        sx={{
-          position: "fixed",
-          width: "100%",
-          height: "100%",
-          zIndex: 10000,
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-        }}
-      >
-        {openPicker(
-          {
-              clientId: "138137956795-v39pk9il5o18s8fvb6nusumdh0ckrugn.apps.googleusercontent.com",
-              developerKey: "AIzaSyCUEwSsinL08-FGU48bz4mt8lXMMwKvIcQ",
-              viewId: "DOCS",
-              showUploadView: true,
-              showUploadFolders: true,
-              supportDrives: true,
-              multiselect: true,
-              callbackFunction: (data) => {
-                if (data.action === 'cancel') {
-                  console.log('User clicked cancel/close button')
-                }
-                console.log(data)
-              },
+    <Box
+      sx={{
+        position: "fixed",
+        width: "100%",
+        height: "100%",
+        zIndex: 10000,
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+      }}
+    >
+      {openPicker({
+        clientId:
+          "138137956795-v39pk9il5o18s8fvb6nusumdh0ckrugn.apps.googleusercontent.com",
+        developerKey: "AIzaSyCUEwSsinL08-FGU48bz4mt8lXMMwKvIcQ",
+        viewId: "DOCS",
+        showUploadView: true,
+        showUploadFolders: true,
+        supportDrives: true,
+        multiselect: true,
+        callbackFunction: (data) => {
+          if (data.action === "cancel") {
+            console.log("User clicked cancel/close button");
           }
-      )}
-      </Box>
-  }
+          console.log(data);
+        },
+      })}
+    </Box>;
+  };
 
   useEffect(() => {
-      if(data)
-      {
-           console.log(data)
-      }
-  }, [data])
+    if (data) {
+      console.log(data);
+    }
+  }, [data]);
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -159,7 +149,7 @@ const SideBar = ({ projects }) => {
   };
 
   const Sidedraw = (
-    <div style={{  height: "100%" }}>
+    <div style={{ height: "100%" }}>
       <List sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
         <Box
           sx={{
@@ -170,16 +160,14 @@ const SideBar = ({ projects }) => {
         >
           <Typography
             sx={{
-              fontFamily: (theme) => theme.typography.fontFamily[1],
+              fontFamily: '"Kode Mono", monospace',
               fontWeight: 50,
               justifyContent: "center",
               alignItems: "center",
               mb: 2,
               mt: 2,
               letterSpacing: 5,
-              fontFamily: '"Kode Mono", monospace',
             }}
-            // style={{ fontSize: "25px" }}
           >
             UniChat
           </Typography>
@@ -195,22 +183,27 @@ const SideBar = ({ projects }) => {
               },
               borderRadius: 4,
             }}
+            onClick={handleHomeClick}
           >
-            <ListItemIcon
-              sx={{ color: (theme) => theme.palette.primary.textcolor }}
-            >
-              <HomeOutlinedIcon />
+            <ListItemIcon>
+              <HomeOutlinedIcon
+                sx={{ color: theme.palette.primary.ButtonColor }}
+              />
             </ListItemIcon>
 
             <Typography
-              variant="body2"
-              sx={{ color: (theme) => theme.palette.primary.textcolor }}
+              sx={{
+                color: (theme) => theme.palette.primary.textcolor,
+                fontFamily: theme.typography.fontFamily[0],
+              }}
             >
               Home
             </Typography>
           </ListItemButton>
         </ListItem>
         <Accordion
+          expanded={isAccordionOpen} // Use the state here
+          onChange={() => setIsAccordionOpen(!isAccordionOpen)} // Update the state when the accordion is clicked
           sx={{
             width: "100%",
             backgroundColor: "transparent",
@@ -236,7 +229,11 @@ const SideBar = ({ projects }) => {
           elevation={0}
         >
           <AccordionSummary
-            expandIcon={<ArrowDownwardIcon />}
+            expandIcon={
+              <ArrowDownwardIcon
+                sx={{ color: theme.palette.primary.ButtonColor }}
+              />
+            }
             aria-controls="panel1-content"
             id="panel1-header"
             sx={{
@@ -252,12 +249,16 @@ const SideBar = ({ projects }) => {
             <ListItemIcon
               sx={{ color: (theme) => theme.palette.primary.textcolor }}
             >
-              <DvrOutlinedIcon />
+              <DvrOutlinedIcon
+                sx={{ color: theme.palette.primary.ButtonColor }}
+              />
             </ListItemIcon>
 
             <Typography
-              variant="body2"
-              sx={{ color: (theme) => theme.palette.primary.textcolor }}
+              sx={{
+                color: (theme) => theme.palette.primary.textcolor,
+                fontFamily: theme.typography.fontFamily[0],
+              }}
             >
               All Projects
             </Typography>
@@ -269,7 +270,6 @@ const SideBar = ({ projects }) => {
               spacing={1}
               sx={{
                 width: "100%",
-                color: (theme) => theme.palette.primary.textcolor,
                 borderRadius: 4,
               }}
             >
@@ -278,13 +278,19 @@ const SideBar = ({ projects }) => {
                   <React.Fragment key={project.id}>
                     <Button
                       sx={{
-                        color: (theme) => theme.palette.primary.ButtonColor,
+                        alignContent: "left",
+                        justifyContent: "left",
+                        color: (theme) => theme.palette.primary.textcolor,
                         "&:hover": {
                           backgroundColor: (theme) =>
                             theme.palette.primary.hover,
                         },
                       }}
-                      startIcon={<ConstructionOutlinedIcon />}
+                      startIcon={
+                        <ConstructionOutlinedIcon
+                          sx={{ color: theme.palette.primary.ButtonColor }}
+                        />
+                      }
                       onClick={() => {
                         localStorage.setItem(
                           "discordServerId",
@@ -292,14 +298,20 @@ const SideBar = ({ projects }) => {
                         );
                       }}
                     >
-                      <Typography style={{ fontSize: "13px" }}>
+                      <Typography
+                        style={{
+                          fontSize: "12px",
+                          textAlign: "left",
+                          fontFamily: theme.typography.fontFamily[0],
+                        }}
+                      >
                         {project.projectName}
                       </Typography>
                     </Button>
                     <Divider
                       sx={{
                         backgroundColor: (theme) =>
-                          theme.palette.primary.textcolor,
+                          theme.palette.primary.ButtonColor,
                       }}
                     />
                   </React.Fragment>
@@ -328,11 +340,15 @@ const SideBar = ({ projects }) => {
             <ListItemIcon
               sx={{ color: (theme) => theme.palette.primary.textcolor }}
             >
-              <AirlineStopsOutlinedIcon />
+              <AirlineStopsOutlinedIcon
+                sx={{ color: theme.palette.primary.ButtonColor }}
+              />
             </ListItemIcon>
             <Typography
-              variant="body2"
-              sx={{ color: (theme) => theme.palette.primary.textcolor }}
+              sx={{
+                color: (theme) => theme.palette.primary.textcolor,
+                fontFamily: theme.typography.fontFamily[0],
+              }}
             >
               Port to KF
             </Typography>
@@ -351,18 +367,21 @@ const SideBar = ({ projects }) => {
             <ListItemIcon
               sx={{ color: (theme) => theme.palette.primary.textcolor }}
             >
-              <DriveFolderUploadIcon />
+              <DriveFolderUploadIcon
+                sx={{ color: theme.palette.primary.ButtonColor }}
+              />
             </ListItemIcon>
             <Typography
-              variant="body2"
-              sx={{ color: (theme) => theme.palette.primary.textcolor }}
+              sx={{
+                color: (theme) => theme.palette.primary.textcolor,
+                fontFamily: theme.typography.fontFamily[0],
+              }}
             >
               My Google Drive
             </Typography>
           </ListItemButton>
         </ListItem>
 
-        
         {/* footer of bar */}
         <Divider
           sx={{
@@ -391,14 +410,17 @@ const SideBar = ({ projects }) => {
                 bottom: 80,
               }}
             >
-              <HelpOutlineOutlinedIcon fontSize="small" />
+              <HelpOutlineOutlinedIcon
+                sx={{ color: theme.palette.primary.ButtonColor }}
+              />
               <Typography
-                variant="body2"
                 sx={{
                   color: (theme) => theme.palette.primary.textcolor,
+                  fontFamily: theme.typography.fontFamily[0],
+                  fontSize: 14,
                 }}
               >
-                Help & Getting Started 
+                Help & Getting Started
               </Typography>
             </ListItemIcon>
           </ListItemButton>

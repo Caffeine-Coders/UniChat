@@ -4,7 +4,7 @@ import app from "../../config";
 const auth = getAuth(app);
 
 export const ClassifyUser = async (email) => {
-  const res = await fetch(`/api/classifyUser`, {
+  const res = await fetch(`/api/sessionSetup/classifyUser`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export const ClassifyUser = async (email) => {
 };
 
 export const UpdateFirstTimeLogin = async (email) => {
-  const res = await fetch(`/api/updateFirstTimeLogin`, {
+  const res = await fetch(`/api/sessionSetup/updateFirstTimeLogin`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

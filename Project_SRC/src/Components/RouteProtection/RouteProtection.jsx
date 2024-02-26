@@ -13,7 +13,7 @@ function RouteProtection({ children }) {
   useEffect(() => {
     const fetchUser = async () => {
       const userDetails = await GetLoggedInUserDetails();
-      if (!userDetails) {s
+      if (!userDetails) {
         router.push("/login");
       } else {
         const classifiedUser = await ClassifyUser(userDetails.email);

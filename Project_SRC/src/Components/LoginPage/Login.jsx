@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useState, useEffect } from "react";
+import React, { useState } from "react";
 import loginImage1 from "../../Assets/loginImage1.png";
 import {
   Button,
@@ -10,11 +10,9 @@ import {
   Alert,
   AppBar,
   Toolbar,
-  IconButton,
 } from "@mui/material";
 import { darktheme } from "../Themes/Themes";
 import { LogoutUser } from "../../Services/User";
-import Image from "next/image";
 import GoogleIcon from "@mui/icons-material/Google";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ArrowForward } from "@mui/icons-material";
@@ -27,14 +25,12 @@ import { useRouter } from "next/navigation";
 import AuthContext from "../Contexts/authContext";
 import { useContext } from "react";
 import app from "../../../config";
-import Logo from "../../Assets/logo.png";
 import {
   ClassifyUser,
   GetLoggedInUserDetails,
   UpdateFirstTimeLogin,
 } from "../../Services/User";
 import Link from "next/link";
-import { Logout } from "faunadb";
 
 const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
@@ -206,7 +202,7 @@ const Login = () => {
     const loggedInUser = await GetLoggedInUserDetails();
     if (loggedInUser) {
       // User is logged in
-      const userClassification = await classifyUser(loggedInUser.email);
+      const userClassification = await ClassifyUser(loggedInUser.email);
       if (userClassification.type === "Registered") {
         // Registered User
         setIsAuthenticated(true);
@@ -239,7 +235,6 @@ const Login = () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     setUser(user);
-    console.log(" User signed in");
     signInWithGoogle();
   };
 

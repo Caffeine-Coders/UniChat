@@ -26,7 +26,6 @@ import {
   InputAdornment,
   Menu,
   MenuItem,
-  Tooltip,
   Divider,
   ListItemIcon,
 } from "@mui/material";
@@ -40,11 +39,11 @@ const StyledButton = styled(Button)(({ theme }) => ({
   width: "135px",
   height: "30px",
   borderRadius: 5,
-  color: theme.palette.primary.textcolor,
-  backgroundColor: theme.palette.primary.hover,
+  backgroundColor: theme.palette.primary.ButtonColor,
+  color: theme.palette.primary.whites,
   "&:hover": {
-    backgroundColor: theme.palette.primary.ButtonColor,
-    color: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.ButtonHover,
+    color: theme.palette.primary.whites,
   },
   fontFamily: theme.typography.fontFamily[0],
 }));
@@ -221,7 +220,7 @@ export default function NavBar() {
         sx={{
           borderRadius: 3,
           position: "fixed",
-          width: 1080,
+          width: { xl: "80%", lg: "75%", md: "68%", sm: "100%" },
           left: 344,
           top: 16,
         }}
@@ -258,7 +257,7 @@ export default function NavBar() {
               alignItems="center"
             >
               <StyledButton>
-                <Typography variant="body2">+ Project</Typography>
+                <Typography variant="">+ Project</Typography>
               </StyledButton>
               <StyledIconButton color="inherit" onClick={toggleChatGPT}>
                 <Image
