@@ -36,7 +36,7 @@ export default function content() {
 
     const handleSubmit = async(event) => {
         event.preventDefault();
-        await signupinstance.signupaccount(name,email1,schoolname)
+        await signupinstance.signupaccount(name1,email1,schoolname)
         setOpen(true);
     }
    
