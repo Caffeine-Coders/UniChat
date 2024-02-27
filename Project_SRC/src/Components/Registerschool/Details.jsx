@@ -82,7 +82,7 @@ export default function Details()
                     id="fullWidth" 
                     label="School Name"
                     variant="outlined"
-                    sx={{ width: '100%', mb: 2}} // Increase the width to 100%
+                    sx={{ width: '100%', mb: 2, ".MuiFormLabel-root":{color: (theme) => theme.palette.primary.textcolor}}} // Increase the width to 100%
                     defaultValue={schoolname}
                     onChange={(e) => setschoolname(e.target.value)}
                 />
@@ -91,14 +91,14 @@ export default function Details()
                     id="school-address1"
                     label="School Address Line 1"
                     variant="outlined"
-                    sx={{ width: '100%',mb: 2 }} // Increase the width to 100%
+                    sx={{ width: '100%',mb: 2 ,".MuiFormLabel-root":{color: (theme) => theme.palette.primary.textcolor}}} // Increase the width to 100%
                     onChange={(e) => setschooladdress1(e.target.value)}
                     defaultValue={schooladdress1}
                 />
                 <TextField
                     label="School Address Line 2"
                     variant="outlined"
-                    sx={{ width: '100%',mb: 2}} // Increase the width to 100%
+                    sx={{ width: '100%',mb: 2, ".MuiFormLabel-root":{color: (theme) => theme.palette.primary.textcolor}}} // Increase the width to 100%
                     onChange={(e) => setschooladdress2(e.target.value)}
                     defaultValue={schooladdress2}
                 />
@@ -117,7 +117,7 @@ export default function Details()
                     id="outlined-required"
                     label="City"
                     variant="outlined"
-                    sx={{ width: '50%', mr: 2 }} // Increase the width to 100%
+                    sx={{ width: '50%', mr: 2 , ".MuiFormLabel-root":{color: (theme) => theme.palette.primary.textcolor}}} // Increase the width to 100%
                     onChange={(e) => setcity(e.target.value)}
                     defaultValue={city}
                 />
@@ -126,7 +126,7 @@ export default function Details()
                     id="outlined-required"
                     label="State"
                     variant="outlined"
-                    sx={{ width: '50%', }} // Increase the width to 100%
+                    sx={{ width: '50%',  ".MuiFormLabel-root":{color: (theme) => theme.palette.primary.textcolor}}} // Increase the width to 100%
                     onChange={(e) => setstate(e.target.value)}
                     defaultValue={state}
                 />
@@ -146,7 +146,7 @@ export default function Details()
                         id="outlined-required"
                         label="Country"
                         variant="outlined"
-                        sx={{ width: '50%', mr: 2 , mb: 2}} // Increase the width to 100%
+                        sx={{ width: '50%', mr: 2 , mb: 2, ".MuiFormLabel-root":{color: (theme) => theme.palette.primary.textcolor}}} // Increase the width to 100%
                         onChange={(e) => setcountry(e.target.value)}
                         defaultValue={country}
                     />
@@ -155,7 +155,7 @@ export default function Details()
                         id="outlined-required"
                         label="Zip Code"
                         variant="outlined"
-                        sx={{ width: '50%', mb:2}} // Increase the width to 100%
+                        sx={{ width: '50%', mb:2 , ".MuiFormLabel-root":{color: (theme) => theme.palette.primary.textcolor}}} // Increase the width to 100%
                         onChange={(e) => setzipcode(e.target.value)}
                         defaultValue={zipcode}
                     />
@@ -171,7 +171,11 @@ export default function Details()
                 >
                         Next
                 </Button>
-                <Button variant="outlined" sx={{mr: 2, color: (theme)=> theme.palette.primary.whites, borderColor: (theme) => theme.palette.primary.ButtonColor, "&:hover": {borderColor: (theme) => theme.palette.primary.ButtonHover}}}>
+                <Button variant="outlined" 
+                    sx={{mr: 2, color: (theme)=> theme.palette.primary.whites, 
+                    borderColor: (theme) => theme.palette.primary.ButtonColor, "&:hover": {borderColor: (theme) => theme.palette.primary.ButtonHover}}}
+                    onClick={() => {router.push('/');}}
+                >
                         Go Back
                 </Button>
                 {error ? <Alert variant="outlined" severity="error" sx={{mt: 2}}>
@@ -205,7 +209,7 @@ export default function Details()
                         id="fullWidth" 
                         label="Admin's First Name"
                         variant="outlined"
-                        sx={{ width: '50%', mr: 2}} // Increase the width to 100%
+                        sx={{ width: '50%', mr: 2, ".MuiFormLabel-root":{color: (theme) => theme.palette.primary.textcolor}}} // Increase the width to 100%
                         onChange={(e) =>  setadminfirstname(e.target.value)}
                         defaultValue={adminfirstname}
                     />
@@ -214,7 +218,7 @@ export default function Details()
                         id="admin-last-name"
                         label="Admin's Last Name"
                         variant="outlined"
-                        sx={{ width: '50%' }} // Increase the width to 100%
+                        sx={{ width: '50%' , ".MuiFormLabel-root":{color: (theme) => theme.palette.primary.textcolor}}} // Increase the width to 100%
                         onChange={(e) =>  setadminlastname(e.target.value)}
                         defaultValue={adminlastname}
 
@@ -226,7 +230,7 @@ export default function Details()
                             id="fullWidth"
                             label="Admin's email address"
                             variant="outlined"
-                            sx={{ width: '100%', mb: 2}} // Increase the width to 100%
+                            sx={{ width: '100%', mb: 2, ".MuiFormLabel-root":{color: (theme) => theme.palette.primary.textcolor}}} // Increase the width to 100%
                             onChange={(e) =>   setadminemail(e.target.value)}
                             defaultValue={adminemail}
 
