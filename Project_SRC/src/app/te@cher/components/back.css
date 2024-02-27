@@ -1,0 +1,8 @@
+body{
+    background-image: url("https://img.freepik.com/free-vector/white-minimal-background_1393-309.jpg?w=2000&t=st=1709006470~exp=1709007070~hmac=cf36c69698ee6b656f46de9c44384b49a37973b42b3b31bc42b9482250da34a3");
+    width:100%;
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

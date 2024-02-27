@@ -255,7 +255,7 @@ return (
   </Drawer>
   <Box component="main" sx={{ flexGrow: 1, p: 5  }}>
     <DrawerHeader />
-    <div class="border-2 border-gray-300 rounded-md p-4 shadow shadow-lg " >
+    <div class="border-2 border-gray-300 rounded-md p-4 shadow-lg " >
       {viewProjects && <Dash/>}
       {addProject && <Newproject/>}
       {viewClassroom && <>

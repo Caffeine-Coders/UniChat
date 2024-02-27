@@ -2,6 +2,7 @@
 // import "../components/land1.css"
 import React, { useState, useEffect } from "react";
 import Trial from "./loading";
+
 // Define a custom Loading component
 function CustomLoading() {
   return  <Trial/>// Replace this with your loading spinner or indicator
