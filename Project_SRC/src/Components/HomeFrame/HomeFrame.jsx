@@ -82,7 +82,6 @@ export default function HomeComponent() {
                 sx={{
                   position: "fixed",
                   maxWidth: { xl: "80%", lg: "75%" },
-                  zIndex: 9999,
                   marginLeft: 43,
                   marginTop: 2,
                 }}
@@ -95,7 +94,7 @@ export default function HomeComponent() {
                 sx={{
                   position: "fixed",
                   maxWidth: { xl: "80%", lg: "75%" },
-                  zIndex: 9999,
+                   
                 }}
               >
                 <ThemeContext.Provider value={{ theme, setTheme }}>

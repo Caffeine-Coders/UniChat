@@ -85,11 +85,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const SideBar = ({ projects }) => {
-
-const SideBar = (props) => {
-   
-
-  const { window } = props;
+  
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const { setTheme, theme } = useContext(ThemeContext);
@@ -210,7 +206,7 @@ const SideBar = (props) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          overflow: "scroll",
+          overflow: "auto",
         }}
       >
         <ListItem>

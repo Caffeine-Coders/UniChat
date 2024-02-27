@@ -18,12 +18,6 @@ import { useRouter } from 'next/navigation.js';
 import LandingNav from '../LandingNav/LandingNav.jsx';
 import TimeLine from './TimeLine.jsx';
 
-
-
-
-
-
-
 export default function LandingPage() {
     const router = useRouter();
     return (
@@ -37,7 +31,6 @@ export default function LandingPage() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-
                     width: "100%",
                     height: "100%",
                     zIndex: 9999,

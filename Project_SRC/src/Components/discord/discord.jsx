@@ -54,7 +54,7 @@ export default function Discord({ props }) {
               width: "100%",
               display: "flex",
               flexDirection: "column",
-              overflow: "scroll",
+              overflow: "auto",
             }}
           >
             <Slide
