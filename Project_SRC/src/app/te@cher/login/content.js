@@ -10,6 +10,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+
 export default function content() {
     const auth = getAuth();
     const router = useRouter()
@@ -58,17 +59,26 @@ export default function content() {
 
     return (
     <div class="text-center flex justify-center align-middle mt-40">
-        <div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-2xl bg-clip-border rounded-xl w-1/3 h-full ">
-            <div class="p-6">
-                <div class="block mb-2 text-5xl font-sans antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 font-headx" >
-                    Sign in to your account
+        <div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-2xl bg-clip-border rounded-xl w-3/5 h-full">
+            <div class="flex items-center w-full">
+                <img class="w-1/2 rounded-xl" src="https://img.freepik.com/free-vector/unemployment-insurance-abstract-concept-illustration-unemployment-benefits-lost-job-tired-stressed-businessman-claim-form-workers-compensation-paper-work-interview_335657-192.jpg?w=1380&t=st=1709002452~exp=1709003052~hmac=40ba1e420859bbe338e4676f36a6e9c5f9ac4ae5107301b0d92ea739defb3db2" alt="login" />
+            
+                <div class="w-1/2">
+                    <div class="p-6">
+                        <div class="block mb-2 text-6xl font-sans antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 font-headx" >
+                            Welcome!
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 mt-10">
+                            <button type="button" onClick={handeGoogle} class="inline-flex align-middle items-center w-3/5 justify-center px-5 py-3 text-xl text-center text-black bg-slate-200 rounded-md hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" >    
+                                Sign in with <img class="w-8 h-8 ms-2" src="https://img.icons8.com/color/48/000000/google-logo.png" alt="google"/>
+                            </button>
+                    </div>
                 </div>
             </div>
-            <div class="p-6 pt-0 mt-10">
-                    <button type="button" onClick={handeGoogle} class="inline-flex align-middle items-center w-3/5 justify-center px-5 py-3 text-xl text-center text-black bg-slate-200 rounded-md hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" >    
-                        Sign in with google
-                    </button>
-            </div>
+
+
+
             <Dialog
                 open={open}
                 onClose={handleClose}
