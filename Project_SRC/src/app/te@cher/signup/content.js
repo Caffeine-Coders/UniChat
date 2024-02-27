@@ -38,13 +38,14 @@ export default function content() {
         event.preventDefault();
         await signupinstance.signupaccount(name1,email1,schoolname)
         setOpen(true);
+        signupinstance.unauthsignout()
     }
    
     return (
     <div class="text-center flex justify-center align-middle mt-40">
         <div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-2xl bg-clip-border rounded-xl w-3/5 h-full ">
         <div class="flex items-center w-full">
-            <img class="w-1/2 rounded-xl" src="https://img.freepik.com/free-vector/unemployment-insurance-abstract-concept-illustration-unemployment-benefits-lost-job-tired-stressed-businessman-claim-form-workers-compensation-paper-work-interview_335657-192.jpg?w=1380&t=st=1709002452~exp=1709003052~hmac=40ba1e420859bbe338e4676f36a6e9c5f9ac4ae5107301b0d92ea739defb3db2" alt="login" />
+            <img class="w-1/2 h-96 rounded-xl" src="https://t3.ftcdn.net/jpg/03/39/70/90/360_F_339709048_ZITR4wrVsOXCKdjHncdtabSNWpIhiaR7.jpg" alt="login" />
             <div class="w-1/2">
             <div class="p-6">
                 <div class="block mb-2 text-4xl font-sans antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 font-headx" >
@@ -100,7 +101,7 @@ export default function content() {
                       }}
               />
             <div class="p-6 pt-0 mt-10">
-                <button type="submit" class="inline-flex align-middle items-center w-3/5 justify-center px-5 py-3 text-xl text-center text-black bg-slate-200 rounded-lg hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" >    
+                <button type="submit" class="inline-flex align-middle items-center  justify-center px-5 py-3 text-xl text-center text-black bg-slate-200 rounded-lg hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" >    
                     Send for Approval <svg class="w-5 h-5 ms-2 group:text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="check"><rect width="256" height="256" fill="none"></rect><polyline fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" points="216 72.005 104 184 48 128.005" ></polyline></svg>
                     
                 </button>

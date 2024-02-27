@@ -57,6 +57,17 @@ export function Signuplogin(){
         }
     }
     
+    async function unauthsignout(){
+        try{
+            await signOut(auth)
+            localStorage.clear()
+            console.log("signed out")
+            // router.push('/te@cher/')
+        } catch (error){
+            console.log("error",error)
+        }
+    }
+
    async function signupaccount(name,email,schoolname) {
     console.log("here in conn sign up",name,email,schoolname)
       await userAdd(name,email,schoolname)
@@ -100,6 +111,7 @@ export function Signuplogin(){
         loginaccount:loginaccount,
         signupaccount:signupaccount,
         googleLogin: googleLogin,
-        signout: signout
+        signout: signout,
+        unauthsignout: unauthsignout
     }
 }
