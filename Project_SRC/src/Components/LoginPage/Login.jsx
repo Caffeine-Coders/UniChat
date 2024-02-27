@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useState, useEffect } from "react";
+import React, { useState } from "react";
 import loginImage1 from "../../Assets/loginImage1.png";
 import {
   Button,
@@ -10,10 +10,9 @@ import {
   Alert,
   AppBar,
   Toolbar,
-  IconButton,
 } from "@mui/material";
-import { darktheme } from "../Themes/themes";
-import Image from "next/image";
+import { darktheme } from "../Themes/Themes";
+import { LogoutUser } from "../../Services/User";
 import GoogleIcon from "@mui/icons-material/Google";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ArrowForward } from "@mui/icons-material";
@@ -26,13 +25,15 @@ import { useRouter } from "next/navigation";
 import AuthContext from "../Contexts/authContext";
 import { useContext } from "react";
 import app from "../../../config";
-import Logo from "../../Assets/logo.png";
-
 import {
-  classifyUser,
-  getLoggedInUserDetails,
-} from "../../Services/authentication";
+  ClassifyUser,
+  GetLoggedInUserDetails,
+  UpdateFirstTimeLogin,
+} from "../../Services/User";
 import Link from "next/link";
+import { Logout } from "faunadb";
+import LandingNav from "../LandingNav/LandingNav";
+
 
 const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
@@ -76,7 +77,7 @@ const InvalidUser = () => {
     >
       <Typography
         variant="h2"
-        color="#cbabed"
+        color="#ffffff"
         sx={{
           fontFamily: darktheme.typography.fontFamily[2],
           userSelect: "none",
@@ -94,7 +95,7 @@ const InvalidUser = () => {
 const LoginForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [schoolEmail, setSchoolEmail] = useState("");
   const [alert, setAlert] = useState(null);
   const router = useRouter();
 
@@ -103,7 +104,7 @@ const LoginForm = () => {
     validate();
   };
 
-  const validate = () => {
+  const validate = async () => {
     if (!firstName || !lastName) {
       setAlert("Please fill out all fields marked with *.");
       return;
@@ -159,12 +160,12 @@ const LoginForm = () => {
           <Grid item xs={12}>
             <StyledTextField
               fullWidth
-              id="email"
+              id="schoolEmail"
               label="School Email"
-              name="email"
-              autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="schoolEmail"
+              autoComplete="schoolEmail"
+              value={schoolEmail}
+              onChange={(e) => setSchoolEmail(e.target.value)}
             />
           </Grid>
         </Grid>
@@ -197,26 +198,32 @@ const Login = () => {
   const [invalidUser, setInvalidUser] = useState(false);
   const router = useRouter();
 
-  const { setIsAuthenticated, setUserImage } = useContext(AuthContext);
+  const { setIsAuthenticated, setUserImage, setStudentId, studentId } =
+    useContext(AuthContext);
 
   const signInWithGoogle = async () => {
-    const loggedInUser = await getLoggedInUserDetails();
+    const loggedInUser = await GetLoggedInUserDetails();
     if (loggedInUser) {
-      // User is logged in.
-      const userClassification = await classifyUser(loggedInUser.email);
+      // User is logged in
+      const userClassification = await ClassifyUser(loggedInUser.email);
       if (userClassification.type === "Registered") {
         // Registered User
         setIsAuthenticated(true);
         setUserImage(loggedInUser.photoURL);
+        setStudentId(userClassification.studentId);
         localStorage.setItem("userImage", loggedInUser.photoURL);
-        console.log("isFirstTimeLogin: ", userClassification.isFirstTimeLogin);
-        if (userClassification.isFirstTimeLogin === "true") {
-          setLoginFormVisible(true);
-        } else if (userClassification.isFirstTimeLogin === "false") {
+        localStorage.setItem("studentId", userClassification.studentId);
+        if (userClassification.isFirstTimeLogin) {
+          const response = await UpdateFirstTimeLogin(loggedInUser.email);
+          if (response.status === "Updated") {
+            setLoginFormVisible(true);
+          }
+        } else if (!userClassification.isFirstTimeLogin) {
           router.push("/home");
         }
       } else if (userClassification.type === "Unregistered") {
         // Unregistered/Invalid User
+        LogoutUser();
         setInvalidUser(true);
       }
     } else {
@@ -231,7 +238,6 @@ const Login = () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     setUser(user);
-    console.log(" User signed in");
     signInWithGoogle();
   };
 
@@ -255,37 +261,7 @@ const Login = () => {
         flexDirection: "column",
       }}
     >
-      <AppBar
-        position="absolute"
-        sx={{
-          backgroundColor: "rgba(255, 255, 255, 0)",
-          boxShadow: "0 10px 100px 0 rgba(31, 38, 135, 0.7)",
-          backdropFilter: "blur(4px)",
-          WebkitBackdropFilter: "blur(4px)",
-          WebkitBackdropFilter: "blur(16.3px)",
-          height: 50,
-          justifyContent: "center",
-          alignItems: "center",
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <Toolbar>
-          <Link href="/">
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{
-                flexGrow: 1,
-                color: "",
-                fontFamily: '"Kode Mono", monospace',
-              }}
-            >
-              UniChat
-            </Typography>
-          </Link>
-        </Toolbar>
-      </AppBar>
+      <LandingNav />
       <Box
         sx={{
           display: "flex",
@@ -307,7 +283,7 @@ const Login = () => {
           >
             <Typography
               variant="h1"
-              color="#cbabed"
+              color="#ffffff"
               sx={{
                 fontFamily: darktheme.typography.fontFamily[2],
                 userSelect: "none",
@@ -330,7 +306,7 @@ const Login = () => {
           >
             <Typography
               variant="h1"
-              color="#cbabed"
+              color="#ffffff"
               sx={{
                 fontFamily: darktheme.typography.fontFamily[2],
                 userSelect: "none",
@@ -435,9 +411,7 @@ const Login = () => {
             mountOnEnter
             unmountOnExit
           >
-            <Box>
-              <LoginForm />
-            </Box>
+            <Box>{isLoginFormVisible && <LoginForm />}</Box>
           </Fade>
         </Box>
       </Box>

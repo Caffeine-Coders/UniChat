@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
-  classifyUser,
-  getLoggedInUserDetails,
-} from "../../Services/authentication";
+  ClassifyUser,
+  GetLoggedInUserDetails,
+} from "../../Services/User";
 import { Box, CircularProgress } from "@mui/material";
 
 function RouteProtection({ children }) {
@@ -12,11 +12,11 @@ function RouteProtection({ children }) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const userDetails = await getLoggedInUserDetails();
+      const userDetails = await GetLoggedInUserDetails();
       if (!userDetails) {
         router.push("/login");
       } else {
-        const classifiedUser = await classifyUser(userDetails.email);
+        const classifiedUser = await ClassifyUser(userDetails.email);
         if (classifiedUser.type === "Unregistered") {
           router.push("/login");
         } else if (classifiedUser.type === "Registered") {

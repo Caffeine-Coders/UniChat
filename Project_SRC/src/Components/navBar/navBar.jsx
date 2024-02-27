@@ -1,11 +1,13 @@
 "use client";
-import * as React from "react";
 import Image from "next/image";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
+import Logout from "@mui/icons-material/Logout";
+import { LogoutUser } from "../../Services/User";
+import Settings from "@mui/icons-material/Settings";
 import {
   IconButton,
   Badge,
@@ -21,8 +23,13 @@ import {
   ThemeProvider,
   Paper,
   InputAdornment,
+  Menu,
+  MenuItem,
+  Divider,
+  ListItemIcon,
 } from "@mui/material";
 import { useState, useContext } from "react";
+import { useRouter } from "next/navigation";
 import Draggable from "react-draggable";
 import ThemeContext from "../Contexts/themeContext";
 import AuthContext from "../Contexts/authContext";
@@ -31,11 +38,11 @@ const StyledButton = styled(Button)(({ theme }) => ({
   width: "135px",
   height: "30px",
   borderRadius: 5,
-  color: theme.palette.primary.textcolor,
-  backgroundColor: theme.palette.primary.hover,
+  backgroundColor: theme.palette.primary.ButtonColor,
+  color: theme.palette.primary.whites,
   "&:hover": {
-    backgroundColor: theme.palette.primary.ButtonColor,
-    color: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.ButtonHover,
+    color: theme.palette.primary.whites,
   },
   fontFamily: theme.typography.fontFamily[0],
 }));
@@ -53,19 +60,14 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
-  backgroundColor: theme.palette.primary.hover,
+  // backgroundColor: theme.palette.primary.hover,
   marginRight: 0,
   height: "40px",
   width: "150px",
   marginLeft: 0,
   borderRadius: 6,
-  "&:hover": {
-    "& .hoverIcon": {
-      color: theme.palette.primary.ButtonColor,
-    },
-  },
   "& .hoverIcon": {
-    color: theme.palette.primary.textcolor,
+    color: theme.palette.primary.ButtonHover,
   },
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
@@ -84,11 +86,13 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
+  color: theme.palette.primary.textcolor,
   height: "100%",
   width: "100%",
+  fontSize: "14px",
 
   "& .MuiInputBase-input": {
+    fontFamily: "'Kode Mono', monospace",
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
@@ -101,17 +105,38 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const StyledSearchIcon = styled(SearchIcon)(({ theme }) => ({}));
 
 export default function NavBar() {
-  const [open, setOpen] = useState(false);
+  const router = new useRouter();
+  const [openChatGPT, setOpenChatGPT] = useState(false);
   const toggleChatGPT = () => {
-    setOpen(!open);
+    setOpenChatGPT(!openChatGPT);
   };
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseChatGPT = () => {
+    setOpenChatGPT(false);
+  };
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openProfileMenu = Boolean(anchorEl);
+  const handleClickProfile = (event) => {
+    setAnchorEl((prevAnchorEl) => (prevAnchorEl ? null : event.currentTarget));
+  };
+  const handleCloseProfileMenu = () => {
+    setAnchorEl(null);
   };
 
   const { theme } = useContext(ThemeContext);
 
   const { userImage } = useContext(AuthContext);
+
+  const logout = () => {
+    console.log("Logout clicked!");
+    LogoutUser()
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log("Error logging out: ", error);
+      });
+  };
 
   const ChatGPTBox = () => {
     return (
@@ -128,7 +153,7 @@ export default function NavBar() {
           sx={{ backgroundColor: (theme) => theme.palette.primary.main }}
         >
           <IconButton
-            onClick={handleClose}
+            onClick={handleCloseChatGPT}
             sx={{
               "&:hover": {
                 backgroundColor: "transparent",
@@ -191,7 +216,7 @@ export default function NavBar() {
         sx={{
           borderRadius: 3,
           position: "fixed",
-          width: 1080,
+          width: { xl: "80%", lg: "75%", md: "68%", sm: "100%" },
           left: 344,
           top: 16,
         }}
@@ -228,7 +253,7 @@ export default function NavBar() {
               alignItems="center"
             >
               <StyledButton>
-                <Typography variant="body2">+ Project</Typography>
+                <Typography variant="">+ Project</Typography>
               </StyledButton>
               <StyledIconButton color="inherit" onClick={toggleChatGPT}>
                 <Image
@@ -242,7 +267,15 @@ export default function NavBar() {
                 aria-label="show new notifications"
                 size="small"
               >
-                <Badge color="error" variant="dot" overlap="circular">
+                <Badge
+                  sx={{
+                    ".MuiBadge-dot": {
+                      backgroundColor: theme.palette.primary.ButtonHover,
+                    },
+                  }}
+                  variant="dot"
+                  overlap="circular"
+                >
                   <NotificationsIcon />
                 </Badge>
               </StyledIconButton>
@@ -251,16 +284,69 @@ export default function NavBar() {
                 aria-label="account of current user"
                 aria-haspopup="true"
                 color="inherit"
+                onClick={handleClickProfile}
               >
                 <Avatar sx={{ height: 30, width: 30 }}>
                   <Image src={userImage} width={30} height={30} />
                 </Avatar>
               </StyledIconButton>
+              <Menu
+                anchorEl={anchorEl}
+                id="account-menu"
+                open={openProfileMenu}
+                onClose={handleCloseProfileMenu}
+                onClick={handleCloseProfileMenu}
+                PaperProps={{
+                  elevation: 0,
+                  sx: {
+                    overflow: "visible",
+                    filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                    mt: 1.5,
+                    "& .MuiAvatar-root": {
+                      width: 32,
+                      height: 32,
+                      ml: -0.5,
+                      mr: 1,
+                    },
+                    "&::before": {
+                      content: '""',
+                      display: "block",
+                      position: "absolute",
+                      top: 0,
+                      right: 14,
+                      width: 10,
+                      height: 10,
+                      bgcolor: "background.paper",
+                      transform: "translateY(-50%) rotate(45deg)",
+                      zIndex: 0,
+                    },
+                  },
+                }}
+                transformOrigin={{ horizontal: "right", vertical: "top" }}
+                anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+              >
+                <MenuItem onClick={handleCloseProfileMenu}>
+                  <Avatar /> Profile
+                </MenuItem>
+                <Divider />
+                <MenuItem onClick={handleCloseProfileMenu}>
+                  <ListItemIcon>
+                    <Settings fontSize="small" />
+                  </ListItemIcon>
+                  Settings
+                </MenuItem>
+                <MenuItem onClick={logout}>
+                  <ListItemIcon>
+                    <Logout fontSize="small" />
+                  </ListItemIcon>
+                  Logout
+                </MenuItem>
+              </Menu>
             </Stack>
           </Box>
         </Toolbar>
       </AppBar>
-      {open && <ChatGPTBox />}
+      {openChatGPT && <ChatGPTBox />}
     </ThemeProvider>
   );
 }
