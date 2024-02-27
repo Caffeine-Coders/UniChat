@@ -173,7 +173,7 @@ export default function Content() {
 return (
   <Box sx={{ display: 'flex' }}>
   <CssBaseline />
-  <AppBar position="fixed" open={open}>
+  <AppBar position="fixed" open={open} sx={{background:'#5964f2'}}>
   <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
     <Link href="/te@cher/">
     <Typography variant="h4" noWrap component="div" sx={{fontFamily: 'caveat'}}>
@@ -220,12 +220,13 @@ return (
     <Divider />
     <List>
       {sidebar.map((text, index) => (
-        <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+        <ListItem key={text} disablePadding sx={{ display: 'block',  backgroundColor: selectedIndex === index? '#d5d8fb': 'transparent' }}>
           <ListItemButton
             sx={{
               minHeight: 48,
               justifyContent: open ? 'initial' : 'center',
               px: 2.5,
+              
             }}
  
             onClick={() => handleListItemClick(index)} 
@@ -236,6 +237,7 @@ return (
                 minWidth: 0,
                 mr: open ? 3 : 'auto',
                 justifyContent: 'center',
+
               }}
 
             >
@@ -257,7 +259,7 @@ return (
       {viewProjects && <Dash/>}
       {addProject && <Newproject/>}
       {viewClassroom && <>
-        <Accordion>
+        <Accordion sx={{margin:'4px', marginBottom:'10px', padding:'4px'}}>
         <AccordionSummary
           expandIcon={<ArrowDropDownIcon />}
           aria-controls="panel2-content"
@@ -269,7 +271,7 @@ return (
         <Students/>
         </AccordionDetails>
       </Accordion> 
-      <Accordion>
+      <Accordion sx={{margin:'4px', marginBottom:'10px',padding:'4px'}}>
         <AccordionSummary
           expandIcon={<ArrowDropDownIcon />}
           aria-controls="panel2-content"
@@ -281,7 +283,7 @@ return (
         <Students/>
         </AccordionDetails>
       </Accordion> 
-      <Accordion>
+      <Accordion sx={{margin:'4px', marginBottom:'10px', padding:'4px'}}> 
         <AccordionSummary
           expandIcon={<ArrowDropDownIcon />}
           aria-controls="panel2-content"

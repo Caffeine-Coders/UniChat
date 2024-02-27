@@ -102,7 +102,11 @@ export default function FloatingActionButtons() {
         <>
         <Box sx={{ position: 'fixed', bottom: '20px', right: '20px' }}>
             <Fab
-                color="primary"
+                sx={{backgroundColor:hovering?'#5964f2':'#5964f2',
+                '&.MuiFab-extended': {
+                  backgroundColor: '#5964f2', // Background color when expanded
+              },
+              }}
                 aria-label="add"
                 variant={hovering?'extended':'circular'}
                 onMouseOver={handleHover}
