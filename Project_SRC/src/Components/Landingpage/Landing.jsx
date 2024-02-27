@@ -31,10 +31,6 @@ export default function LandingPage() {
             <LandingNav />
             <TimeLine />
             <MultiLayerParallax />
-            <Fab variant="extended" color = 'inherit' sx={{position: 'fixed', bottom: '20px', right: '20px', backgroundColor: '#300e54', color: "white", '&:hover': {backgroundColor: '#cbabed'}}} onClick={()=> router.push("/login")}>
-                <LoginIcon  sx={{ mr: 1, color: "white" }} />
-                Login
-            </Fab>
             <ThemeProvider theme={darktheme}>
             <Box
                 sx={{

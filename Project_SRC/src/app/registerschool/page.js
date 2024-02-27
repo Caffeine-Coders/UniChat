@@ -2,6 +2,12 @@ import RegisterSchoolForm from "../../Components/Registerschool/Registerschool.j
 
 export default function RegisterSchool(){
     return (
+        <div
+            style={{
+                overflowY: 'hidden',
+            }}
+        >
        <RegisterSchoolForm/>
+        </div>
     );
 }
