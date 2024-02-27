@@ -1,12 +1,15 @@
 'use client'
 import React, { useState, useEffect } from "react";
-import { Box, Button, Grid, IconButton, TextField, Typography } from '@mui/material'
-
-
+import {List, ListItem, ListItemText, ListItemButton, Checkbox, ListItemAvatar, Avatar, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@mui/material'
+const studentlist = ['Forum Dipen Shah', 'Dheeraj Kumar Thanda', 'Sai Vishnu Anudeep Kadiyala' , 'Satwik Bhasin']
 export default function Details({fornext, forback, loader}){
     const [gradelevel, setGradelevel] = useState('');
     const [subjectareas, setSubjectareas] = useState('');
     const [projectgoal, setProjectgoal] = useState('');
+    const [open, setOpen] = React.useState(false);
+    const handleClose = () => {
+        setOpen(false);
+      };
     useEffect(() => {
         const storedgradelevel = JSON.parse(localStorage.getItem("gradelevel"));
         if (storedgradelevel) {
@@ -48,6 +51,23 @@ export default function Details({fornext, forback, loader}){
 
         }
     }
+    const handlestudent = () => {
+        setOpen(true);
+    }
+    const [checked, setChecked] = React.useState([1]);
+
+    const handleToggle = (value) => () => {
+        const currentIndex = checked.indexOf(value);
+        const newChecked = [...checked];
+
+        if (currentIndex === -1) {
+        newChecked.push(value);
+        } else {
+        newChecked.splice(currentIndex, 1);
+        }
+
+        setChecked(newChecked);
+    };
     return (
             <>
                     <div class="mt-16">
@@ -98,7 +118,7 @@ export default function Details({fornext, forback, loader}){
                             </div>
                             Add Co-Instructor
                         </button>
-                        <button class="border-2 border-black h-32 w-40 rounded-xl ml-8  bg-white">
+                        <button class="border-2 border-black h-32 w-40 rounded-xl ml-8  bg-white" onClick={handlestudent}>
                             <div class="flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="28" data-name="Layer 2" viewBox="0 0 100 100" id="student">
                                     <path d="M32.5 33.83h1.1a16.6 16.6 0 0 0 32.8 0h1.1a3.92 3.92 0 0 0 3.92-3.91V26a2 2 0 0 0-2-2H66.63V16A10.72 10.72 0 0 0 55.92 5.25H44.08A10.71 10.71 0 0 0 33.38 16v8h-2.8a2 2 0 0 0-2 2v3.92A3.92 3.92 0 0 0 32.5 33.83zM50 45.88A14.65 14.65 0 0 1 35.38 31.25V24.4c.37-.79 2.51-4.65 8.37-4.65a22.09 22.09 0 0 0 11.58-3.17 22.68 22.68 0 0 0 9.3 6v8.65A14.66 14.66 0 0 1 50 45.88zM69.42 26v3.92a1.92 1.92 0 0 1-1.92 1.91h-.87V26zm-34-10a8.71 8.71 0 0 1 8.7-8.71H55.92A8.72 8.72 0 0 1 64.63 16V20.5a21 21 0 0 1-8.35-5.87 1 1 0 0 0-1.39-.17 19.54 19.54 0 0 1-11.14 3.29A11.21 11.21 0 0 0 35.38 21zm-4.8 10h2.8v5.83H32.5a1.92 1.92 0 0 1-1.92-1.91zM12.5 91.48H37.21a2.43 2.43 0 0 1 2.42 2.42 1 1 0 0 0 1 1H59.38a1 1 0 0 0 1-1 2.42 2.42 0 0 1 2.41-2.42H87.5a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H85.33a2.63 2.63 0 0 0 0-.49V81.73a2.5 2.5 0 0 0-2.48-2.49h-.65V70.63a18.53 18.53 0 0 0-18.4-18.5h-6a1 1 0 0 0-.77.36l-7 8.45-7-8.45a1 1 0 0 0-.77-.36h-6.1a18.54 18.54 0 0 0-18.34 18.5v8.61h-.64a2.5 2.5 0 0 0-2.48 2.49V85a2.63 2.63 0 0 0 0 .49H12.5a1 1 0 0 0-1 1v4A1 1 0 0 0 12.5 91.48zM58.28 54.13h4.33L59.74 67.18l-8.22-4.94zm-9.8 8.11l-8.22 4.94L37.39 54.13h4.33zM19.75 70.63A16.53 16.53 0 0 1 35.36 54.17L38.6 69a1 1 0 0 0 .58.71 1.14 1.14 0 0 0 .4.08 1 1 0 0 0 .51-.14L50 63.67l9.91 5.94a1 1 0 0 0 .51.14 1.14 1.14 0 0 0 .4-.08A1 1 0 0 0 61.4 69l3.24-14.79A16.53 16.53 0 0 1 80.25 70.63v8.61l-23.88-.09h0a7.28 7.28 0 0 0-5.19 2.15A7.2 7.2 0 0 0 50 82.79a7.2 7.2 0 0 0-1.16-1.49 7.28 7.28 0 0 0-5.19-2.15h0l-23.88.09zM16.63 85V81.73a.5.5 0 0 1 .49-.49l26.51-.09h0A5.34 5.34 0 0 1 49 86.5a1 1 0 0 0 2 0 5.34 5.34 0 0 1 5.35-5.35h0l26.52.09a.5.5 0 0 1 .49.49V85a.49.49 0 0 1-.49.49H59.37a4.13 4.13 0 0 0-4 3.12H44.63a4.13 4.13 0 0 0-4-3.12H17.12A.49.49 0 0 1 16.63 85zM13.5 87.5H40.63a2.12 2.12 0 0 1 2.12 2.12 1 1 0 0 0 1 1h12.5a1 1 0 0 0 1-1 2.12 2.12 0 0 1 2.12-2.12H86.5v2H62.79a4.43 4.43 0 0 0-4.3 3.42h-17a4.44 4.44 0 0 0-4.31-3.42H13.5z"></path>
@@ -106,9 +126,11 @@ export default function Details({fornext, forback, loader}){
                             </div>
                             Add Students
                         </button>
+
+                      
+                            </div>
                     </div>
                     
-                </div>
                  <div class=" mt-20 ">
                     <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center bg-white text-black border-2 border-black rounded-lg hover:bg-slate-300 focus:ring-4 focus:ring-blue-100" onClick={forback}>    
                          <span> Back</span>
@@ -120,6 +142,55 @@ export default function Details({fornext, forback, loader}){
                          </svg>
                      </button>
                  </div>
+
+                   {/* dialog for students */}
+                        
+                   <Dialog
+                   open={open}
+                   onClose={handleClose}
+                   aria-labelledby="alert-dialog-title"
+                   aria-describedby="alert-dialog-description"
+                   >
+                    <div class='h-full w-102 p-4 pb-0 mx-auto'>
+                   <DialogTitle id="alert-dialog-title">
+                       {"Select Students to add to the project"}
+                   </DialogTitle>
+                   <DialogContent>
+                       <DialogContentText id="alert-dialog-description">
+                       <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                       {studentlist.map((value) => {
+                           const labelId = `checkbox-list-secondary-label-${value}`;
+                           return (
+                           <ListItem
+                               key={value}
+                               secondaryAction={
+                               <Checkbox
+                                   edge="end"
+                                   onChange={handleToggle(value)}
+                                   checked={checked.indexOf(value) !== -1}
+                                   inputProps={{ 'aria-labelledby': labelId }}
+                               />
+                               }
+                               disablePadding
+                           >
+                               <ListItemButton>
+                               <ListItemText id={labelId} primary={value} />
+                               </ListItemButton>
+                           </ListItem>
+                           );
+                       })}
+                       </List>
+                       </DialogContentText>
+                   </DialogContent>
+
+                <DialogActions sx={{display:'flex', float:'inline-end', paddingBottom:'4%' , marginBottom:'4%'}}>
+                       <button autoFocus class="ml-1 text-blue" onClick={handleClose}>
+                       Continue
+                       </button>
+                   </DialogActions>
+            
+                   </div>
+               </Dialog>
             </>
     );
 }
