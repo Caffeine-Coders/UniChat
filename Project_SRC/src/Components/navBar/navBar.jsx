@@ -25,7 +25,6 @@ import {
   InputAdornment,
   Menu,
   MenuItem,
-  Tooltip,
   Divider,
   ListItemIcon,
 } from "@mui/material";
@@ -39,11 +38,11 @@ const StyledButton = styled(Button)(({ theme }) => ({
   width: "135px",
   height: "30px",
   borderRadius: 5,
-  color: theme.palette.primary.textcolor,
-  backgroundColor: theme.palette.primary.hover,
+  backgroundColor: theme.palette.primary.ButtonColor,
+  color: theme.palette.primary.whites,
   "&:hover": {
-    backgroundColor: theme.palette.primary.ButtonColor,
-    color: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.ButtonHover,
+    color: theme.palette.primary.whites,
   },
   fontFamily: theme.typography.fontFamily[0],
 }));
@@ -61,19 +60,14 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
-  backgroundColor: theme.palette.primary.hover,
+  // backgroundColor: theme.palette.primary.hover,
   marginRight: 0,
   height: "40px",
   width: "150px",
   marginLeft: 0,
   borderRadius: 6,
-  "&:hover": {
-    "& .hoverIcon": {
-      color: theme.palette.primary.ButtonColor,
-    },
-  },
   "& .hoverIcon": {
-    color: theme.palette.primary.textcolor,
+    color: theme.palette.primary.ButtonHover,
   },
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
@@ -92,11 +86,13 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
+  color: theme.palette.primary.textcolor,
   height: "100%",
   width: "100%",
+  fontSize: "14px",
 
   "& .MuiInputBase-input": {
+    fontFamily: "'Kode Mono', monospace",
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
@@ -220,7 +216,7 @@ export default function NavBar() {
         sx={{
           borderRadius: 3,
           position: "fixed",
-          width: 1080,
+          width: { xl: "80%", lg: "75%", md: "68%", sm: "100%" },
           left: 344,
           top: 16,
         }}
@@ -257,7 +253,7 @@ export default function NavBar() {
               alignItems="center"
             >
               <StyledButton>
-                <Typography variant="body2">+ Project</Typography>
+                <Typography variant="">+ Project</Typography>
               </StyledButton>
               <StyledIconButton color="inherit" onClick={toggleChatGPT}>
                 <Image
@@ -271,7 +267,15 @@ export default function NavBar() {
                 aria-label="show new notifications"
                 size="small"
               >
-                <Badge color="error" variant="dot" overlap="circular">
+                <Badge
+                  sx={{
+                    ".MuiBadge-dot": {
+                      backgroundColor: theme.palette.primary.ButtonHover,
+                    },
+                  }}
+                  variant="dot"
+                  overlap="circular"
+                >
                   <NotificationsIcon />
                 </Badge>
               </StyledIconButton>

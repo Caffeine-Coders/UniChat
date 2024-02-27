@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useState, useEffect } from "react";
+import React, { useState } from "react";
 import loginImage1 from "../../Assets/loginImage1.png";
 import {
   Button,
@@ -10,11 +10,9 @@ import {
   Alert,
   AppBar,
   Toolbar,
-  IconButton,
 } from "@mui/material";
 import { darktheme } from "../Themes/Themes";
 import { LogoutUser } from "../../Services/User";
-import Image from "next/image";
 import GoogleIcon from "@mui/icons-material/Google";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ArrowForward } from "@mui/icons-material";
@@ -27,7 +25,6 @@ import { useRouter } from "next/navigation";
 import AuthContext from "../Contexts/authContext";
 import { useContext } from "react";
 import app from "../../../config";
-import Logo from "../../Assets/logo.png";
 import {
   ClassifyUser,
   GetLoggedInUserDetails,
@@ -201,18 +198,21 @@ const Login = () => {
   const [invalidUser, setInvalidUser] = useState(false);
   const router = useRouter();
 
-  const { setIsAuthenticated, setUserImage } = useContext(AuthContext);
+  const { setIsAuthenticated, setUserImage, setStudentId, studentId } =
+    useContext(AuthContext);
 
   const signInWithGoogle = async () => {
     const loggedInUser = await GetLoggedInUserDetails();
     if (loggedInUser) {
-      // User is logged in.
+      // User is logged in
       const userClassification = await ClassifyUser(loggedInUser.email);
       if (userClassification.type === "Registered") {
         // Registered User
         setIsAuthenticated(true);
         setUserImage(loggedInUser.photoURL);
+        setStudentId(userClassification.studentId);
         localStorage.setItem("userImage", loggedInUser.photoURL);
+        localStorage.setItem("studentId", userClassification.studentId);
         if (userClassification.isFirstTimeLogin) {
           const response = await UpdateFirstTimeLogin(loggedInUser.email);
           if (response.status === "Updated") {
@@ -238,7 +238,6 @@ const Login = () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     setUser(user);
-    console.log(" User signed in");
     signInWithGoogle();
   };
 
