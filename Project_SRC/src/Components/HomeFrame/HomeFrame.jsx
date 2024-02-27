@@ -117,7 +117,7 @@ export default function HomeComponent() {
                   alignItems: "center",
                   justifyContent: "center",
                   display: "flex",
-                  backgroundColor: theme.palette.primary.main,
+                  backgroundColor: discordServerId === "noProjectSelected" ? theme.palette.primary.main : "#2e3035",
                   boxShadow: "0 10px 100px 0 rgba(31, 38, 135, 0.7)",
                   backdropFilter: "blur(4px)",
                   WebkitBackdropFilter: "blur(4px)",

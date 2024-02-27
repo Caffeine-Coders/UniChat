@@ -61,19 +61,14 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
-  backgroundColor: theme.palette.primary.hover,
+  // backgroundColor: theme.palette.primary.hover,
   marginRight: 0,
   height: "40px",
   width: "150px",
   marginLeft: 0,
   borderRadius: 6,
-  "&:hover": {
-    "& .hoverIcon": {
-      color: theme.palette.primary.ButtonColor,
-    },
-  },
   "& .hoverIcon": {
-    color: theme.palette.primary.textcolor,
+    color: theme.palette.primary.ButtonHover,
   },
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
@@ -92,11 +87,13 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
+  color: theme.palette.primary.textcolor,
   height: "100%",
   width: "100%",
+  fontSize: "14px",
 
   "& .MuiInputBase-input": {
+    fontFamily: "'Kode Mono', monospace",
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
@@ -271,7 +268,15 @@ export default function NavBar() {
                 aria-label="show new notifications"
                 size="small"
               >
-                <Badge color="error" variant="dot" overlap="circular">
+                <Badge
+                  sx={{
+                    ".MuiBadge-dot": {
+                      backgroundColor: theme.palette.primary.ButtonHover,
+                    },
+                  }}
+                  variant="dot"
+                  overlap="circular"
+                >
                   <NotificationsIcon />
                 </Badge>
               </StyledIconButton>

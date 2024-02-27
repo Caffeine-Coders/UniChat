@@ -46,10 +46,10 @@ const darktheme = createTheme({
       rare: "#272A2F",
       hover: "#272B30",
       textcolor: "#ffffff",
-      ButtonColor: "#9182b6",
-      ButtonHover: "#B8AED2",
+      ButtonColor: "#4C335C",
+      ButtonHover: "#9182b6",
       whites: "#FCFCFC",
-      shadowGlow: "3px 3px 3px 3px rgba(203, 176, 202, 0.7)",
+      shadowGlow: "4px 4px 4px 4px #4C335C",
     },
   },
   typography: {

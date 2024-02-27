@@ -79,7 +79,7 @@ export default function Discord({ props }) {
             </Slide>
             <Divider
               sx={{
-                backgroundColor: theme.palette.primary.main,
+                backgroundColor: theme.palette.primary.ButtonColor,
                 width: "100%",
                 mb: 3,
               }}
@@ -92,11 +92,11 @@ export default function Discord({ props }) {
                       <Card
                         sx={{
                           color: theme.palette.primary.textcolor,
+                          backgroundColor: theme.palette.primary.main,
                           "&:hover": {
                             backgroundColor: theme.palette.primary.ButtonColor,
                             color: theme.palette.primary.whites,
                           },
-                          backgroundColor: "rgba(255, 255, 255, 0)",
                           boxShadow: theme.palette.primary.shadowGlow,
                           backdropFilter: "blur(2px)",
                           WebkitBackdropFilter: "blur(4px)",

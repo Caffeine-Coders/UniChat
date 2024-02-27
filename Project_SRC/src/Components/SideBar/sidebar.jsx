@@ -149,32 +149,54 @@ const SideBar = ({ projects }) => {
   };
 
   const Sidedraw = (
-    <div style={{ height: "100%" }}>
-      <List sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        <Box
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        height: "100%",
+      }}
+    >
+      <Box
+        sx={{
+          top: 0,
+          justifyContent: "center",
+          alignItems: "center",
+          alignContent: "center",
+          display: "flex",
+          flexDirection: "column",
+          position: "sticky",
+          width: "100%",
+          overflow: "hidden",
+          flexShrink: 0,
+        }}
+      >
+        <Typography
           sx={{
+            fontFamily: '"Kode Mono", monospace',
+            fontWeight: 50,
             justifyContent: "center",
             alignItems: "center",
-            display: "flex",
+            mb: 4,
+            mt: 4,
+            letterSpacing: 5,
           }}
         >
-          <Typography
-            sx={{
-              fontFamily: '"Kode Mono", monospace',
-              fontWeight: 50,
-              justifyContent: "center",
-              alignItems: "center",
-              mb: 2,
-              mt: 2,
-              letterSpacing: 5,
-            }}
-          >
-            UniChat
-          </Typography>
-        </Box>
-
-        <Divider sx={{ m: 1 }} />
-
+          UniChat
+        </Typography>
+        <Divider
+          sx={{
+            width: 285,
+          }}
+        />
+      </Box>
+      <List
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          overflow: "scroll",
+        }}
+      >
         <ListItem>
           <ListItemButton
             sx={{
@@ -383,18 +405,27 @@ const SideBar = ({ projects }) => {
         </ListItem>
 
         {/* footer of bar */}
+      </List>
+      <Box
+        sx={{
+          width: "100%",
+          justifyContent: "center",
+          position: "sticky",
+          alignItems: "center",
+          alignContent: "center",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          marginTop: "auto",
+          flexShrink: 0,
+        }}
+      >
         <Divider
           sx={{
-            position: "fixed",
             width: 285,
-            bottom: 100,
-            mt: 45,
-            ml: 1,
-            mr: 1,
-            mb: 2,
           }}
         />
-        <ListItem sx={{ position: "relative" }}>
+        <ListItem>
           <ListItemButton
             sx={{
               "&:hover": {
@@ -404,31 +435,27 @@ const SideBar = ({ projects }) => {
             }}
           >
             <ListItemIcon
-              sx={{
-                color: (theme) => theme.palette.primary.textcolor,
-                position: "fixed",
-                bottom: 80,
-              }}
+              sx={{ color: (theme) => theme.palette.primary.textcolor }}
             >
               <HelpOutlineOutlinedIcon
                 sx={{ color: theme.palette.primary.ButtonColor }}
               />
-              <Typography
-                sx={{
-                  color: (theme) => theme.palette.primary.textcolor,
-                  fontFamily: theme.typography.fontFamily[0],
-                  fontSize: 14,
-                }}
-              >
-                Help & Getting Started
-              </Typography>
             </ListItemIcon>
+            <Typography
+              sx={{
+                color: (theme) => theme.palette.primary.textcolor,
+                fontFamily: theme.typography.fontFamily[0],
+                fontSize: 14,
+              }}
+            >
+              Help & Getting Started
+            </Typography>
           </ListItemButton>
         </ListItem>
-        <ListItem sx={{ position: "fixed", width: 320, bottom: 20 }}>
+        <ListItem sx={{ width: 320 }}>
           <MaterialUISwitch defaultChecked onChange={toggleTheme} />
         </ListItem>
-      </List>
+      </Box>
     </div>
   );
   const container =
