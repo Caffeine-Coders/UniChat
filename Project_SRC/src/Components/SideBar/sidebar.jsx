@@ -257,6 +257,7 @@ const SideBar = ({ projects }) => {
               />
             }
             aria-controls="panel1-content"
+            disabled={!projects}
             id="panel1-header"
             sx={{
               borderRadius: 4, // Add border radius here
