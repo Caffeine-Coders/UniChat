@@ -11,6 +11,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import InputAdornment from '@mui/material/InputAdornment';
+import Signuplogo from "./signup.png"
 export default function content() {
   const [name, setName] = useState('');
     const [schoolname, setSchoolName] = useState('');
@@ -45,7 +46,7 @@ export default function content() {
     <div class="text-center flex justify-center align-middle mt-16">
         <div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-2xl bg-clip-border rounded-xl w-3/5 h-full ">
         <div class="flex items-center w-full">
-            <img class="w-1/2 h-96 rounded-xl" src="https://t3.ftcdn.net/jpg/03/39/70/90/360_F_339709048_ZITR4wrVsOXCKdjHncdtabSNWpIhiaR7.jpg" alt="login" />
+            <img class="w-1/2 h-120 rounded-xl" src={Signuplogo.src} alt="login" />
             <div class="w-1/2">
             <div class="p-6">
                 <div class="block mb-2 text-4xl font-sans antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 font-headx" >
