@@ -1,7 +1,6 @@
 'use client'
 import Dash from './dashboard'
 import Newproject from './addproject/newproject';
-
 import Students from './students'
 import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
@@ -17,8 +16,6 @@ import SchoolIcon from '@mui/icons-material/School';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
@@ -35,8 +32,11 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
+import { Backdrop } from '@mui/material';
 import { Signuplogin } from "../essentials/conn.js"
+import Navdash from "./navbar"
 const drawerWidth = 240;
+
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -44,6 +44,7 @@ const openedMixin = (theme) => ({
     duration: theme.transitions.duration.enteringScreen,
   }),
   overflowX: 'hidden',
+  background:'transparent',
 });
 
 const closedMixin = (theme) => ({
@@ -55,7 +56,9 @@ const closedMixin = (theme) => ({
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
+    
   },
+  background:'transparent',
 });
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -65,32 +68,19 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
+  background:'transparent',
 }));
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
+
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
+    background:'transparent',
     boxSizing: 'border-box',
+    
     ...(open && {
       ...openedMixin(theme),
       '& .MuiDrawer-paper': openedMixin(theme),
@@ -174,45 +164,9 @@ export default function Content() {
 return (
   <Box sx={{ display: 'flex' }}>
   <CssBaseline />
-  <AppBar position="fixed" open={open} sx={{background:'#5964f2'}}>
-  <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-    <Link href="/te@cher/">
-    <Typography variant="h4" noWrap component="div" sx={{fontFamily: 'caveat'}}>
-      UniChat
-    </Typography>
-    </Link>
-
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-        {photourl && <Avatar src={photourl} />}
-        {name1 && <Typography style={{ fontSize: '16px', color: 'white' }} mx={1} className="text-">{name1}</Typography>}
-      </IconButton>
-      <Menu
-        sx={{ mt: '45px' }}
-        id="menu-appbar"
-        anchorEl={anchorElUser}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        open={Boolean(anchorElUser)}
-        onClose={handleCloseUserMenu}
-      >
-        {settings.map((setting) => (
-          <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu}>
-          <Typography textAlign="center">{setting}</Typography>
-        </MenuItem>
-        ))}
-      </Menu>
-    </Box>
-  </Toolbar>
-</AppBar>
-  <Drawer variant="permanent" open={open} onMouseEnter={handleDrawerOpen} onMouseLeave={handleDrawerClose}>
+  
+  <Navdash/>
+  {/* <Drawer variant="permanent" open={open} onMouseEnter={handleDrawerOpen} onMouseLeave={handleDrawerClose}>
     <DrawerHeader>
       <IconButton onMouseEnter={handleDrawerOpen}>
         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -220,8 +174,10 @@ return (
     </DrawerHeader>
     <Divider />
     <List>
+      
       {sidebar.map((text, index) => (
         <ListItem key={text} disablePadding sx={{ display: 'block',  backgroundColor: selectedIndex === index? '#d5d8fb': 'transparent' }}>
+          
           <ListItemButton
             sx={{
               minHeight: 48,
@@ -253,10 +209,12 @@ return (
       ))}
     </List>
     <Divider /> 
-  </Drawer>
+
+  </Drawer> */}
+
   <Box component="main" sx={{ flexGrow: 1, p: 5  }}>
     <DrawerHeader />
-    <div class="border-2 border-gray-300 rounded-md p-4 shadow-lg " >
+    <div class=" rounded-md p-4 shadow-lg bg-gray-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-30" >
       {viewProjects && <Dash/>}
       {addProject && <Newproject/>}
       {viewClassroom && <>
@@ -302,6 +260,7 @@ return (
       {viewClassroom &&
       <FloatingActionsButtons/>
 }
+
   </Box>
 
 </Box>
