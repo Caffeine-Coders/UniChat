@@ -61,7 +61,7 @@ export default function content() {
     }
 
     return (
-    <div class="text-center flex justify-center align-middle mt-40">
+    <div class="text-center flex justify-center align-middle mt-16">
         <div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-2xl bg-clip-border rounded-xl w-3/5 h-full">
             <div class="flex items-center w-full">
                 <img class="w-1/2 rounded-xl h-96" src="https://t3.ftcdn.net/jpg/03/39/70/90/360_F_339709048_ZITR4wrVsOXCKdjHncdtabSNWpIhiaR7.jpg" alt="login" />
