@@ -1,4 +1,4 @@
-import Navdash from "../navbar"
+// import Navdash from "../navbar"
 import Content from "./content"
 import Siderbar from "./sidebar"
 

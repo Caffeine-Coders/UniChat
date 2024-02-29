@@ -78,9 +78,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function Content() {
   const [open, setOpen] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(1); 
-  const [viewProjects, setviewprojects] = React.useState(true)
-  const[addProject,setaddproject] = React.useState(false)
-  const[viewClassroom, setviewclassroom] = React.useState(false)
+
+  const[addClassroom,setaddClassroom] = React.useState(false)
+  const[viewClassroom, setviewclassroom] = React.useState(true)
   const handleListItemClick = (index) => { 
     setSelectedIndex(index);
     console.log("clicked",index)
@@ -88,20 +88,12 @@ export default function Content() {
     localStorage.setItem("indexval", indexval, () => {
     });
     if (index === 0){
-      setaddproject(true)
-      setviewprojects(false)
+      setaddClassroom(true)
       setviewclassroom(false)
     }
     else if(index === 1){
-      setviewprojects(true)
-      setaddproject(false)
-      setviewclassroom(false)
-    }
-    else{
-
       setviewclassroom(true)
-      setaddproject(false)
-      setviewprojects(false)
+      setaddClassroom(false)
     }
   };
 
@@ -112,7 +104,7 @@ export default function Content() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const sidebar=['New Project', 'All Projects', 'Classroom']
+  const sidebar=['New Classroom', 'All Classrooms']
 
 return (
 
@@ -161,10 +153,11 @@ return (
   </Drawer>
   <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
     <DrawerHeader />
-        {viewProjects && <Dash/>}
-       {addProject && <Newproject/>}
-       {viewClassroom && <Classroom/>}
-      {viewClassroom && <FloatingActionsButtons/>}
+        {/* {viewProjects && <Dash/>}
+       {addProject && <Newproject/>} */}
+       {addClassroom}
+       {viewClassroom && <Dash/>}
+      {/* {viewClassroom && <FloatingActionsButtons/>} */}
   </Box>
 </Box>
 
