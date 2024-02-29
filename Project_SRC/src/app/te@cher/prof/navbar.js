@@ -70,18 +70,19 @@ export default function Navdash() {
     setAnchorElUser(null);
   };
     return ( 
-      <AppBar position="fixed" open={open} sx={{background:'transparent'}}>
-    <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-      
-      <Link href="/te@cher/" class='ml-12'>
-     <Typography variant="h4" noWrap component="div" sx={{fontFamily: 'caveat'}}>
-       UniChat
-     </Typography>
-     </Link>
+      <AppBar position="fixed" open={open} sx={{background:'transparent', boxShadow:'0'}}>
+      <div class="bg-gradient-to-b from-gray-500 to-transparent rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm ">
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Link href="/te@cher/">
+      <Typography variant="h4" noWrap component="div" sx={{fontFamily: 'caveat'}} color="black">
+      UniChat
+      </Typography>
+      </Link>
+
        <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
         {photourl && <Avatar src={photourl} />}
-        {name1 && <Typography style={{ fontSize: '16px', color: 'white' }} mx={1} className="text-">{name1}</Typography>}
+        {name1 && <Typography style={{ fontSize: '16px', color: 'black' }} mx={1} className="text-">{name1}</Typography>}
       </IconButton>
       <Menu
         sx={{ mt: '46px' }}
@@ -107,6 +108,7 @@ export default function Navdash() {
       </Menu>
     </Box>
     </Toolbar>
+    </div>
   </AppBar>   
     )
   }
