@@ -14,17 +14,19 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
   
-export default function Classroom() {
+export default function Class() {
     return (
         <>
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Paper sx={{ padding: 2, color: 'text.secondary', backgroundColor: 'background.paper', borderRadius: '8px' }}>
-                    <Typography variant="h2" component="h2" sx={{fontFamily: 'caveat'}}>
-                        680 Master's Project
-                    </Typography>
-                    </Paper>
+                        <Paper sx={{ padding: 2, color: 'text.secondary', backgroundColor: 'background.paper', borderRadius: '8px' }}>
+                            <div class="h-40 flex items-center justify-center ">
+                            <Typography variant="h2" component="h2" sx={{fontFamily: 'caveat'}}>
+                                680 Master's Project
+                            </Typography>
+                            </div>
+                        </Paper>
                 </Grid>
                 <Grid item xs={7}>
                 <Item>xs=4</Item>
