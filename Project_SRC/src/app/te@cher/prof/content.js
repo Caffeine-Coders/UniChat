@@ -1,6 +1,5 @@
 'use client'
 import Dash from './dashboard'
-import Newproject from './addproject/newproject';
 import * as React from 'react';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import FloatingActionsButtons from './float'
@@ -17,8 +16,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Navdash from "./navbar"
-import Classroom from './classroom'
-
+import NewClassroom from "./addclass"
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -162,11 +160,8 @@ return (
   </Drawer>
   <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
     <DrawerHeader />
-        {/* {viewProjects && <Dash/>}
-       {addProject && <Newproject/>} */}
-       {addClassroom}
+       {addClassroom && <NewClassroom/>}
        {viewClassroom && <Dash/>}
-      {/* {viewClassroom && <FloatingActionsButtons/>} */}
   </Box>
 </Box>
 
