@@ -28,24 +28,49 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 import { Backdrop } from '@mui/material';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import { Signuplogin } from "../essentials/conn.js"
 import Navdash from "./navbar"
 const drawerWidth = 240;
-
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+    background:'transparent'
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+      background:'transparent'
+    }),
+  }),
+}));
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
+  padding:'10px',
   overflowX: 'hidden',
   background:'transparent',
 });
+
 
 const closedMixin = (theme) => ({
   transition: theme.transitions.create('width', {
@@ -54,6 +79,7 @@ const closedMixin = (theme) => ({
   }),
   overflowX: 'hidden',
   width: `calc(${theme.spacing(7)} + 1px)`,
+  padding:'10px',
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
     
@@ -66,7 +92,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   background:'transparent',
 }));
@@ -162,20 +187,16 @@ export default function Content() {
   }
 
 return (
+
   <Box sx={{ display: 'flex' }}>
   <CssBaseline />
-  
   <Navdash/>
-  {/* <Drawer variant="permanent" open={open} onMouseEnter={handleDrawerOpen} onMouseLeave={handleDrawerClose}>
+  <Drawer variant="permanent" open={open} onMouseEnter={handleDrawerOpen} onMouseLeave={handleDrawerClose} >
     <DrawerHeader>
-      <IconButton onMouseEnter={handleDrawerOpen}>
-        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-      </IconButton>
+     {/* <MenuIcon sx={{color:'grey'}}/> */}
     </DrawerHeader>
     <Divider />
-    <List>
-      
-      {sidebar.map((text, index) => (
+    <List>      {sidebar.map((text, index) => (
         <ListItem key={text} disablePadding sx={{ display: 'block',  backgroundColor: selectedIndex === index? '#d5d8fb': 'transparent' }}>
           
           <ListItemButton
@@ -208,18 +229,15 @@ return (
         </ListItem>
       ))}
     </List>
-    <Divider /> 
-
-  </Drawer> */}
-
-  <Box component="main" sx={{ flexGrow: 1, p: 5  }}>
+    <Divider />
+  </Drawer>
+  <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
     <DrawerHeader />
-    <div class=" rounded-md p-4 shadow-lg bg-gray-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-30" >
-      {viewProjects && <Dash/>}
-      {addProject && <Newproject/>}
-      {viewClassroom && <>
-        <Accordion sx={{margin:'4px', marginBottom:'10px', padding:'4px'}}>
-        <AccordionSummary
+        {viewProjects && <Dash/>}
+       {addProject && <Newproject/>}
+       {viewClassroom && <>
+         <Accordion sx={{margin:'4px', marginBottom:'10px', padding:'4px'}}>
+         <AccordionSummary
           expandIcon={<ArrowDropDownIcon />}
           aria-controls="panel2-content"
           id="panel2-header"
@@ -256,13 +274,12 @@ return (
       </Accordion> 
 
       </>}
-      </div>
       {viewClassroom &&
       <FloatingActionsButtons/>
 }
 
   </Box>
-
 </Box>
+
 )
 }

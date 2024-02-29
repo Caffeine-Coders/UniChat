@@ -28,7 +28,7 @@ export default function Dash() {
 <>
 <DelayedContent delay={2000}>
 
-    <div class="flex flex-wrap">
+    <div class="flex flex-wrap ">
        
         <div class="my-1 w-full md:w-1/2 lg:my-4 pb-4 lg:px-6 lg:w-1/3 h-56 bg-transparent">
             <a class="no-underline  text-black  bg-transparent" href="/te@cher/prof/projectdetails">
