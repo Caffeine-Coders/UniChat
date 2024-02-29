@@ -96,6 +96,15 @@ export default function Content() {
       setaddClassroom(false)
     }
   };
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const indexfromlocal = JSON.parse(localStorage.getItem("indexval"));
+      if (indexfromlocal!==null){
+        setSelectedIndex(indexfromlocal)
+        handleListItemClick(indexfromlocal)
+      }
+    }
+  });
 
   const handleDrawerOpen = () => {
     setOpen(true);
