@@ -150,14 +150,18 @@ export default function Details({fornext, forback, loader}){
                    onClose={handleClose}
                    aria-labelledby="alert-dialog-title"
                    aria-describedby="alert-dialog-description"
+                   maxWidth="xs"
+                   fullWidth={true}
+                   PaperProps={{ style: { height: '50vh', borderRadius: '15px'} }}
+                   centered
                    >
-                    <div class='h-full w-102 p-4 pb-0 mx-auto'>
-                   <DialogTitle id="alert-dialog-title">
+                    <div class='h-full w-full p-4 pb-0 mx-auto'>
+                   <DialogTitle id="alert-dialog-title" fontSize="25px">
                        {"Select Students to add to the project"}
                    </DialogTitle>
-                   <DialogContent>
+                   <DialogContent >
                        <DialogContentText id="alert-dialog-description">
-                       <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                       <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', alignItems: 'center',display: 'flex', flexDirection: 'column' }}>
                        {studentlist.map((value) => {
                            const labelId = `checkbox-list-secondary-label-${value}`;
                            return (
@@ -172,6 +176,7 @@ export default function Details({fornext, forback, loader}){
                                />
                                }
                                disablePadding
+                               sx={{ justifyContent: 'center' }}
                            >
                                <ListItemButton>
                                <ListItemText id={labelId} primary={value} />
