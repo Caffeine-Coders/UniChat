@@ -51,7 +51,7 @@ export function Signuplogin(){
             await signOut(auth)
             localStorage.clear()
             console.log("signed out")
-            router.push('/te@cher/')
+            router.push('/te@cher/login')
         } catch (error){
             console.log("error",error)
         }

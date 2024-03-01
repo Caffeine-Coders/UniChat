@@ -1,18 +1,16 @@
+"use client"
 import React from 'react';
 // import Layout from './components/layout';
 // import Landing from './components/landing';
 // import bg from './components/land.css'
-import Nav from './login/navbar';
-import Content from './login/content';
+// import Nav from './login/navbar';
+// import Content from './login/content';
+import { useRouter } from 'next/navigation';
+import Login from './login/page';
+
 import "./components/dash.css"
 export default function Teacher() {
-  return (<>
-    <Nav/>
-    <Content/>
-    </>
-    // <Layout>
-      // <Login/>
-    // </Layout>
-  );
+  const router = useRouter()
+  router.push("/te@cher/login")
 }
 
