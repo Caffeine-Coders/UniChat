@@ -34,14 +34,11 @@ export const NewRequest = async (
 
 
 export const getApprovalRequest = async (isApproved) => {
-    const res = await fetch(`/api/admin/approvalRequest`, {
+    const res = await fetch(`/api/admin/approvalRequest?ApprovalStatus=${isApproved}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
-            needed: isApproved,
-        }),
     });
     if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);

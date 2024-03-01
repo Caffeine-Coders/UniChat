@@ -11,7 +11,8 @@ import Tabs from '@mui/material/Tabs';
 import TabPanel from '@mui/lab/TabPanel';
 import TabList from '@mui/lab/TabList';
 import TabContext from '@mui/lab/TabContext';
- 
+import NewRequestPage from "./NewRequestWork/NewRequestPage";
+
 export default function DashboardDetails() {
     const [value, setValue] = React.useState('1');
 
@@ -46,11 +47,13 @@ export default function DashboardDetails() {
                         indicatorColor="secondary"
                     >
                         <Tab label="New Requests" value="1" />
-                        <Tab label="Approved Requests" value="2" />∂∂
+                        <Tab label="Approved Requests" value="2" />
                     </TabList>
                     </Box>
 
-                    <TabPanel value="1">New Requests</TabPanel>
+                    <TabPanel value="1">
+                        <NewRequestPage />
+                    </TabPanel>
                     <TabPanel value="2">Approved Requests</TabPanel>
             </TabContext>
             </Box>
