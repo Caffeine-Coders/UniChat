@@ -46,3 +46,42 @@ export const getApprovalRequest = async (isApproved) => {
     const data = await res.json();
     return data;
 }
+
+export async function updateRequest(schoolname, approvalStatus) {
+    const res = await fetch(`/api/admin/updateRequest`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+            schoolname: schoolname,
+            approvalStatus: approvalStatus,
+        }),
+    });
+    if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+    const data = await res.json();
+    return data;
+
+}
+
+export async function sendEmail(firstname, lastname, email, schoolname) {
+    const res = await fetch(`/api/admin/sendEmail`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            schoolname: schoolname,
+        }),
+    });
+    if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+    const data = await res.json();
+    return data;
+}
