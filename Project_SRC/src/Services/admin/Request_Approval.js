@@ -1,3 +1,4 @@
+// to set the data of the request for approval
 export const NewRequest = async (
     schoolname,schooladdress1,schooladdress2,
     schoolcity,schoolstate,schoolpincode,schoolcountry, 
@@ -30,3 +31,21 @@ export const NewRequest = async (
         const data = await res.json();
         return data;
     }
+
+
+export const getApprovalRequest = async (isApproved) => {
+    const res = await fetch(`/api/admin/approvalRequest`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+            needed: isApproved,
+        }),
+    });
+    if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+    const data = await res.json();
+    return data;
+}
