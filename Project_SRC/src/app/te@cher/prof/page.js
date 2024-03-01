@@ -3,7 +3,7 @@ import Content from "./content"
 import "../components/dash.css"
 export default function Dashboard() {
     return (
-        <div className="dashboard-container"> 
+        <div className=""> 
 
         <Content/>
         
