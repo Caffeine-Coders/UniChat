@@ -18,11 +18,65 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import "../../components/dash.css"
-import FilterListIcon from '@mui/icons-material/FilterList';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Stack from '@mui/material/Stack';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+function CustomTabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box sx={{ p: 3 }}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+  
+  CustomTabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+  };
+  
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
+
 export default function Content() {
+
     const [classname, setClassname] = useState('');
     const [classnumber, setClassnumber] = useState('');
     const [hover, setHover] = useState(false);
+    const [open, setOpen] = React.useState(false);
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
+    const studentlist = ['Forum Dipen Shah', 'Dheeraj Kumar Thanda', 'Sai Vishnu Anudeep Kadiyala' , 'Satwik Bhasin']
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handlestudent = () => {
+        setOpen(true);
+    }
     useEffect(() => {
       if (typeof window !== 'undefined') {
         setClassname(JSON.parse(localStorage.getItem("classname")));
@@ -70,6 +124,27 @@ export default function Content() {
           },
         },
       }));
+      const [checked, setChecked] = React.useState([1]);
+
+      const handleToggle = (value) => () => {
+          const currentIndex = checked.indexOf(value);
+          const newChecked = [...checked];
+  
+          if (currentIndex === -1) {
+          newChecked.push(value);
+          } else {
+          newChecked.splice(currentIndex, 1);
+          }
+  
+          setChecked(newChecked);
+      };
+      const Item = styled(Paper)(({ theme }) => ({
+        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+        ...theme.typography.body2,
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+      }));
   return (
     <>
     <Box component="main" sx={{ flexGrow: 1, p: 3, marginTop:'40px', display: 'flex', marginLeft: '10%', marginRight: '10%' }}>
@@ -101,7 +176,7 @@ export default function Content() {
             </button>
             </Grid>
             <Grid item xs={3}>
-            <button class="focus:outline-none w-full hover:bg-gray-300 hover:rounded-xl ">
+            <button class="focus:outline-none w-full hover:bg-gray-300 hover:rounded-xl " >
                 <div class="bg-white rounded-xl h-40 shadow-lg">
                     <div style={{marginLeft:'20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', height: '100%'}}>
                         <img src={sicon.src} alt="sicon" style={{width: '30px', marginBottom: '15px'}} />
@@ -125,7 +200,7 @@ export default function Content() {
             </button>
             </Grid>
             <Grid item xs={3}>
-            <button class="focus:outline-none w-full hover:bg-gray-300 hover:rounded-xl ">
+            <button class="focus:outline-none w-full hover:bg-gray-300 hover:rounded-xl " onClick={handlestudent}>
                 <div class="bg-white rounded-xl h-40 shadow-lg">
                     <div style={{marginLeft:'20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', height: '100%'}}>
                         <Groups2OutlinedIcon sx={{ fontSize: 30, marginBottom: '15px' }} />
@@ -342,6 +417,99 @@ export default function Content() {
             </Grid>  
         </Grid>
     </Box>
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            maxWidth="md"
+            fullWidth={true}
+            PaperProps={{ style: { height: '90vh', borderRadius: '15px'} }}
+            >
+            <div class='h-full w-full p-4 pb-0 mx-auto'>
+            <DialogTitle id="alert-dialog-title" style={{fontSize: '25px'}}>
+            <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+            sx={{ position: 'absolute', right: 8, top: 8 }}
+        >
+            <CloseIcon />
+        </IconButton>
+                {"Members involved in this class:"}
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                <Box sx={{ width: '100%' }}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Tabs value={value} onChange={handleChange} centered>
+                    <Tab label="Students" {...a11yProps(0)} />
+                    <Tab label="Co Instructors" {...a11yProps(1)} />
+                    </Tabs>
+                </Box>
+                <CustomTabPanel value={value} index={0} width="full">
+                    <div class="  mt-4 rounded-lg flex justify-between space-between">
+                        <h4 class="flex ">
+                        <img class="ml-4 mr-4 w-6 h-6 rounded-full" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""/>
+                        Forum Dipen Shah
+                        </h4>
+                        <h4 class="mr-4">somemeial@gmail.com</h4>
+                        
+                    </div>
+                    <hr class=" mt-4 h-px  bg-gray-400 border-0"></hr>
+                    <div class="  mt-4 rounded-lg flex justify-between space-between">
+                        <h4 class="flex ">
+                        <img class="ml-4 mr-4 w-6 h-6 rounded-full" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""/>
+                        Dheeraj Kumar Thanda
+                        </h4>
+                        <h4 class="mr-4">somemeial@gmail.com</h4>
+                        
+                    </div>
+                    <hr class=" mt-4 h-px  bg-gray-400 border-0"></hr>
+                    <div class="  mt-4 rounded-lg flex justify-between space-between">
+                        <h4 class="flex ">
+                        <img class="ml-4 mr-4 w-6 h-6 rounded-full" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""/>
+                        Sai Vishnu Anudeep Kadiyala
+                        </h4>
+                        <h4 class="mr-4">somemeial@gmail.com</h4>
+                        
+                    </div>
+                    <hr class="  mt-4 h-px  bg-gray-400 border-0"></hr>
+                    <div class=" mt-4 rounded-lg flex justify-between space-between">
+                        <h4 class="flex ">
+                        <img class="ml-4 mr-4 w-6 h-6 rounded-full" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""/>
+                        Satwik Bhasin
+                        </h4>
+                        <h4 class="mr-4">somemeial@gmail.com</h4>
+                        
+                    </div>
+                </CustomTabPanel>
+                <CustomTabPanel value={value} index={1}>
+                <div class="  mt-4 rounded-lg flex justify-between space-between">
+                        <h4 class="flex ">
+                        <img class="ml-4 mr-4 w-6 h-6 rounded-full" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""/>
+                        Professor 1 
+                        </h4>
+                        <h4 class="mr-4">professor1@gmail.com</h4>
+                        
+                    </div>
+                    <hr class=" mt-4 h-px  bg-gray-400 border-0"></hr>
+                    <div class="  mt-4 rounded-lg flex justify-between space-between">
+                        <h4 class="flex ">
+                        <img class="ml-4 mr-4 w-6 h-6 rounded-full" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""/>
+                        Professor 2
+                        </h4>
+                        <h4 class="mr-4">professor2@gmail.com</h4>
+                        
+                    </div>
+                </CustomTabPanel>
+                </Box>    
+                </DialogContentText>
+            </DialogContent>
+
+            </div>
+        </Dialog>
     </>
   );
 }
