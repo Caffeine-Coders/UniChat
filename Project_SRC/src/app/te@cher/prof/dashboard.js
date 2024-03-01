@@ -24,6 +24,7 @@ function DelayedContent({ children, delay }) {
 }
 
 export default function Dash() {
+    
     return (
 <>
 <DelayedContent delay={2000}>

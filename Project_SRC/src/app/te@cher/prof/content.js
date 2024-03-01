@@ -15,8 +15,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
-
-
+import SchoolIcon from '@mui/icons-material/School';
+import NewClassroom from './addclass'
 const Search = styled('div')(({ theme }) => ({
   position:'relative',
   // borderRadius: theme.shape.borderRadius,
@@ -60,10 +60,23 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center', // Center horizontally
 }));
 
+
+
 export default function Content() {
+const [name1,setName1] = React.useState(null)
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setName1(JSON.parse(localStorage.getItem("Tname")));
+    }
+  }, []); 
+const [addclass, handleaddclass] = React.useState(false)
+const addHandler = (event) => {
+  handleaddclass(true)
+};
 return (
   <>
   <Navdash/>
+  {!addclass &&
   <Box component="main" sx={{ flexGrow: 1, p: 3, marginTop:'48px' }}>
   <Box sx={{ display: 'flex' }}>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
@@ -88,7 +101,7 @@ return (
     padding: '20px',
     color: 'white',
   }}>
-           <h3 style={{ fontWeight: 'bolder', fontSize: '34px', letterSpacing: '2px' }}>Hi Forum!</h3>
+           <h3 style={{ fontWeight: 'bolder', fontSize: '34px', letterSpacing: '2px' }}>Hi {name1}!</h3>
             <span style={{}} >Here's what's happening in your classes</span>
             <Search>
             <SearchIconWrapper>
@@ -122,7 +135,10 @@ return (
                   Create a new class
                 </h4>
                 {/* <button class="mr-4 bg-discordpurple-300 px-4 rounded-lg font-medium">Create</button> */}
-                <Button variant="contained" style={{marginRight:'10px', borderRadius:'24px', backgroundColor:'#692ea3'}}>Contained</Button>
+                <Button variant="contained" onClick={addHandler} style={{marginRight:'10px', borderRadius:'24px', backgroundColor:'#692ea3'}}>
+                  Create 
+                <SchoolIcon sx={{paddingLeft:'4px', marginLeft:'4px'}}/>
+                </Button>
             </div>
           </div>
     </div>
@@ -208,6 +224,8 @@ return (
       </Box>
       </Box>
   </Box>
+}
+{addclass && <NewClassroom/>}
   </>
   )
 }

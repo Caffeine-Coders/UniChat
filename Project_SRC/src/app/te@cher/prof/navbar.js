@@ -82,7 +82,7 @@ export default function Navdash() {
        <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
         {photourl && <Avatar src={photourl} />}
-        {name1 && <Typography style={{ fontSize: '16px', color: 'black' }} mx={1} className="text-">{name1}</Typography>}
+        {/* {name1 && <Typography style={{ fontSize: '16px', color: 'black' }} mx={1} className="text-">{name1}</Typography>} */}
       </IconButton>
       <Menu
         sx={{ mt: '46px' }}
