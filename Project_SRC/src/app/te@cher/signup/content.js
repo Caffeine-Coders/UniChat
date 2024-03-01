@@ -1,5 +1,4 @@
 "use client"
-import "../components/land.css"
 import { useState } from "react";
 import * as React from 'react';
 // import { signupaccount } from "../essentials/conn";
@@ -102,7 +101,7 @@ export default function content() {
                       }}
               />
             <div class="p-6 pt-0 mt-10">
-                <button type="submit" class="inline-flex align-middle items-center  justify-center px-5 py-3 text-xl text-center text-black bg-slate-200 rounded-lg hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" >    
+                <button type="submit" class="inline-flex align-middle items-center  justify-center px-5 py-3 text-xl text-center text-black bg-slate-200 rounded-lg hover:bg-discordpurple-0 hover:bg-opacity-40  focus:ring-4 focus:ring-blue-100" >    
                     Send for Approval <svg class="w-5 h-5 ms-2 group:text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="check"><rect width="256" height="256" fill="none"></rect><polyline fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" points="216 72.005 104 184 48 128.005" ></polyline></svg>
                     
                 </button>

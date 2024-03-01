@@ -147,7 +147,7 @@ export default function NewClassroom(){
                      </button>
                      </a>
                      <button 
-                        class="inline-flex float-right items-center justify-center  px-5 py-3 text-base font-medium text-center text-white bg-discordpurple-100 rounded-lg hover:bg-discordpurple-200 focus:ring-4 focus:ring-blue-100" 
+                        class="inline-flex float-right items-center justify-center  px-5 py-3 text-base font-medium text-center text-black bg-discordpurple-0 border-4 border-discordpurple-0 rounded-lg hover:bg-white hover:border-4 hover:border-discordpurple-0 focus:ring-4 focus:ring-blue-100" 
                         onClick={handleSubmit}
                     >    
                          Create 

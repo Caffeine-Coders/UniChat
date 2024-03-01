@@ -1,5 +1,4 @@
 "use client"
-import "../components/land.css"
 import * as React from 'react';
 // import { loginaccount } from "../essentials/conn";
 import {Signuplogin} from "../essentials/conn"
@@ -73,7 +72,7 @@ export default function content() {
                         </div>
                     </div>
                     <div class="p-6 pt-0 mt-10">
-                            <button type="button" onClick={handeGoogle} class="inline-flex align-middle items-center w-3/5 justify-center px-5 py-3 text-xl text-center text-black bg-slate-200 rounded-md hover:bg-discordpurple-300  focus:ring-4 focus:ring-blue-100" >    
+                            <button type="button" onClick={handeGoogle} class="inline-flex align-middle items-center w-3/5 justify-center px-5 py-3 text-xl text-center text-black bg-slate-200 rounded-md hover:bg-discordpurple-0 hover:bg-opacity-40  focus:ring-4 focus:ring-blue-100" >    
                                 Sign in with <img class="w-8 h-8 ms-2" src="https://img.icons8.com/color/48/000000/google-logo.png" alt="google"/>
                             </button>
                     </div>
