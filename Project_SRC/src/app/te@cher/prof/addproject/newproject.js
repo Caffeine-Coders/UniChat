@@ -55,7 +55,9 @@ export default function Newproject(){
                     <Stepper activeStep={activeStep}  sx={{ pt: 2, pb: 5}}>
                         {steps.map((label) => (
                         <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
+                            <StepLabel
+                            
+                            >{label}</StepLabel>
                         </Step>
                         ))}
                     </Stepper>

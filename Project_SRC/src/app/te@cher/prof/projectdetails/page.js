@@ -1,13 +1,10 @@
 // import Navdash from "../navbar"
 import Content from "./content"
-import Siderbar from "./sidebar"
-
+import "../../components/dash.css"
 export default function Projectdetails() {
     return (
-        <div>
-            {/* <Navdash/>
-            <Siderbar/> */}
+        <div style={{background:'#e3d0f5', height:'100vh'}}>
             <Content/>
-        </div>
+            </div>
     )
   }

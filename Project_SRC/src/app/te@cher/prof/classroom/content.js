@@ -19,10 +19,16 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import "../../components/dash.css"
 import FilterListIcon from '@mui/icons-material/FilterList';
+import { useRouter } from 'next/navigation';
+
 export default function Content() {
     const [classname, setClassname] = useState('');
     const [classnumber, setClassnumber] = useState('');
     const [hover, setHover] = useState(false);
+    const router = useRouter()
+    const handleprojectadder = (event) => {
+        router.push('/te@cher/prof/addproject')
+      };
     useEffect(() => {
       if (typeof window !== 'undefined') {
         setClassname(JSON.parse(localStorage.getItem("classname")));
@@ -89,7 +95,7 @@ export default function Content() {
                 </div>
             </Grid>
             <Grid item xs={3}>
-            <button class="focus:outline-none w-full hover:bg-gray-300 hover:rounded-xl ">
+            <button class="focus:outline-none w-full hover:bg-gray-300 hover:rounded-xl " onClick={handleprojectadder}>
                 <div class="bg-white rounded-xl h-40 shadow-lg">
                     <div style={{marginLeft:'20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', height: '100%'}}>
                         <AddBoxOutlinedIcon sx={{ fontSize: 30, marginBottom: '15px' }} />
