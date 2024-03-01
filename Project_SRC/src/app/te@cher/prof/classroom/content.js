@@ -25,6 +25,7 @@ import Tab from '@mui/material/Tab';
 import Stack from '@mui/material/Stack';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
+import { useRouter } from 'next/navigation';
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
   
@@ -59,10 +60,14 @@ function CustomTabPanel(props) {
   }
 
 export default function Content() {
-
+    const router = useRouter()
+    const handleprojectadder = (event) => {
+        router.push('/te@cher/prof/addproject')
+      };
     const [classname, setClassname] = useState('');
     const [classnumber, setClassnumber] = useState('');
     const [hover, setHover] = useState(false);
+
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState(0);
 
