@@ -203,6 +203,7 @@ const Login = () => {
 
   const signInWithGoogle = async () => {
     const loggedInUser = await GetLoggedInUserDetails();
+    console.log(loggedInUser);
     if (loggedInUser) {
       // User is logged in
       const userClassification = await ClassifyUser(loggedInUser.email);
@@ -213,6 +214,7 @@ const Login = () => {
         setStudentId(userClassification.studentId);
         localStorage.setItem("userImage", loggedInUser.photoURL);
         localStorage.setItem("studentId", userClassification.studentId);
+        console.log("access token: " + loggedInUser.accessToken);
         if (userClassification.isFirstTimeLogin) {
           const response = await UpdateFirstTimeLogin(loggedInUser.email);
           if (response.status === "Updated") {
@@ -234,9 +236,14 @@ const Login = () => {
 
   const signInUser = async () => {
     const provider = new GoogleAuthProvider();
+    provider.addScope("https://www.googleapis.com/auth/drive");
+    provider.addScope("https://www.googleapis.com/auth/documents");
     const auth = getAuth(app);
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    sessionStorage.setItem("googleAccessToken", token);
     setUser(user);
     signInWithGoogle();
   };

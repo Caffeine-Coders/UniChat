@@ -144,10 +144,9 @@ export default function NavBar() {
         <Paper
           style={{
             position: "relative",
-            width: 350,
-            zIndex: 9999,
-            height: 500,
             borderRadius: 8,
+            width: 350,
+            height: 500,
             backgroundColor: (theme) => theme.palette.primary.main,
           }}
           sx={{ backgroundColor: (theme) => theme.palette.primary.main }}
@@ -318,7 +317,7 @@ export default function NavBar() {
                       height: 10,
                       bgcolor: "background.paper",
                       transform: "translateY(-50%) rotate(45deg)",
-                      zIndex: 0,
+                      // zIndex: 0,
                     },
                   },
                 }}
