@@ -107,8 +107,10 @@ const SideBar = ({ projects }) => {
       supportDrives: true,
       multiselect: true,
       callbackFunction: async (data) => {
-        localStorage.setItem("selectedDoc", data.docs[0].embedUrl);
-        localStorage.setItem("selectedDocId", data.docs[0].id);
+        if (data.action === "picked") {
+          localStorage.setItem("selectedDoc", data.docs[0].embedUrl);
+          localStorage.setItem("selectedDocId", data.docs[0].id);
+        }
       },
     });
   };
