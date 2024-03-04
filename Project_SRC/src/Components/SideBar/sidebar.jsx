@@ -22,7 +22,7 @@ import Button from "@mui/material/Button";
 import ThemeContext from "../Contexts/themeContext";
 import { useContext, useState, useEffect } from "react";
 import useDrivePicker from "react-google-drive-picker";
-import { GetGoogleAccessToken, GetLoggedInUserDetails } from "../../Services/User";
+
 //================================icons=======================
 import ConstructionOutlinedIcon from "@mui/icons-material/ConstructionOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -30,12 +30,8 @@ import DvrOutlinedIcon from "@mui/icons-material/DvrOutlined";
 import AirlineStopsOutlinedIcon from "@mui/icons-material/AirlineStopsOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
-import DocView from "../DocView/DocView";
 
 import "./sidebar.css";
-import sidebarlogo from "../../Assets/sidebaricon.png";
-import { palette } from "@mui/system";
-import { Get } from "faunadb";
 
 const drawerWidth = 300;
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -111,23 +107,11 @@ const SideBar = ({ projects }) => {
       supportDrives: true,
       multiselect: true,
       callbackFunction: async (data) => {
-        if (data.action === "picked") {
-          data.docs.forEach((doc) => {
-            console.log(doc);
-          });
-          localStorage.setItem("selectedDoc", data.docs[0].embedUrl);
-          localStorage.setItem("selectedDocId", data.docs[0].id);
-          console.log(data.docs[0].id);
-        }
+        localStorage.setItem("selectedDoc", data.docs[0].embedUrl);
+        localStorage.setItem("selectedDocId", data.docs[0].id);
       },
     });
   };
-
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-  }, [data]);
 
   const handleDrawerClose = () => {
     setIsClosing(true);

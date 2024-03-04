@@ -203,7 +203,6 @@ const Login = () => {
 
   const signInWithGoogle = async () => {
     const loggedInUser = await GetLoggedInUserDetails();
-    console.log(loggedInUser);
     if (loggedInUser) {
       // User is logged in
       const userClassification = await ClassifyUser(loggedInUser.email);
@@ -214,7 +213,6 @@ const Login = () => {
         setStudentId(userClassification.studentId);
         localStorage.setItem("userImage", loggedInUser.photoURL);
         localStorage.setItem("studentId", userClassification.studentId);
-        console.log("access token: " + loggedInUser.accessToken);
         if (userClassification.isFirstTimeLogin) {
           const response = await UpdateFirstTimeLogin(loggedInUser.email);
           if (response.status === "Updated") {

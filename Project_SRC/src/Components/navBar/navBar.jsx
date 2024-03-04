@@ -128,7 +128,6 @@ export default function NavBar() {
   const { userImage } = useContext(AuthContext);
 
   const logout = () => {
-    console.log("Logout clicked!");
     LogoutUser()
       .then(() => {
         window.location.reload();
