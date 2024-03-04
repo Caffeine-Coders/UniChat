@@ -466,7 +466,6 @@ const SideBar = ({ projects }) => {
         sx={{
           width: { sm: drawerWidth },
           flexShrink: { sm: 0 },
-          zIndex: 1000000,
         }}
       >
         <Drawer

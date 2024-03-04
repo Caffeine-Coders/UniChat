@@ -113,7 +113,7 @@ export default function HomeComponent() {
                     position: "fixed",
                     width: "100%",
                     height: "100%",
-                    zIndex: 1,
+                    zIndex: 2,
                   }}
                 >
                   <ThemeContext.Provider value={{ theme, setTheme }}>
@@ -130,7 +130,6 @@ export default function HomeComponent() {
                   maxWidth: { xl: "80%", lg: "75%" },
                   marginLeft: 43,
                   marginTop: 2,
-                  zIndex: 0,
                 }}
               >
                 <ThemeContext.Provider value={{ theme, setTheme }}>
@@ -140,8 +139,9 @@ export default function HomeComponent() {
               <Box
                 sx={{
                   position: "fixed",
-                  maxWidth: { xl: "80%", lg: "75%" },
-                  zIndex: 0,
+                  zIndex: 1,
+                  height: 0,
+                  width: 0,
                 }}
               >
                 <ThemeContext.Provider value={{ theme, setTheme }}>
@@ -163,7 +163,6 @@ export default function HomeComponent() {
                   alignItems: "center",
                   justifyContent: "center",
                   display: "flex",
-                  zIndex: 0,
                   backgroundColor:
                     discordServerId === "noProjectSelected"
                       ? theme.palette.primary.main
