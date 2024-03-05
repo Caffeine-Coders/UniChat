@@ -8,6 +8,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { styled, useTheme } from '@mui/material/styles';
+import { Drivecomponent } from '../../drive/drivecomponent';
 import Groups2OutlinedIcon from '@mui/icons-material/Groups2Outlined';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -32,6 +33,12 @@ import Link from 'next/link';
 import { Signuplogin } from "../../essentials/conn"
 import "../../components/dash.css"
 const drawerWidth = 240;
+// window.addEventListener('beforeunload', function() {
+//   // Clear the indexval from localStorage
+//   localStorage.removeItem("indexval");
+// });
+
+
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -121,33 +128,27 @@ function DelayedContent({ children, delay }) {
 }
 
 export default function Content(){
+  if (typeof window!== 'undefined'){
+  localStorage.setItem("indexval", 0, () => {
+      });
+}
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [selectedIndex, setSelectedIndex] = React.useState(1); 
     const [viewProjects, setviewprojects] = React.useState(true)
     const[addProject,setaddproject] = React.useState(false)
     const[viewClassroom, setviewclassroom] = React.useState(false)
+    const driveInstance = Drivecomponent()
     const handleListItemClick = (index) => { 
       setSelectedIndex(index);
       console.log("clicked",index)
       const indexval = JSON.stringify(index);
       localStorage.setItem("indexval", indexval, () => {
       });
-      if (index === 0){
-        setaddproject(true)
-        setviewprojects(false)
-        setviewclassroom(false)
+      if(index === 4){
+        driveInstance.handleopenPicker()
       }
-      else if(index === 1){
-        setviewprojects(true)
-        setaddproject(false)
-        setviewclassroom(false)
-      }
-      else{
-        setviewclassroom(true)
-        setaddproject(false)
-        setviewprojects(false)
-      }
+     
     };
   
     const handleDrawerOpen = () => {
