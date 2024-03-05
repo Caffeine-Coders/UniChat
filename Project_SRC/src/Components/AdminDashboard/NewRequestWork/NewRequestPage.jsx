@@ -43,10 +43,10 @@ function NewRequestPage() {
                 alignItems: 'center', // Add this line to center the content horizontall
                 overflowY: "auto"
             }}
-            onMouseEnter={() => setRefresh(!Refresh)}
+            onMouseMove={() => setRefresh(!Refresh)}
         >
         {
-            request? request.map((req, index) => {
+            Array.isArray(request) && request.length > 0 ? request.map((req, index) => {
                 return (
                     <Button onClick={()=> {setonClicked(!onClicked); setClickedReq(req)}}  sx={{backgroundColor: (theme)=>theme.palette.primary.ButtonColor, width: '100%', mb: 4, "&:hover":{backgroundColor: (theme) => theme.palette.primary.ButtonHover}}}>
                         <Typography variant="h4" color="secondary" sx={{color: (theme) => theme.palette.primary.whites, fontFamily: '"Kode Mono", monospace', fontWeight: 10}}>
@@ -55,7 +55,7 @@ function NewRequestPage() {
                         <NavigateNextIcon  sx={{color: (theme) => theme.palette.primary.whites, fontSize: '3rem', ml: 4}}/>
                     </Button>
                 );
-            }): <div> No Request Found</div>
+            }) : <div> No Request Found</div>
         }
         </Box>
         :

@@ -12,7 +12,7 @@ export async function POST(request) {
             return NextResponse.json({status: 400, message: "Missing required fields."});
         }
         const {data,error} = await resend.emails.send({
-            from: "UniChat <onboarding@resend.dev>",
+            from: "UniChat <donotreply@unichat.website>",
             to: email,
             subject: "Welcome to Unichat",
             react: WelcomeEmail({schooladminFirstname: firstname, schooladminLname: lastname, schoolname: schoolname})

@@ -47,6 +47,8 @@ export const getApprovalRequest = async (isApproved) => {
     return data;
 }
 
+
+
 export async function updateRequest(schoolname, approvalStatus) {
     const res = await fetch(`/api/admin/updateRequest`, {
         method: "PUT",
