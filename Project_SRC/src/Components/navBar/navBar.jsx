@@ -128,7 +128,6 @@ export default function NavBar() {
   const { userImage } = useContext(AuthContext);
 
   const logout = () => {
-    console.log("Logout clicked!");
     LogoutUser()
       .then(() => {
         window.location.reload();
@@ -140,73 +139,80 @@ export default function NavBar() {
 
   const ChatGPTBox = () => {
     return (
-      <Draggable bounds={{ left: 0, top: 0, right: 1090, bottom: 295 }}>
-        <Paper
-          style={{
-            position: "relative",
-            width: 350,
-            zIndex: 9999,
-            height: 500,
-            borderRadius: 8,
-            backgroundColor: (theme) => theme.palette.primary.main,
+      <Box sx={{ zIndex: 1 }}>
+        <Draggable
+          bounds={{ left: 0, top: 0, right: 1090, bottom: 295 }}
+          defaultPosition={{
+            x: window.innerWidth / 2 - 175,
+            y: window.innerHeight / 2 - 250,
           }}
-          sx={{ backgroundColor: (theme) => theme.palette.primary.main }}
         >
-          <IconButton
-            onClick={handleCloseChatGPT}
-            sx={{
-              "&:hover": {
-                backgroundColor: "transparent",
-                color: (theme) => theme.palette.primary.ButtonColor,
-              },
+          <Paper
+            style={{
+              position: "relative",
+              borderRadius: 8,
+              width: 350,
+              height: 500,
+              backgroundColor: (theme) => theme.palette.primary.main,
             }}
+            sx={{ backgroundColor: (theme) => theme.palette.primary.main }}
           >
-            <CloseIcon />
-          </IconButton>
-          <Box
-            sx={{
-              justifyContent: "center",
-              alignItems: "center",
-              display: "flex",
-              mt: 15,
-            }}
-          >
-            <Typography variant="h5">ChatGPT Integration Here</Typography>
-          </Box>
-          <Box
-            sx={{
-              justifyContent: "center",
-              alignItems: "center",
-              display: "flex",
-              mt: 33,
-              width: 300,
-              borderRadius: 3,
-              ml: 3,
-              backgroundColor: (theme) => theme.palette.primary.ButtonColor,
-              color: (theme) => theme.palette.primary.textcolor,
-            }}
-          >
-            <InputBase
-              placeholder="Chat Here"
-              sx={{ color: (theme) => theme.palette.primary.main }}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    sx={{
-                      color: (theme) => theme.palette.primary.main,
-                      "&:hover": {
-                        backgroundColor: "transparent",
-                      },
-                    }}
-                  >
-                    <SendIcon />
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </Box>
-        </Paper>
-      </Draggable>
+            <IconButton
+              onClick={handleCloseChatGPT}
+              sx={{
+                "&:hover": {
+                  backgroundColor: "transparent",
+                  color: (theme) => theme.palette.primary.ButtonColor,
+                },
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+            <Box
+              sx={{
+                justifyContent: "center",
+                alignItems: "center",
+                display: "flex",
+                mt: 15,
+              }}
+            >
+              <Typography variant="h5">ChatGPT Integration Here</Typography>
+            </Box>
+            <Box
+              sx={{
+                justifyContent: "center",
+                alignItems: "center",
+                display: "flex",
+                mt: 33,
+                width: 300,
+                borderRadius: 3,
+                ml: 3,
+                backgroundColor: (theme) => theme.palette.primary.ButtonColor,
+                color: (theme) => theme.palette.primary.textcolor,
+              }}
+            >
+              <InputBase
+                placeholder="Chat Here"
+                sx={{ color: (theme) => theme.palette.primary.main }}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      sx={{
+                        color: (theme) => theme.palette.primary.main,
+                        "&:hover": {
+                          backgroundColor: "transparent",
+                        },
+                      }}
+                    >
+                      <SendIcon />
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </Box>
+          </Paper>
+        </Draggable>
+      </Box>
     );
   };
 
@@ -219,6 +225,7 @@ export default function NavBar() {
           width: { xl: "80%", lg: "75%", md: "68%", sm: "100%" },
           left: 344,
           top: 16,
+          zIndex: 0,
         }}
       >
         <Toolbar
@@ -318,7 +325,6 @@ export default function NavBar() {
                       height: 10,
                       bgcolor: "background.paper",
                       transform: "translateY(-50%) rotate(45deg)",
-                      zIndex: 0,
                     },
                   },
                 }}
