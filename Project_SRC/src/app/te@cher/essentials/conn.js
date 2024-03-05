@@ -35,8 +35,9 @@ export function Signuplogin(){
             const user = result.user;
             let name = user.displayName;
             let photourl = user.photoURL;
+            let accessToken = user.accessToken;
             const verificationStatus = await userChecker(user);
-            return {verificationStatus: verificationStatus, name: name, photourl: photourl};
+            return {verificationStatus: verificationStatus, name: name, photourl: photourl, accessToken: accessToken};
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;

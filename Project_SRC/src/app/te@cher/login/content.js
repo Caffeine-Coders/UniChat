@@ -29,6 +29,7 @@ export default function content() {
             const verificationStatus = data.verificationStatus
             const name = data.name
             const photourl = data.photourl
+            const accessToken = data.accessToken
             const emailID = JSON.stringify(verificationStatus);
             localStorage.setItem("emailID", emailID, () => {
                 const retrievedEmail = JSON.parse(localStorage.getItem("emailID"));
@@ -43,6 +44,10 @@ export default function content() {
             localStorage.setItem("photoURL", photoURL, () => {
                 const retrievedurl = JSON.parse(localStorage.getItem("photoURL"));
                 console.log("retrieved url:", retrievedurl);
+            });
+            const token = JSON.stringify(accessToken);
+            localStorage.setItem("token", token, () => {
+                JSON.parse(localStorage.getItem("token"));
             });
             console.log("name",name)
             console.log("login ",verificationStatus)
