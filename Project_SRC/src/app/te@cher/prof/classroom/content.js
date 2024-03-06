@@ -204,16 +204,18 @@ export default function Content() {
         signoutinstance.signout();
       }
       const handleListItemClick = (index) => { 
-        setSelectedIndex(index);
+        
         console.log("clicked",index)
         const indexval = JSON.stringify(index);
         localStorage.setItem("indexval", indexval, () => {
         });
         if (indexval == 0 ){
+          setSelectedIndex(index);
             setNewProject(true)
             setAllProjects(false)
         }
         else if (indexval == 1){
+          setSelectedIndex(index);
             setAllProjects(true)
             setNewProject(false)
         }
