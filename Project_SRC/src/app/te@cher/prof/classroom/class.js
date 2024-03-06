@@ -6,13 +6,12 @@ import { CssBaseline } from '@mui/material';
 import Content from './content.js';
 export default function Class() {
 
-
     return (
-        <Box sx={{ display: 'flex' }}>
-          <CssBaseline />
-          <Navdash/>
-          <Content/>
-        </Box>
+        // <Box sx={{ display: 'flex' }}>
+          {/* <CssBaseline />
+          <Navdash/> */}
+          // <Content/>
+        // </Box>
 
   )
 }
