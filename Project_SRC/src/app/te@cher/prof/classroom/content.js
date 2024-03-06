@@ -1,5 +1,7 @@
 "use client";
 import React, {useState, useEffect} from 'react';
+import { ReactMultiEmail, isEmail } from 'react-multi-email';
+import 'react-multi-email/dist/style.css';
 import Class from './class'
 import Newproject from '../addproject/newproject';
 import Box from '@mui/material/Box';
@@ -39,7 +41,19 @@ import { Signuplogin } from '../../essentials/conn';
 import CloseIcon from '@mui/icons-material/Close';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import { Button } from "@mui/material";
 const drawerWidth = 240;
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
 const openedMixin = (theme) => ({
     width: drawerWidth,
     transition: theme.transitions.create('width', {
@@ -243,21 +257,30 @@ export default function Content() {
     const [classname, setClassname] = useState('');
     const [classnumber, setClassnumber] = useState('');
     const [hover, setHover] = useState(false);
-
+    const [inviteStudent,setStudentInvite] = useState(false)
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
+    const handleInvite = (indexVal) => {
+      if (indexVal == 0){
+        setStudentInvite(true)
+      }
+    }
     const studentlist = ['Forum Dipen Shah', 'Dheeraj Kumar Thanda', 'Sai Vishnu Anudeep Kadiyala' , 'Satwik Bhasin']
     const handlemembersClose = () => {
         setMembers(false);
     };
+    const handleInviteClose = () =>{
+      setStudentInvite(false)
+    }
     // const handlestudent = () => {
     //     setOpen(true);
     // }
-    
+    const [emails, setEmails] = React.useState([]);
+    const [focused, setFocused] = React.useState(false);
       const [checked, setChecked] = React.useState([1]);
       const [name1, setName1] = React.useState(null);
       React.useEffect(() => {
@@ -385,7 +408,7 @@ export default function Content() {
                     justifyContent: open ? 'initial' : 'center',
                     px: 2.5,
                   }}
-       
+                  onClick={() => handleInvite(index)} 
                 
                 >
                   <ListItemIcon
@@ -519,6 +542,94 @@ sx={{ position: 'absolute', right: 8, top: 8 }}
 
 </div>
 </Dialog>
+
+<Dialog
+open={inviteStudent}
+onClose={handleInviteClose}
+aria-labelledby="alert-dialog-title"
+aria-describedby="alert-dialog-description"
+maxWidth="md"
+fullWidth={true}
+PaperProps={{ style: { height: '90vh', borderRadius: '15px'} }}
+>
+<div class='h-full w-full p-4 pb-0 mx-auto'>
+<DialogTitle id="alert-dialog-title" style={{fontSize: '25px'}}>
+<IconButton
+edge="start"
+color="inherit"
+onClick={handleInviteClose}
+aria-label="close"
+sx={{ position: 'absolute', right: 8, top: 8 }}
+>
+<CloseIcon />
+</IconButton>
+    {"Invite New Students to Classroom"}
+</DialogTitle>
+<DialogContent>
+    <DialogContentText id="alert-dialog-description">
+    <Box sx={{ width: '100%', color:'black' }}>
+   
+    <ReactMultiEmail
+                style={{height:'70px', borderRadius:'24px', color:'inherit', border:'1px solid black' }}
+                
+                placeholder='Enter Email Addresses to Invite'
+                inputProps={{
+                  sx: {
+                      '::placeholder': {
+                          color: 'black'
+                      }
+                  }
+              }}
+                emails={emails}
+                onChange={(emails) => setEmails(emails)}
+                autoFocus={true}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                getLabel={(email, index, removeEmail) => {
+                    return (
+                        <div data-tag key={index}>
+                            <div data-tag-item>{email}</div>
+                            <span data-tag-handle onClick={() => removeEmail(index)}>
+                                ×
+                            </span>
+                        </div>
+                    );
+                }}
+            />
+
+            
+    </Box>  
+    <Divider>OR</Divider>  
+    <Box sx={{ width: '100%' }}>
+    <div class="flex items-center justify-center w-full mt-8">
+                    <Button
+                        component="label"
+                        role={undefined}
+                        // variant="contained"
+                        tabIndex={-1}
+                        // startIcon={<CloudUploadIcon />}
+                        sx={{justifyContent:'justify', alignItems:'center', backgroundColor:'transparent', boxShadow:'none', color: 'black'}}
+                        >
+                        <div class="flex flex-col items-center justify-center w-full h-auto border-2 border-black px-4 border-dashed rounded-lg cursor-pointer bg-gray-50">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <svg class="w-8 h-8 mb-4  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                </svg>
+                                <p class="mb-2 text-sm "><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                <p class="text-sm">Upload your exported Grades CSV File here to add Students</p>
+                            </div>
+                        </div>
+                        <VisuallyHiddenInput type="file"   />
+                        
+                        </Button>
+                        </div>
+   </Box>  
+    </DialogContentText>
+</DialogContent>
+
+</div>
+</Dialog>
+
 
   </>  
     );
