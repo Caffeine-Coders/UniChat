@@ -52,6 +52,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import { useRouter } from 'next/navigation';
 import { Signuplogin } from '../../essentials/conn';
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
     width: drawerWidth,
@@ -615,6 +619,14 @@ export default function Content() {
                     </CardActions>
                 </Card>
             </Grid>  
+            <Grid item xs={12} sx={{display:'flex', justifyContent: 'center'}}>
+                <Pagination count={5}  renderItem={(item) => (
+                    <PaginationItem
+                    slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+                    {...item}
+                    />
+                )}/>
+            </Grid>
         </Grid>
     
             </Box>
