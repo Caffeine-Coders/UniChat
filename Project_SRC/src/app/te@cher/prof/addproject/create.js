@@ -20,6 +20,12 @@ export default function Create({fornext, loader}){
             fornext();
         }
     }
+    const resetLocalIndex = () => {
+        if (typeof window!== 'undefined'){
+           
+            window.location.reload()
+          } 
+    }
     return (
             <>
             <div class="mt-24">
@@ -38,7 +44,7 @@ export default function Create({fornext, loader}){
                     </div>
                 </div>
                 <div class=" mt-20 ">
-                        <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-red-700 border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100">    
+                        <button onClick={resetLocalIndex} class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-red-700 border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100">    
                         <p class="font-bold mr-3">X </p> <span> Cancel</span>
                     </button>
                     <button class="inline-flex float-right items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-discordpurple-0 border border-2 border-discordpurple-0 rounded-lg hover:bg-white hover:border-2 hover:border-discordpurple-0 hover:text-discordpurple-0 focus:ring-4 focus:ring-blue-100" onClick={handleContinue}>    
