@@ -26,6 +26,8 @@ import Stack from '@mui/material/Stack';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import { useRouter } from 'next/navigation';
+import Divider from '@mui/material/Divider';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
   
@@ -156,68 +158,10 @@ export default function Content() {
         <Grid container spacing={4}>
             <Grid item xs={12}>
                 <div class="flex rounded-md mt-8">
-                <Typography variant="h2" component="h2" sx={{fontFamily: 'caveat'}}>
-                    Welcome to {classnumber+ " " +classname}
+                <Typography variant="h2" component="h2" sx={{fontFamily: 'Montserrat'}}>
+                    Classroom : {classnumber+ " " +classname}
                 </Typography>
                 </div>
-            </Grid>
-            <Grid item xs={12}>
-                <div class="flex rounded-md mt-8">
-                <Typography variant="h5" component="h2" fontWeight="bold" letterSpacing="2px">
-                    Overview
-                </Typography>
-                </div>
-            </Grid>
-            <Grid item xs={3}>
-            <button class="focus:outline-none w-full hover:bg-gray-300 hover:rounded-xl " onClick={handleprojectadder}>
-                <div class="bg-white rounded-xl h-40 shadow-lg">
-                    <div style={{marginLeft:'20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', height: '100%'}}>
-                        <AddBoxOutlinedIcon sx={{ fontSize: 30, marginBottom: '15px' }} />
-                        <Typography variant="h5" component="h2">
-                            Create Project
-                        </Typography>
-                    </div>
-                </div>
-            </button>
-            </Grid>
-            <Grid item xs={3}>
-            <button class="focus:outline-none w-full hover:bg-gray-300 hover:rounded-xl " >
-                <div class="bg-white rounded-xl h-40 shadow-lg">
-                    <div style={{marginLeft:'20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', height: '100%'}}>
-                        <img src={sicon.src} alt="sicon" style={{width: '30px', marginBottom: '15px'}} />
-                        <Typography variant="h5" component="h2">
-                            Add Students
-                        </Typography>
-                    </div>
-                </div>
-            </button>
-            </Grid>
-            <Grid item xs={3}>
-            <button class="focus:outline-none w-full hover:bg-gray-300 hover:rounded-xl ">
-                <div class="bg-white rounded-xl h-40 shadow-lg">
-                    <div style={{marginLeft:'20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', height: '100%'}}>
-                        <img src={ticon.src} alt="ticon" style={{width: '30px', marginBottom: '15px'}} />
-                        <Typography variant="h5" component="h2">
-                            Add Co Instructors
-                        </Typography>
-                    </div>
-                </div>
-            </button>
-            </Grid>
-            <Grid item xs={3}>
-            <button class="focus:outline-none w-full hover:bg-gray-300 hover:rounded-xl " onClick={handlestudent}>
-                <div class="bg-white rounded-xl h-40 shadow-lg">
-                    <div style={{marginLeft:'20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', height: '100%'}}>
-                        <Groups2OutlinedIcon sx={{ fontSize: 30, marginBottom: '15px' }} />
-                        <Typography variant="h5" component="h2">
-                            View Members
-                        </Typography>
-                        <Typography variant="h6" component="h2" color="gray">
-                            3 members
-                        </Typography>
-                    </div>
-                </div>
-            </button>
             </Grid>
             <Grid item xs={12}>
                 <div class="flex rounded-md mt-8">
@@ -225,7 +169,22 @@ export default function Content() {
                     Projects
                 </Typography>
                 </div>
+                <Divider variant="middle" sx={{marginTop:'10px'}}/>
             </Grid> 
+            
+            <Grid item xs={12}>
+           <div class=" pl-4 py-2  rounded-lg flex justify-between space-between shadow-lg">
+                <h4 class="flex font-bold tracking-wider ">
+                  Create new Project
+                </h4>
+                {/* <button class="mr-4 bg-discordpurple-300 px-4 rounded-lg font-medium">Create</button> */}
+                <Button variant="contained" style={{marginRight:'10px', borderRadius:'15px', backgroundColor:'#692ea3'}}>
+                  Create 
+                <AddCircleOutlineOutlinedIcon  sx={{paddingLeft:'4px', marginLeft:'4px'}}/>
+                </Button>
+            </div>
+
+            </Grid>
             <Grid item xs={12}>
                 <div class="flex rounded-md w-full">
                 <Search style={{ display: 'flex', width: '100%', background: 'linear-gradient(to right, white, transparent)', height: '50px', borderRadius: '15px'}}>

@@ -85,22 +85,22 @@ return (
      
         {/* <img src={bg.src} className="h-3/4 w-4/5 mx-auto rounded-xl" alt="Background"></img> */}
         <div style={{  
-  backgroundImage: `url(${bg.src})`, 
-  backgroundSize: 'cover', 
-  backgroundRepeat: 'no-repeat',
-  backgroundPositionY:'center',
-  borderRadius:'24px',
-  // backgroundPosition: 'center',
-  zIndex: '0',
-  marginLeft:'auto',
-  height: '50vh', position: 'relative', top: '50%', left:'30%', transform: 'translate(-50%, -50%)', zIndex: '1', color: 'white', width: '80%' }}>
+          backgroundImage: `url(${bg.src})`, 
+          backgroundSize: 'cover', 
+          backgroundRepeat: 'no-repeat',
+          backgroundPositionY:'center',
+          borderRadius:'24px',
+          // backgroundPosition: 'center',
+          zIndex: '0',
+          marginLeft:'auto',
+          height: '50vh', position: 'relative', top: '50%', left:'30%', transform: 'translate(-50%, -50%)', zIndex: '1', color: 'white', width: '80%' }}>
            <div style={{
-    position: 'absolute',
-    bottom: '0',
-    left: '0',
-    padding: '20px',
-    color: 'white',
-  }}>
+            position: 'absolute',
+            bottom: '0',
+            left: '0',
+            padding: '20px',
+            color: 'white',
+          }}>
            <h3 style={{ fontWeight: 'bolder', fontSize: '34px', letterSpacing: '2px' }}>Hi {name1}!</h3>
             <span style={{}} >Here's what's happening in your classes</span>
             <Search>
@@ -118,17 +118,16 @@ return (
               </Grid>
               <Grid item xs={12}>
               <div style={{  
- 
-  borderRadius:'24px',
-  // backgroundPosition: 'center',
-  zIndex: '0',
-  marginLeft:'auto',
-  height: '20vh', position: 'relative', top: '50%', left:'30%', transform: 'translate(-50%, -50%)', zIndex: '1', color: 'black', width: '80%' }}>
-           <div style={{
-    position: 'absolute',
-            width:'100%',
-            borderRadius:'24px'
-  }}>
+                borderRadius:'24px',
+                // backgroundPosition: 'center',
+                zIndex: '0',
+                marginLeft:'auto',
+                height: '20vh', position: 'relative', top: '50%', left:'30%', transform: 'translate(-50%, -50%)', zIndex: '1', color: 'black', width: '80%' }}>
+                        <div style={{
+                  position: 'absolute',
+                          width:'100%',
+                          borderRadius:'24px'
+                }}>
            <h3 style={{ fontWeight: 'bolder', borderBottom:'2px solid gray', fontSize:'20px', letterSpacing: '2px' }}>Quick actions</h3>
            <div class="mt-2  pl-4 py-2  rounded-lg flex justify-between space-between shadow-lg">
                 <h4 class="flex font-bold tracking-wider ">
