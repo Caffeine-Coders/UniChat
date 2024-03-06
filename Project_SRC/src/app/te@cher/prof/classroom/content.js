@@ -163,9 +163,17 @@ export default function Content() {
     const sidebar=['New Project','All Projects','View Members']
     const lowerhalf = ['Invite Students', 'Invite Co-Instructors']
     const [open, setOpen] = React.useState(false);
+    const [selectedIndex, setSelectedIndex] = React.useState(1); 
     const handleLogout = () => {
         signoutinstance.signout();
       }
+      const handleListItemClick = (index) => { 
+        setSelectedIndex(index);
+        console.log("clicked",index)
+        const indexval = JSON.stringify(index);
+        localStorage.setItem("indexval", indexval, () => {
+        });
+      };
   
       const handleDrawerOpen = () => {
         setOpen(true);
@@ -249,18 +257,17 @@ export default function Content() {
       }));
       const [checked, setChecked] = React.useState([1]);
       const [name1, setName1] = React.useState(null);
-    //   const [photourl, setPhotoUrl] = React.useState(null);
       React.useEffect(() => {
         if (typeof window !== 'undefined') {
           setName1(JSON.parse(localStorage.getItem("Tname")));
           setPhotoUrl(JSON.parse(localStorage.getItem("photoURL")));
     
-        //   const indexfromlocal = JSON.parse(localStorage.getItem("indexval"))
-        //   console.log("here",indexfromlocal)
-        //   if (indexfromlocal!=null){
-        //     setSelectedIndex(indexfromlocal)
-        //     handleListItemClick(indexfromlocal)
-        //   }
+          const indexfromlocal = JSON.parse(localStorage.getItem("indexval"))
+          console.log("here",indexfromlocal)
+          if (indexfromlocal!=null){
+            setSelectedIndex(indexfromlocal)
+            handleListItemClick(indexfromlocal)
+          }
         }
       }, []);
       const handleToggle = (value) => () => {
@@ -342,7 +349,7 @@ export default function Content() {
                   }}
        
                   onClick={() => handleListItemClick(index)} 
-                  selected={index === 0}
+                  selected={index === 1}
                 >
                   <ListItemIcon
                     sx={{
