@@ -17,6 +17,9 @@ import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
 import NewClassroom from './addclass'
+import { useRouter } from 'next/navigation';
+
+
 const Search = styled('div')(({ theme }) => ({
   position:'relative',
   // borderRadius: theme.shape.borderRadius,
@@ -63,17 +66,55 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 
 
 export default function Content() {
-const [name1,setName1] = React.useState(null)
-  React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setName1(JSON.parse(localStorage.getItem("Tname")));
-    }
-  }, []); 
-const [addclass, handleaddclass] = React.useState(false)
-const addHandler = (event) => {
-  handleaddclass(true)
-};
-return (
+  const router = useRouter();
+  
+  const [name1,setName1] = React.useState(null)
+    React.useEffect(() => {
+      if (typeof window !== 'undefined') {
+        setName1(JSON.parse(localStorage.getItem("Tname")));
+      }
+    }, []); 
+  const [addclass, handleaddclass] = React.useState(false)
+  const addHandler = (event) => {
+    handleaddclass(true)
+  };
+  const projects = [
+    { name: "680 Master's Project", url: "https://img.freepik.com/free-vector/hand-drawn-flat-design-book-spine_23-2149320036.jpg?t=st=1709261183~exp=1709264783~hmac=2efd3dbc235fce0fad44b2c4bf801a70430e37fe8ee6c4232cc8cba03faa1e1f&w=740" },
+    { name: "520 Cryptography", url: "https://img.freepik.com/free-photo/international-day-education-cartoon-style_23-2151007489.jpg?t=st=1709261711~exp=1709265311~hmac=37ea9db374f17989af9bdd3f2aacfbb7ac89de75b4b3e351a1439d3402b65054&w=740" },
+    { name: "610 Artificial Intelligence", url: "https://img.freepik.com/free-photo/front-view-educational-objects-arrangement_23-2148721256.jpg?t=st=1709261774~exp=1709265374~hmac=d9af9b550d3101e5227371de558a93ca21dc0b4ec7ec4a3512f9842c668ea717&w=740" },
+  ];
+  function ProjectCard({ projectName, projectUrl }) {
+    const [projectname, setProjectname] = React.useState(null)
+    const [projecturl, setProjecturl] = React.useState(null)
+    const handleprojectclick = () => {
+      setProjectname(projectName);
+      setProjecturl(projectUrl);
+      console.log("pn", projectName, projectUrl);
+      localStorage.setItem("classname", projectName, () => {
+        JSON.parse(localStorage.getItem("classname"));
+      });
+      router.push('/te@cher/prof/classroom');
+    };
+
+  return (
+    <Card sx={{ borderRadius:'24px' }} onClick={handleprojectclick}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          image={projectUrl}
+          style={{height:'200px'}}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div" sx={{textAlign:'center'}}>
+            {projectName}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
+}
+
+  return (
   <>
   <Navdash/>
   {!addclass &&
@@ -82,39 +123,37 @@ return (
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <Grid container spacing={2}>
               <Grid item xs={12} >
-     
-        {/* <img src={bg.src} className="h-3/4 w-4/5 mx-auto rounded-xl" alt="Background"></img> */}
-        <div style={{  
-          backgroundImage: `url(${bg.src})`, 
-          backgroundSize: 'cover', 
-          backgroundRepeat: 'no-repeat',
-          backgroundPositionY:'center',
-          borderRadius:'24px',
-          // backgroundPosition: 'center',
-          zIndex: '0',
-          marginLeft:'auto',
-          height: '50vh', position: 'relative', top: '50%', left:'30%', transform: 'translate(-50%, -50%)', zIndex: '1', color: 'white', width: '80%' }}>
-           <div style={{
-            position: 'absolute',
-            bottom: '0',
-            left: '0',
-            padding: '20px',
-            color: 'white',
-          }}>
-           <h3 style={{ fontWeight: 'bolder', fontSize: '34px', letterSpacing: '2px' }}>Hi {name1}!</h3>
-            <span style={{}} >Here's what's happening in your classes</span>
-            <Search>
-            <SearchIconWrapper>
-              <SearchIcon style={{color:'black'}}/>
-            </SearchIconWrapper>
-             <StyledInputBase
-              placeholder="Search for a Class..."
-              inputProps={{ 'aria-label': 'Search for a Class...' }}
-              style={{color:'black'}}
-            />
-          </Search>  
-          </div>
-    </div>
+                <div style={{  
+                  backgroundImage: `url(${bg.src})`, 
+                  backgroundSize: 'cover', 
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPositionY:'center',
+                  borderRadius:'24px',
+                  // backgroundPosition: 'center',
+                  zIndex: '0',
+                  marginLeft:'auto',
+                  height: '50vh', position: 'relative', top: '50%', left:'30%', transform: 'translate(-50%, -50%)', zIndex: '1', color: 'white', width: '80%' }}>
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '0',
+                    left: '0',
+                    padding: '20px',
+                    color: 'white',
+                  }}>
+                  <h3 style={{ fontWeight: 'bolder', fontSize: '34px', letterSpacing: '2px' }}>Hi {name1}!</h3>
+                    <span style={{}} >Here's what's happening in your classes</span>
+                    <Search>
+                    <SearchIconWrapper>
+                      <SearchIcon style={{color:'black'}}/>
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                      placeholder="Search for a Class..."
+                      inputProps={{ 'aria-label': 'Search for a Class...' }}
+                      style={{color:'black'}}
+                    />
+                  </Search>  
+                  </div>
+            </div>
               </Grid>
               <Grid item xs={12}>
               <div style={{  
@@ -145,81 +184,32 @@ return (
               <Grid item xs={12}>
               <div style={{  
  
-  borderRadius:'24px',
-  // backgroundPosition: 'center',
-  zIndex: '0',
-  marginLeft:'auto',
-  height: 'auto', position: 'relative', top: '50%', left:'30%', transform: 'translate(-50%, -50%)', zIndex: '1', color: 'black', width: '80%' }}>
-           <div style={{
-    position: 'absolute',
-            width:'100%',
-            borderRadius:'24px'
-  }}>
+                borderRadius:'24px',
+                // backgroundPosition: 'center',
+                zIndex: '0',
+                marginLeft:'auto',
+                height: 'auto', position: 'relative', top: '50%', left:'30%', transform: 'translate(-50%, -50%)', zIndex: '1', color: 'black', width: '80%' }}>
+                        <div style={{
+                  position: 'absolute',
+                          width:'100%',
+                          borderRadius:'24px'
+                }}>
            <h3 style={{ fontWeight: 'bolder', borderBottom:'2px solid gray', fontSize:'20px', letterSpacing: '2px' }}>Your Classes</h3>
            
            </div>
        
        </div>
-     {/* </div>
-</div> */}
-           {/* <div class="mt-2  pl-4 py-2  rounded-lg flex justify-between space-between shadow-lg">
-           <div class="flex flex-wrap mx-auto"> */}
        </Grid>
-       <Grid container spacing={2} style={{position:'relative',width:'80%', marginLeft:'10%', marginTop:'3%', display:'flex', justifyContent:'space-between' }}>
-       <Grid item sx={4} >
-           <Card sx={{ maxWidth: 340,width:'300px', borderRadius:'24px' }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="140"
-          image="https://img.freepik.com/free-vector/hand-drawn-flat-design-book-spine_23-2149320036.jpg?t=st=1709261183~exp=1709264783~hmac=2efd3dbc235fce0fad44b2c4bf801a70430e37fe8ee6c4232cc8cba03faa1e1f&w=740"
-          style={{height:'140px'}}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div" sx={{textAlign:'center'}}>
-            680 Master's Project
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-    </Grid>
-    <Grid item sx={4}>
-    <Card sx={{ maxWidth: 340,  borderRadius:'24px',width:'300px' }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="140"
-          image="https://img.freepik.com/free-photo/international-day-education-cartoon-style_23-2151007489.jpg?t=st=1709261711~exp=1709265311~hmac=37ea9db374f17989af9bdd3f2aacfbb7ac89de75b4b3e351a1439d3402b65054&w=740"
-          style={{height:'140px'}}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div" sx={{textAlign:'center'}}>
-           520 Cryptography
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-    </Grid>
-    <Grid item sx={4}>
-    <Card sx={{ maxWidth: 340,  borderRadius:'24px' ,width:'300px'}}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="140"
-          image="https://img.freepik.com/free-photo/front-view-educational-objects-arrangement_23-2148721256.jpg?t=st=1709261774~exp=1709265374~hmac=d9af9b550d3101e5227371de558a93ca21dc0b4ec7ec4a3512f9842c668ea717&w=740"
-          style={{height:'140px'}}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div" sx={{textAlign:'center'}}>
-           610 Artificial Intelligence
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-    </Grid>
-    </Grid>
-              {/* </Grid> */}
+       <Grid container spacing={2} style={{position:'relative',width:'80%', marginLeft:'10%', marginTop:'3%'}}>
+          <Grid container spacing={4} justifyContent="center">
+            {projects.map((project, index) => (
+              <Grid item xs={12} sm={6} md={4} key={index}>
+                <ProjectCard projectName={project.name} projectUrl={project.url} />
+              </Grid>
+            ))}
           </Grid>
+        </Grid>
+        </Grid>
       </Box>
       </Box>
   </Box>

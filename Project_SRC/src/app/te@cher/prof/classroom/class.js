@@ -23,12 +23,16 @@ export default function Class() {
     const handleCreate = () =>{
      
     }
-  React.useEffect(() => {
+    React.useEffect(() => {
     if (typeof window !== 'undefined') {
-      setClassname(JSON.parse(localStorage.getItem("classname")));
-      setClassnumber(JSON.parse(localStorage.getItem("classnumber")));
+        const storedClassname = localStorage.getItem("classname");
+        const storedClassnumber = localStorage.getItem("classnumber");
+        if (storedClassname && storedClassnumber) {
+            setClassname(JSON.parse(storedClassname));
+            setClassnumber(JSON.parse(storedClassnumber));
+        }
     }
-  }, []);
+}, []);
 
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -71,13 +75,49 @@ export default function Class() {
       },
     },
   }));
+  const projects = [
+    { name: "Project 1", url: "https://img.freepik.com/free-vector/hand-drawn-flat-design-book-spine_23-2149320036.jpg?t=st=1709261183~exp=1709264783~hmac=2efd3dbc235fce0fad44b2c4bf801a70430e37fe8ee6c4232cc8cba03faa1e1f&w=740" },
+    { name: "Project 2", url: "https://img.freepik.com/free-photo/international-day-education-cartoon-style_23-2151007489.jpg?t=st=1709261711~exp=1709265311~hmac=37ea9db374f17989af9bdd3f2aacfbb7ac89de75b4b3e351a1439d3402b65054&w=740" },
+    { name: "Project 3", url: "https://img.freepik.com/free-photo/front-view-educational-objects-arrangement_23-2148721256.jpg?t=st=1709261774~exp=1709265374~hmac=d9af9b550d3101e5227371de558a93ca21dc0b4ec7ec4a3512f9842c668ea717&w=740" },
+  ];
+  function ProjectCard({ projectName, projectUrl }) {
+    const [projectname, setProjectname] = React.useState(null)
+    const [projecturl, setProjecturl] = React.useState(null)
+    const handleprojectclick = () => {
+      setProjectname(projectName);
+      setProjecturl(projectUrl);
+      console.log("pn", projectName, projectUrl);
+      localStorage.setItem("classname", projectName, () => {
+        JSON.parse(localStorage.getItem("classname"));
+      });
+      router.push('/te@cher/prof/classroom');
+    };
+
+  return (
+    <Card sx={{ borderRadius:'24px' }} onClick={handleprojectclick}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          image={projectUrl}
+          style={{height:'200px'}}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div" sx={{textAlign:'center'}}>
+            {projectName}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
+}
+
     return (
       <Grid container spacing={4}>
       <Grid item xs={12}>
           <div class="flex rounded-md mt-8">
-          <Typography variant="h2" component="h2" sx={{fontFamily: 'Montserrat'}}>
-              Classroom : {classnumber+ " " +classname}
-          </Typography>
+        <Typography variant="h2" component="h2" sx={{fontFamily: 'Montserrat'}}>
+            Classroom : {classnumber || classname ? `${classnumber} ${classname}` : "Classroom 1"}
+        </Typography>
           </div>
       </Grid>
       <Grid item xs={12}>
