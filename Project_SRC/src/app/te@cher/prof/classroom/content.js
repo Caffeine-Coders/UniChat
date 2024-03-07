@@ -553,7 +553,7 @@ fullWidth={true}
 PaperProps={{ style: { height: '90vh', borderRadius: '15px'} }}
 >
 <div class='h-full w-full p-4 pb-0 mx-auto'>
-<DialogTitle id="alert-dialog-title" style={{fontSize: '25px'}}>
+<DialogTitle id="alert-dialog-title" style={{fontSize: '25px' }}>
 <IconButton
 edge="start"
 color="inherit"
@@ -567,17 +567,26 @@ sx={{ position: 'absolute', right: 8, top: 8 }}
 </DialogTitle>
 <DialogContent>
     <DialogContentText id="alert-dialog-description">
-    <Box sx={{ width: '100%', color:'black' }}>
-   
-    <ReactMultiEmail
-                style={{height:'70px', borderRadius:'24px', color:'inherit', border:'1px solid black' }}
+    <Box sx={{ width: '100%' }}>
+    <div class="flex items-center justify-center w-4/5 mx-auto mt-8 mb-8">
+                    <div
+                        
+                      
+                        tabIndex={-1}
+                        // startIcon={<CloudUploadIcon />}
+                        sx={{justifyContent:'justify', alignItems:'center', color: 'black', background:'transparent'}}
+                        >
+                        <div class="flex flex-col items-center justify-center w-full h-auto border-2 border-black px-4 border-dashed rounded-lg cursor-pointer ">
+                        <ReactMultiEmail
                 
+                style={{border:'none', paddingBottom:'80px', width:'510px', marginBottom:'10px'}}
                 placeholder='Enter Email Addresses to Invite'
                 inputProps={{
                   sx: {
                       '::placeholder': {
                           color: 'black'
-                      }
+                      },
+
                   }
               }}
                 emails={emails}
@@ -596,12 +605,14 @@ sx={{ position: 'absolute', right: 8, top: 8 }}
                     );
                 }}
             />
-
-            
-    </Box>  
+                        </div>
+        
+                        </div>
+                        </div>
+   </Box>  
     <Divider>OR</Divider>  
     <Box sx={{ width: '100%' }}>
-    <div class="flex items-center justify-center w-full mt-8">
+    <div class="flex items-center justify-center w-4/5 mx-auto mt-8">
                     <Button
                         component="label"
                         role={undefined}

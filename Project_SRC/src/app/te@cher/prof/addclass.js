@@ -9,12 +9,14 @@ import SchoolIcon from '@mui/icons-material/School';
 import Papa from 'papaparse';
 import { useRouter } from 'next/navigation';
 import { Button } from "@mui/material";
+import { CircularProgress } from '@mui/material';
 export default function NewClassroom(){
     // const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
     const [className, setClassName] = React.useState('');
     const [classNumber, setClassNumber] = React.useState('');
     const [parsedData, setParsedData] = React.useState(null);
     const [filename,setfilename] = React.useState(null)
+    const [loading,setLoading] = React.useState(false)
     const router = useRouter();
     const VisuallyHiddenInput = styled('input')({
         clip: 'rect(0 0 0 0)',
@@ -28,17 +30,22 @@ export default function NewClassroom(){
         width: 1,
       });
     const handleSubmit = (event) => {
+      
         event.preventDefault();
+      
         const emailAndName = getEmailAndName();
         if (!className.trim() || !classNumber.trim()) {
+   
           alert("Please fill all the details.");
           return;
         } 
         else if (emailAndName.length === 0) {
+     
           alert("Please upload a valid CSV file.");
           return;
         } 
         else {
+          
           console.log("class name",className);
           console.log("email name",emailAndName);
           const classname = JSON.stringify(className);
@@ -53,6 +60,8 @@ export default function NewClassroom(){
             localStorage.setItem("emailname", emailname, () => {
                 JSON.parse(localStorage.getItem("emailname"));
             });
+            console.log("hereee")
+        
             router.push('/te@cher/prof/classroom')
         //   csvParser(files)
         }
@@ -84,18 +93,21 @@ export default function NewClassroom(){
         })
       }
       const handleFileName = (event) =>{
+    
         const file = event.target.files[0];
         if (file) {
             setfilename(file.name);
             csvParser(file)
         }
+  
       }
 
     return (
         
         <div class="p-8 backdrop-filter backdrop-blur-sm bg-opacity-80 rounded-2xl w-3/4 mx-auto">
+         
         <Container component="main" maxWidth="xl" sx={{ mb: 4, minWidth:500}}>
-            
+        
         <div class="mt-12">
                     <p class="text-3xl"> Class Details</p>
                     <div class="relative h-11 w-full min-w-[200px] mt-7">
@@ -131,7 +143,9 @@ export default function NewClassroom(){
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
                                 </svg>
                                 <p class="mb-2 text-sm "><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p class="text-sm">Upload your exported Grades CSV File here to add Students</p>
+                                <p class="text-sm">
+                                
+                                  Upload your exported Grades CSV File here to add Students</p>
                             </div>
                         </div>
                         <VisuallyHiddenInput type="file" onChange={handleFileName} required />
