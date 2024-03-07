@@ -28,7 +28,8 @@ module.exports = {
         300: '#989ef5',
         400: '#d5d8fb',
         0:'#692ea3',
-        500:'#b7b7b7'
+        500:'#b7b7b7',
+        1000: '#efebf3'
       },
       'discordgreen': {
         100: '#46b866',

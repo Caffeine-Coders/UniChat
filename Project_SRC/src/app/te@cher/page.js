@@ -8,7 +8,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import Login from './login/page';
 
-import "./components/dash.css"
+// import "./components/dash.css"
 export default function Teacher() {
   const router = useRouter()
   router.push("/te@cher/login")
