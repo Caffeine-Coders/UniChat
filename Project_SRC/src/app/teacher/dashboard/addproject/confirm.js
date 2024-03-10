@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 export default function Confirm({forback, projectData}){
     const router = useRouter()
     const handleContinue = () => {
-        router.push('/teacher/dashboard/projectdetails');
+        router.push('/teacher/classroom/projectdetails');
     }
     let projectname="";
     let gradelevel="";
