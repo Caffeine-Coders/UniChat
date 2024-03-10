@@ -62,7 +62,7 @@ export default function NewClassroom(){
             });
             console.log("hereee")
         
-            router.push('/teacher/prof/classroom')
+            router.push('/teacher/classroom')
         //   csvParser(files)
         }
     }
@@ -155,7 +155,7 @@ export default function NewClassroom(){
                     </div>
                     
                  <div class=" mt-20 ">
-                  <a href="/teacher/prof">
+                  <a href="/teacher/dashboard">
                     <button class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center bg-white text-black border-2 border-black rounded-lg hover:bg-slate-300 focus:ring-4 focus:ring-blue-100" >    
                          <span> Cancel</span>
                      </button>

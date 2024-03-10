@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import { ReactMultiEmail, isEmail } from 'react-multi-email';
 import 'react-multi-email/dist/style.css';
 import Class from './class'
-import Newproject from '../addproject/newproject';
+import Newproject from '../dashboard/addproject/newproject';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -31,13 +31,13 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import GridViewIcon from '@mui/icons-material/GridView';
 import { styled, alpha, useTheme } from '@mui/material/styles';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import "../../components/dash.css"
+import "../components/dash.css"
 import Avatar from '@mui/material/Avatar';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton';
 import { useRouter } from 'next/navigation';
-import { Signuplogin } from '../../essentials/conn';
+import { Signuplogin } from '../essentials/conn';
 import CloseIcon from '@mui/icons-material/Close';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';

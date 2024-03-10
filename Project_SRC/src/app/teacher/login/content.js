@@ -65,7 +65,7 @@ export default function content() {
             // console.log("login ",verificationStatus)
             setLoading(false)
             if (verificationStatus=="in db and true"){
-                router.push("/teacher/prof")
+                router.push("/teacher/dashboard")
             } else if (verificationStatus=="in db and false"){
                 setOpen(true)
                 loginInstance.unauthsignout()

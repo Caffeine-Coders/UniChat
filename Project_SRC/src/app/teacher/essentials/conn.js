@@ -89,7 +89,7 @@ export function Signuplogin(){
                 const user = userCredential.user;
                 console.log("user",doc.data().name,user.email)
 
-                router.push('/teacher/prof')
+                router.push('/teacher/dashboard')
             })
             .catch((error) => {
                 const errorCode = error.code;
