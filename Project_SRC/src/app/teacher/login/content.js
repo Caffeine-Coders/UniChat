@@ -65,7 +65,7 @@ export default function content() {
             // console.log("login ",verificationStatus)
             setLoading(false)
             if (verificationStatus=="in db and true"){
-                router.push("/te@cher/prof")
+                router.push("/teacher/prof")
             } else if (verificationStatus=="in db and false"){
                 setOpen(true)
                 loginInstance.unauthsignout()
@@ -146,10 +146,10 @@ export default function content() {
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
-                  <a href="/te@cher" autoFocus class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100">
+                  <a href="/teacher" autoFocus class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100">
                       Cancel
                     </a>
-                    <a href="/te@cher/signup" autoFocus class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100">
+                    <a href="/teacher/signup" autoFocus class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border border-2 border-black rounded-lg bg-white hover:bg-slate-300 focus:ring-4 focus:ring-blue-100">
                       Send for Approval
                     </a>
                   </DialogActions>

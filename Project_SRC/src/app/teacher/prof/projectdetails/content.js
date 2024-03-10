@@ -234,7 +234,7 @@ export default function Content(){
         <AppBar position="fixed" open={open} sx={{background:'transparent', boxShadow:'0'}}>
       <div class="bg-gradient-to-b from-gray-500 to-transparent rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm ">
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-      <Link href="/te@cher/">
+      <Link href="/teacher/">
       <Typography variant="h4" noWrap component="div" sx={{fontFamily: 'caveat'}} color="black">
       UniChat
       </Typography>
@@ -470,17 +470,6 @@ export default function Content(){
               </Grid>
           </Grid>
         </Box>
-        {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <DrawerHeader />
-        
-          <div class="">
-            <span><a class="flex hover:underline" href="/te@cher/prof"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
-  </svg>Return to Dashboard</a></span>
-            
-        </div>
-        </Box>
-      </Box> */}
 </Box>
 
     )

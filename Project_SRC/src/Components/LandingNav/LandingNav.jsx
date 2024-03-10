@@ -82,7 +82,7 @@ const LandingNav = () => {
                 border: "1px solid transparent",
                 boxShadow: "none",
                 }}
-                onClick={() => router.push('/te@cher')}
+                onClick={() => router.push('/teacher')}
                 >
                  Instructor Portal
             </Typography>

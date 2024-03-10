@@ -52,7 +52,7 @@ export function Signuplogin(){
             await signOut(auth)
             localStorage.clear()
             console.log("signed out")
-            router.push('/te@cher/login')
+            router.push('/teacher/login')
         } catch (error){
             console.log("error",error)
         }
@@ -89,7 +89,7 @@ export function Signuplogin(){
                 const user = userCredential.user;
                 console.log("user",doc.data().name,user.email)
 
-                router.push('/te@cher/prof')
+                router.push('/teacher/prof')
             })
             .catch((error) => {
                 const errorCode = error.code;

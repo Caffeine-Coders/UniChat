@@ -252,7 +252,7 @@ export default function Content() {
         setAnchorElUser(null);
       };
     const handleprojectadder = (event) => {
-        router.push('/te@cher/prof/addproject')
+        router.push('/teacher/prof/addproject')
       };
     const [classname, setClassname] = useState('');
     const [classnumber, setClassnumber] = useState('');
@@ -322,7 +322,7 @@ export default function Content() {
         <AppBar position="fixed" open={open} sx={{background:'transparent', boxShadow:'0'}}>
       <div class="bg-gradient-to-b from-gray-500 to-transparent rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm ">
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-      <Link href="/te@cher/">
+      <Link href="/teacher/">
       <Typography variant="h4" noWrap component="div" sx={{fontFamily: 'caveat'}} color="black">
       UniChat
       </Typography>

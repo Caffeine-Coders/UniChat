@@ -6,11 +6,11 @@ import React from 'react';
 // import Nav from './login/navbar';
 // import Content from './login/content';
 import { useRouter } from 'next/navigation';
-import Login from './login/page';
+import Login from '../teacher/login/page';
 
 // import "./components/dash.css"
 export default function Teacher() {
   const router = useRouter()
-  router.push("/te@cher/login")
+  router.push("/teacher/login")
 }
 

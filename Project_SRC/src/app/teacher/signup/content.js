@@ -3,7 +3,7 @@ import { useState } from "react";
 import * as React from 'react';
 // import { signupaccount } from "../essentials/conn";
 import CircularProgress from '@mui/material/CircularProgress';
-import { Signuplogin } from "../essentials/conn";
+import { Signuplogin } from "../../teacher/essentials/conn";
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -134,7 +134,7 @@ export default function content() {
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
-                    <a href="/te@cher/login" autoFocus class="ml-1 text-black px-4 py-2  rounded-lg ">
+                    <a href="/teacher/login" autoFocus class="ml-1 text-black px-4 py-2  rounded-lg ">
                       Continue
                     </a>
                   </DialogActions>

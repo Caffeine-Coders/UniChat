@@ -93,7 +93,7 @@ export default function Content() {
       localStorage.setItem("classname", projectName, () => {
         JSON.parse(localStorage.getItem("classname"));
       });
-      router.push('/te@cher/prof/classroom');
+      router.push('/teacher/prof/classroom');
     };
 
   return (
