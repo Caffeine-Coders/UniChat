@@ -1,35 +1,25 @@
 'use client'
-import Trial2 from './loading'
 import * as React from 'react';
-// import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import AddToDriveIcon from '@mui/icons-material/AddToDrive';
 import ArticleIcon from '@mui/icons-material/Article';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import Navdash from '../../dashboard/navbar';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { styled, useTheme } from '@mui/material/styles';
 import { Drivecomponent } from '../../drive/drivecomponent';
 import Groups2OutlinedIcon from '@mui/icons-material/Groups2Outlined';
 import Box from '@mui/material/Box';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Link from 'next/link';
 import { Signuplogin } from "../../essentials/conn"
 import "../../components/dash.css"
 import PropTypes from 'prop-types';
@@ -104,23 +94,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -140,10 +113,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-// Define a custom Loading component
-function CustomLoading() {
-  return  <Trial2/>// Replace this with your loading spinner or indicator
-}
 
 // Define a custom DelayedContent component
 function DelayedContent({ children, delay }) {
@@ -231,50 +200,10 @@ export default function Content(){
 
         <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="fixed" open={open} sx={{background:'transparent', boxShadow:'0'}}>
-      <div class="bg-gradient-to-b from-gray-500 to-transparent rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm ">
-      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-      <Link href="/teacher/">
-      <Typography variant="h4" noWrap component="div" sx={{fontFamily: 'caveat'}} color="black">
-      UniChat
-      </Typography>
-      </Link>
-
-       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-        {photourl && <Avatar src={photourl} />}
-      </IconButton>
-      <Menu
-        sx={{ mt: '46px' }}
-        id="menu-appbar"
-        anchorEl={anchorElUser}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        open={Boolean(anchorElUser)}
-        onClose={handleCloseUserMenu}
-      >
-        {settings.map((setting) => (
-          <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu}>
-          <Typography textAlign="center">{setting}</Typography>
-        </MenuItem>
-        ))}
-      </Menu>
-    </Box>
-    </Toolbar>
-    </div>
-  </AppBar>   
+        <Navdash/>
         <Drawer variant="permanent" open={open} onMouseEnter={handleDrawerOpen} onMouseLeave={handleDrawerClose}>
           <DrawerHeader>
-            <IconButton onMouseEnter={handleDrawerOpen}>
-              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
+           
           </DrawerHeader>
           <Divider />
           <List>
@@ -346,10 +275,14 @@ export default function Content(){
             ))}
           </List>
         </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3, marginTop:'48px' }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <DrawerHeader/>
           <Grid container spacing={4}>
               <Grid item xs={12}>
+              <a href='/teacher/classroom'>
+      <span class="flex text-sm" >
+        <ArrowBackIcon style={{height:'20px'}}/> Classroom</span>
+        </a>
                   <div style={{
                     backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url(https://img.freepik.com/free-vector/minimal-geometric-composition-cover_1217-2380.jpg?t=st=1709701426~exp=1709705026~hmac=731685fe10379ee015157584f7672d75c23539379b22a0564d4b50ae529c26db&w=996)`,
                     backgroundSize: 'cover',

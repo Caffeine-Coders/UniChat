@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import { StepLabel } from "@mui/material";
 import Container from '@mui/material/Container';
 import Create from './create';

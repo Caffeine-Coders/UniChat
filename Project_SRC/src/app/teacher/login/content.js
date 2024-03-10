@@ -1,8 +1,6 @@
 "use client"
 import * as React from 'react';
-// import { loginaccount } from "../essentials/conn";
 import {Signuplogin} from "../essentials/conn"
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { useRouter } from 'next/navigation';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -12,9 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { CircularProgress } from '@mui/material';
 
 export default function content() {
-    const auth = getAuth();
     const router = useRouter()
-    const provider = new GoogleAuthProvider();
     const loginInstance = Signuplogin()
     const [open, setOpen] = React.useState(false);
     const [open1, setOpen1] = React.useState(false);
@@ -24,60 +20,47 @@ export default function content() {
     };
 
     const focusHandler = (event) =>{
-        console.log("focus found")
-        
-        // window.removeEventListener("focus",focusHandler)
-        setLoading(false)
+           setLoading(false)
     }
     const handeGoogle =  (event) =>{
-        
-        console.log("hereee")
         event.preventDefault()
         setLoading(true)
         window.addEventListener("focus",focusHandler)
         loginInstance.googleLogin().then((data)=>{
-            
-            // window.addEventListener("focus",setLoading(false))
-            const verificationStatus = data.verificationStatus
-            const name = data.name
-            const photourl = data.photourl
-            const accessToken = data.accessToken
-            const emailID = JSON.stringify(verificationStatus);
-            localStorage.setItem("emailID", emailID, () => {
-                const retrievedEmail = JSON.parse(localStorage.getItem("emailID"));
-                // console.log("retrieved email:", retrievedEmail);
-            });
-            const Tname = JSON.stringify(name);
-            localStorage.setItem("Tname", Tname, () => {
-                const retrievedName = JSON.parse(localStorage.getItem("Tname"));
-                // console.log("retrieved name:", retrievedName);
-            });
-            const photoURL = JSON.stringify(photourl);
-            localStorage.setItem("photoURL", photoURL, () => {
-                const retrievedurl = JSON.parse(localStorage.getItem("photoURL"));
-                // console.log("retrieved url:", retrievedurl);
-            });
-            const token = JSON.stringify(accessToken);
-            localStorage.setItem("token", token, () => {
-                JSON.parse(localStorage.getItem("token"));
-            });
-            // console.log("name",name)
-            // console.log("login ",verificationStatus)
-            setLoading(false)
-            if (verificationStatus=="in db and true"){
-                router.push("/teacher/dashboard")
-            } else if (verificationStatus=="in db and false"){
-                setOpen(true)
-                loginInstance.unauthsignout()
-                const tempemail = JSON.parse(localStorage.getItem("emailID"));
-                console.log("retrieved email:", tempemail);
-            } else{
-                setOpen1(true)
-            }
+        const verificationStatus = data.verificationStatus
+        const name = data.name
+        const photourl = data.photourl
+        const accessToken = data.accessToken
+        const emailID = JSON.stringify(verificationStatus);
+        localStorage.setItem("emailID", emailID, () => {
+            const retrievedEmail = JSON.parse(localStorage.getItem("emailID"));
+        });
+        const Tname = JSON.stringify(name);
+        localStorage.setItem("Tname", Tname, () => {
+            const retrievedName = JSON.parse(localStorage.getItem("Tname"));
+
+        });
+        const photoURL = JSON.stringify(photourl);
+        localStorage.setItem("photoURL", photoURL, () => {
+            const retrievedurl = JSON.parse(localStorage.getItem("photoURL"));
+        });
+        const token = JSON.stringify(accessToken);
+        localStorage.setItem("token", token, () => {
+            JSON.parse(localStorage.getItem("token"));
+        });
+        setLoading(false)
+        if (verificationStatus=="in db and true"){
+            router.push("/teacher/dashboard")
+        } else if (verificationStatus=="in db and false"){
+            setOpen(true)
+            loginInstance.unauthsignout()
+            const tempemail = JSON.parse(localStorage.getItem("emailID"));
+            console.log("retrieved email:", tempemail);
+        } else{
+            setOpen1(true)
+        }
         }).catch((error)=>{
-            // setLoading(false)
-            console.log("failed")
-        })
+                })
     }
 
     return (

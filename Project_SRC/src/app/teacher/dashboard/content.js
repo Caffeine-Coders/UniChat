@@ -2,11 +2,8 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import bg from '../../../../public/dashimage.jpg'
-import Navdash from './navbar'
-import { Divider } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
@@ -22,8 +19,6 @@ import { useRouter } from 'next/navigation';
 
 const Search = styled('div')(({ theme }) => ({
   position:'relative',
-  // borderRadius: theme.shape.borderRadius,
- 
   marginTop:'1%',
   borderRadius:'24px',
   backgroundColor:'white',
@@ -32,9 +27,7 @@ const Search = styled('div')(({ theme }) => ({
   },
   width:'100%',
   [theme.breakpoints.up('sm')]: {
-    // marginLeft: theme.spacing(1),
-    // width: 'auto',
-  },
+   },
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -42,8 +35,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: '100%',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     [theme.breakpoints.up('sm')]: {
       width: '20ch',
@@ -116,7 +108,7 @@ export default function Content() {
 
   return (
   <>
-  <Navdash/>
+  {/* <Navdash/> */}
   {!addclass &&
   <Box component="main" sx={{ flexGrow: 1, p: 3, marginTop:'48px' }}>
   <Box sx={{ display: 'flex' }}>

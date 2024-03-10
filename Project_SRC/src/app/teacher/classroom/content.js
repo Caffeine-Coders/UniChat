@@ -12,27 +12,21 @@ import MuiAppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
-import Toolbar from '@mui/material/Toolbar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Link from 'next/link';
+import Navdash from '../dashboard/navbar';
 import GroupsIcon from '@mui/icons-material/Groups';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import AddToDriveIcon from '@mui/icons-material/AddToDrive';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import GridViewIcon from '@mui/icons-material/GridView';
 import { styled, alpha, useTheme } from '@mui/material/styles';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+
 import "../components/dash.css"
-import Avatar from '@mui/material/Avatar';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton';
@@ -84,24 +78,6 @@ const openedMixin = (theme) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-  }));
-  
-  const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-  })(({ theme, open }) => ({
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
   }));
   
   const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -276,9 +252,6 @@ export default function Content() {
     const handleInviteClose = () =>{
       setStudentInvite(false)
     }
-    // const handlestudent = () => {
-    //     setOpen(true);
-    // }
     const [emails, setEmails] = React.useState([]);
     const [focused, setFocused] = React.useState(false);
       const [checked, setChecked] = React.useState([1]);
@@ -319,50 +292,11 @@ export default function Content() {
     <>
      <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="fixed" open={open} sx={{background:'transparent', boxShadow:'0'}}>
-      <div class="bg-gradient-to-b from-gray-500 to-transparent rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm ">
-      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-      <Link href="/teacher/">
-      <Typography variant="h4" noWrap component="div" sx={{fontFamily: 'caveat'}} color="black">
-      UniChat
-      </Typography>
-      </Link>
-
-       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-        {photourl && <Avatar src={photourl} />}
-      </IconButton>
-      <Menu
-        sx={{ mt: '46px' }}
-        id="menu-appbar"
-        anchorEl={anchorElUser}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        open={Boolean(anchorElUser)}
-        onClose={handleCloseUserMenu}
-      >
-        {settings.map((setting) => (
-          <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu}>
-          <Typography textAlign="center">{setting}</Typography>
-        </MenuItem>
-        ))}
-      </Menu>
-    </Box>
-    </Toolbar>
-    </div>
-  </AppBar>   
+<Navdash/>
+      
         <Drawer variant="permanent" open={open} onMouseEnter={handleDrawerOpen} onMouseLeave={handleDrawerClose}>
           <DrawerHeader>
-            <IconButton onMouseEnter={handleDrawerOpen}>
-              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
+          
           </DrawerHeader>
           <Divider />
           <List>
@@ -431,7 +365,9 @@ export default function Content() {
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3, marginTop:'40px', display: 'flex' }}>
         <DrawerHeader/>
-        {allProjects && <Class/>}
+
+       
+        {allProjects &&  <Class/>}
         {newproject && <Newproject/>}
             </Box>
 

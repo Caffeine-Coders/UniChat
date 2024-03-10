@@ -1,17 +1,12 @@
 'use client'
 import React, { useState, useEffect } from "react";
 import Container from '@mui/material/Container';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
-import { Tooltip } from "@mui/material";
 import { styled } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
-// import {useDropzone} from 'react-dropzone';
 import Papa from 'papaparse';
 import { useRouter } from 'next/navigation';
 import { Button } from "@mui/material";
-import { CircularProgress } from '@mui/material';
 export default function NewClassroom(){
-    // const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
     const [className, setClassName] = React.useState('');
     const [classNumber, setClassNumber] = React.useState('');
     const [parsedData, setParsedData] = React.useState(null);
@@ -132,9 +127,7 @@ export default function NewClassroom(){
                     <Button
                         component="label"
                         role={undefined}
-                        // variant="contained"
                         tabIndex={-1}
-                        // startIcon={<CloudUploadIcon />}
                         sx={{justifyContent:'justify', alignItems:'center', backgroundColor:'transparent', boxShadow:'none', color: 'black'}}
                         >
                         <div class="flex flex-col items-center justify-center w-full h-auto border-2 border-black px-4 border-dashed rounded-lg cursor-pointer bg-gray-50">

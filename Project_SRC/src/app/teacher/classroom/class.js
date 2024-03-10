@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+// import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import Card from '@mui/material/Card';
@@ -114,7 +115,12 @@ export default function Class() {
 
     return (
       <Grid container spacing={4}>
+               
       <Grid item xs={12}>
+        <a href='/teacher/dashboard'>
+      <span class="flex text-sm" >
+        <ArrowBackIcon style={{height:'20px'}}/> Dashboard</span>
+        </a>
           <div class="flex rounded-md mt-8">
         <Typography variant="h2" component="h2" sx={{fontFamily: 'Montserrat'}}>
             Classroom : {classnumber || classname ? `${classnumber} ${classname}` : "Classroom 1"}
