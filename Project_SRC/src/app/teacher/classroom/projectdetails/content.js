@@ -37,6 +37,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PersonIcon from '@mui/icons-material/Person';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Discord from './components/discord'
 const drawerWidth = 240;
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -177,6 +178,8 @@ export default function Content(){
     const [viewProjects, setviewprojects] = React.useState(true)
     const[addProject,setaddproject] = React.useState(false)
     const[viewClassroom, setviewclassroom] = React.useState(false)
+    const [discord, setDiscord] = React.useState(false)
+
     const driveInstance = Drivecomponent()
     const handleListItemClick = (index) => { 
       setSelectedIndex(index);
@@ -184,6 +187,18 @@ export default function Content(){
       const indexval = JSON.stringify(index);
       localStorage.setItem("indexval", indexval, () => {
       });
+      if (index===0){
+        setviewprojects(true)
+        setDiscord(false)
+        setaddproject(false)
+        setviewclassroom(false)
+      }
+      if(index===2){
+        setDiscord(true)
+        setviewprojects(false)
+        setaddproject(false)
+        setviewclassroom(false)
+      }
       if(index === 4){
         driveInstance.handleopenPicker()
       }
@@ -346,8 +361,9 @@ export default function Content(){
             ))}
           </List>
         </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3, marginTop:'48px' }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <DrawerHeader/>
+          {viewProjects && <>
           <Grid container spacing={4}>
               <Grid item xs={12}>
                   <div style={{
@@ -469,6 +485,8 @@ export default function Content(){
                 </div>
               </Grid>
           </Grid>
+          </>}
+              {discord && <Discord/>}
         </Box>
 </Box>
 
