@@ -25,7 +25,14 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import GridViewIcon from '@mui/icons-material/GridView';
 import { styled, alpha, useTheme } from '@mui/material/styles';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+// import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import "../components/dash.css"
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import PropTypes from 'prop-types';
@@ -235,7 +242,7 @@ export default function Content() {
     const [hover, setHover] = useState(false);
     const [inviteStudent,setStudentInvite] = useState(false)
     const [value, setValue] = React.useState(0);
-
+    const [inviteTeacher,setTeacherInvite] = useState(false)
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -244,6 +251,9 @@ export default function Content() {
       if (indexVal == 0){
         setStudentInvite(true)
       }
+      if (indexVal == 1){
+        setTeacherInvite(true)
+      }
     }
     const studentlist = ['Forum Dipen Shah', 'Dheeraj Kumar Thanda', 'Sai Vishnu Anudeep Kadiyala' , 'Satwik Bhasin']
     const handlemembersClose = () => {
@@ -251,6 +261,9 @@ export default function Content() {
     };
     const handleInviteClose = () =>{
       setStudentInvite(false)
+    }
+    const handleTeacherClose = () =>{
+      setTeacherInvite(false)
     }
     const [emails, setEmails] = React.useState([]);
     const [focused, setFocused] = React.useState(false);
@@ -485,37 +498,48 @@ onClose={handleInviteClose}
 aria-labelledby="alert-dialog-title"
 aria-describedby="alert-dialog-description"
 maxWidth="md"
+// width="85%"
+
 fullWidth={true}
-PaperProps={{ style: { height: '90vh', borderRadius: '15px'} }}
+PaperProps={{ style: { height: '70vh', borderRadius: '15px' } }}
 >
-<div class='h-full w-full p-4 pb-0 mx-auto'>
+<div class='h-full w-full p-4 pt-0 pb-0 mx-auto'>
 <DialogTitle id="alert-dialog-title" style={{fontSize: '25px' }}>
 <IconButton
 edge="start"
 color="inherit"
 onClick={handleInviteClose}
 aria-label="close"
-sx={{ position: 'absolute', right: 8, top: 8 }}
+sx={{ position: 'absolute', right: 8 }}
 >
 <CloseIcon />
 </IconButton>
     {"Invite New Students to Classroom"}
 </DialogTitle>
+
 <DialogContent>
     <DialogContentText id="alert-dialog-description">
-    <Box sx={{ width: '100%' }}>
-    <div class="flex items-center justify-center w-4/5 mx-auto mt-8 mb-8">
+    <Box sx={{ width: 'full' }}>
+    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={value} onChange={handleChange} centered>
+        <Tab label="Enter Email Address" {...a11yProps(0)} />
+        <Tab label="Upload CSV File" {...a11yProps(1)} />
+        </Tabs>
+    </Box>
+    <CustomTabPanel value={value} index={0}  sx={{}}>
+    <Box sx={{ width: '100%'}}>
+    <div class="flex items-center justify-center w-4/5 mx-auto  mb-4">
                     <div
                         
                       
-                        tabIndex={-1}
+                        // tabIndex={-1}
                         // startIcon={<CloudUploadIcon />}
                         sx={{justifyContent:'justify', alignItems:'center', color: 'black', background:'transparent'}}
                         >
                         <div class="flex flex-col items-center justify-center w-full h-auto border-2 border-black px-4 border-dashed rounded-lg cursor-pointer ">
                         <ReactMultiEmail
                 
-                style={{border:'none', paddingBottom:'80px', width:'510px', marginBottom:'10px'}}
+                style={{border:'none', width:'100vh'}}
                 placeholder='Enter Email Addresses to Invite'
                 inputProps={{
                   sx: {
@@ -545,10 +569,39 @@ sx={{ position: 'absolute', right: 8, top: 8 }}
         
                         </div>
                         </div>
+                
+      {emails.map((email,index)=>(
+        <div key={index} class="w-4/5 mx-auto  mt-4 rounded-lg flex justify-between space-between">
+        <h4 class="flex ">
+            {email}
+            </h4>
+            <h4 class="mr-4"><DeleteOutlineIcon/></h4>
+        </div>
+
+))}
+            
+                        {/* <TableContainer component={Paper} style={{maxHeight:'250px',overflowY:'auto'}}>
+          <Table aria-label="simple table">
+           
+            <TableBody>
+              {emails.map((email, index) => (
+                <TableRow key={index} sx={{justifyContent:'space-between'}}>
+                  <TableCell component="th" scope="row">
+                    {email}
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    <DeleteOutlineIcon/>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer> */}
    </Box>  
-    <Divider>OR</Divider>  
+    </CustomTabPanel>
+    <CustomTabPanel value={value} index={1}>
     <Box sx={{ width: '100%' }}>
-    <div class="flex items-center justify-center w-4/5 mx-auto mt-8">
+    <div class="flex items-center justify-center w-4/5 mx-auto">
                     <Button
                         component="label"
                         role={undefined}
@@ -570,14 +623,110 @@ sx={{ position: 'absolute', right: 8, top: 8 }}
                         
                         </Button>
                         </div>
+                      
    </Box>  
+    </CustomTabPanel>
+     
+    
+    </Box>    
     </DialogContentText>
 </DialogContent>
 
 </div>
+<button class=" w-4/6 flex mx-auto mb-4 items-center justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
+                                            Invite
+                                          </button>
 </Dialog>
 
+<Dialog
+open={inviteTeacher}
+onClose={handleTeacherClose}
+aria-labelledby="alert-dialog-title"
+aria-describedby="alert-dialog-description"
+maxWidth="md"
+fullWidth={true}
+PaperProps={{ style: { height: '70vh', borderRadius: '15px', overflowY:'none'} }}
+>
+<div class='h-full w-full p-4 pt-0 pb-0 mx-auto'>
+<DialogTitle id="alert-dialog-title" style={{fontSize: '25px', textAlign:'center' }}>
+<IconButton
+edge="start"
+color="inherit"
+onClick={handleTeacherClose}
+aria-label="close"
+sx={{ position: 'absolute', right: 8 }}
+>
+<CloseIcon />
+</IconButton>
+    {"Invite Co-Instructors to Classroom"}
+</DialogTitle>
+<DialogContent>
+    <DialogContentText id="alert-dialog-description">
+    <Box sx={{ width: '100%', height:'100%' }}>
+    <div class="flex items-center justify-center w-4/5 mx-auto mb-4">
+                    <div
+                        
+                      
+                        // tabIndex={-1}
+                        // startIcon={<CloudUploadIcon />}
+                        sx={{justifyContent:'justify', alignItems:'center', color: 'black', background:'transparent'}}
+                        >
+                        <div class="flex flex-col items-center justify-center w-full h-auto border-2 border-black px-4 border-dashed rounded-lg cursor-pointer ">
+                        <ReactMultiEmail
+                
+                style={{border:'none', width:'100vh'}}
+                placeholder='Enter Email Addresses to Invite'
+                inputProps={{
+                  sx: {
+                      '::placeholder': {
+                          color: 'black'
+                      },
 
+                  }
+              }}
+                emails={emails}
+                onChange={(emails) => setEmails(emails)}
+                autoFocus={true}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                getLabel={(email, index, removeEmail) => {
+                    return (
+                        <div data-tag key={index}>
+                            <div data-tag-item>{email}</div>
+                            <span data-tag-handle onClick={() => removeEmail(index)}>
+                                ×
+                            </span>
+                        </div>
+                    );
+                }}
+            />
+                        </div>
+        
+                        </div>
+                        </div>
+                
+      {emails.map((email,index)=>(
+        <div key={index} class="w-4/5 mx-auto mt-4 rounded-lg flex justify-between space-between">
+        <h4 class="flex ">
+            {email}
+            </h4>
+            <h4 class=""><DeleteOutlineIcon/></h4>
+        </div>
+
+))}
+
+   </Box> 
+   
+  </DialogContentText>
+</DialogContent>
+
+
+
+</div>
+<button class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
+      Invite
+    </button>
+</Dialog>
   </>  
     );
 }
