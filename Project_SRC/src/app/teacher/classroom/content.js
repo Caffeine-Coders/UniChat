@@ -530,10 +530,6 @@ sx={{ position: 'absolute', right: 8 }}
     <Box sx={{ width: '100%'}}>
     <div class="flex items-center justify-center w-4/5 mx-auto  mb-4">
                     <div
-                        
-                      
-                        // tabIndex={-1}
-                        // startIcon={<CloudUploadIcon />}
                         sx={{justifyContent:'justify', alignItems:'center', color: 'black', background:'transparent'}}
                         >
                         <div class="flex flex-col items-center justify-center w-full h-auto border-2 border-black px-4 border-dashed rounded-lg cursor-pointer ">
