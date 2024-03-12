@@ -9,7 +9,7 @@ export async function getChatGPTResponse(message, messagehistory)
     }];   
 
     const response = await fetch(
-        `https://ikit:De99McEh5uNsdBVCyt@gpt-proxy.ualbany.org/openai`,
+        `/api/chatgpt`,
         {
             method: "POST",
             headers: {
@@ -22,5 +22,6 @@ export async function getChatGPTResponse(message, messagehistory)
     );
 
     const data = await response.json();
+    console.log(data);
     return data;
 }
