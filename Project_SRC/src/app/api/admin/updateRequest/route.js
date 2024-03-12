@@ -11,8 +11,8 @@ export async function PUT(request) {
             }
             // Connect to the MongoDB database
             await client.connect();
-            const database = client.db("NewRequests");
-            const collection = database.collection("Requests");
+            const database = client.db("SchoolRequestDB");
+            const collection = database.collection("SchoolRequests");
             const filter = { schoolname: schoolname };
             const updateDocument = {
                 $set: {

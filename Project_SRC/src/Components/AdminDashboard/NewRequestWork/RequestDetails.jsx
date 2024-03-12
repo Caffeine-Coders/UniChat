@@ -19,15 +19,15 @@ export default function RequestDetails(props) {
         const res = await updateRequest(data.schoolname, "Approved");
         console.log(res);
         if(res.status === 200){
+            const newdatabase = await createSchoolDb(data.schoolname.toLowerCase(), data.schooladminFname, data.schooladminLname, data.schooladminemail);
             const email = await sendEmail(data.schooladminFname, data.schooladminLname, data.schooladminemail, data.schoolname);
-            const newdatabase = await createSchoolDb(data.schoolname, data.schooladminFname, data.schooladminLname, data.schooladminemail);
             if(email.status === 200 && newdatabase.status === 200)
             {
                 isApproved(true);
             }
         }
         else{
-            console.log(email, newdatabase);
+            console.log("error");
         }
     }
 

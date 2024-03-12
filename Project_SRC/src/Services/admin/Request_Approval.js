@@ -90,13 +90,15 @@ export async function sendEmail(firstname, lastname, email, schoolname) {
 
  export async function createSchoolDb(schoolname, schooladminFname, schooladminLname, schooladminemail)
  {
+    const nameofdatabase = schoolname.replace(/\s/g, '') + 'DB';
+
     const res = await fetch(`/api/admin/createSchoolDatabase`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({ 
-            databasename: schoolname,
+            databasename: nameofdatabase,
             collectionnames:[
                 "students",
                 "teachers",

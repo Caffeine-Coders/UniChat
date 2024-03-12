@@ -1,6 +1,6 @@
 import { client } from "../../../../Services/MongoDB_Routines";
 import { NextResponse } from "next/server";
-import { NextResponse } from "next/server";
+ 
 
 //create database and insert the admin of the school.
 export async function POST(request) {
