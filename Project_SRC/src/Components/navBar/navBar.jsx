@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
 import SearchIcon from "@mui/icons-material/Search";
-import CloseIcon from "@mui/icons-material/Close";
-import SendIcon from "@mui/icons-material/Send";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
 import Logout from "@mui/icons-material/Logout";
@@ -21,8 +19,6 @@ import {
   AppBar,
   styled,
   ThemeProvider,
-  Paper,
-  InputAdornment,
   Menu,
   MenuItem,
   Divider,
@@ -30,9 +26,9 @@ import {
 } from "@mui/material";
 import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
-import Draggable from "react-draggable";
 import ThemeContext from "../Contexts/themeContext";
 import AuthContext from "../Contexts/authContext";
+import ChatGPTBox from "../ChatGPT/chatGPTBox";
 
 const StyledButton = styled(Button)(({ theme }) => ({
   width: "135px",
@@ -107,11 +103,9 @@ const StyledSearchIcon = styled(SearchIcon)(({ theme }) => ({}));
 export default function NavBar() {
   const router = new useRouter();
   const [openChatGPT, setOpenChatGPT] = useState(false);
+
   const toggleChatGPT = () => {
     setOpenChatGPT(!openChatGPT);
-  };
-  const handleCloseChatGPT = () => {
-    setOpenChatGPT(false);
   };
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -135,85 +129,6 @@ export default function NavBar() {
       .catch((error) => {
         console.log("Error logging out: ", error);
       });
-  };
-
-  const ChatGPTBox = () => {
-    return (
-      <Box sx={{ zIndex: 1 }}>
-        <Draggable
-          bounds={{ left: 0, top: 0, right: 1090, bottom: 295 }}
-          defaultPosition={{
-            x: window.innerWidth / 2 - 175,
-            y: window.innerHeight / 2 - 250,
-          }}
-        >
-          <Paper
-            style={{
-              position: "relative",
-              borderRadius: 8,
-              width: 350,
-              height: 500,
-              backgroundColor: (theme) => theme.palette.primary.main,
-            }}
-            sx={{ backgroundColor: (theme) => theme.palette.primary.main }}
-          >
-            <IconButton
-              onClick={handleCloseChatGPT}
-              sx={{
-                "&:hover": {
-                  backgroundColor: "transparent",
-                  color: (theme) => theme.palette.primary.ButtonColor,
-                },
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
-            <Box
-              sx={{
-                justifyContent: "center",
-                alignItems: "center",
-                display: "flex",
-                mt: 15,
-              }}
-            >
-              <Typography variant="h5">ChatGPT Integration Here</Typography>
-            </Box>
-            <Box
-              sx={{
-                justifyContent: "center",
-                alignItems: "center",
-                display: "flex",
-                mt: 33,
-                width: 300,
-                borderRadius: 3,
-                ml: 3,
-                backgroundColor: (theme) => theme.palette.primary.ButtonColor,
-                color: (theme) => theme.palette.primary.textcolor,
-              }}
-            >
-              <InputBase
-                placeholder="Chat Here"
-                sx={{ color: (theme) => theme.palette.primary.main }}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      sx={{
-                        color: (theme) => theme.palette.primary.main,
-                        "&:hover": {
-                          backgroundColor: "transparent",
-                        },
-                      }}
-                    >
-                      <SendIcon />
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </Box>
-          </Paper>
-        </Draggable>
-      </Box>
-    );
   };
 
   return (
@@ -352,7 +267,7 @@ export default function NavBar() {
           </Box>
         </Toolbar>
       </AppBar>
-      {openChatGPT && <ChatGPTBox />}
+      {openChatGPT && <ChatGPTBox isOpen={openChatGPT} />}
     </ThemeProvider>
   );
 }
