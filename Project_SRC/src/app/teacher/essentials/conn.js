@@ -32,12 +32,13 @@ export function Signuplogin(){
             const result = await signInWithPopup(auth, provider);
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
+            sessionStorage.setItem("googletoken", token);
             const user = result.user;
             let name = user.displayName;
             let photourl = user.photoURL;
             let accessToken = user.accessToken;
             const verificationStatus = await userChecker(user);
-            return {verificationStatus: verificationStatus, name: name, photourl: photourl, accessToken: accessToken};
+            return {verificationStatus: verificationStatus, name: name, photourl: photourl, accessToken: token};
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
