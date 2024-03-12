@@ -41,6 +41,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import { ReactMultiEmail, isEmail } from 'react-multi-email';
 import 'react-multi-email/dist/style.css';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import Checkbox from '@mui/material/Checkbox';
 // import { styled } from '@mui/material/styles';
 
 const drawerWidth = 240;
@@ -174,6 +175,8 @@ export default function Content(){
     };
     const [inviteTeacher,setTeacherInvite] = useState(false)
     const [inviteStudent,setStudentInvite] = useState(false)
+    const studentlist = ['Forum Dipen Shah', 'Dheeraj Kumar Thanda', 'Sai Vishnu Anudeep Kadiyala' , 'Satwik Bhasin']
+    const teacherlist = ['professor1', 'professor2', 'professor3']
     const [emails, setEmails] = React.useState([]);
     const [focused, setFocused] = React.useState(false);
     const handleTeacherClose = () =>{
@@ -182,6 +185,19 @@ export default function Content(){
     const handleStudentClose = () =>{
       setStudentInvite(false)
     }
+    const [checked, setChecked] = React.useState([1]);
+    const handleToggle = (value) => () => {
+      const currentIndex = checked.indexOf(value);
+      const newChecked = [...checked];
+
+      if (currentIndex === -1) {
+      newChecked.push(value);
+      } else {
+      newChecked.splice(currentIndex, 1);
+      }
+
+      setChecked(newChecked);
+  };
     const handleListItemClick2 = (index) => {
       setSelectedIndex(index);
       console.log("clicked",index)
@@ -220,8 +236,7 @@ export default function Content(){
       }
     }, []);
     const sidebar=['Project Details','Messaging','Group Chat','ChatGPT','Individual Chat','Google Drive']
-    const lowerhalf = ['Invite Students', 'Invite Co-Instructors']
-    const nested = ['trial1']
+    const lowerhalf = ['Add Students', 'Add Co-Instructors']
     return(
 
         <Box sx={{ display: 'flex' }}>
@@ -343,63 +358,33 @@ export default function Content(){
           >
           <CloseIcon />
           </IconButton>
-              {"Invite Co-Instructors to this project"}
+              {"Add Co-Instructors to this project"}
           </DialogTitle>
           <DialogContent>
               <DialogContentText id="alert-dialog-description">
               <Box sx={{ width: '100%', height:'100%' }}>
-              <div class="flex items-center justify-center w-4/5 mx-auto mb-4">
-                    <div
-                        
-                      
-                        // tabIndex={-1}
-                        // startIcon={<CloudUploadIcon />}
-                        sx={{justifyContent:'justify', alignItems:'center', color: 'black', background:'transparent'}}
-                        >
-                        <div class="flex flex-col items-center justify-center w-full h-auto border-2 border-black px-4 border-dashed rounded-lg cursor-pointer ">
-                        <ReactMultiEmail
-                
-                style={{border:'none', width:'100vh'}}
-                placeholder='Enter Email Addresses to Invite'
-                inputProps={{
-                  sx: {
-                      '::placeholder': {
-                          color: 'black'
-                      },
-
-                  }
-              }}
-                emails={emails}
-                onChange={(emails) => setEmails(emails)}
-                autoFocus={true}
-                onFocus={() => setFocused(true)}
-                onBlur={() => setFocused(false)}
-                getLabel={(email, index, removeEmail) => {
-                    return (
-                        <div data-tag key={index}>
-                            <div data-tag-item>{email}</div>
-                            <span data-tag-handle onClick={() => removeEmail(index)}>
-                                ×
-                            </span>
-                        </div>
-                    );
-                }}
-            />
-                        </div>
-        
-                        </div>
-                        </div>
-                
-      {emails.map((email,index)=>(
-        <div key={index} class="w-4/5 mx-auto mt-4 rounded-lg flex justify-between space-between">
-        <h4 class="flex ">
-            {email}
-            </h4>
-            <h4 class=""><DeleteOutlineIcon/></h4>
-        </div>
-
-        ))}
-
+              {teacherlist.map((value) => {
+                           const labelId = `checkbox-list-secondary-label-${value}`;
+                           return (
+                           <ListItem
+                               key={value}
+                               secondaryAction={
+                               <Checkbox
+                                   edge="end"
+                                   onChange={handleToggle(value)}
+                                   checked={checked.indexOf(value) !== -1}
+                                   inputProps={{ 'aria-labelledby': labelId }}
+                               />
+                               }
+                               disablePadding
+                               sx={{ justifyContent: 'center' }}
+                           >
+                               <ListItemButton>
+                               <ListItemText id={labelId} primary={value} />
+                               </ListItemButton>
+                           </ListItem>
+                           );
+                       })}
           </Box> 
           
           </DialogContentText>
@@ -409,7 +394,7 @@ export default function Content(){
 
         </div>
         <button class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
-              Invite
+              Add
             </button>
         </Dialog>
         <Dialog
@@ -432,63 +417,33 @@ export default function Content(){
           >
           <CloseIcon />
           </IconButton>
-              {"Invite Students to this project"}
+              {"Add Students to this project"}
           </DialogTitle>
           <DialogContent>
               <DialogContentText id="alert-dialog-description">
               <Box sx={{ width: '100%', height:'100%' }}>
-              <div class="flex items-center justify-center w-4/5 mx-auto mb-4">
-                    <div
-                        
-                      
-                        // tabIndex={-1}
-                        // startIcon={<CloudUploadIcon />}
-                        sx={{justifyContent:'justify', alignItems:'center', color: 'black', background:'transparent'}}
-                        >
-                        <div class="flex flex-col items-center justify-center w-full h-auto border-2 border-black px-4 border-dashed rounded-lg cursor-pointer ">
-                        <ReactMultiEmail
-                
-                style={{border:'none', width:'100vh'}}
-                placeholder='Enter Email Addresses to Invite'
-                inputProps={{
-                  sx: {
-                      '::placeholder': {
-                          color: 'black'
-                      },
-
-                  }
-              }}
-                emails={emails}
-                onChange={(emails) => setEmails(emails)}
-                autoFocus={true}
-                onFocus={() => setFocused(true)}
-                onBlur={() => setFocused(false)}
-                getLabel={(email, index, removeEmail) => {
-                    return (
-                        <div data-tag key={index}>
-                            <div data-tag-item>{email}</div>
-                            <span data-tag-handle onClick={() => removeEmail(index)}>
-                                ×
-                            </span>
-                        </div>
-                    );
-                }}
-            />
-                        </div>
-        
-                        </div>
-                        </div>
-                
-      {emails.map((email,index)=>(
-        <div key={index} class="w-4/5 mx-auto mt-4 rounded-lg flex justify-between space-between">
-        <h4 class="flex ">
-            {email}
-            </h4>
-            <h4 class=""><DeleteOutlineIcon/></h4>
-        </div>
-
-        ))}
-
+              {studentlist.map((value) => {
+                           const labelId = `checkbox-list-secondary-label-${value}`;
+                           return (
+                           <ListItem
+                               key={value}
+                               secondaryAction={
+                               <Checkbox
+                                   edge="end"
+                                   onChange={handleToggle(value)}
+                                   checked={checked.indexOf(value) !== -1}
+                                   inputProps={{ 'aria-labelledby': labelId }}
+                               />
+                               }
+                               disablePadding
+                               sx={{ justifyContent: 'center' }}
+                           >
+                               <ListItemButton>
+                               <ListItemText id={labelId} primary={value} />
+                               </ListItemButton>
+                           </ListItem>
+                           );
+                       })}
           </Box> 
           
           </DialogContentText>
@@ -498,7 +453,7 @@ export default function Content(){
 
         </div>
         <button class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
-              Invite
+              Add
             </button>
         </Dialog>
 </Box>
