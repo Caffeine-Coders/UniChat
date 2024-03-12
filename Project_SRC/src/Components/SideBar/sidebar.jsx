@@ -108,6 +108,7 @@ const SideBar = ({ projects }) => {
       multiselect: true,
       callbackFunction: async (data) => {
         if (data.action === "picked") {
+          console.log(data.docs[0]);
           localStorage.setItem("selectedDoc", data.docs[0].embedUrl);
           localStorage.setItem("selectedDocId", data.docs[0].id);
         }

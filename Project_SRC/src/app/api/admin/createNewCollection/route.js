@@ -10,7 +10,7 @@ export async function POST(request) {
         await client.connect();
         const database = client.db(databasename);
 
-        await database.createCollection(collectionName);
+        await database.createCollection(collectionname);
         const collection = database.collection(collectioname);
         
         await collection.insertMany(data);

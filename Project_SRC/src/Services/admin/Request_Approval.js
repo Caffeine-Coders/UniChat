@@ -87,3 +87,5 @@ export async function sendEmail(firstname, lastname, email, schoolname) {
     const data = await res.json();
     return data;
 }
+
+ 
