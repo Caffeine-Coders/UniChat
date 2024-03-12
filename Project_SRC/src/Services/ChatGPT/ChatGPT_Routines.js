@@ -22,6 +22,5 @@ export async function getChatGPTResponse(message, messagehistory)
     );
 
     const data = await response.json();
-    console.log(data);
     return data;
 }

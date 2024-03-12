@@ -6,6 +6,7 @@ import {
   Box,
   Paper,
   InputAdornment,
+  CircularProgress,
 } from "@mui/material";
 import Draggable from "react-draggable";
 import CloseIcon from "@mui/icons-material/Close";
@@ -16,6 +17,7 @@ const ChatGPTBox = ({ isOpen }) => {
   const [isVisible, setIsVisible] = useState(isOpen);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsVisible(isOpen);
@@ -26,11 +28,23 @@ const ChatGPTBox = ({ isOpen }) => {
   };
 
   const handleSendMessage = async () => {
-    const response = await getChatGPTResponse(newMessage, []);
-    console.log("chatgpt_soltuion: " + response);
-    setMessages([...messages, response]);
-    setMessages([...messages, newMessage]);
-    setNewMessage("");
+    if (newMessage.trim() !== "") {
+      setIsLoading(true);
+      const response = await getChatGPTResponse(newMessage, []);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: newMessage, sender: "user" },
+      ]);
+
+      setTimeout(() => {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { text: response.data, sender: "chatgpt" },
+        ]);
+        setIsLoading(false);
+      }, 2000);
+      setNewMessage("");
+    }
   };
 
   if (!isVisible) {
@@ -112,18 +126,23 @@ const ChatGPTBox = ({ isOpen }) => {
                 alignItems: "flex-end",
                 overflowY: "scroll",
                 mt: 2,
+                maxHeight: "380px",
               }}
             >
               {[...messages].reverse().map((message, index) => (
                 <Box
                   key={index}
                   sx={{
-                    backgroundColor: (theme) =>
-                      theme.palette.primary.ButtonColor,
+                    backgroundColor:
+                      message.sender === "user"
+                        ? (theme) => theme.palette.primary.main
+                        : "#699385",
                     p: 1,
                     borderRadius: 1,
-                    mb: 1,
-                    mr: 1,
+                    m: 1,
+                    alignSelf:
+                      message.sender === "user" ? "flex-end" : "flex-start",
+                    maxWidth: "70%",
                   }}
                 >
                   <Typography
@@ -133,7 +152,7 @@ const ChatGPTBox = ({ isOpen }) => {
                       fontSize: 12,
                     }}
                   >
-                    {message}
+                    {message.text}
                   </Typography>
                 </Box>
               ))}
@@ -143,7 +162,7 @@ const ChatGPTBox = ({ isOpen }) => {
             sx={{
               position: "absolute",
               bottom: 10,
-              justifyContent: "center",
+              justifyContent: "flex-start",
               alignItems: "center",
               display: "flex",
               mt: 33,
@@ -165,6 +184,9 @@ const ChatGPTBox = ({ isOpen }) => {
                 color: (theme) => theme.palette.primary.whites,
                 fontFamily: "'Kode Mono', monospace",
                 fontSize: 14,
+                flexGrow: 1,
+                ml: 1,
+                mr: 1,
               }}
               endAdornment={
                 <InputAdornment position="end">
@@ -177,7 +199,11 @@ const ChatGPTBox = ({ isOpen }) => {
                       },
                     }}
                   >
-                    <SendIcon />
+                    {isLoading ? (
+                      <CircularProgress sx={{ color: "#699385" }} size={16} />
+                    ) : (
+                      <SendIcon />
+                    )}
                   </IconButton>
                 </InputAdornment>
               }
