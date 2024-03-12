@@ -1,5 +1,6 @@
 'use client'
 import * as React from 'react';
+import { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import AddToDriveIcon from '@mui/icons-material/AddToDrive';
 import ArticleIcon from '@mui/icons-material/Article';
@@ -31,8 +32,18 @@ import Details from '../components/details'
 import Chat from '../components/chat'
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import Chatgpt from '../components/chatgpt'
-const drawerWidth = 240;
+import { Dialog } from '@mui/material';
+import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import { ReactMultiEmail, isEmail } from 'react-multi-email';
+import 'react-multi-email/dist/style.css';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+// import { styled } from '@mui/material/styles';
 
+const drawerWidth = 240;
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -99,7 +110,6 @@ function DelayedContent({ children, delay }) {
 
   return loading ? <CustomLoading /> : children;
 }
-
 export default function Content(){
   if (typeof window!== 'undefined'){
   localStorage.setItem("indexval", 0, () => {
@@ -162,7 +172,26 @@ export default function Content(){
       }
      
     };
-  
+    const [inviteTeacher,setTeacherInvite] = useState(false)
+    const [inviteStudent,setStudentInvite] = useState(false)
+    const [emails, setEmails] = React.useState([]);
+    const [focused, setFocused] = React.useState(false);
+    const handleTeacherClose = () =>{
+      setTeacherInvite(false)
+    }
+    const handleStudentClose = () =>{
+      setStudentInvite(false)
+    }
+    const handleListItemClick2 = (index) => {
+      setSelectedIndex(index);
+      console.log("clicked",index)
+      if (index===0){
+        setStudentInvite(true)
+      }
+      if(index == 1){
+        setTeacherInvite(true)
+      }
+    }
     const handleDrawerOpen = () => {
       setOpen(true);
     };
@@ -263,7 +292,7 @@ export default function Content(){
                     px: 2.5,
                   }}
        
-                
+                onClick={() => handleListItemClick2(index)}
                 >
                   <ListItemIcon
                     sx={{
@@ -294,6 +323,184 @@ export default function Content(){
             {gpt && <Chatgpt/>}
             
         </Box>
+        <Dialog
+          open={inviteTeacher}
+          onClose={handleTeacherClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          maxWidth="md"
+          fullWidth={true}
+          PaperProps={{ style: { height: '70vh', borderRadius: '15px', overflowY:'none'} }}
+          >
+          <div class='h-full w-full p-4 pt-0 pb-0 mx-auto'>
+          <DialogTitle id="alert-dialog-title" style={{fontSize: '25px', textAlign:'center' }}>
+          <IconButton
+          edge="start"
+          color="inherit"
+          onClick={handleTeacherClose}
+          aria-label="close"
+          sx={{ position: 'absolute', right: 8 }}
+          >
+          <CloseIcon />
+          </IconButton>
+              {"Invite Co-Instructors to this project"}
+          </DialogTitle>
+          <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+              <Box sx={{ width: '100%', height:'100%' }}>
+              <div class="flex items-center justify-center w-4/5 mx-auto mb-4">
+                    <div
+                        
+                      
+                        // tabIndex={-1}
+                        // startIcon={<CloudUploadIcon />}
+                        sx={{justifyContent:'justify', alignItems:'center', color: 'black', background:'transparent'}}
+                        >
+                        <div class="flex flex-col items-center justify-center w-full h-auto border-2 border-black px-4 border-dashed rounded-lg cursor-pointer ">
+                        <ReactMultiEmail
+                
+                style={{border:'none', width:'100vh'}}
+                placeholder='Enter Email Addresses to Invite'
+                inputProps={{
+                  sx: {
+                      '::placeholder': {
+                          color: 'black'
+                      },
+
+                  }
+              }}
+                emails={emails}
+                onChange={(emails) => setEmails(emails)}
+                autoFocus={true}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                getLabel={(email, index, removeEmail) => {
+                    return (
+                        <div data-tag key={index}>
+                            <div data-tag-item>{email}</div>
+                            <span data-tag-handle onClick={() => removeEmail(index)}>
+                                ×
+                            </span>
+                        </div>
+                    );
+                }}
+            />
+                        </div>
+        
+                        </div>
+                        </div>
+                
+      {emails.map((email,index)=>(
+        <div key={index} class="w-4/5 mx-auto mt-4 rounded-lg flex justify-between space-between">
+        <h4 class="flex ">
+            {email}
+            </h4>
+            <h4 class=""><DeleteOutlineIcon/></h4>
+        </div>
+
+        ))}
+
+          </Box> 
+          
+          </DialogContentText>
+        </DialogContent>
+
+
+
+        </div>
+        <button class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
+              Invite
+            </button>
+        </Dialog>
+        <Dialog
+          open={inviteStudent}
+          onClose={handleStudentClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          maxWidth="md"
+          fullWidth={true}
+          PaperProps={{ style: { height: '70vh', borderRadius: '15px', overflowY:'none'} }}
+          >
+          <div class='h-full w-full p-4 pt-0 pb-0 mx-auto'>
+          <DialogTitle id="alert-dialog-title" style={{fontSize: '25px', textAlign:'center' }}>
+          <IconButton
+          edge="start"
+          color="inherit"
+          onClick={handleStudentClose}
+          aria-label="close"
+          sx={{ position: 'absolute', right: 8 }}
+          >
+          <CloseIcon />
+          </IconButton>
+              {"Invite Students to this project"}
+          </DialogTitle>
+          <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+              <Box sx={{ width: '100%', height:'100%' }}>
+              <div class="flex items-center justify-center w-4/5 mx-auto mb-4">
+                    <div
+                        
+                      
+                        // tabIndex={-1}
+                        // startIcon={<CloudUploadIcon />}
+                        sx={{justifyContent:'justify', alignItems:'center', color: 'black', background:'transparent'}}
+                        >
+                        <div class="flex flex-col items-center justify-center w-full h-auto border-2 border-black px-4 border-dashed rounded-lg cursor-pointer ">
+                        <ReactMultiEmail
+                
+                style={{border:'none', width:'100vh'}}
+                placeholder='Enter Email Addresses to Invite'
+                inputProps={{
+                  sx: {
+                      '::placeholder': {
+                          color: 'black'
+                      },
+
+                  }
+              }}
+                emails={emails}
+                onChange={(emails) => setEmails(emails)}
+                autoFocus={true}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                getLabel={(email, index, removeEmail) => {
+                    return (
+                        <div data-tag key={index}>
+                            <div data-tag-item>{email}</div>
+                            <span data-tag-handle onClick={() => removeEmail(index)}>
+                                ×
+                            </span>
+                        </div>
+                    );
+                }}
+            />
+                        </div>
+        
+                        </div>
+                        </div>
+                
+      {emails.map((email,index)=>(
+        <div key={index} class="w-4/5 mx-auto mt-4 rounded-lg flex justify-between space-between">
+        <h4 class="flex ">
+            {email}
+            </h4>
+            <h4 class=""><DeleteOutlineIcon/></h4>
+        </div>
+
+        ))}
+
+          </Box> 
+          
+          </DialogContentText>
+        </DialogContent>
+
+
+
+        </div>
+        <button class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
+              Invite
+            </button>
+        </Dialog>
 </Box>
 
     )
