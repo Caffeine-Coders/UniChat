@@ -10,6 +10,7 @@ import {
 import Draggable from "react-draggable";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
+import { getChatGPTResponse } from "../../Services/ChatGPT/ChatGPT_Routines";
 
 const ChatGPTBox = ({ isOpen }) => {
   const [isVisible, setIsVisible] = useState(isOpen);
@@ -24,7 +25,10 @@ const ChatGPTBox = ({ isOpen }) => {
     setIsVisible(false);
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
+    const response = await getChatGPTResponse(newMessage, []);
+    console.log("chatgpt_soltuion: " + response);
+    setMessages([...messages, response]);
     setMessages([...messages, newMessage]);
     setNewMessage("");
   };
@@ -45,7 +49,7 @@ const ChatGPTBox = ({ isOpen }) => {
         <Paper
           style={{
             position: "relative",
-            borderRadius: 8,
+            borderRadius: 12,
             width: 350,
             height: 500,
             backgroundColor: (theme) => theme.palette.primary.main,
@@ -60,6 +64,7 @@ const ChatGPTBox = ({ isOpen }) => {
               alignItems: "center",
               backgroundColor: (theme) => theme.palette.primary.ButtonColor,
               color: (theme) => theme.palette.primary.whites,
+              borderRadius: 3,
               padding: "0 10px",
             }}
           >
