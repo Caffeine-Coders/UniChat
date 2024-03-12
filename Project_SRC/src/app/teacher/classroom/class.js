@@ -28,15 +28,14 @@ export default function Class() {
     }
     React.useEffect(() => {
       if (typeof window !== 'undefined') {
-          const storedClassname = localStorage.getItem("classname");
-          const storedClassnumber = localStorage.getItem("classnumber");
-          if (storedClassname && storedClassnumber) {
-              // If classname and classnumber are simple strings, no need to use JSON.parse
-              setClassname(storedClassname);
-              setClassnumber(storedClassnumber);
-          }
+        const storedClassname = localStorage.getItem("classname");
+        const storedClassnumber = localStorage.getItem("classnumber");
+        if (storedClassname && storedClassnumber) {
+          setClassname(JSON.parse(storedClassname));
+          setClassnumber(JSON.parse(storedClassnumber));
+        }
       }
-  }, []);
+    }, []);
 
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
