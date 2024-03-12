@@ -6,6 +6,7 @@ import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 // import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import cl1 from "../../../../public/class1.png"
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import Card from '@mui/material/Card';
@@ -80,14 +81,14 @@ export default function Class() {
     },
   }));
   const projects = [
-    { name: "Project 1", url: "https://img.freepik.com/free-photo/technology-human-touch-background-modern-remake-creation-adam_53876-129794.jpg?t=st=1709264522~exp=1709268122~hmac=37495c2f747709fb91df549997f05b4fa7716d2b9c2bd9cebeab5eaa4ebc67b6&w=2000" },
-    { name: "Project 2", url: "https://img.freepik.com/free-vector/organizing-projects-concept-illustration_114360-542.jpg?t=st=1709264652~exp=1709268252~hmac=e920e67e63c1dad31bc765d6e11bb104962195a5e15e9a1b710ff32fbea9a7e9&w=1380" },
-    { name: "Project 3", url: "https://img.freepik.com/free-vector/organizing-projects-concept-illustration_114360-542.jpg?t=st=1709264652~exp=1709268252~hmac=e920e67e63c1dad31bc765d6e11bb104962195a5e15e9a1b710ff32fbea9a7e9&w=1380" },
-    { name: "Project 4", url: "https://img.freepik.com/free-vector/project-management-business-process-planning-workflow-organization-colleagues-working-together-teamwork_335657-2469.jpg?t=st=1709264673~exp=1709268273~hmac=e2c3f6cc36f72bddbe55c2584d0f21348c438e981c9c30f37667154bba83bf5e&w=2000"},
-    { name: "Project 5", url: "https://img.freepik.com/free-photo/technology-human-touch-background-modern-remake-creation-adam_53876-129794.jpg?t=st=1709264522~exp=1709268122~hmac=37495c2f747709fb91df549997f05b4fa7716d2b9c2bd9cebeab5eaa4ebc67b6&w=2000" },
-    { name: "Project 6", url: "https://img.freepik.com/free-vector/organizing-projects-concept-illustration_114360-542.jpg?t=st=1709264652~exp=1709268252~hmac=e920e67e63c1dad31bc765d6e11bb104962195a5e15e9a1b710ff32fbea9a7e9&w=1380" },
-    { name: "Project 7", url: "https://img.freepik.com/free-vector/organizing-projects-concept-illustration_114360-542.jpg?t=st=1709264652~exp=1709268252~hmac=e920e67e63c1dad31bc765d6e11bb104962195a5e15e9a1b710ff32fbea9a7e9&w=1380" },
-    { name: "Project 8", url: "https://img.freepik.com/free-vector/project-management-business-process-planning-workflow-organization-colleagues-working-together-teamwork_335657-2469.jpg?t=st=1709264673~exp=1709268273~hmac=e2c3f6cc36f72bddbe55c2584d0f21348c438e981c9c30f37667154bba83bf5e&w=2000"},
+    { name: "Project 1", url: "https://img.freepik.com/free-photo/people-generating-images-using-artificial-intelligence-laptop_23-2150794334.jpg?t=st=1710251710~exp=1710255310~hmac=0b18455c08ed0ae7910919240ef8786b0412a664f39e0ac9e30584e8c3262fe1&w=740" },
+    { name: "Project 2", url: "https://img.freepik.com/free-vector/college-project-concept-illustration_114360-10541.jpg?t=st=1710252174~exp=1710255774~hmac=5dce400ab6a19f1596bd819ad10df08f6aa335a222f545e57d356afc6ba6024b&w=740" },
+    { name: "Project 3", url: "https://img.freepik.com/free-vector/web-development-concept-with-programmer-ar_107791-17049.jpg?t=st=1710252429~exp=1710256029~hmac=4150b91e1f40f61675e16e0d974a202899f1fef8cd31cf613aadd6b47d11c171&w=740" },
+    { name: "Project 4", url: "https://img.freepik.com/free-vector/happy-students-pupils-watching-study-webinar-isolated-flat-illustration_74855-14070.jpg?t=st=1710252513~exp=1710256113~hmac=e043a78e8104845d08dc4c4f41a5f677332bd26325aca883c2600e7f571a42b7&w=740"},
+    { name: "Project 5", url: "https://img.freepik.com/free-vector/web-development-concept-with-programmer-ar_107791-17049.jpg?t=st=1710252429~exp=1710256029~hmac=4150b91e1f40f61675e16e0d974a202899f1fef8cd31cf613aadd6b47d11c171&w=740" },
+    { name: "Project 6", url: "https://img.freepik.com/free-vector/happy-students-pupils-watching-study-webinar-isolated-flat-illustration_74855-14070.jpg?t=st=1710252513~exp=1710256113~hmac=e043a78e8104845d08dc4c4f41a5f677332bd26325aca883c2600e7f571a42b7&w=740" },
+    { name: "Project 7", url: "https://img.freepik.com/free-vector/college-project-concept-illustration_114360-10541.jpg?t=st=1710252174~exp=1710255774~hmac=5dce400ab6a19f1596bd819ad10df08f6aa335a222f545e57d356afc6ba6024b&w=740" },
+    { name: "Project 8", url: "https://img.freepik.com/free-photo/people-generating-images-using-artificial-intelligence-laptop_23-2150794334.jpg?t=st=1710251710~exp=1710255310~hmac=0b18455c08ed0ae7910919240ef8786b0412a664f39e0ac9e30584e8c3262fe1&w=740"},
   ];
   function ProjectCard({ projectName, projectUrl }) {
     // const [projectname, setProjectname] = React.useState(null)

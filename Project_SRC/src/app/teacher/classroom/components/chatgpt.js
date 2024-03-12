@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
   MainContainer,
   ChatContainer,
@@ -19,6 +20,12 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function Chatgpt() {
   return (
+    <>
+     <a href='/teacher/classroom'>
+            <span class="flex text-sm" >
+            <ArrowBackIcon style={{height:'20px'}}/> Classroom</span>
+            </a>
+    
       <div style={{height: '85vh', width: '100%', borderRadius: '20px', overflow: 'hidden', position: 'relative' }}>
         <div style={{ position: "relative", height:'100%', borderRadius: '10px' }}>
             <MainContainer>
@@ -98,6 +105,7 @@ export default function Chatgpt() {
             </MainContainer>
             </div>
       </div>
+      </>
   );
 }
 

@@ -56,7 +56,7 @@ const [value, setValue] = React.useState(0);
             <ArrowBackIcon style={{height:'20px'}}/> Classroom</span>
             </a>
             <div style={{
-              backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url(https://img.freepik.com/free-vector/minimal-geometric-composition-cover_1217-2380.jpg?t=st=1709701426~exp=1709705026~hmac=731685fe10379ee015157584f7672d75c23539379b22a0564d4b50ae529c26db&w=996)`,
+              backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url(https://img.freepik.com/free-vector/gradient-shapes-dark-background_23-2148408859.jpg)`,
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'center',
