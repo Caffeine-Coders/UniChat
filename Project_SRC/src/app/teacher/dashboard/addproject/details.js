@@ -4,9 +4,22 @@ import {Drivecomponent} from "../../drive/drivecomponent";
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import {List, ListItem, ListItemText, ListItemButton, Checkbox, ListItemAvatar, Avatar, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Select, FormControl} from '@mui/material'
-const studentlist = ['Forum Dipen Shah', 'Dheeraj Kumar Thanda', 'Sai Vishnu Anudeep Kadiyala' , 'Satwik Bhasin']
-// import GooglePicker from 'react-google-picker'
+import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Box from "@mui/material/Box";
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { Dialog } from '@mui/material';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import SearchIcon from '@mui/icons-material/Search';
+import Checkbox from '@mui/material/Checkbox';
+import ListItemText from '@mui/material/ListItemText';
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
 export default function Details({fornext, forback, loader}){
     const [gradelevel, setGradelevel] = useState('');
     const [subjectareas, setSubjectareas] = useState('');
@@ -34,7 +47,19 @@ export default function Details({fornext, forback, loader}){
             setProjectgoal(storedprojectgoal);
         }
     }, []);
-    
+    const [checked, setChecked] = React.useState([1]);
+    const handleToggle = (value) => () => {
+        const currentIndex = checked.indexOf(value);
+        const newChecked = [...checked];
+
+        if (currentIndex === -1) {
+        newChecked.push(value);
+        } else {
+        newChecked.splice(currentIndex, 1);
+        }
+
+        setChecked(newChecked);
+    };
     const handleNext = () => {
         if(gradelevel !== '' && subjectareas !== '' && projectgoal !== ''){
             console.log("gradelevel", gradelevel);
@@ -63,23 +88,64 @@ export default function Details({fornext, forback, loader}){
     const handleCreateFolder = () => {
         driveInstance.createFolder('Project')
     }
+    const [inviteTeacher,setTeacherInvite] = useState(false)
+    const [inviteStudent,setStudentInvite] = useState(false)
+    const studentlist = ['Forum Dipen Shah', 'Dheeraj Kumar Thanda', 'Sai Vishnu Anudeep Kadiyala' , 'Satwik Bhasin']
+    const teacherlist = ['professor1', 'professor2', 'professor3']
     const handlestudent = () => {
-        setOpen(true);
+        setStudentInvite(true)
     }
-    const [checked, setChecked] = React.useState([1]);
+    const handleTeacher = () => {
+        setTeacherInvite(true)
+    }
+    const handleTeacherClose = () =>{
+        setTeacherInvite(false)
+    }
+    const handleStudentClose = () =>{
+        setStudentInvite(false)
+    }
+    const Search = styled('div')(({ theme }) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(1),
+      width: 'auto',
+    },
+  }));
+  
+  const SearchIconWrapper = styled('div')(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }));
 
-    const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-
-        if (currentIndex === -1) {
-        newChecked.push(value);
-        } else {
-        newChecked.splice(currentIndex, 1);
-        }
-
-        setChecked(newChecked);
-    };
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: 'inherit',
+    width: '100%',
+    '& .MuiInputBase-input': {
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create('width'),
+      [theme.breakpoints.up('sm')]: {
+        width: '16ch',
+        '&:focus': {
+          width: '20ch',
+        },
+      },
+    },
+  }));
+  
     return (
             <>
                     <div class="mt-16">
@@ -137,7 +203,7 @@ export default function Details({fornext, forback, loader}){
                             Google Drive
                         </button>
                         
-                        <button class="border-2 border-black h-32 w-40 rounded-xl ml-8  bg-white">
+                        <button class="border-2 border-black h-32 w-40 rounded-xl ml-8  bg-white" onClick={handleTeacher}>
                             <div class="flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="28" viewBox="0 0 1024 1024" id="user">
                                     <path d="M670.1 278.4c0 8.8-.6 17.6-1.7 26.3.5-3.5 1-7.1 1.4-10.6-2.4 17.4-7 34.3-13.7 50.5 1.3-3.2 2.7-6.4 4-9.6-6.7 15.8-15.3 30.6-25.8 44.2l6.3-8.1c-10.4 13.4-22.5 25.5-35.9 35.9l8.1-6.3c-13.6 10.4-28.4 19.1-44.2 25.8 3.2-1.3 6.4-2.7 9.6-4-16.2 6.7-33.1 11.3-50.5 13.7 3.5-.5 7.1-1 10.6-1.4-17.5 2.3-35.1 2.3-52.6 0 3.5.5 7.1 1 10.6 1.4-17.4-2.4-34.3-7-50.5-13.7 3.2 1.3 6.4 2.7 9.6 4-15.8-6.7-30.6-15.3-44.2-25.8l8.1 6.3c-13.4-10.4-25.5-22.5-35.9-35.9l6.3 8.1c-10.4-13.6-19.1-28.4-25.8-44.2 1.3 3.2 2.7 6.4 4 9.6-6.7-16.2-11.3-33.1-13.7-50.5.5 3.5 1 7.1 1.4 10.6-2.3-17.5-2.3-35.1 0-52.6-.5 3.5-1 7.1-1.4 10.6 2.4-17.4 7-34.3 13.7-50.5-1.3 3.2-2.7 6.4-4 9.6 6.7-15.8 15.3-30.6 25.8-44.2l-6.3 8.1c10.4-13.4 22.5-25.5 35.9-35.9l-8.1 6.3c13.6-10.4 28.4-19.1 44.2-25.8-3.2 1.3-6.4 2.7-9.6 4 16.2-6.7 33.1-11.3 50.5-13.7-3.5.5-7.1 1-10.6 1.4 17.5-2.3 35.1-2.3 52.6 0-3.5-.5-7.1-1-10.6-1.4 17.4 2.4 34.3 7 50.5 13.7-3.2-1.3-6.4-2.7-9.6-4 15.8 6.7 30.6 15.3 44.2 25.8l-8.1-6.3c13.4 10.4 25.5 22.5 35.9 35.9l-6.3-8.1c10.4 13.6 19.1 28.4 25.8 44.2-1.3-3.2-2.7-6.4-4-9.6 6.7 16.2 11.3 33.1 13.7 50.5-.5-3.5-1-7.1-1.4-10.6 1.1 8.7 1.6 17.5 1.7 26.3.1 20.9 18.3 41 40 40 21.6-1 40.1-17.6 40-40-.2-47.9-14.6-96.9-42.8-135.9-7.6-10.5-15.7-20.8-24.7-30.1-9.1-9.4-19.1-17.5-29.5-25.4-18.9-14.4-40-25-62.4-33.2-90.3-33.1-199.2-3.6-260.3 70.8-8.4 10.2-16.4 20.8-23.2 32.2-6.8 11.3-12.1 23.3-17 35.5-9.2 22.6-13.9 46.6-15.8 70.9-3.7 47.6 8.7 97.3 33.5 138.1 23.9 39.4 60 73.2 102.2 92.3 12.4 5.6 25.1 10.8 38.3 14.5 13.1 3.6 26.4 5.6 39.9 7.2 24.6 2.9 49.7.9 74-4 92.3-18.8 169.6-98.3 183.9-191.6 2.1-13.6 3.7-27.2 3.7-41 .1-20.9-18.5-41-40-40-21.6.7-39.8 17.3-39.8 39.7zm132.7 625.3H289.7c-22.7 0-45.4.2-68.1 0-2.5 0-5-.2-7.4-.5 3.5.5 7.1 1 10.6 1.4-4-.6-7.8-1.7-11.5-3.2 3.2 1.3 6.4 2.7 9.6 4-4-1.7-7.7-3.9-11.2-6.6l8.1 6.3c-3-2.5-5.8-5.2-8.2-8.2l6.3 8.1c-2.7-3.5-4.8-7.2-6.6-11.2 1.3 3.2 2.7 6.4 4 9.6-1.5-3.7-2.5-7.6-3.2-11.5.5 3.5 1 7.1 1.4 10.6-1.6-12.1-.5-24.9-.5-37.1v-42.8c0-10.7.6-21.3 2-31.9-.5 3.5-1 7.1-1.4 10.6 2.8-20.5 8.2-40.6 16.3-59.7-1.3 3.2-2.7 6.4-4 9.6 7.8-18.2 17.8-35.3 29.9-51l-6.3 8.1c12.1-15.5 26-29.5 41.6-41.6L283 673c15.7-12.1 32.8-22.1 51-29.9-3.2 1.3-6.4 2.7-9.6 4 19.1-8 39.1-13.5 59.7-16.3-3.5.5-7.1 1-10.6 1.4 14.8-1.9 29.5-2 44.4-2h183c16.5 0 32.9-.1 49.4 2-3.5-.5-7.1-1-10.6-1.4 20.5 2.8 40.6 8.2 59.7 16.3-3.2-1.3-6.4-2.7-9.6-4 18.2 7.8 35.3 17.8 51 29.9l-8.1-6.3c15.5 12.1 29.5 26 41.6 41.6l-6.3-8.1c12.1 15.7 22.1 32.8 29.9 51-1.3-3.2-2.7-6.4-4-9.6 8 19.1 13.5 39.1 16.3 59.7-.5-3.5-1-7.1-1.4-10.6 1.9 15.1 2 30.1 2 45.3v49.5c0 5.7.2 11.4-.5 17 .5-3.5 1-7.1 1.4-10.6-.6 4-1.7 7.8-3.2 11.5 1.3-3.2 2.7-6.4 4-9.6-1.7 4-3.9 7.7-6.6 11.2l6.3-8.1c-2.5 3-5.2 5.8-8.2 8.2l8.1-6.3c-3.5 2.7-7.2 4.8-11.2 6.6 3.2-1.3 6.4-2.7 9.6-4-3.7 1.5-7.6 2.5-11.5 3.2 3.5-.5 7.1-1 10.6-1.4-2.2.3-4.5.4-6.8.5-10.3.1-20.9 4.4-28.3 11.7-6.9 6.9-12.2 18.3-11.7 28.3 1 21.4 17.6 40.3 40 40 38.9-.6 73.1-26 84.5-63.3 4.5-14.8 3.5-30.7 3.5-45.9 0-34.8 1.1-69.3-4.9-103.8-8.8-50.5-34.2-98-69-135.3-34.8-37.3-81.6-64.7-131.1-76.9-28.4-7-57-8.1-86-8.1H422.4c-29.7 0-59.2 1.4-88.1 9.1-49.1 13-95.3 40.7-129.4 78.3-34.4 37.9-59.3 85.5-67.4 136.3-5.4 34.1-4.3 68.3-4.3 102.7 0 15.8-.9 32.3 4.8 47.4 7.4 19.4 19.2 34.7 36.5 46.2 13.5 8.9 30.6 13.2 46.6 13.4 7.8.1 15.6 0 23.4 0h558.4c20.9 0 41-18.4 40-40-1-21.8-17.6-40.1-40.1-40.1z">
@@ -169,61 +235,151 @@ export default function Details({fornext, forback, loader}){
                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                          </svg>
                      </button>
-                 </div>
-
-                   {/* dialog for students */}
-                        
-                   <Dialog
-                   open={open}
-                   onClose={handleClose}
-                   aria-labelledby="alert-dialog-title"
-                   aria-describedby="alert-dialog-description"
-                   maxWidth="xs"
-                   fullWidth={true}
-                   PaperProps={{ style: { height: '50vh', borderRadius: '15px'} }}
-                   centered
-                   >
-                    <div class='h-full w-full p-4 pb-0 mx-auto'>
-                   <DialogTitle id="alert-dialog-title" fontSize="25px">
-                       {"Select Students to add to the project"}
-                   </DialogTitle>
-                   <DialogContent >
-                       <DialogContentText id="alert-dialog-description">
-                       <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', alignItems: 'center',display: 'flex', flexDirection: 'column' }}>
-                       {studentlist.map((value) => {
-                           const labelId = `checkbox-list-secondary-label-${value}`;
-                           return (
-                           <ListItem
-                               key={value}
-                               secondaryAction={
-                               <Checkbox
-                                   edge="end"
-                                   onChange={handleToggle(value)}
-                                   checked={checked.indexOf(value) !== -1}
-                                   inputProps={{ 'aria-labelledby': labelId }}
-                               />
-                               }
-                               disablePadding
-                               sx={{ justifyContent: 'center' }}
-                           >
-                               <ListItemButton>
-                               <ListItemText id={labelId} primary={value} />
-                               </ListItemButton>
-                           </ListItem>
-                           );
-                       })}
-                       </List>
-                       </DialogContentText>
-                   </DialogContent>
-
-                <DialogActions sx={{display:'flex', float:'inline-end', paddingBottom:'4%' , marginBottom:'4%'}}>
-                       <button autoFocus class="ml-1 text-blue" onClick={handleClose}>
-                       Continue
-                       </button>
-                   </DialogActions>
-            
+                 
+               <Dialog
+               open={inviteTeacher}
+               onClose={handleTeacherClose}
+               aria-labelledby="alert-dialog-title"
+               aria-describedby="alert-dialog-description"
+               maxWidth="md"
+               fullWidth={true}
+               PaperProps={{ style: { height: '70vh', borderRadius: '15px', overflowY:'none'} }}
+               >
+               <div class='h-full w-full p-4 pt-0 pb-0 mx-auto'>
+               <DialogTitle id="alert-dialog-title" style={{fontSize: '25px', textAlign:'center' }}>
+               <IconButton
+               edge="start"
+               color="inherit"
+               onClick={handleTeacherClose}
+               aria-label="close"
+               sx={{ position: 'absolute', right: 8 }}
+               >
+               <CloseIcon />
+               </IconButton>
+                   {"Add Co-Instructors to this project"}
+               </DialogTitle>
+               <DialogContent>
+                   <DialogContentText id="alert-dialog-description">
+                   <Box sx={{ width: '100%', height:'100%' }}>
+                   <div class="flex rounded-md w-full" style={{border: '1px solid black'}}>
+                     <Search style={{ display: 'flex', width: 'full', height: '50px', borderRadius: '15px', borderBlockColor: 'black'}}>
+                       <SearchIconWrapper>
+                         <SearchIcon />
+                       </SearchIconWrapper>
+                       <StyledInputBase
+                         placeholder="Search Instructors..."
+                         inputProps={{ 'aria-label': 'search' }}
+                         style={{background:'transparent', height: '100%', width: 'full', padding: '0', margin: '0' }}
+                       />
+                     </Search>
                    </div>
-               </Dialog>
+                   {teacherlist.map((value) => {
+                                const labelId = `checkbox-list-secondary-label-${value}`;
+                                return (
+                                <ListItem
+                                    key={value}
+                                    secondaryAction={
+                                    <Checkbox
+                                        edge="end"
+                                        onChange={handleToggle(value)}
+                                        checked={checked.indexOf(value) !== -1}
+                                        inputProps={{ 'aria-labelledby': labelId }}
+                                    />
+                                    }
+                                    disablePadding
+                                    sx={{ justifyContent: 'center' }}
+                                >
+                                    <ListItemButton>
+                                    <ListItemText id={labelId} primary={value} />
+                                    </ListItemButton>
+                                </ListItem>
+                                );
+                            })}
+               </Box> 
+               
+               </DialogContentText>
+             </DialogContent>
+     
+     
+     
+             </div>
+             <button class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
+                   Add
+                 </button>
+             </Dialog>
+             
+             </div>
+             <Dialog
+             open={inviteStudent}
+             onClose={handleStudentClose}
+             aria-labelledby="alert-dialog-title"
+             aria-describedby="alert-dialog-description"
+             maxWidth="md"
+             fullWidth={true}
+             PaperProps={{ style: { height: '70vh', borderRadius: '15px', overflowY:'none'} }}
+             >
+             <div class='h-full w-full p-4 pt-0 pb-0 mx-auto'>
+             <DialogTitle id="alert-dialog-title" style={{fontSize: '25px', textAlign:'center' }}>
+             <IconButton
+             edge="start"
+             color="inherit"
+             onClick={handleStudentClose}
+             aria-label="close"
+             sx={{ position: 'absolute', right: 8 }}
+             >
+             <CloseIcon />
+             </IconButton>
+                 {"Add Students to this project"}
+             </DialogTitle>
+             <DialogContent>
+                 <DialogContentText id="alert-dialog-description">
+                 <Box sx={{ width: '100%', height:'100%' }}>
+                 <div class="flex rounded-md w-full" style={{border: '1px solid black'}}>
+                   <Search style={{ display: 'flex', width: '100%', height: '50px', borderRadius: '15px', borderBlockColor: 'black'}}>
+                     <SearchIconWrapper>
+                       <SearchIcon />
+                     </SearchIconWrapper>
+                     <StyledInputBase
+                       placeholder="Search Students..."
+                       inputProps={{ 'aria-label': 'search' }}
+                       style={{background:'transparent', height: '100%', width: 'full', padding: '0', margin: '0', flex: '1' }}
+                     />
+                   </Search>
+                 </div>
+                 {studentlist.map((value) => {
+                              const labelId = `checkbox-list-secondary-label-${value}`;
+                              return (
+                              <ListItem
+                                  key={value}
+                                  secondaryAction={
+                                  <Checkbox
+                                      edge="end"
+                                      onChange={handleToggle(value)}
+                                      checked={checked.indexOf(value) !== -1}
+                                      inputProps={{ 'aria-labelledby': labelId }}
+                                  />
+                                  }
+                                  disablePadding
+                                  sx={{ justifyContent: 'center' }}
+                              >
+                                  <ListItemButton>
+                                  <ListItemText id={labelId} primary={value} />
+                                  </ListItemButton>
+                              </ListItem>
+                              );
+                          })}
+             </Box> 
+             
+             </DialogContentText>
+           </DialogContent>
+   
+   
+   
+           </div>
+           <button class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
+                 Add
+               </button>
+           </Dialog>
             </>
     );
 }

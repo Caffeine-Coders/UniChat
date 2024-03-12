@@ -7,7 +7,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import Navdash from '../../dashboard/navbar';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled, useTheme, alpha } from '@mui/material/styles';
 import { Drivecomponent } from '../../drive/drivecomponent';
 import Groups2OutlinedIcon from '@mui/icons-material/Groups2Outlined';
 import Box from '@mui/material/Box';
@@ -26,7 +26,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Signuplogin } from "../../essentials/conn"
 import "../../components/dash.css"
-import ChatIcon from '@mui/icons-material/Chat';
+import InputBase from '@mui/material/InputBase';
 import Discord from '../components/discord'
 import Details from '../components/details'
 import Chat from '../components/chat'
@@ -38,11 +38,8 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import { ReactMultiEmail, isEmail } from 'react-multi-email';
-import 'react-multi-email/dist/style.css';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import SearchIcon from '@mui/icons-material/Search';
 import Checkbox from '@mui/material/Checkbox';
-// import { styled } from '@mui/material/styles';
 
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
@@ -237,6 +234,47 @@ export default function Content(){
     }, []);
     const sidebar=['Project Details','Messaging','Group Chat','ChatGPT','Individual Chat','Google Drive']
     const lowerhalf = ['Add Students', 'Add Co-Instructors']
+    const Search = styled('div')(({ theme }) => ({
+      position: 'relative',
+      borderRadius: theme.shape.borderRadius,
+      backgroundColor: alpha(theme.palette.common.white, 0.15),
+      '&:hover': {
+        backgroundColor: alpha(theme.palette.common.white, 0.25),
+      },
+      marginLeft: 0,
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
+        marginLeft: theme.spacing(1),
+        width: 'auto',
+      },
+    }));
+    
+    const SearchIconWrapper = styled('div')(({ theme }) => ({
+      padding: theme.spacing(0, 2),
+      height: '100%',
+      position: 'absolute',
+      pointerEvents: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }));
+
+    const StyledInputBase = styled(InputBase)(({ theme }) => ({
+      color: 'inherit',
+      width: '100%',
+      '& .MuiInputBase-input': {
+        padding: theme.spacing(1, 1, 1, 0),
+        // vertical padding + font size from searchIcon
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        transition: theme.transitions.create('width'),
+        [theme.breakpoints.up('sm')]: {
+          width: '16ch',
+          '&:focus': {
+            width: '20ch',
+          },
+        },
+      },
+    }));
     return(
 
         <Box sx={{ display: 'flex' }}>
@@ -363,6 +401,18 @@ export default function Content(){
           <DialogContent>
               <DialogContentText id="alert-dialog-description">
               <Box sx={{ width: '100%', height:'100%' }}>
+              <div class="flex rounded-md w-full" style={{border: '1px solid black'}}>
+                <Search style={{ display: 'flex', width: 'full', height: '50px', borderRadius: '15px', borderBlockColor: 'black'}}>
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    placeholder="Search Instructors..."
+                    inputProps={{ 'aria-label': 'search' }}
+                    style={{background:'transparent', height: '100%', width: 'full', padding: '0', margin: '0' }}
+                  />
+                </Search>
+              </div>
               {teacherlist.map((value) => {
                            const labelId = `checkbox-list-secondary-label-${value}`;
                            return (
@@ -422,6 +472,18 @@ export default function Content(){
           <DialogContent>
               <DialogContentText id="alert-dialog-description">
               <Box sx={{ width: '100%', height:'100%' }}>
+              <div class="flex rounded-md w-full" style={{border: '1px solid black'}}>
+                <Search style={{ display: 'flex', width: '100%', height: '50px', borderRadius: '15px', borderBlockColor: 'black'}}>
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    placeholder="Search Students..."
+                    inputProps={{ 'aria-label': 'search' }}
+                    style={{background:'transparent', height: '100%', width: 'full', padding: '0', margin: '0', flex: '1' }}
+                  />
+                </Search>
+              </div>
               {studentlist.map((value) => {
                            const labelId = `checkbox-list-secondary-label-${value}`;
                            return (
