@@ -9,9 +9,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PropTypes from 'prop-types';
+
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
-  
+
     return (
       <div
         role="tabpanel"
@@ -47,7 +48,8 @@ const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  
+    
   return (
     <Grid container spacing={4}>
         <Grid item xs={12}>
@@ -173,6 +175,7 @@ const [value, setValue] = React.useState(0);
           </Box>
           </div>
         </Grid>
+        
     </Grid>
   );
 }
