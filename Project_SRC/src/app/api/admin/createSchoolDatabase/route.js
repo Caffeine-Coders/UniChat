@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
 
     try {
-        const { databasename, collectionnames} = await request.json();
+        const { databasename, collectionnames, data} = await request.json();
         // Connect to the MongoDB database
         await client.connect();
         console.log("Connected to MongoDB");
@@ -19,7 +19,9 @@ export async function POST(request) {
             await database.createCollection(collectionname);
             console.log(`Collection ${collectionname} created.`);
         }
-
+        
+        const collection = database.collection(collectionnames[collectionnames.length - 1]);
+        await collection.insertOne(data);
         return NextResponse.json({ status: 200, message: "Database created and data inserted successfully." });
     }
     catch (err) {

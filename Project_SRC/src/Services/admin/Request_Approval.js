@@ -88,4 +88,32 @@ export async function sendEmail(firstname, lastname, email, schoolname) {
     return data;
 }
 
- 
+ export async function createSchoolDb(schoolname, schooladminFname, schooladminLname, schooladminemail)
+ {
+    const res = await fetch(`/api/admin/createSchoolDatabase`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+            databasename: schoolname,
+            collectionnames:[
+                "students",
+                "teachers",
+                "classes",
+                "projects",
+                "schooladmin"
+            ],
+            data: {
+                schooladminFname: schooladminFname,
+                schooladminLname: schooladminLname,
+                schooladminemail: schooladminemail,
+            }
+        }),
+    });
+    if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+    const data = await res.json();
+    return data;
+ }

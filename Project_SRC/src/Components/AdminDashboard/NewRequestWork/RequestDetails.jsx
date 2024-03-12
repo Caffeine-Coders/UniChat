@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
 import { darktheme } from "../../Themes/Themes";
-import { sendEmail, updateRequest } from "../../../Services/admin/Request_Approval";
+import { sendEmail, updateRequest, createSchoolDb} from "../../../Services/admin/Request_Approval";
 import check from "../../../Assets/Check.gif";
 import Image from "next/image";
 
@@ -20,13 +20,14 @@ export default function RequestDetails(props) {
         console.log(res);
         if(res.status === 200){
             const email = await sendEmail(data.schooladminFname, data.schooladminLname, data.schooladminemail, data.schoolname);
-            console.log(email);
-            if(email.status === 200){
+            const newdatabase = await createSchoolDb(data.schoolname, data.schooladminFname, data.schooladminLname, data.schooladminemail);
+            if(email.status === 200 && newdatabase.status === 200)
+            {
                 isApproved(true);
             }
         }
         else{
-            console.log("Error");
+            console.log(email, newdatabase);
         }
     }
 
