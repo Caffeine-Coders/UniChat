@@ -11,7 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Box from "@mui/material/Box";
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Dialog } from '@mui/material';
+import { Dialog, Typography} from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
@@ -20,6 +20,7 @@ import Checkbox from '@mui/material/Checkbox';
 import ListItemText from '@mui/material/ListItemText';
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
+import FormControlLabel from '@mui/material/FormControlLabel';
 export default function Details({fornext, forback, loader}){
     const [gradelevel, setGradelevel] = useState('');
     const [subjectareas, setSubjectareas] = useState('');
@@ -47,19 +48,42 @@ export default function Details({fornext, forback, loader}){
             setProjectgoal(storedprojectgoal);
         }
     }, []);
-    const [checked, setChecked] = React.useState([1]);
-    const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
+    const [studentchecked, setstudentChecked] = React.useState([1]);
+    const handlestudentToggle = (value) => () => {
+      const currentIndex = studentchecked.indexOf(value);
+      const newChecked = [...studentchecked];
 
-        if (currentIndex === -1) {
-        newChecked.push(value);
-        } else {
-        newChecked.splice(currentIndex, 1);
-        }
+      if (currentIndex === -1) {
+      newChecked.push(value);
+      } else {
+      newChecked.splice(currentIndex, 1);
+      }
 
-        setChecked(newChecked);
-    };
+      setChecked(newChecked);
+  };
+  const handlestudentCheckboxChange = () => {
+    const allChecked = studentchecked.length === studentlist.length;
+    const newChecked = allChecked ? [] : [...studentlist];
+    setstudentChecked(newChecked);
+  };
+  const [teacherchecked, setteacherChecked] = React.useState([1]);
+  const handleteacherToggle = (value) => () => {
+    const currentIndex = teacherchecked.indexOf(value);
+    const newChecked = [...teacherchecked];
+
+    if (currentIndex === -1) {
+    newChecked.push(value);
+    } else {
+    newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+};
+   const handleteacherCheckboxChange = () => {
+    const allChecked = teacherchecked.length === teacherlist.length;
+    const newChecked = allChecked ? [] : [...teacherlist];
+    setteacherChecked(newChecked);
+  };
     const handleNext = () => {
         if(gradelevel !== '' && subjectareas !== '' && projectgoal !== ''){
             console.log("gradelevel", gradelevel);
@@ -273,6 +297,25 @@ export default function Details({fornext, forback, loader}){
                        />
                      </Search>
                    </div>
+                   <FormControlLabel
+                            style={{justifyContent:"space-between", display:'flex' , marginRight:'4px'}}
+                            
+                        label={
+                        <Typography variant="body1" style={{ fontWeight: 'bold' }}>
+                            Select All
+                        </Typography>
+                        }
+                        labelPlacement='start'
+                        control={
+                        <Checkbox
+                            checked={teacherchecked.length === teacherlist.length}
+                            onChange={handleteacherCheckboxChange}
+                            end = "end"
+
+                        />
+                        }
+
+                    />
                    {teacherlist.map((value) => {
                                 const labelId = `checkbox-list-secondary-label-${value}`;
                                 return (
@@ -281,8 +324,8 @@ export default function Details({fornext, forback, loader}){
                                     secondaryAction={
                                     <Checkbox
                                         edge="end"
-                                        onChange={handleToggle(value)}
-                                        checked={checked.indexOf(value) !== -1}
+                                        onChange={handleteacherToggle(value)}
+                                        checked={teacherchecked.indexOf(value) !== -1}
                                         inputProps={{ 'aria-labelledby': labelId }}
                                     />
                                     }
@@ -346,6 +389,26 @@ export default function Details({fornext, forback, loader}){
                      />
                    </Search>
                  </div>
+                 <FormControlLabel
+                        style={{justifyContent:"space-between", display:'flex' , marginRight:'4px'}}
+                        
+                    label={
+                    <Typography variant="body1" style={{ fontWeight: 'bold' }}>
+                        Select All
+                    </Typography>
+                    }
+                    labelPlacement='start'
+                    control={
+                    <Checkbox
+                        checked={studentchecked.length === studentlist.length}
+                        // indeterminate={checked.length > 0 && checked.length < studentlist.length}
+                        onChange={handlestudentCheckboxChange}
+                        end = "end"
+
+                    />
+                    }
+
+                />
                  {studentlist.map((value) => {
                               const labelId = `checkbox-list-secondary-label-${value}`;
                               return (
@@ -354,8 +417,8 @@ export default function Details({fornext, forback, loader}){
                                   secondaryAction={
                                   <Checkbox
                                       edge="end"
-                                      onChange={handleToggle(value)}
-                                      checked={checked.indexOf(value) !== -1}
+                                      onChange={handlestudentToggle(value)}
+                                      checked={studentchecked.indexOf(value) !== -1}
                                       inputProps={{ 'aria-labelledby': labelId }}
                                   />
                                   }

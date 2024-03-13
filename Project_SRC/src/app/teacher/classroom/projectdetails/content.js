@@ -184,10 +184,10 @@ export default function Content(){
     const handleStudentClose = () =>{
       setStudentInvite(false)
     }
-    const [checked, setChecked] = React.useState([1]);
-    const handleToggle = (value) => () => {
-      const currentIndex = checked.indexOf(value);
-      const newChecked = [...checked];
+    const [studentchecked, setstudentChecked] = React.useState([1]);
+    const handlestudentToggle = (value) => () => {
+      const currentIndex = studentchecked.indexOf(value);
+      const newChecked = [...studentchecked];
 
       if (currentIndex === -1) {
       newChecked.push(value);
@@ -197,12 +197,29 @@ export default function Content(){
 
       setChecked(newChecked);
   };
-  const handleParentCheckboxChange = () => {
-    const allChecked = checked.length === studentlist.length;
+  const handlestudentCheckboxChange = () => {
+    const allChecked = studentchecked.length === studentlist.length;
     const newChecked = allChecked ? [] : [...studentlist];
-    setChecked(newChecked);
+    setstudentChecked(newChecked);
   };
+  const [teacherchecked, setteacherChecked] = React.useState([1]);
+  const handleteacherToggle = (value) => () => {
+    const currentIndex = teacherchecked.indexOf(value);
+    const newChecked = [...teacherchecked];
 
+    if (currentIndex === -1) {
+    newChecked.push(value);
+    } else {
+    newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+};
+   const handleteacherCheckboxChange = () => {
+    const allChecked = teacherchecked.length === teacherlist.length;
+    const newChecked = allChecked ? [] : [...teacherlist];
+    setteacherChecked(newChecked);
+  };
     const handleListItemClick2 = (index) => {
       setSelectedIndex(index);
       console.log("clicked",index)
@@ -432,9 +449,8 @@ export default function Content(){
         labelPlacement='start'
         control={
           <Checkbox
-            // checked={teacherlist.length}
-            // indeterminate={checked.length > 0 && checked.length < studentlist.length}
-            // onChange={}
+            checked={teacherchecked.length === teacherlist.length}
+            onChange={handleteacherCheckboxChange}
             end = "end"
 
           />
@@ -450,8 +466,8 @@ export default function Content(){
                                secondaryAction={
                                <Checkbox
                                    edge="end"
-                                   onChange={handleToggle(value)}
-                                   checked={checked.indexOf(value) !== -1}
+                                   onChange={handleteacherToggle(value)}
+                                   checked={teacherchecked.indexOf(value) !== -1}
                                    inputProps={{ 'aria-labelledby': labelId }}
                                />
                                }
@@ -525,9 +541,9 @@ export default function Content(){
         labelPlacement='start'
         control={
           <Checkbox
-            checked={checked.length === studentlist.length}
+            checked={studentchecked.length === studentlist.length}
             // indeterminate={checked.length > 0 && checked.length < studentlist.length}
-            onChange={handleParentCheckboxChange}
+            onChange={handlestudentCheckboxChange}
             end = "end"
 
           />
@@ -543,9 +559,9 @@ export default function Content(){
                                secondaryAction={
                                <Checkbox
                                    edge="end"
-                                   onChange={handleToggle(value)}
+                                   onChange={handlestudentToggle(value)}
 
-                                   checked= {checked.indexOf(value) !== -1}
+                                   checked= {studentchecked.indexOf(value) !== -1}
                                    inputProps={{ 'aria-labelledby': labelId }}
                                />
                                }
