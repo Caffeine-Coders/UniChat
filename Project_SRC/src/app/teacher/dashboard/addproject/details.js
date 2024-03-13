@@ -59,7 +59,7 @@ export default function Details({fornext, forback, loader}){
       newChecked.splice(currentIndex, 1);
       }
 
-      setChecked(newChecked);
+      setstudentChecked(newChecked);
   };
   const handlestudentCheckboxChange = () => {
     const allChecked = studentchecked.length === studentlist.length;
@@ -77,7 +77,7 @@ export default function Details({fornext, forback, loader}){
     newChecked.splice(currentIndex, 1);
     }
 
-    setChecked(newChecked);
+    setteacherChecked(newChecked);
 };
    const handleteacherCheckboxChange = () => {
     const allChecked = teacherchecked.length === teacherlist.length;
