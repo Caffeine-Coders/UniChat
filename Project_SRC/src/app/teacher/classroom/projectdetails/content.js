@@ -9,6 +9,8 @@ import Navdash from '../../dashboard/navbar';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { styled, useTheme, alpha } from '@mui/material/styles';
 import { Drivecomponent } from '../../drive/drivecomponent';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
 import Groups2OutlinedIcon from '@mui/icons-material/Groups2Outlined';
 import Box from '@mui/material/Box';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -32,7 +34,7 @@ import Details from '../components/details'
 import Chat from '../components/chat'
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import Chatgpt from '../components/chatgpt'
-import { Dialog } from '@mui/material';
+import { Dialog, Typography } from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -195,6 +197,12 @@ export default function Content(){
 
       setChecked(newChecked);
   };
+  const handleParentCheckboxChange = () => {
+    const allChecked = checked.length === studentlist.length;
+    const newChecked = allChecked ? [] : [...studentlist];
+    setChecked(newChecked);
+  };
+
     const handleListItemClick2 = (index) => {
       setSelectedIndex(index);
       console.log("clicked",index)
@@ -413,6 +421,27 @@ export default function Content(){
                   />
                 </Search>
               </div>
+              <FormControlLabel
+            style={{justifyContent:"space-between", display:'flex' , marginRight:'4px'}}
+            
+        label={
+          <Typography variant="body1" style={{ fontWeight: 'bold' }}>
+            Select All
+        </Typography>
+        }
+        labelPlacement='start'
+        control={
+          <Checkbox
+            // checked={teacherlist.length}
+            // indeterminate={checked.length > 0 && checked.length < studentlist.length}
+            // onChange={}
+            end = "end"
+
+          />
+        }
+
+      />
+      <hr  ></hr>
               {teacherlist.map((value) => {
                            const labelId = `checkbox-list-secondary-label-${value}`;
                            return (
@@ -484,6 +513,28 @@ export default function Content(){
                   />
                 </Search>
               </div>
+
+              <FormControlLabel
+            style={{justifyContent:"space-between", display:'flex' , marginRight:'4px'}}
+            
+        label={
+          <Typography variant="body1" style={{ fontWeight: 'bold' }}>
+            Select All
+        </Typography>
+        }
+        labelPlacement='start'
+        control={
+          <Checkbox
+            checked={checked.length === studentlist.length}
+            // indeterminate={checked.length > 0 && checked.length < studentlist.length}
+            onChange={handleParentCheckboxChange}
+            end = "end"
+
+          />
+        }
+
+      />
+      <hr  ></hr>
               {studentlist.map((value) => {
                            const labelId = `checkbox-list-secondary-label-${value}`;
                            return (
@@ -493,7 +544,8 @@ export default function Content(){
                                <Checkbox
                                    edge="end"
                                    onChange={handleToggle(value)}
-                                   checked={checked.indexOf(value) !== -1}
+
+                                   checked= {checked.indexOf(value) !== -1}
                                    inputProps={{ 'aria-labelledby': labelId }}
                                />
                                }
@@ -506,6 +558,7 @@ export default function Content(){
                            </ListItem>
                            );
                        })}
+
           </Box> 
           
           </DialogContentText>

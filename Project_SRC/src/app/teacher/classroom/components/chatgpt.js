@@ -52,18 +52,11 @@ export default function Chatgpt() {
                     }}
                     />
                     
+                   
                     <Message
                     model={{
                         direction: 'outgoing',
-                        message: "In React, you can change the font by applying CSS styles to your components. There are several ways to do this: Global Font Change: You can change the font globally by adding a CSS file or style to your project's root HTML file. This will apply the font to all elements in your application.Component-Level Font Change: If you want to apply different fonts to specific components, you can include inline styles or CSS classes directly within your React components.",
-                        sentTime: "just now",
-                        sender: "ChatGPT",
-                    }}
-                    />
-                    <Message
-                    model={{
-                        direction: 'outgoing',
-                        message: `Here's an example of how you can change the font using inline styles in a React component:
+                        message: `In React, you can change the font by applying CSS styles to your components. There are several ways to do this: Global Font Change: You can change the font globally by adding a CSS file or style to your project's root HTML file. This will apply the font to all elements in your application.Component-Level Font Change: If you want to apply different fonts to specific components, you can include inline styles or CSS classes directly within your React components. Here's an example of how you can change the font using inline styles in a React component:
                         import React from 'react';
                         const MyComponent = () => {
                         return (
