@@ -12,16 +12,18 @@ import { useState, useContext, useEffect } from "react";
 import AuthContext, { AuthProvider } from "../Contexts/authContext.jsx";
 import { fetchStudentProjects } from "../../Services/StudentProjects";
 import { ThemeProvider } from "styled-components";
+import DocView from "../DocView/DocView.jsx";
 
 export default function HomeComponent() {
   const [theme, setTheme] = useState(darktheme);
-
-  const [show, setShow] = React.useState(false);
+  const [showLoader, setShowLoader] = useState(false);
 
   const { studentId } = useContext(AuthContext);
-
   const [projects, setProjects] = useState([]);
   const [discordServerId, setDiscordServerId] = useState("");
+  const [selectedDoc, setSelectedDoc] = useState("noDocSelected");
+  const [selectedDocId, setSelectedDocId] = useState("noDocSelected");
+  const [showDocView, setShowDocView] = useState(false);
 
   const getStudentProjects = async () => {
     const fetchedProjects = await fetchStudentProjects(studentId);
@@ -52,16 +54,43 @@ export default function HomeComponent() {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setShow(true);
-    }, 1500); // Show Box after 500 milliseconds
+      setShowLoader(true);
+    }, 1500);
 
     return () => clearTimeout(timeoutId);
+  }, []);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const selectedDoc = localStorage.getItem("selectedDoc");
+      const selectedDocId = localStorage.getItem("selectedDocId");
+      if (
+        selectedDoc === "noDocSelected" ||
+        selectedDocId === "noDocSelected"
+      ) {
+        setShowDocView(false);
+      } else {
+        setSelectedDoc(selectedDoc);
+        setSelectedDocId(selectedDocId);
+        setShowDocView(true);
+      }
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [selectedDoc]);
+
+  useEffect(() => {
+    window.onbeforeunload = () =>
+      localStorage.setItem("selectedDoc", "noDocSelected");
+    return () => {
+      window.onbeforeunload = null;
+    };
   }, []);
 
   return (
     <ThemeProvider theme={theme}>
       <Box>
-        {show ? (
+        {showLoader ? (
           <motion.div
             initial={{ y: 0, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -78,6 +107,23 @@ export default function HomeComponent() {
                 overflow: "auto",
               }}
             >
+              {showDocView && (
+                <Box
+                  sx={{
+                    position: "fixed",
+                    width: "100%",
+                    height: "100%",
+                    zIndex: 2,
+                  }}
+                >
+                  <ThemeContext.Provider value={{ theme, setTheme }}>
+                    <DocView
+                      selectedDoc={selectedDoc}
+                      selectedDocId={selectedDocId}
+                    />
+                  </ThemeContext.Provider>
+                </Box>
+              )}
               <Box
                 sx={{
                   position: "fixed",
@@ -93,8 +139,9 @@ export default function HomeComponent() {
               <Box
                 sx={{
                   position: "fixed",
-                  maxWidth: { xl: "80%", lg: "75%" },
-                   
+                  zIndex: 1,
+                  height: 0,
+                  width: 0,
                 }}
               >
                 <ThemeContext.Provider value={{ theme, setTheme }}>
@@ -116,7 +163,10 @@ export default function HomeComponent() {
                   alignItems: "center",
                   justifyContent: "center",
                   display: "flex",
-                  backgroundColor: discordServerId === "noProjectSelected" ? theme.palette.primary.main : "#2e3035",
+                  backgroundColor:
+                    discordServerId === "noProjectSelected"
+                      ? theme.palette.primary.main
+                      : "#2e3035",
                   boxShadow: "0 0px 25px 0 rgba(31, 38, 135, 0.7)",
                   backdropFilter: "blur(4px)",
                   WebkitBackdropFilter: "blur(4px)",
