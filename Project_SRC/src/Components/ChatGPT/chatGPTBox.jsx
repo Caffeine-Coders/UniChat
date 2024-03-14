@@ -65,6 +65,7 @@ const ChatGPTBox = ({ isOpen }) => {
             width: 350,
             height: 500,
             backgroundColor: (theme) => theme.palette.primary.main,
+            boxShadow: "0px 4px 10px #699385", // Use #699385 for the shadow color
           }}
           sx={{ backgroundColor: (theme) => theme.palette.primary.main }}
         >
@@ -164,9 +165,10 @@ const ChatGPTBox = ({ isOpen }) => {
               alignItems: "center",
               display: "flex",
               mt: 33,
-              width: 300,
-              borderRadius: 3,
-              ml: 3,
+              width: 320,
+              height: 40,
+              ml:2,
+              borderRadius: 2,
               backgroundColor: "#699385",
               color: (theme) => theme.palette.primary.textcolor,
             }}
