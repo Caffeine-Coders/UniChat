@@ -187,7 +187,7 @@ export default function HomeComponent() {
                   {chatPlatform === "discord" ? (
                     <Discord props={[discordServerId, projects]} />
                   ) : (
-                    <Nativechat />
+                    <Nativechat project={projects}/>
                   )}
                 </ThemeContext.Provider>
               </Box>
