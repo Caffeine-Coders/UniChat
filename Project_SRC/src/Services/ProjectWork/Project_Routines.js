@@ -28,7 +28,7 @@ export async function addProject(databasename, projectName, projectDescription, 
 
 export const fetchStudentProjects = async (databasename, studentId) => {
     try {
-        const response = await fetch(`/api/students/projects/getStudentProject?databasename=${databasename}&studentId=${studentId}`, {
+        const response = await fetch(`/api/students/projects/getStudentProjects?databasename=${databasename}&studentId=${studentId}`, {
             method: "GET",
             headers: {
             "Content-Type": "application/json"

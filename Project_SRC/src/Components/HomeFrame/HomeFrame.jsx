@@ -10,7 +10,7 @@ import ThemeContext from "../Contexts/themeContext.jsx";
 import { darktheme } from "../Themes/Themes.jsx";
 import { useState, useContext, useEffect } from "react";
 import AuthContext, { AuthProvider } from "../Contexts/authContext.jsx";
-import { fetchStudentProjects } from "../../Services/StudentProjects";
+import { fetchStudentProjects } from "../../Services/ProjectWork/Project_Routines.js"
 import { ThemeProvider } from "styled-components";
 import DocView from "../DocView/DocView.jsx";
 import Nativechat from "../NativeChat/Nativechat.jsx";
@@ -27,8 +27,9 @@ export default function HomeComponent() {
   const [showDocView, setShowDocView] = useState(false);
 
   const getStudentProjects = async () => {
-    const fetchedProjects = await fetchStudentProjects(studentId);
+    const fetchedProjects = await fetchStudentProjects("universityatalbanyDB", studentId);
     setProjects(fetchedProjects);
+    console.log(fetchedProjects);
     if (fetchedProjects) {
       localStorage.setItem("discordServerId", "noProjectSelected");
       setDiscordServerId("noProjectSelected");
@@ -178,7 +179,8 @@ export default function HomeComponent() {
                 <ThemeContext.Provider value={{ theme, setTheme }}>
                   {/* <Discord props={[discordServerId, projects]} />
                    */}
-                   <Nativechat/>
+
+                   <Nativechat project = {projects}/>
                 </ThemeContext.Provider>
               </Box>
             </Box>
