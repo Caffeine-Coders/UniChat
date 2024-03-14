@@ -184,7 +184,7 @@ export default function Content(){
     const handleStudentClose = () =>{
       setStudentInvite(false)
     }
-    const [studentchecked, setstudentChecked] = React.useState([]);
+    let [studentchecked, setstudentChecked] = React.useState([]);
     let newCheckedStudents = []
     const handlestudentToggle = (value) => () => {
       const currentIndex = studentchecked.indexOf(value);
@@ -204,7 +204,7 @@ export default function Content(){
     const newCheckedStudents = allChecked ? [] : [...studentlist];
     setstudentChecked(newCheckedStudents);
   };
-  const [teacherchecked, setteacherChecked] = React.useState([]);
+  let [teacherchecked, setteacherChecked] = React.useState([]);
   const handleteacherToggle = (value) => () => {
     const currentIndex = teacherchecked.indexOf(value);
     const newChecked = [...teacherchecked];
@@ -251,6 +251,15 @@ export default function Content(){
     const inviteStudentHandler = () =>{
       console.log("heree", studentchecked)
       if (typeof window !== 'undefined'){
+        if(localStorage.getItem("invitedStudent")){
+          console.log("found in local")
+          const tempst = localStorage.getItem("invitedStudent")
+          const ars = tempst.split(',')
+          console.log(ars)
+          studentchecked = studentchecked.concat(ars)
+          studentchecked = Array.from(new Set(studentchecked))
+          console.log("new",studentchecked)
+        }
         localStorage.setItem("invitedStudent", studentchecked, () => {
         
             });
@@ -265,6 +274,17 @@ export default function Content(){
     const inviteTeacherHandler = () =>{
       console.log("teacher here",teacherchecked)
       if (typeof window !== 'undefined'){
+        if(localStorage.getItem("invitedTeacher")){
+          console.log("found in local")
+          const tempt = localStorage.getItem("invitedTeacher")
+          const art = tempt.split(',')
+          console.log(art)
+          teacherchecked = teacherchecked.concat(art)
+          teacherchecked = Array.from(new Set(teacherchecked))
+          console.log("new",teacherchecked)
+        }
+      }
+      if (typeof window !== 'undefined'){
         localStorage.setItem("invitedTeacher",teacherchecked,()=>{
 
         })
@@ -278,7 +298,10 @@ export default function Content(){
       if (typeof window !== 'undefined') {
         setName1(JSON.parse(localStorage.getItem("Tname")));
         setPhotoUrl(JSON.parse(localStorage.getItem("photoURL")));
-  
+        // const temps = localStorage.getItem("invitedStudent")
+        // if (temps!==null && temps.length>0) {
+          
+        // }
         const indexfromlocal = JSON.parse(localStorage.getItem("indexval"))
         console.log("here",indexfromlocal)
         if (indexfromlocal!=null){

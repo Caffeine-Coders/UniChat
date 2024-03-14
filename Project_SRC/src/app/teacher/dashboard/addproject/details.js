@@ -48,7 +48,7 @@ export default function Details({fornext, forback, loader}){
             setProjectgoal(storedprojectgoal);
         }
     }, []);
-    const [studentchecked, setstudentChecked] = React.useState([1]);
+    const [studentchecked, setstudentChecked] = React.useState([]);
     const handlestudentToggle = (value) => () => {
       const currentIndex = studentchecked.indexOf(value);
       const newChecked = [...studentchecked];
@@ -66,7 +66,7 @@ export default function Details({fornext, forback, loader}){
     const newChecked = allChecked ? [] : [...studentlist];
     setstudentChecked(newChecked);
   };
-  const [teacherchecked, setteacherChecked] = React.useState([1]);
+  const [teacherchecked, setteacherChecked] = React.useState([]);
   const handleteacherToggle = (value) => () => {
     const currentIndex = teacherchecked.indexOf(value);
     const newChecked = [...teacherchecked];
@@ -128,6 +128,31 @@ export default function Details({fornext, forback, loader}){
     const handleStudentClose = () =>{
         setStudentInvite(false)
     }
+
+    const inviteStudentHandler = () =>{
+        console.log("heree", studentchecked)
+        if (typeof window !== 'undefined'){
+          localStorage.setItem("invitedStudent", studentchecked, () => {
+          
+              });
+          const tempdata = localStorage.getItem("invitedStudent")
+          console.log("from local",tempdata)
+          setStudentInvite(false)
+        }
+      }
+
+      const inviteTeacherHandler = () =>{
+        console.log("teacher here",teacherchecked)
+        if (typeof window !== 'undefined'){
+          localStorage.setItem("invitedTeacher",teacherchecked,()=>{
+  
+          })
+          const tempdata = localStorage.getItem("invitedTeacher")
+          console.log("from local",tempdata)
+          setTeacherInvite(false)
+         
+        }
+      }
     const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -346,7 +371,7 @@ export default function Details({fornext, forback, loader}){
      
      
              </div>
-             <button class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
+             <button onClick={inviteTeacherHandler} class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
                    Add
                  </button>
              </Dialog>
@@ -439,7 +464,7 @@ export default function Details({fornext, forback, loader}){
    
    
            </div>
-           <button class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
+           <button onClick={inviteStudentHandler} class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
                  Add
                </button>
            </Dialog>
