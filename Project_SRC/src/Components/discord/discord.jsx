@@ -85,7 +85,7 @@ export default function Discord({ props }) {
               }}
             />
             {props && (
-              <Grid container spacing={3} sx={{ p: 2 }}>
+              <Grid container spacing={3} sx={{ p: 2, }}>
                 {props[1].map((project) => (
                   <Grow in={true} timeout={1500}>
                     <Grid item xs={12} sm={6} md={4}>
@@ -104,6 +104,7 @@ export default function Discord({ props }) {
                           justifyContent: "center",
                           alignItems: "center",
                           display: "flex",
+                          
                         }}
                         onClick={() => {
                           if (project.nativeChat) {
