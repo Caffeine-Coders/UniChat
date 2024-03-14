@@ -6,7 +6,7 @@ export async function GET(request) {
   const studentId = new URLSearchParams(url.search).get("studentId");
 
   // Connect to the MongoDB database
-  const db = client.db("studentDB");
+  const db = client.db("universityatalbanyDB");
 
   // Get the collection you want to work with
   const collection = db.collection("projects");

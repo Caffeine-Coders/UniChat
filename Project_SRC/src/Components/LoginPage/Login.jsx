@@ -33,7 +33,7 @@ import {
 import Link from "next/link";
 import { Logout } from "faunadb";
 import LandingNav from "../LandingNav/LandingNav";
-
+import { UpdatePhotoURL } from "../../Services/Student/PhotoURLUpdate.js";
 
 const StyledTextField = styled(TextField)`
   .MuiInputBase-root {
@@ -205,6 +205,7 @@ const Login = () => {
     const loggedInUser = await GetLoggedInUserDetails();
     if (loggedInUser) {
       // User is logged in
+ 
       const userClassification = await ClassifyUser(loggedInUser.email);
       if (userClassification.type === "Registered") {
         // Registered User
@@ -213,8 +214,19 @@ const Login = () => {
         setStudentId(userClassification.studentId);
         localStorage.setItem("userImage", loggedInUser.photoURL);
         localStorage.setItem("studentId", userClassification.studentId);
-        if (userClassification.isFirstTimeLogin) {
+
+        if (userClassification.isFirstTimeLogin) 
+        {
           const response = await UpdateFirstTimeLogin(loggedInUser.email);
+          const data = await UpdatePhotoURL("universityatalbanyDB", loggedInUser.email, loggedInUser.photoURL);
+          if(data.status === 200)
+          {
+            console.log("Photo URL updated successfully");
+          }
+          else{
+            console.log("Error updating photo URL");
+          }
+          
           if (response.status === "Updated") {
             setLoginFormVisible(true);
           }

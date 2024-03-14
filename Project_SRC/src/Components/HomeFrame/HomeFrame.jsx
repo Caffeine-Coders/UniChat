@@ -13,6 +13,7 @@ import AuthContext, { AuthProvider } from "../Contexts/authContext.jsx";
 import { fetchStudentProjects } from "../../Services/StudentProjects";
 import { ThemeProvider } from "styled-components";
 import DocView from "../DocView/DocView.jsx";
+import Nativechat from "../NativeChat/Nativechat.jsx";
 
 export default function HomeComponent() {
   const [theme, setTheme] = useState(darktheme);
@@ -175,7 +176,9 @@ export default function HomeComponent() {
                 }}
               >
                 <ThemeContext.Provider value={{ theme, setTheme }}>
-                  <Discord props={[discordServerId, projects]} />
+                  {/* <Discord props={[discordServerId, projects]} />
+                   */}
+                   <Nativechat/>
                 </ThemeContext.Provider>
               </Box>
             </Box>
