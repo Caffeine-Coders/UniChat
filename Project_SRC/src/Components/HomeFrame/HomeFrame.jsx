@@ -52,10 +52,8 @@ export default function HomeComponent() {
       const chatPlatform = localStorage.getItem("chatPlatform");
       if (chatPlatform === "discord") {
         const discordId = localStorage.getItem("discordServerId");
-        if (discordId !== discordServerId) {
           setChatPlatform("discord");
           setDiscordServerId(discordId);
-        }
       } else if (chatPlatform === "native") {
         setChatPlatform("native");
         setDiscordServerId("noProjectSelected");

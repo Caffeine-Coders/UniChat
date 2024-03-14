@@ -89,6 +89,7 @@ const SideBar = ({ projects }) => {
 
   const handleHomeClick = () => {
     localStorage.setItem("discordServerId", "noProjectSelected");
+    localStorage.setItem("chatPlatform", "discord");
     setIsAccordionOpen(false);
   };
 
