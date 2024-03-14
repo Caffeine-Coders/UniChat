@@ -205,7 +205,6 @@ const Login = () => {
     const loggedInUser = await GetLoggedInUserDetails();
     if (loggedInUser) {
       // User is logged in
- 
       const userClassification = await ClassifyUser(loggedInUser.email);
       if (userClassification.type === "Registered") {
         // Registered User
@@ -215,18 +214,17 @@ const Login = () => {
         localStorage.setItem("userImage", loggedInUser.photoURL);
         localStorage.setItem("studentId", userClassification.studentId);
 
-        if (userClassification.isFirstTimeLogin) 
-        {
+        if (userClassification.isFirstTimeLogin) {
           const response = await UpdateFirstTimeLogin(loggedInUser.email);
+          
+          //photo URL work
           const data = await UpdatePhotoURL("universityatalbanyDB", loggedInUser.email, loggedInUser.photoURL);
-          if(data.status === 200)
-          {
+          if(data.status === 200) {
             console.log("Photo URL updated successfully");
-          }
-          else{
+          } else {
             console.log("Error updating photo URL");
           }
-          
+
           if (response.status === "Updated") {
             setLoginFormVisible(true);
           }
