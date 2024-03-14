@@ -133,9 +133,7 @@ const ChatGPTBox = ({ isOpen }) => {
                   key={index}
                   sx={{
                     backgroundColor:
-                      message.sender === "user"
-                        ? (theme) => theme.palette.primary.main
-                        : "#699385",
+                      message.sender === "user" ? "#1A1D1F" : "#699385",
                     p: 1,
                     borderRadius: 1,
                     m: 1,
@@ -167,7 +165,7 @@ const ChatGPTBox = ({ isOpen }) => {
               mt: 33,
               width: 320,
               height: 40,
-              ml:2,
+              ml: 2,
               borderRadius: 2,
               backgroundColor: "#699385",
               color: (theme) => theme.palette.primary.textcolor,
