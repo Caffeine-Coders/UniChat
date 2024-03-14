@@ -145,11 +145,13 @@ export default function Details({fornext, forback, loader}){
       console.log("got here",event.target.value)
       const val = event.target.value
       setMessaging(val)
-      if (typeof window!== 'undefined'){
-        localStorage.setItem("messageoption",messaging, ()=>{
-          console.log("done")
+      // if (typeof window!== 'undefined'){
+        localStorage.setItem("messageoption",val, ()=>{
+          // console.log("done")
+          const verify = localStorage.getItem("messageoption")
+          console.log("got this",verify)
         })
-      }
+      // }
     }
       const inviteTeacherHandler = () =>{
         console.log("teacher here",teacherchecked)
