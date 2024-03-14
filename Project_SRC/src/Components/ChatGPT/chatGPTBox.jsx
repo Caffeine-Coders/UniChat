@@ -89,9 +89,9 @@ const ChatGPTBox = ({ isOpen }) => {
               sx={{
                 position: "absolute",
                 left: 0,
+                color: (theme) => theme.palette.primary.whites,
                 "&:hover": {
                   backgroundColor: "transparent",
-                  color: (theme) => theme.palette.primary.white,
                 },
               }}
             >
