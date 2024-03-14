@@ -174,8 +174,8 @@ export default function Content(){
     };
     const [inviteTeacher,setTeacherInvite] = useState(false)
     const [inviteStudent,setStudentInvite] = useState(false)
-    const studentlist = ['Forum Dipen Shah', 'Dheeraj Kumar Thanda', 'Sai Vishnu Anudeep Kadiyala' , 'Satwik Bhasin']
-    const teacherlist = ['professor1', 'professor2', 'professor3']
+    const studentlist = [ 'Sai Vishnu Anudeep Kadiyala' , 'Satwik Bhasin', 'Rachel Green', 'Michael Scott']
+    const teacherlist = ['Mei-Hwa Chen', 'Forum Dipen Shah', 'Dheeraj Kumar Thanda']
     const [emails, setEmails] = React.useState([]);
     const [focused, setFocused] = React.useState(false);
     const handleTeacherClose = () =>{

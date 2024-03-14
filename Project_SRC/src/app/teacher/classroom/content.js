@@ -255,7 +255,7 @@ export default function Content() {
         setTeacherInvite(true)
       }
     }
-    const studentlist = ['Forum Dipen Shah', 'Dheeraj Kumar Thanda', 'Sai Vishnu Anudeep Kadiyala' , 'Satwik Bhasin']
+    const studentlist = ['Sai Vishnu Anudeep Kadiyala' , 'Satwik Bhasin', 'Rachel Green', 'Michael Scott']
     const handlemembersClose = () => {
         setMembers(false);
     };
@@ -470,20 +470,13 @@ sx={{ position: 'absolute', right: 8, top: 8 }}
     <div class="  mt-4 rounded-lg flex justify-between space-between">
             <h4 class="flex ">
             <img class="ml-4 mr-4 w-6 h-6 rounded-full" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""/>
-            Professor 1 
+            Mei-Hwa Chen
             </h4>
-            <h4 class="mr-4">professor1@gmail.com</h4>
+            <h4 class="mr-4">mchen@gmail.com</h4>
             
         </div>
         <hr class=" mt-4 h-px  bg-gray-400 border-0"></hr>
-        <div class="  mt-4 rounded-lg flex justify-between space-between">
-            <h4 class="flex ">
-            <img class="ml-4 mr-4 w-6 h-6 rounded-full" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""/>
-            Professor 2
-            </h4>
-            <h4 class="mr-4">professor2@gmail.com</h4>
-            
-        </div>
+        
     </CustomTabPanel>
     </Box>    
     </DialogContentText>
