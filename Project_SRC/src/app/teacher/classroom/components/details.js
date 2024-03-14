@@ -48,15 +48,25 @@ const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-const [memberStudents, setMemberStudents] = React.useState(localStorage.getItem('invitedStudent').split(',')) 
+const [memberStudents, setMemberStudents] = React.useState([]) 
+const [memberTeachers, setMemberTeachers] = React.useState([])
 let tempData=[]
+let tempTData = []
   React.useEffect(() => {
       if (typeof window !== 'undefined') {
         tempData  = localStorage.getItem('invitedStudent')
+        tempTData = localStorage.getItem('invitedTeacher')
+        if (tempData!==null && (tempData.length)>0){
         const tempArray = tempData.split(',')
         console.log("arr",tempArray)
         setMemberStudents(tempArray)
         console.log("members found",memberStudents)
+        }
+        if (tempTData!==null && (tempTData.length)>0){
+          const tempTArray = tempTData.split(',')
+          console.log("got it teacher",tempTArray)
+          setMemberTeachers(tempTArray)
+        }
       }
   }, []);
 
@@ -135,7 +145,7 @@ let tempData=[]
               <>
               <div key={index} className="mt-4 rounded-lg flex justify-between space-between">
                 <h3 className="flex text-xl">
-                  <PersonIcon style={{ fontSize: 'inherit' }} />
+                  <PersonIcon style={{ fontSize: 'inherit', marginTop:'4px', marginRight:'4px' }} />
                   <span style={{ fontSize: 'inherit' }}>{student}</span>
                 </h3>
                 <div className="flex items-center text-xl">
@@ -149,34 +159,26 @@ let tempData=[]
                </>
             ))}
             
-            {/* <div class="mt-4 rounded-lg flex justify-between space-between">
-              <h3 class="flex text-xl"  >
-                <PersonIcon style={{ fontSize: 'inherit' }} />
-                <span style={{ fontSize: 'inherit' }}>Forum Dipen Shah</span>
-              </h3>
-              <div class="flex items-center text-xl">
-                <h3 class="mr-4">somemeial@gmail.com</h3>
-                <button style={{ backgroundColor: 'transparent', border: 'none', padding: '5px' }}>
-                  <DeleteIcon style={{ fontSize: 'inherit' }} />
-                </button>
-              </div>
-            </div>
-            <hr class=" mt-4 h-px  bg-gray-400 border-0"></hr>
-            <div class="mt-4 rounded-lg flex justify-between space-between">
-              <h3 class="flex text-xl"  >
-                <PersonIcon style={{ fontSize: 'inherit' }} />
-                <span style={{ fontSize: 'inherit' }}>Dheeraj Kumar Thanda</span>
-              </h3>
-              <div class="flex items-center text-xl">
-                <h3 class="mr-4">somemeial@gmail.com</h3>
-                <button style={{ backgroundColor: 'transparent', border: 'none', padding: '5px' }}>
-                  <DeleteIcon style={{ fontSize: 'inherit' }} />
-                </button>
-              </div>
-            </div> */}
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-            <div class="mt-4 rounded-lg flex justify-between space-between">
+            {memberTeachers.map((teacher, index) => (
+              <>
+              <div key={index} className="mt-4 rounded-lg flex justify-between space-between">
+                <h3 className="flex text-xl">
+                <PersonIcon style={{ fontSize: 'inherit', marginTop:'4px', marginRight:'4px' }} />
+                  <span style={{ fontSize: 'inherit' }}>{teacher}</span>
+                </h3>
+                <div className="flex items-center text-xl">
+                  <h3 className="mr-4">somemeial@gmail.com</h3>
+                  <button style={{ backgroundColor: 'transparent', border: 'none', padding: '5px' }}>
+                    <DeleteIcon style={{ fontSize: 'inherit' }} />
+                  </button>
+                </div>
+              </div>
+               <hr class=" mt-4 h-px  bg-gray-400 border-0"></hr>
+               </>
+            ))}
+            {/* <div class="mt-4 rounded-lg flex justify-between space-between">
               <h3 class="flex text-xl"  >
                 <PersonIcon style={{ fontSize: 'inherit' }} />
                 <span style={{ fontSize: 'inherit' }}>Prof. Forum Dipen Shah</span>
@@ -200,7 +202,7 @@ let tempData=[]
                   <DeleteIcon style={{ fontSize: 'inherit' }} />
                 </button>
               </div>
-            </div>
+            </div> */}
             </CustomTabPanel>
           </Box>
           </div>

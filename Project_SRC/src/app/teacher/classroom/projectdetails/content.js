@@ -261,6 +261,19 @@ export default function Content(){
         window.location.reload()
       }
     }
+
+    const inviteTeacherHandler = () =>{
+      console.log("teacher here",teacherchecked)
+      if (typeof window !== 'undefined'){
+        localStorage.setItem("invitedTeacher",teacherchecked,()=>{
+
+        })
+        const tempdata = localStorage.getItem("invitedTeacher")
+        console.log("from local",tempdata)
+        setTeacherInvite(false)
+        window.location.reload()
+      }
+    }
     React.useEffect(() => {
       if (typeof window !== 'undefined') {
         setName1(JSON.parse(localStorage.getItem("Tname")));
@@ -505,7 +518,7 @@ export default function Content(){
 
 
         </div>
-        <button class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
+        <button onClick={inviteTeacherHandler} class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
               Add
             </button>
         </Dialog>
