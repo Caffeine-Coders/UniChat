@@ -11,7 +11,10 @@ import {
 import Draggable from "react-draggable";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
+import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
 import { getChatGPTResponse } from "../../Services/ChatGPT/ChatGPT_Routines";
+import Image from "next/image";
+
 
 const ChatGPTBox = ({ isOpen }) => {
   const [isVisible, setIsVisible] = useState(isOpen);
@@ -75,7 +78,7 @@ const ChatGPTBox = ({ isOpen }) => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: "#699385",
+              backgroundColor: "#1A1D1F",
               color: (theme) => theme.palette.primary.whites,
               borderRadius: "5px 5px 0 0",
               padding: "0 10px",
@@ -93,6 +96,14 @@ const ChatGPTBox = ({ isOpen }) => {
               }}
             >
               <CloseIcon />
+            </IconButton>
+            <IconButton color="inherit">
+              <Image
+                src={chatGPTLogo}
+                alt="ChatGPT Icon"
+                width={24}
+                height={24}
+              />
             </IconButton>
             <Typography
               variant="h4"
