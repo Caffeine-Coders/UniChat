@@ -5,11 +5,9 @@ import { useContext, useState, useEffect } from "react";
 import Image from "next/image";
 import { ThemeProvider } from "@mui/system";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
-// import chatgpt_logo from "../../../../Assets/chatgpt_logo.png";
-// import sublist_icon from "../../../../Assets/sublist_icon.png";
 import { getDoc } from "../../../../Services/GoogleDocs_Routines";
 import ThemeContext from "../../../../Components/Contexts/themeContext.jsx";
-
+import sublist_icon from "../../../../Assets/sublist_icon.png";
 export default function DocView({ selectedDoc, selectedDocId }) {
 //   const { theme } = useContext(ThemeContext);
   const [showGPTOptions, setShowGPTOptions] = useState(false);
@@ -79,7 +77,11 @@ export default function DocView({ selectedDoc, selectedDocId }) {
                 >
                   ChatGPT
                 </Typography>
-                {/* <Image src={chatgpt_logo} style={{ width: 25, height: 25 }} /> */}
+                <Image 
+                    src="https://upload.wikimedia.org/wikipedia/commons/1/13/ChatGPT-Logo.png" 
+                    width={25} 
+                    height={25} 
+                />
               </IconButton>
               {showGPTOptions && (
                 <Slide
@@ -164,42 +166,7 @@ export default function DocView({ selectedDoc, selectedDocId }) {
                             fontWeight: "bold",
                           }}
                         >
-                          Option 2
-                        </Typography>
-                      </Button>
-                    </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "center",
-                        alignContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Image
-                        src={sublist_icon}
-                        style={{ width: 25, height: 25 }}
-                      />
-                      <Button
-                        sx={{
-                          backgroundColor: "#74AA9C",
-                        //   color: theme.palette.primary.whites,
-                          borderRadius: 3,
-                          gap: 1,
-                          "&:hover": {
-                            backgroundColor: "#409c80",
-                          },
-                          flexGrow: 1,
-                        }}
-                      >
-                        <Typography
-                          sx={{
-                            fontFamily: "'Kode Mono', monospace",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Option 3
+                          Grade Document
                         </Typography>
                       </Button>
                     </Box>
