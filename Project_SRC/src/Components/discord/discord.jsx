@@ -85,7 +85,7 @@ export default function Discord({ props }) {
               }}
             />
             {props && (
-              <Grid container spacing={3} sx={{ p: 2, }}>
+              <Grid container spacing={3} sx={{ p: 2,cursor: "pointer", }}>
                 {props[1].map((project) => (
                   <Grow in={true} timeout={1500}>
                     <Grid item xs={12} sm={6} md={4}>
@@ -104,7 +104,7 @@ export default function Discord({ props }) {
                           justifyContent: "center",
                           alignItems: "center",
                           display: "flex",
-                          
+                          cursor: "pointer",
                         }}
                         onClick={() => {
                           if (project.nativeChat) {
@@ -118,11 +118,14 @@ export default function Discord({ props }) {
                           }
                         }}
                       >
-                        <CardContent>
+                        <CardContent sx={{
+                          cursor: "pointer",
+                        }}>
                           <Typography
                             style={{
                               fontSize: "16px",
                               fontFamily: '"Kode Mono", monospace',
+                              cursor: "pointer",
                             }}
                           >
                             {project.projectName}
