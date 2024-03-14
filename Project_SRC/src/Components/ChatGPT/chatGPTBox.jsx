@@ -61,7 +61,7 @@ const ChatGPTBox = ({ isOpen }) => {
         <Paper
           style={{
             position: "relative",
-            borderRadius: 12,
+            borderTop: 10,
             width: 350,
             height: 500,
             backgroundColor: (theme) => theme.palette.primary.main,
@@ -77,7 +77,7 @@ const ChatGPTBox = ({ isOpen }) => {
               alignItems: "center",
               backgroundColor: "#699385",
               color: (theme) => theme.palette.primary.whites,
-              borderRadius: 3,
+              borderRadius: "5px 5px 0 0",
               padding: "0 10px",
             }}
           >
