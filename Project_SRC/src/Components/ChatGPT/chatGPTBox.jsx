@@ -29,20 +29,18 @@ const ChatGPTBox = ({ isOpen }) => {
 
   const handleSendMessage = async () => {
     if (newMessage.trim() !== "") {
-      setIsLoading(true);
-      const response = await getChatGPTResponse(newMessage, []);
       setMessages((prevMessages) => [
         ...prevMessages,
         { text: newMessage, sender: "user" },
       ]);
 
-      setTimeout(() => {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { text: response.data, sender: "chatgpt" },
-        ]);
-        setIsLoading(false);
-      }, 2000);
+      setIsLoading(true);
+      const response = await getChatGPTResponse(newMessage, []);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: response.data, sender: "chatgpt" },
+      ]);
+      setIsLoading(false);
       setNewMessage("");
     }
   };
@@ -175,7 +173,7 @@ const ChatGPTBox = ({ isOpen }) => {
           >
             <InputBase
               placeholder="Ask Here"
-              value={newMessage}
+              value={isLoading ? "Thinking..." : newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               disabled={isLoading}
               onKeyDown={(e) => {
