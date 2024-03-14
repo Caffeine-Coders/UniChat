@@ -3,6 +3,7 @@ import Link from "next/link"
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -10,6 +11,9 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {Signuplogin} from '../../teacher/essentials/conn'
+import Chatbot from '../../teacher/components/chatbot'
+import Tooltip from '@mui/material/Tooltip';
+import Button from '@mui/material/Button';
 import * as React from 'react';
 const drawerWidth = 240;
 
@@ -70,6 +74,11 @@ export default function Navdash() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const [openChatGPT, setOpenChatGPT] = useState(false);
+    const toggleChatGPT = () => {
+        setOpenChatGPT(!openChatGPT);
+        
+    };
     return ( 
       <AppBar position="fixed" open={open} sx={{background:'transparent', boxShadow:'0'}}>
       <div class="bg-gradient-to-b from-gray-500 to-transparent rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm ">
@@ -81,7 +90,16 @@ export default function Navdash() {
       </Link>
 
        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+       <Tooltip title="ChatGPT" placement="bottom">
+                <Button
+                    style={{ backgroundColor: "transparent", "&:hover": { backgroundColor: "transparent" }, width: "40px", height: "40px", padding: 0,}}
+                    onClick={toggleChatGPT}
+                    disableRipple
+                >
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/ChatGPT-Logo.png" alt="chatgpt" style={{ height: "40px" }} />
+                </Button>
+            </Tooltip>
+      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, marginLeft:'20px' }}>
         {photourl && <Avatar src={photourl} />}
         {/* {name1 && <Typography style={{ fontSize: '16px', color: 'black' }} mx={1} className="text-">{name1}</Typography>} */}
       </IconButton>
@@ -110,6 +128,7 @@ export default function Navdash() {
     </Box>
     </Toolbar>
     </div>
+    {openChatGPT && <Chatbot />}
   </AppBar>   
     )
   }
