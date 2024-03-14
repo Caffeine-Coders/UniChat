@@ -97,7 +97,7 @@ const ChatGPTBox = ({ isOpen }) => {
             >
               <CloseIcon />
             </IconButton>
-            <IconButton color="inherit">
+            <IconButton color="inherit" disabled>
               <Image
                 src={chatGPTLogo}
                 alt="ChatGPT Icon"
