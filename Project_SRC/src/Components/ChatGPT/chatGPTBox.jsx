@@ -11,7 +11,10 @@ import {
 import Draggable from "react-draggable";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
+import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
 import { getChatGPTResponse } from "../../Services/ChatGPT/ChatGPT_Routines";
+import Image from "next/image";
+
 
 const ChatGPTBox = ({ isOpen }) => {
   const [isVisible, setIsVisible] = useState(isOpen);
@@ -61,10 +64,11 @@ const ChatGPTBox = ({ isOpen }) => {
         <Paper
           style={{
             position: "relative",
-            borderRadius: 12,
+            borderTop: 10,
             width: 350,
             height: 500,
             backgroundColor: (theme) => theme.palette.primary.main,
+            boxShadow: "0px 4px 10px #699385", // Use #699385 for the shadow color
           }}
           sx={{ backgroundColor: (theme) => theme.palette.primary.main }}
         >
@@ -74,9 +78,9 @@ const ChatGPTBox = ({ isOpen }) => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: "#699385",
+              backgroundColor: "#1A1D1F",
               color: (theme) => theme.palette.primary.whites,
-              borderRadius: 3,
+              borderRadius: "5px 5px 0 0",
               padding: "0 10px",
             }}
           >
@@ -93,12 +97,20 @@ const ChatGPTBox = ({ isOpen }) => {
             >
               <CloseIcon />
             </IconButton>
+            <IconButton color="inherit" disabled>
+              <Image
+                src={chatGPTLogo}
+                alt="ChatGPT Icon"
+                width={24}
+                height={24}
+              />
+            </IconButton>
             <Typography
               variant="h4"
               sx={{
                 color: (theme) => theme.palette.primary.whites,
                 fontFamily: "'Kode Mono', monospace",
-                fontSize: 25,
+                fontSize: 20,
               }}
               padding={1}
             >
@@ -132,9 +144,7 @@ const ChatGPTBox = ({ isOpen }) => {
                   key={index}
                   sx={{
                     backgroundColor:
-                      message.sender === "user"
-                        ? (theme) => theme.palette.primary.main
-                        : "#699385",
+                      message.sender === "user" ? "#1A1D1F" : "#699385",
                     p: 1,
                     borderRadius: 1,
                     m: 1,
@@ -164,9 +174,10 @@ const ChatGPTBox = ({ isOpen }) => {
               alignItems: "center",
               display: "flex",
               mt: 33,
-              width: 300,
-              borderRadius: 3,
-              ml: 3,
+              width: 320,
+              height: 40,
+              ml: 2,
+              borderRadius: 2,
               backgroundColor: "#699385",
               color: (theme) => theme.palette.primary.textcolor,
             }}

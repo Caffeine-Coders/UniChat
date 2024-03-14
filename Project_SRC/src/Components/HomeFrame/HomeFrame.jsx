@@ -21,6 +21,7 @@ export default function HomeComponent() {
 
   const { studentId } = useContext(AuthContext);
   const [projects, setProjects] = useState([]);
+  const [chatPlatform, setChatPlatform] = useState("discord");
   const [discordServerId, setDiscordServerId] = useState("");
   const [selectedDoc, setSelectedDoc] = useState("noDocSelected");
   const [selectedDocId, setSelectedDocId] = useState("noDocSelected");
@@ -31,6 +32,7 @@ export default function HomeComponent() {
     setProjects(fetchedProjects);
     console.log(fetchedProjects);
     if (fetchedProjects) {
+      localStorage.setItem("chatPlatform", "noProjectSelected");
       localStorage.setItem("discordServerId", "noProjectSelected");
       setDiscordServerId("noProjectSelected");
     } else {
@@ -45,14 +47,19 @@ export default function HomeComponent() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      const discordId = localStorage.getItem("discordServerId");
-      if (discordId !== discordServerId) {
-        setDiscordServerId(discordId);
+      const chatPlatform = localStorage.getItem("chatPlatform");
+      if (chatPlatform === "discord") {
+        const discordId = localStorage.getItem("discordServerId");
+          setChatPlatform("discord");
+          setDiscordServerId(discordId);
+      } else if (chatPlatform === "native") {
+        setChatPlatform("native");
+        setDiscordServerId("noProjectSelected");
       }
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [discordServerId]);
+  }, [chatPlatform]);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -177,10 +184,11 @@ export default function HomeComponent() {
                 }}
               >
                 <ThemeContext.Provider value={{ theme, setTheme }}>
-                  {/* <Discord props={[discordServerId, projects]} />
-                   */}
-
-                   <Nativechat project = {projects}/>
+                  {chatPlatform === "discord" ? (
+                    <Discord props={[discordServerId, projects]} />
+                  ) : (
+                    <Nativechat />
+                  )}
                 </ThemeContext.Provider>
               </Box>
             </Box>
