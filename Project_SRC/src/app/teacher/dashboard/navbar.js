@@ -92,7 +92,7 @@ export default function Navdash() {
        <Box sx={{ display: 'flex', alignItems: 'center' }}>
        <Tooltip title="ChatGPT" placement="bottom">
                 <Button
-                    style={{ backgroundColor: "transparent", "&:hover": { backgroundColor: "transparent" }, width: "40px", height: "40px", padding: 0,}}
+                    style={{ backgroundColor: "transparent", "&:hover": { backgroundColor: "transparent" }, padding: 0,}}
                     onClick={toggleChatGPT}
                     disableRipple
                 >
@@ -128,7 +128,7 @@ export default function Navdash() {
     </Box>
     </Toolbar>
     </div>
-    {openChatGPT && <Chatbot />}
+    {openChatGPT && <Chatbot isOpen={openChatGPT}/>}
   </AppBar>   
     )
   }
