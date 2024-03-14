@@ -24,6 +24,12 @@ export function Drivecomponent() {
       showUploadFolders: true,
       supportDrives: true,
       multiselect: true,
+      callbackFunction: async (data) => {
+        if (data.action === "picked") {
+          localStorage.setItem("selectedDoc", data.docs[0].embedUrl);
+          localStorage.setItem("selectedDocId", data.docs[0].id);
+        }
+      },
     })
   }
   
