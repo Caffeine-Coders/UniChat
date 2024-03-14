@@ -3,9 +3,10 @@ import { client } from "../../../../Services/MongoDB_Routines";
 
 export async function PUT(request) {
   const data = await request.json();
-
+  
+  await client.connect();
   // Connect to the MongoDB database
-  const db = client.db("studentDB");
+  const db = client.db("universityatalbanyDB");
 
   // Get the collection you want to work with
   const collection = db.collection("students");

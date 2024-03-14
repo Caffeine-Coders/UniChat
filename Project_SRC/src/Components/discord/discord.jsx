@@ -85,7 +85,7 @@ export default function Discord({ props }) {
               }}
             />
             {props && (
-              <Grid container spacing={3} sx={{ p: 2 }}>
+              <Grid container spacing={3} sx={{ p: 2,cursor: "pointer", }}>
                 {props[1].map((project) => (
                   <Grow in={true} timeout={1500}>
                     <Grid item xs={12} sm={6} md={4}>
@@ -104,19 +104,28 @@ export default function Discord({ props }) {
                           justifyContent: "center",
                           alignItems: "center",
                           display: "flex",
+                          cursor: "pointer",
                         }}
                         onClick={() => {
-                          localStorage.setItem(
-                            "discordServerId",
-                            project.discordServerId
-                          );
+                          if (project.nativeChat) {
+                            localStorage.setItem("chatPlatform", "native");
+                          } else {
+                            localStorage.setItem("chatPlatform", "discord");
+                            localStorage.setItem(
+                              "discordServerId",
+                              project.discordServerId
+                            );
+                          }
                         }}
                       >
-                        <CardContent>
+                        <CardContent sx={{
+                          cursor: "pointer",
+                        }}>
                           <Typography
                             style={{
                               fontSize: "16px",
                               fontFamily: '"Kode Mono", monospace',
+                              cursor: "pointer",
                             }}
                           >
                             {project.projectName}
