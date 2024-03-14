@@ -48,8 +48,20 @@ const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+const [memberStudents, setMemberStudents] = React.useState(localStorage.getItem('invitedStudent').split(',')) 
+let tempData=[]
+  React.useEffect(() => {
+      if (typeof window !== 'undefined') {
+        tempData  = localStorage.getItem('invitedStudent')
+        const tempArray = tempData.split(',')
+        console.log("arr",tempArray)
+        setMemberStudents(tempArray)
+        console.log("members found",memberStudents)
+      }
+  }, []);
+
+
   
-    
   return (
     <Grid container spacing={4}>
         <Grid item xs={12}>
@@ -119,7 +131,25 @@ const [value, setValue] = React.useState(0);
               </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-            <div class="mt-4 rounded-lg flex justify-between space-between">
+            {memberStudents.map((student, index) => (
+              <>
+              <div key={index} className="mt-4 rounded-lg flex justify-between space-between">
+                <h3 className="flex text-xl">
+                  <PersonIcon style={{ fontSize: 'inherit' }} />
+                  <span style={{ fontSize: 'inherit' }}>{student}</span>
+                </h3>
+                <div className="flex items-center text-xl">
+                  <h3 className="mr-4">somemeial@gmail.com</h3>
+                  <button style={{ backgroundColor: 'transparent', border: 'none', padding: '5px' }}>
+                    <DeleteIcon style={{ fontSize: 'inherit' }} />
+                  </button>
+                </div>
+              </div>
+               <hr class=" mt-4 h-px  bg-gray-400 border-0"></hr>
+               </>
+            ))}
+            
+            {/* <div class="mt-4 rounded-lg flex justify-between space-between">
               <h3 class="flex text-xl"  >
                 <PersonIcon style={{ fontSize: 'inherit' }} />
                 <span style={{ fontSize: 'inherit' }}>Forum Dipen Shah</span>
@@ -143,7 +173,7 @@ const [value, setValue] = React.useState(0);
                   <DeleteIcon style={{ fontSize: 'inherit' }} />
                 </button>
               </div>
-            </div>
+            </div> */}
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
             <div class="mt-4 rounded-lg flex justify-between space-between">

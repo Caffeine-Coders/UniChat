@@ -184,25 +184,27 @@ export default function Content(){
     const handleStudentClose = () =>{
       setStudentInvite(false)
     }
-    const [studentchecked, setstudentChecked] = React.useState([1]);
+    const [studentchecked, setstudentChecked] = React.useState([]);
+    let newCheckedStudents = []
     const handlestudentToggle = (value) => () => {
       const currentIndex = studentchecked.indexOf(value);
-      const newChecked = [...studentchecked];
+      newCheckedStudents = [...studentchecked];
 
       if (currentIndex === -1) {
-      newChecked.push(value);
+        newCheckedStudents.push(value);
       } else {
-      newChecked.splice(currentIndex, 1);
+        newCheckedStudents.splice(currentIndex, 1);
       }
 
-      setstudentChecked(newChecked);
+      setstudentChecked(newCheckedStudents);
+      console.log("checked", newCheckedStudents)
   };
   const handlestudentCheckboxChange = () => {
     const allChecked = studentchecked.length === studentlist.length;
-    const newChecked = allChecked ? [] : [...studentlist];
-    setstudentChecked(newChecked);
+    const newCheckedStudents = allChecked ? [] : [...studentlist];
+    setstudentChecked(newCheckedStudents);
   };
-  const [teacherchecked, setteacherChecked] = React.useState([1]);
+  const [teacherchecked, setteacherChecked] = React.useState([]);
   const handleteacherToggle = (value) => () => {
     const currentIndex = teacherchecked.indexOf(value);
     const newChecked = [...teacherchecked];
@@ -215,10 +217,12 @@ export default function Content(){
 
     setteacherChecked(newChecked);
 };
+    let newChecked = []
    const handleteacherCheckboxChange = () => {
     const allChecked = teacherchecked.length === teacherlist.length;
-    const newChecked = allChecked ? [] : [...teacherlist];
+    newChecked = allChecked ? [] : [...teacherlist];
     setteacherChecked(newChecked);
+    
   };
     const handleListItemClick2 = (index) => {
       setSelectedIndex(index);
@@ -238,12 +242,25 @@ export default function Content(){
       setOpen(false);
       seemessage(false)
     };
+    
     const signoutinstance = Signuplogin()
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [name1, setName1] = React.useState(null);
     const [photourl, setPhotoUrl] = React.useState(null);
     const [openAccordion, setOpenAccordion] = React.useState(false);
-
+    const inviteStudentHandler = () =>{
+      console.log("heree", studentchecked)
+      if (typeof window !== 'undefined'){
+        localStorage.setItem("invitedStudent", studentchecked, () => {
+        
+            });
+        const tempdata = localStorage.getItem("invitedStudent")
+        console.log("from local",tempdata)
+      
+        setStudentInvite(false)
+        window.location.reload()
+      }
+    }
     React.useEffect(() => {
       if (typeof window !== 'undefined') {
         setName1(JSON.parse(localStorage.getItem("Tname")));
@@ -583,7 +600,7 @@ export default function Content(){
 
 
         </div>
-        <button class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
+        <button onClick={inviteStudentHandler} class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
               Add
             </button>
         </Dialog>
