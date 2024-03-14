@@ -140,7 +140,17 @@ export default function Details({fornext, forback, loader}){
           setStudentInvite(false)
         }
       }
-
+    const [messaging, setMessaging] = React.useState('')
+    const handleMessenger = (event) =>{
+      console.log("got here",event.target.value)
+      const val = event.target.value
+      setMessaging(val)
+      if (typeof window!== 'undefined'){
+        localStorage.setItem("messageoption",messaging, ()=>{
+          console.log("done")
+        })
+      }
+    }
       const inviteTeacherHandler = () =>{
         console.log("teacher here",teacherchecked)
         if (typeof window !== 'undefined'){
@@ -236,9 +246,11 @@ export default function Details({fornext, forback, loader}){
     labelId="demo-simple-select-label"
     id="demo-simple-select"
     label="Messaging"
+    value={messaging}
+    onChange={handleMessenger}
   >
-    <MenuItem value={10}>Use Discord Server</MenuItem>
-    <MenuItem value={20}>Use UniChat Messaging</MenuItem>
+    <MenuItem value={"10"}>Use Discord Server</MenuItem>
+    <MenuItem value={"20"}>Use UniChat Messaging</MenuItem>
     
   </Select>
 </FormControl>

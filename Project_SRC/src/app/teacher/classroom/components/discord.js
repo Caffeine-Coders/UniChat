@@ -1,9 +1,15 @@
+"use client"
 import React from 'react';
 import Box from '@mui/material/Box';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 export default function Discord() {
+  if (typeof window!== 'undefined'){
+    const msgoption = localStorage.getItem("messageoption")
+    console.log("found this",msgoption)
+  }
   return (
     <>
+    
     <a href='/teacher/classroom'>
             <span class="flex text-sm" >
             <ArrowBackIcon style={{height:'20px'}}/> Classroom</span>
