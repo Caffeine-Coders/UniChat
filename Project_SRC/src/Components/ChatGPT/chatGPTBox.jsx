@@ -110,7 +110,7 @@ const ChatGPTBox = ({ isOpen }) => {
               sx={{
                 color: (theme) => theme.palette.primary.whites,
                 fontFamily: "'Kode Mono', monospace",
-                fontSize: 25,
+                fontSize: 20,
               }}
               padding={1}
             >
