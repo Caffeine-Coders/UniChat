@@ -76,7 +76,7 @@ const ChatGPTBox = ({ isOpen }) => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: (theme) => theme.palette.primary.ButtonColor,
+              backgroundColor: "#699385",
               color: (theme) => theme.palette.primary.whites,
               borderRadius: 3,
               padding: "0 10px",
@@ -169,7 +169,7 @@ const ChatGPTBox = ({ isOpen }) => {
               width: 300,
               borderRadius: 3,
               ml: 3,
-              backgroundColor: (theme) => theme.palette.primary.ButtonColor,
+              backgroundColor: "#699385",
               color: (theme) => theme.palette.primary.textcolor,
             }}
           >
@@ -177,6 +177,7 @@ const ChatGPTBox = ({ isOpen }) => {
               placeholder="Ask Here"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
+              disabled={isLoading}
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleSendMessage();
               }}
@@ -200,7 +201,13 @@ const ChatGPTBox = ({ isOpen }) => {
                     }}
                   >
                     {isLoading ? (
-                      <CircularProgress sx={{ color: "#699385" }} size={16} />
+                      <CircularProgress
+                        sx={{
+                          backgroundColor: (theme) =>
+                            theme.palette.primary.main,
+                        }}
+                        size={14}
+                      />
                     ) : (
                       <SendIcon />
                     )}

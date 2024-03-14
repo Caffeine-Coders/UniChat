@@ -1,6 +1,10 @@
+import { NextResponse } from "next/server";
+
 export async function POST(request) {
   const messages = await request.json();
   console.log(messages);
+
+  console.log(JSON.stringify(messages));
 
   const url = "https://gpt-proxy.ualbany.org/openai";
   const auth =
@@ -12,16 +16,14 @@ export async function POST(request) {
       "Content-Type": "application/json",
       Authorization: auth,
     },
-    body: JSON.stringify({
-      messages: messages,
-    }),
+    body: JSON.stringify(messages),
   });
 
   console.log(response);
 
-  const data = await response.json();
+  const data = await response.text();
 
-  return new Response(JSON.stringify({ data }), {
-    headers: { "Content-Type": "application/json" },
-  });
+  console.log(data);
+
+  return NextResponse.json({ data });
 }
