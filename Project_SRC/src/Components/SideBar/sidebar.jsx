@@ -22,7 +22,7 @@ import Button from "@mui/material/Button";
 import ThemeContext from "../Contexts/themeContext";
 import { useContext, useState, useEffect } from "react";
 import useDrivePicker from "react-google-drive-picker";
-import { GetLoggedInUserDetails } from "../../Services/User";
+
 //================================icons=======================
 import ConstructionOutlinedIcon from "@mui/icons-material/ConstructionOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -32,9 +32,6 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 
 import "./sidebar.css";
-import sidebarlogo from "../../Assets/sidebaricon.png";
-import { palette } from "@mui/system";
-import { Get } from "faunadb";
 
 const drawerWidth = 300;
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -85,7 +82,6 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const SideBar = ({ projects }) => {
-  
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const { setTheme, theme } = useContext(ThemeContext);
@@ -93,53 +89,32 @@ const SideBar = ({ projects }) => {
 
   const handleHomeClick = () => {
     localStorage.setItem("discordServerId", "noProjectSelected");
-    setIsAccordionOpen(false); // Close the accordion
+    setIsAccordionOpen(false);
   };
 
-  const [openPicker, data, authresponse] = useDrivePicker();
-
+  const [openPicker, data] = useDrivePicker();
 
   const handleOpenPicker = async () => {
-    const user = await GetLoggedInUserDetails();
-    console.log(user)
-    {
-      <Box
-        sx={{
-          position: "fixed",
-          width: "100%",
-          height: "100%",
-          zIndex: 10000,
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-        }}
-      >
-        {openPicker(
-          {
-              clientId: "390698529758-97a4j6gnlmlv6mrmjlerb6l4qejt8r7s.apps.googleusercontent.com",
-              developerKey: "AIzaSyCUEwSsinL08-FGU48bz4mt8lXMMwKvIcQ",
-              viewId: "DOCS",
-              token: user.access_token,
-              showUploadView: true,
-              showUploadFolders: true,
-              supportDrives: true,
-              multiselect: true,
-              customScopes:['https://www.googleapis.com/auth/drive.readonly'],
-              callbackFunction: (data) => {
-                if (data.action === 'cancel') {
-                  console.log('User clicked cancel/close button')
-                }
-                console.log(data)
-              },
-          }
-      )}
-      </Box>
-    }
-  }
-
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-  }, [data]);
+    const apiToken = sessionStorage.getItem("googleAccessToken");
+    openPicker({
+      clientId:
+        "390698529758-97a4j6gnlmlv6mrmjlerb6l4qejt8r7s.apps.googleusercontent.com",
+      developerKey: "AIzaSyCUEwSsinL08-FGU48bz4mt8lXMMwKvIcQ",
+      viewId: "DOCS",
+      showUploadView: true,
+      token: apiToken,
+      showUploadFolders: true,
+      supportDrives: true,
+      multiselect: true,
+      callbackFunction: async (data) => {
+        if (data.action === "picked") {
+          console.log(data.docs[0]);
+          localStorage.setItem("selectedDoc", data.docs[0].embedUrl);
+          localStorage.setItem("selectedDocId", data.docs[0].id);
+        }
+      },
+    });
+  };
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -172,13 +147,13 @@ const SideBar = ({ projects }) => {
       <Box
         sx={{
           top: 0,
+          width: "100%",
           justifyContent: "center",
+          position: "sticky",
           alignItems: "center",
           alignContent: "center",
           display: "flex",
           flexDirection: "column",
-          position: "sticky",
-          width: "100%",
           overflow: "hidden",
           flexShrink: 0,
         }}
@@ -416,8 +391,6 @@ const SideBar = ({ projects }) => {
             </Typography>
           </ListItemButton>
         </ListItem>
-
-        {/* footer of bar */}
       </List>
       <Box
         sx={{
@@ -476,8 +449,12 @@ const SideBar = ({ projects }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+      <Box
+        sx={{
+          width: { sm: drawerWidth },
+          flexShrink: { sm: 0 },
+        }}
+      >
         <Drawer
           container={container}
           variant="temporary"
@@ -485,7 +462,7 @@ const SideBar = ({ projects }) => {
           onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },

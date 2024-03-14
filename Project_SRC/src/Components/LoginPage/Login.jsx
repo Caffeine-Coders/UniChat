@@ -234,9 +234,14 @@ const Login = () => {
 
   const signInUser = async () => {
     const provider = new GoogleAuthProvider();
+    provider.addScope("https://www.googleapis.com/auth/drive");
+    provider.addScope("https://www.googleapis.com/auth/documents");
     const auth = getAuth(app);
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    sessionStorage.setItem("googleAccessToken", token);
     setUser(user);
     signInWithGoogle();
   };

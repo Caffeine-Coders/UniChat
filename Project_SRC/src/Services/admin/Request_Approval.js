@@ -1,3 +1,4 @@
+// to set the data of the request for approval
 export const NewRequest = async (
     schoolname,schooladdress1,schooladdress2,
     schoolcity,schoolstate,schoolpincode,schoolcountry, 
@@ -30,3 +31,91 @@ export const NewRequest = async (
         const data = await res.json();
         return data;
     }
+
+
+export const getApprovalRequest = async (isApproved) => {
+    const res = await fetch(`/api/admin/approvalRequest?ApprovalStatus=${isApproved}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+    const data = await res.json();
+    return data;
+}
+
+
+
+export async function updateRequest(schoolname, approvalStatus) {
+    const res = await fetch(`/api/admin/updateRequest`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+            schoolname: schoolname,
+            approvalStatus: approvalStatus,
+        }),
+    });
+    if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+    const data = await res.json();
+    return data;
+
+}
+
+export async function sendEmail(firstname, lastname, email, schoolname) {
+    const res = await fetch(`/api/admin/sendEmail`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            schoolname: schoolname,
+        }),
+    });
+    if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+    const data = await res.json();
+    return data;
+}
+
+ export async function createSchoolDb(schoolname, schooladminFname, schooladminLname, schooladminemail)
+ {
+    const nameofdatabase = schoolname.replace(/\s/g, '') + 'DB';
+
+    const res = await fetch(`/api/admin/createSchoolDatabase`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+            databasename: nameofdatabase,
+            collectionnames:[
+                "students",
+                "teachers",
+                "classes",
+                "projects",
+                "schooladmin"
+            ],
+            data: {
+                schooladminFname: schooladminFname,
+                schooladminLname: schooladminLname,
+                schooladminemail: schooladminemail,
+            }
+        }),
+    });
+    if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+    const data = await res.json();
+    return data;
+ }

@@ -18,8 +18,8 @@ const LandingNav = () => {
                 top: 0,
                 left: 0,
                 width: "100%",
-                backgroundColor: "rgba(255, 255, 255, 0.1)", // transparent background
-                zIndex: 1000, // higher z-index to ensure it's on top
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                zIndex: 1000,
    
             }}
          >

@@ -8,8 +8,8 @@ export async function PUT(request) {
         const data = await request.json();
         // Connect to the MongoDB database
         await client.connect();
-        const database = client.db("NewRequests");
-        const collection = database.collection("Requests");
+        const database = client.db("SchoolRequestDB");
+        const collection = database.collection("SchoolRequests");
         
         await collection.insertOne(data);
         return NextResponse.json({status: 200, message: "New Request Created and data inserted successfully."});
@@ -27,11 +27,12 @@ export async function GET(request)
 {
     try
     {
-        const req = await request.json();
+        const url = new URL(request.url);
+        const ApprovalStatus = new URLSearchParams(url.search).get("ApprovalStatus");
         await client.connect();
-        const database = client.db("NewRequests");
-        const collection = database.collection("Requests");
-        const data = await collection.find({approvalStatus: req.needed}).toArray();
+        const database = client.db("SchoolRequestDB");
+        const collection = database.collection("SchoolRequests");
+        const data = await collection.find({approvalStatus: ApprovalStatus}).toArray();
         return NextResponse.json(data);
     }
     catch(err)
@@ -44,3 +45,4 @@ export async function GET(request)
     }
 
 }
+
