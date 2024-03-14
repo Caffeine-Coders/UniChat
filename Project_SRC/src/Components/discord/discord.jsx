@@ -106,10 +106,15 @@ export default function Discord({ props }) {
                           display: "flex",
                         }}
                         onClick={() => {
-                          localStorage.setItem(
-                            "discordServerId",
-                            project.discordServerId
-                          );
+                          if (project.nativeChat) {
+                            localStorage.setItem("chatPlatform", "native");
+                          } else {
+                            localStorage.setItem("chatPlatform", "discord");
+                            localStorage.setItem(
+                              "discordServerId",
+                              project.discordServerId
+                            );
+                          }
                         }}
                       >
                         <CardContent>

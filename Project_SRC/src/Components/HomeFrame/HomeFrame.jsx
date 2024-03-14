@@ -10,7 +10,7 @@ import ThemeContext from "../Contexts/themeContext.jsx";
 import { darktheme } from "../Themes/Themes.jsx";
 import { useState, useContext, useEffect } from "react";
 import AuthContext, { AuthProvider } from "../Contexts/authContext.jsx";
-import { fetchStudentProjects } from "../../Services/StudentProjects";
+import { fetchStudentProjects } from "../../Services/ProjectWork/Project_Routines.js";
 import { ThemeProvider } from "styled-components";
 import DocView from "../DocView/DocView.jsx";
 import Nativechat from "../NativeChat/Nativechat.jsx";
@@ -21,15 +21,20 @@ export default function HomeComponent() {
 
   const { studentId } = useContext(AuthContext);
   const [projects, setProjects] = useState([]);
+  const [chatPlatform, setChatPlatform] = useState("discord");
   const [discordServerId, setDiscordServerId] = useState("");
   const [selectedDoc, setSelectedDoc] = useState("noDocSelected");
   const [selectedDocId, setSelectedDocId] = useState("noDocSelected");
   const [showDocView, setShowDocView] = useState(false);
 
   const getStudentProjects = async () => {
-    const fetchedProjects = await fetchStudentProjects(studentId);
+    const fetchedProjects = await fetchStudentProjects(
+      "universityatalbanyDB",
+      studentId
+    );
     setProjects(fetchedProjects);
     if (fetchedProjects) {
+      localStorage.setItem("chatPlatform", "noProjectSelected");
       localStorage.setItem("discordServerId", "noProjectSelected");
       setDiscordServerId("noProjectSelected");
     } else {
@@ -44,14 +49,21 @@ export default function HomeComponent() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      const discordId = localStorage.getItem("discordServerId");
-      if (discordId !== discordServerId) {
-        setDiscordServerId(discordId);
+      const chatPlatform = localStorage.getItem("chatPlatform");
+      if (chatPlatform === "discord") {
+        const discordId = localStorage.getItem("discordServerId");
+        if (discordId !== discordServerId) {
+          setChatPlatform("discord");
+          setDiscordServerId(discordId);
+        }
+      } else if (chatPlatform === "native") {
+        setChatPlatform("native");
+        setDiscordServerId("noProjectSelected");
       }
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [discordServerId]);
+  }, [chatPlatform]);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -176,9 +188,11 @@ export default function HomeComponent() {
                 }}
               >
                 <ThemeContext.Provider value={{ theme, setTheme }}>
-                  {/* <Discord props={[discordServerId, projects]} />
-                   */}
-                   <Nativechat/>
+                  {chatPlatform === "discord" ? (
+                    <Discord props={[discordServerId, projects]} />
+                  ) : (
+                    <Nativechat />
+                  )}
                 </ThemeContext.Provider>
               </Box>
             </Box>
