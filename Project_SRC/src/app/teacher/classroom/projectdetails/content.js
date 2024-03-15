@@ -32,6 +32,7 @@ import InputBase from '@mui/material/InputBase';
 import Discord from '../components/discord'
 import Details from '../components/details'
 import Chat from '../components/chat'
+import Grades from '../components/grades'
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import Chatgpt from '../components/chatgpt'
 import { Dialog, Typography } from '@mui/material';
@@ -42,7 +43,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import SearchIcon from '@mui/icons-material/Search';
 import Checkbox from '@mui/material/Checkbox';
-
+import GradingIcon from '@mui/icons-material/Grading';
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -125,6 +126,7 @@ export default function Content(){
     const [chat, setChat] = React.useState(false)
     const [gpt, setGpt] = React.useState(false)
     const [onmessage, seemessage] = React.useState(false)
+    const [seeGrades, setGrades] = React.useState(false)
     const driveInstance = Drivecomponent()
     const handleListItemClick = (index) => { 
       setSelectedIndex(index);
@@ -139,6 +141,7 @@ export default function Content(){
         setviewclassroom(false)
         setChat(false)
         setGpt(false)
+        setGrades(false)
       }
       if(index == 1){
         seemessage(!onmessage)
@@ -150,6 +153,7 @@ export default function Content(){
         setviewclassroom(false)
         setChat(false)
         setGpt(false)
+        setGrades(false)
       }
       if(index===3){
         setGpt(true)
@@ -158,6 +162,7 @@ export default function Content(){
         setaddproject(false)
         setviewclassroom(false)
         setChat(false)
+        setGrades(false)
       }
       if(index===4){
         setChat(true)
@@ -166,11 +171,20 @@ export default function Content(){
         setaddproject(false)
         setviewclassroom(false)
         setGpt(false)
+        setGrades(false)
       }
       if(index === 5){
         driveInstance.handleopenPicker()
       }
-     
+      if (index === 6){
+        setChat(false)
+        setDiscord(false)
+        setviewprojects(false)
+        setaddproject(false)
+        setviewclassroom(false)
+        setGpt(false)
+        setGrades(true)
+      }
     };
     const [inviteTeacher,setTeacherInvite] = useState(false)
     const [inviteStudent,setStudentInvite] = useState(false)
@@ -310,7 +324,7 @@ export default function Content(){
         }
       }
     }, []);
-    const sidebar=['Project Details','Messaging','Group Chat','ChatGPT','Individual Chat','Google Drive']
+    const sidebar=['Project Details','Messaging','Group Chat','ChatGPT','Individual Chat','Google Drive', 'Grades']
     const lowerhalf = ['Add Students', 'Add Co-Instructors']
     const Search = styled('div')(({ theme }) => ({
       position: 'relative',
@@ -400,6 +414,7 @@ export default function Content(){
 </svg>:''}
                     {index === 4 ? <PermIdentityIcon/> : null}
                     {index === 5 ? <AddToDriveIcon /> : null}
+                    {index === 6 ? <GradingIcon/>: null}
                   </ListItemIcon>
                   <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
                   {index === 1 && open && !onmessage ? <KeyboardArrowDownIcon/>:null}
@@ -452,7 +467,7 @@ export default function Content(){
             {discord && <Discord/>}
             {chat && <Chat/>}
             {gpt && <Chatgpt/>}
-            
+            {seeGrades && <Grades/>}
         </Box>
         <Dialog
           open={inviteTeacher}
@@ -640,6 +655,8 @@ export default function Content(){
               Add
             </button>
         </Dialog>
+
+
 </Box>
 
     )
