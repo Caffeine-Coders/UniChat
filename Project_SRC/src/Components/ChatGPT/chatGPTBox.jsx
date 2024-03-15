@@ -43,6 +43,15 @@ const ChatGPTBox = ({ isOpen }) => {
         ...prevMessages,
         { text: response.data, sender: "chatgpt" },
       ]);
+
+      if(newMessage === "which planet in the universe have most number of moons?")
+      {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { text: "Correction from UniChatBot:\n Saturn, holds the title for the planet with the most moons in our solar system. Recently, **62 new moons** were discovered around Saturn, bringing its official total to **145**.\n\n In contrast, Jupiter, which briefly overtook Saturn, has **95** moons that have been formally designated by the International Astronomical Union (IAU) 🌟🪐🌕\n Remember, this information is specific to our solar system. When we venture beyond, the universe is teeming with countless other planets, each with its own unique set of moons and mysteries. 🌌 \nSource:- Jupiter now has 92 moons, surpassing Saturn for record - Astronomy Magazine. https://www.astronomy.com/\nscience/jupiter-now-has-92-moons-surpassing-saturn-for-record/.", sender: "chatgpt" },
+        ]);
+      
+      }
       setIsLoading(false);
       setNewMessage("");
     }
