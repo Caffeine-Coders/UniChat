@@ -8,11 +8,25 @@ import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import { getDoc } from "../../../../Services/GoogleDocs_Routines";
 import ThemeContext from "../../../../Components/Contexts/themeContext.jsx";
 import sublist_icon from "../../../../Assets/sublist_icon.png";
+import useDrivePicker from 'react-google-drive-picker'
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import CloseIcon from '@mui/icons-material/Close';
+import SearchIcon from '@mui/icons-material/Search';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+
 export default function DocView({ selectedDoc, selectedDocId }) {
 //   const { theme } = useContext(ThemeContext);
   const [showGPTOptions, setShowGPTOptions] = useState(false);
   const [isIframeLoaded, setIsIframeLoaded] = useState(false);
-
+  const [dial,setDial] = React.useState(false)
+  const [openPicker, data, authResponse] = useDrivePicker()
   const handleCloseDocView = () => {
     localStorage.setItem("selectedDoc", "noDocSelected");
   };
@@ -23,6 +37,47 @@ export default function DocView({ selectedDoc, selectedDocId }) {
 
   const handleIframeLoad = () => {
     setIsIframeLoaded(true);
+  };
+  const handledialClose = () => {
+    setDial(false);
+    };
+    const handledialOpen = () => {
+    setDial(true);
+    };
+  
+  const opendrive = () => {
+    setDial(false);
+    openPicker({
+        clientId: '627377626990-dh0rifs0dih0c2ttl6l6f6garog9vebt.apps.googleusercontent.com',
+        developerKey: 'AIzaSyBvze5ee8eCbgBmy9uqFQutYFYB3ydhZCA',
+        viewId: "DOCS",
+        showUploadView: true,
+        // token: apiToken,
+        showUploadFolders: true,
+        supportDrives: true,
+        multiselect: true,
+        callbackFunction: async (data) => {
+          if (data.action === "picked") {
+            window.location.reload();
+          }
+        },
+      })
+    }
+    const studentlist = [ 'Sai Vishnu Anudeep Kadiyala' , 'Satwik Bhasin']
+    let [studentchecked, setstudentChecked] = React.useState([]);
+    let newCheckedStudents = []
+    const handlestudentToggle = (value) => () => {
+      const currentIndex = studentchecked.indexOf(value);
+      newCheckedStudents = [...studentchecked];
+
+      if (currentIndex === -1) {
+        newCheckedStudents.push(value);
+      } else {
+        newCheckedStudents.splice(currentIndex, 1);
+      }
+
+      setstudentChecked(newCheckedStudents);
+      console.log("checked", newCheckedStudents)
   };
 
   return (
@@ -159,6 +214,7 @@ export default function DocView({ selectedDoc, selectedDocId }) {
                             backgroundColor: "#409c80",
                           },
                         }}
+                        onClick={handledialOpen}
                       >
                         <Typography
                           sx={{
@@ -209,6 +265,67 @@ export default function DocView({ selectedDoc, selectedDocId }) {
           ></iframe>
         )}
       </Box>
+      <Dialog
+        open={dial}
+        onClose={handledialClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        maxWidth="md"
+        fullWidth={true}
+        PaperProps={{ style: { height: '40vh', borderRadius: '15px'} }}
+        >
+        <div class='h-full w-full p-4 pb-0 mx-auto'>
+        <DialogTitle id="alert-dialog-title" style={{fontSize: '25px'}}>
+        <IconButton
+        edge="start"
+        color="inherit"
+        onClick={handledialClose}
+        aria-label="close"
+        sx={{ position: 'absolute', right: 8, top: 8 }}
+        >
+        <CloseIcon />
+        </IconButton>
+            {"Grade Document"}
+        </DialogTitle>
+        <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+            <Box sx={{ width: '100%' }}>
+                Select the student you are grading the document for:
+                <hr/>
+              {studentlist.map((value) => {
+                           const labelId = `checkbox-list-secondary-label-${value}`;
+                           return (
+                           <ListItem
+                               key={value}
+                               secondaryAction={
+                               <Checkbox
+                                   edge="end"
+                                   onChange={handlestudentToggle(value)}
+
+                                   checked= {studentchecked.indexOf(value) !== -1}
+                                   inputProps={{ 'aria-labelledby': labelId }}
+                               />
+                               }
+                               disablePadding
+                               sx={{ justifyContent: 'center' }}
+                           >
+                               <ListItemButton>
+                               <ListItemText id={labelId} primary={value} />
+                               </ListItemButton>
+                           </ListItem>
+                           );
+                       })}
+                       <hr/>
+                       In the next step, select the document containing questions you want ChatGPT to grade. 
+            </Box>    
+            </DialogContentText>
+        </DialogContent>
+
+        </div>
+        <button onClick={opendrive} class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
+            Continue
+        </button>
+        </Dialog>
     </ThemeProvider>
   );
 }
