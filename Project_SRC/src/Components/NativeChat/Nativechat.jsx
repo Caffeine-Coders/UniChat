@@ -25,28 +25,23 @@ function Nativechat(props) {
         {
             message: "Hello!",
             sentTime: "2024-03-14T09:00:00Z",
-            sender: "John"
+            sender: "Satwik Bhasin"
         },
         {
             message: "Hi there!",
             sentTime: "2024-03-14T09:05:00Z",
-            sender: "Alice"
+            sender: "Anudeep Sai"
         },
         {
             message: "How are you?",
             sentTime: "2024-03-14T09:10:00Z",
-            sender: "John"
+            sender: "Anudeep Sai"
         },
         {
-            message: "Its been a while :(",
+            message: "I have a question in the project you are working on. Can you help me with that?",
             sentTime: "2024-03-14T09:15:00Z",
-            sender: "Alice"
+            sender: "Satwik Bhasin"
         },
-        {
-            message: "Pleaseee Reply!",
-            sentTime: "2024-03-14T09:20:00Z",
-            sender: "Alice"
-        }
     ]);
     
     useEffect(() => {
@@ -104,17 +99,30 @@ function Nativechat(props) {
                         {
                             messageData.map((message, index) => {
                                 return (
-                                    <div key={index}>
-                                        <Message model={{
-                                            message: message.message,
-                                            sentTime: message.sentTime,
-                                            sender: message.sender
-                                        }}>
-                                            <Avatar src={image[1]} />
-                                        </Message>
-                                    </div>
-                                   
-                                );
+                                    message.sender === "Anudeep Sai" ?
+                            
+                                        <div key={index}>
+                                            <Message model={{
+                                                message: message.message,
+                                                sentTime: message.sentTime,
+                                                sender: message.sender,
+                                                direction: "outgoing"
+                                            }}>
+                                                <Avatar src={image[1]} />
+                                            </Message>
+                                        </div>
+                                        :
+                                        <div key={index} >
+                                            <Message model={{
+                                                message: message.message,
+                                                sentTime: message.sentTime,
+                                                sender: message.sender,
+                                                direction: "incoming"
+                                            }}>
+                                                <Avatar src={image[0]} />
+                                            </Message>
+                                        </div>
+                                    )
                             })
                         }
                         <TypingIndicator content="Satwik Bhasin is typing" />
