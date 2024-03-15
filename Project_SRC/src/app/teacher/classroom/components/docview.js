@@ -272,7 +272,7 @@ export default function DocView({ selectedDoc, selectedDocId }) {
         aria-describedby="alert-dialog-description"
         maxWidth="md"
         fullWidth={true}
-        PaperProps={{ style: { height: '40vh', borderRadius: '15px'} }}
+        PaperProps={{ style: { height: '55vh', borderRadius: '15px'} }}
         >
         <div class='h-full w-full p-4 pb-0 mx-auto'>
         <DialogTitle id="alert-dialog-title" style={{fontSize: '25px'}}>

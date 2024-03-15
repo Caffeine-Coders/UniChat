@@ -15,7 +15,7 @@ function createData(Student, Assignment, Grades, Feedback_from_ChatGPT) {
 }
 
 const rows = [
-    createData('Satwik Bhasin', 'Discrete Maths Assignment 1', '93/100', 'some feedback here')
+    createData('Satwik Bhasin', 'Assignment 1', '93/100', 'The solution provided correctly identifies whether the relation is reflexive, symmetric, antisymmetric. However, there is error in the explaination for transitivity. The correct answer should be that R is not transitive, instead in the solution it has been determined as transitive.')
 ];
 
 
