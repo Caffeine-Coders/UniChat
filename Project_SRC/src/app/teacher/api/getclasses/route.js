@@ -13,7 +13,7 @@ export async function GET(request) {
     const db = client.db("universityatalbanyDB");
   // Get the collection you want to work with
     const collection = db.collection("classes");
-    const classes = await collection.find({teachers:currentemail}).toArray()
+    const classes = await collection.find().toArray()
   if (classes) {
     console.log("all classes", classes)
     return NextResponse.json(classes)

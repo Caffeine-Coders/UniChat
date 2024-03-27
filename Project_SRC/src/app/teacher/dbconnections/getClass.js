@@ -1,5 +1,5 @@
 export const classList = async () => {
-    const res = await fetch(`./api/getclass`, {
+    const res = await fetch(`./api/getclasses`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

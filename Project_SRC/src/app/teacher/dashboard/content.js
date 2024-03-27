@@ -1,5 +1,6 @@
 'use client'
-import React from 'react';
+
+import React, {useState} from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -15,7 +16,7 @@ import { CardActionArea } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
 import NewClassroom from './addclass'
 import { useRouter } from 'next/navigation';
-
+import { classList } from '../dbconnections/getClass'
 
 const Search = styled('div')(({ theme }) => ({
   position:'relative',
@@ -59,6 +60,15 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 
 export default function Content() {
   const router = useRouter();
+  const [classes, setClasses] = useState([]);
+  async function getclasses (){
+    const classlist = await classList();
+    setClasses(classlist);
+    console.log("got them",classlist)
+  }
+  React.useEffect(() => {
+    getclasses();
+  }, []);
   
   const [name1,setName1] = React.useState(null)
     React.useEffect(() => {
