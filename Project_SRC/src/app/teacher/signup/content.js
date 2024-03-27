@@ -18,14 +18,14 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
 import {schoolList} from '../dbconnections/getSchool'
-async function getschools (){
-  const schoollist = await schoolList();
-  console.log("got them",schoollist)
-}
 export default function content() {
-
+  const [schools, setSchools] = useState([]);
+  async function getschools (){
+    const schoollist = await schoolList();
+    setSchools(schoollist.map(item => item.schoolname));
+    console.log("got them",schoollist)
+  }
   React.useEffect(() => {
-    // Call getschools when the component mounts
     getschools();
   }, []);
 
@@ -48,7 +48,7 @@ export default function content() {
     const handleNameChange = (event) => {
         setName(event.target.value);
     }
-    const schools = ["University at Albany", "Saint Rose", "Stanford"];
+    // const schools = ["University at Albany", "Saint Rose", "Stanford"];
     const handleSchoolNameChange = (event) => {
         setSchoolName(event.target.value);
         // console.log(schoolList());
