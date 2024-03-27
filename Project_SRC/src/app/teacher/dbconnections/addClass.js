@@ -1,4 +1,4 @@
-export const addClass = async (gradelevel,classname) => {
+export const addClass = async (gradelevel,classname,email) => {
   const res = await fetch(`./api/addclass`, {
     method: "POST",
     headers: {
@@ -7,6 +7,8 @@ export const addClass = async (gradelevel,classname) => {
     body: JSON.stringify({ 
         gradelevel:gradelevel,
         classname:classname,
+        emails:emails,
+        students:students
      }),
   });
   if (!res.ok) {
