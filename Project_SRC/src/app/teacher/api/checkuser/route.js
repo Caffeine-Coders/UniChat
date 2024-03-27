@@ -5,7 +5,7 @@ export async function POST(request) {
   const data = await request.json();
 
   // Connect to the MongoDB database
-  const db = client.db("teacherDB");
+  const db = client.db("universityatalbanyDB");
 
   // Get the collection you want to work with
   const collection = db.collection("teachers");

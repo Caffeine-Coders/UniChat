@@ -1,6 +1,3 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import {auth} from './firebase'
-
 export const addUser = async (username,emailid,schoolname) => {
     console.log("here in add details",username,emailid,schoolname)
   const res = await fetch(`./api/adduser`, {

@@ -11,7 +11,18 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import InputAdornment from '@mui/material/InputAdornment';
 import Signuplogo from "./signup.png"
+import {schoolList} from '../dbconnections/getSchool'
+async function getschools (){
+  const schoollist = await schoolList();
+  console.log("got them",schoollist)
+}
 export default function content() {
+
+  React.useEffect(() => {
+    // Call getschools when the component mounts
+    getschools();
+  }, []);
+
   const [name, setName] = useState('');
     const [schoolname, setSchoolName] = useState('');
     const signupinstance = Signuplogin()
@@ -31,8 +42,9 @@ export default function content() {
     const handleNameChange = (event) => {
         setName(event.target.value);
     }
-    const handleSchoolNameChange = (event) => {
+    const  handleSchoolNameChange = (event) => {
         setSchoolName(event.target.value);
+        // console.log(schoolList());
     }
 
     const handleSubmit = async(event) => {

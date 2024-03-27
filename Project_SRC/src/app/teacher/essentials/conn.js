@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOu
 import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { useRouter } from 'next/navigation';
 import {classifyUser} from '../dbconnections/getDetails'
-import {addUser} from '../dbconnections/addDetails'
+import {addUser} from '../dbconnections/addTeacher'
 async function userChecker(user){
     const userClassification = await classifyUser(user.email);
     console.log(userClassification.type)
