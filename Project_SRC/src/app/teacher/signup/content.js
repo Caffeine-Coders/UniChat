@@ -11,6 +11,12 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import InputAdornment from '@mui/material/InputAdornment';
 import Signuplogo from "./signup.png"
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+
 import {schoolList} from '../dbconnections/getSchool'
 async function getschools (){
   const schoollist = await schoolList();
@@ -42,7 +48,8 @@ export default function content() {
     const handleNameChange = (event) => {
         setName(event.target.value);
     }
-    const  handleSchoolNameChange = (event) => {
+    const schools = ["University at Albany", "Saint Rose", "Stanford"];
+    const handleSchoolNameChange = (event) => {
         setSchoolName(event.target.value);
         // console.log(schoolList());
     }
@@ -109,22 +116,29 @@ export default function content() {
                           color:'black'
                       }}
               />
-              <TextField 
-                  id="outlined-basic" 
-                  label="School Name" 
-                  variant="outlined" 
-                  required="true"
-                  InputProps={{
-                    startAdornment: <InputAdornment position="start"></InputAdornment>,
-                  }}
-                  onChange={handleSchoolNameChange}
+              <FormControl 
+                  fullWidth 
                   sx={{
-                          width: '80%',
-                          margin: 'auto',
-                          marginTop: '20px',
-                          color:'black'
-                      }}
-              />
+                      width: '80%',
+                      margin: 'auto',
+                      marginTop: '20px',
+                      color:'black'
+                  }}>
+                <InputLabel id="demo-simple-select-label">School</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={schoolname}
+                  label="School"
+                  onChange={handleSchoolNameChange}
+                  sx={{textAlign: 'left'}}
+                  required="true"
+                >
+                {schools.map((school, index) => (
+                    <MenuItem key={index} value={school} sx={{textAlign: 'left'}}>{school}</MenuItem>
+                ))}
+                </Select>
+              </FormControl>
             <div class="p-6 pt-0 mt-10">
                 <button type="submit" class="bg-discordpurple-0 bg-opacity-50 inline-flex align-middle items-center  justify-center px-5 py-3 text-xl text-center text-black rounded-lg hover:bg-discordpurple-0 hover:bg-opacity-40 hover:shadow-gray-600 hover:shadow-sm  focus:ring-4 focus:ring-blue-100" >    
                     Send for Approval <svg class="w-5 h-5 ms-2 group:text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="check"><rect width="256" height="256" fill="none"></rect><polyline fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" points="216 72.005 104 184 48 128.005" ></polyline></svg>
