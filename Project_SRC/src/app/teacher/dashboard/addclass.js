@@ -25,6 +25,15 @@ export default function NewClassroom(){
         whiteSpace: 'nowrap',
         width: 1,
       });
+      const [emailid, setEmailid] = React.useState('');
+      React.useEffect(() => {
+        if (typeof window !== 'undefined') {
+          const storedEmail = localStorage.getItem("Temail");
+          if (storedEmail) {
+            setEmailid(JSON.parse(storedEmail));
+          }
+        }
+      }, []);
     const handleSubmit = (event) => {
       
         event.preventDefault();
@@ -57,7 +66,8 @@ export default function NewClassroom(){
                 JSON.parse(localStorage.getItem("emailname"));
             });
             console.log("hereee")
-            addClass(classNumber,className)
+            console.log("email id is ",emailid)
+            addClass(classNumber,className,emailid)
             router.push('/teacher/classroom')
         //   csvParser(files)
         }

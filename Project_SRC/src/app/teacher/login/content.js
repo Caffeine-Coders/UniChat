@@ -31,6 +31,7 @@ export default function content() {
         const name = data.name
         const photourl = data.photourl
         const accessToken = data.accessToken
+        const email = data.email
         const emailID = JSON.stringify(verificationStatus);
         localStorage.setItem("emailID", emailID, () => {
             const retrievedEmail = JSON.parse(localStorage.getItem("emailID"));
@@ -39,6 +40,10 @@ export default function content() {
         localStorage.setItem("Tname", Tname, () => {
             const retrievedName = JSON.parse(localStorage.getItem("Tname"));
 
+        });
+        const Temail = JSON.stringify(email);
+        localStorage.setItem("Temail", Temail, () => {
+            const retrievedEmail = JSON.parse(localStorage.getItem("Temail"));
         });
         const photoURL = JSON.stringify(photourl);
         localStorage.setItem("photoURL", photoURL, () => {
