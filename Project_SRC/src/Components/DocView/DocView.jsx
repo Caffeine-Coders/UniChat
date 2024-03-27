@@ -9,11 +9,14 @@ import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import chatgpt_logo from "../../Assets/chatgpt-bw.png";
 import sublist_icon from "../../Assets/sublist_icon.png";
 import { getDoc } from "../../Services/GoogleDocs_Routines";
+import ChatGPTBox from "../ChatGPT/chatGPTBox";
 
 export default function DocView({ selectedDoc, selectedDocId }) {
   const { theme } = useContext(ThemeContext);
   const [showGPTOptions, setShowGPTOptions] = useState(false);
   const [isIframeLoaded, setIsIframeLoaded] = useState(false);
+  const [openChatGPT, setOpenChatGPT] = useState(false);
+  const [chatGPTOperation, setChatGPTOperation] = useState("");
 
   const handleCloseDocView = () => {
     localStorage.setItem("selectedDoc", "noDocSelected");
@@ -27,6 +30,12 @@ export default function DocView({ selectedDoc, selectedDocId }) {
     setIsIframeLoaded(true);
   };
 
+  const handleSummarize = () => {
+    // getDoc(selectedDocId);
+    setChatGPTOperation("summarize");
+    setOpenChatGPT(true);
+  };
+  
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -110,7 +119,7 @@ export default function DocView({ selectedDoc, selectedDocId }) {
                       />
                       <Button
                         onClick={() => {
-                          getDoc(selectedDocId);
+                          handleSummarize();
                         }}
                         sx={{
                           backgroundColor: "#74AA9C",
@@ -147,6 +156,9 @@ export default function DocView({ selectedDoc, selectedDocId }) {
                         style={{ width: 25, height: 25 }}
                       />
                       <Button
+                        onClick={() => {
+                          handleResources();
+                        }}
                         sx={{
                           flexGrow: 1,
                           backgroundColor: "#74AA9C",
@@ -164,7 +176,7 @@ export default function DocView({ selectedDoc, selectedDocId }) {
                             fontWeight: "bold",
                           }}
                         >
-                          Option 2
+                          Resources
                         </Typography>
                       </Button>
                     </Box>
@@ -199,7 +211,7 @@ export default function DocView({ selectedDoc, selectedDocId }) {
                             fontWeight: "bold",
                           }}
                         >
-                          Option 3
+                          Evaluate Key Concepts
                         </Typography>
                       </Button>
                     </Box>
@@ -242,6 +254,9 @@ export default function DocView({ selectedDoc, selectedDocId }) {
           ></iframe>
         )}
       </Box>
+      {openChatGPT && (
+        <ChatGPTBox chatGPTOperation={chatGPTOperation} isOpen={true} />
+      )}
     </ThemeProvider>
   );
 }
