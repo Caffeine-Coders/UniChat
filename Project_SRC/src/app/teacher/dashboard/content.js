@@ -60,15 +60,36 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 
 export default function Content() {
   const router = useRouter();
-  const [classes, setClasses] = useState([]);
-  async function getclasses (){
-    const classlist = await classList();
-    setClasses(classlist);
-    console.log("got them",classlist)
+  const [teacherEmail, setteacher] = React.useState('');
+React.useEffect(() => {
+  if (typeof window !== 'undefined') {
+    const storedTname = localStorage.getItem("Temail");
+    if (storedTname) {
+      setteacher(JSON.parse(storedTname));
+    }
   }
-  React.useEffect(() => {
+}, []);
+
+const [classes, setClasses] = useState([]);
+async function getclasses (){
+  const classlist = await classList();
+  setClasses(classlist);
+  const teacherClasses = [];
+  classlist.forEach((classItem, index) => {
+    if (classItem.teachers && classItem.teachers.includes(teacherEmail)) {
+      teacherClasses.push(classItem.classname); // assuming each class has a property 'className'
+    }
+  });
+  console.log("tc", teacherClasses);
+}
+
+React.useEffect(() => {
+  if (teacherEmail) {
     getclasses();
-  }, []);
+  }
+}, [teacherEmail]);
+  
+
   
   const [name1,setName1] = React.useState(null)
     React.useEffect(() => {
@@ -85,6 +106,7 @@ export default function Content() {
     { name: "520 Cryptography", url: "https://img.freepik.com/free-photo/international-day-education-cartoon-style_23-2151007489.jpg?t=st=1709261711~exp=1709265311~hmac=37ea9db374f17989af9bdd3f2aacfbb7ac89de75b4b3e351a1439d3402b65054&w=740" },
     { name: "610 Artificial Intelligence", url: "https://img.freepik.com/free-photo/front-view-educational-objects-arrangement_23-2148721256.jpg?t=st=1709261774~exp=1709265374~hmac=d9af9b550d3101e5227371de558a93ca21dc0b4ec7ec4a3512f9842c668ea717&w=740" },
   ];
+  
   function ProjectCard({ projectName, projectUrl }) {
     const [projectname, setProjectname] = React.useState(null)
     const [projecturl, setProjecturl] = React.useState(null)

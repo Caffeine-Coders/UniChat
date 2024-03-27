@@ -1,4 +1,4 @@
-export const addClass = async (gradelevel,classname,email) => {
+export const addClass = async (gradelevel,classname,email,url) => {
     let emails=[]
     emails.push(email)
     let students=[]
@@ -10,8 +10,9 @@ export const addClass = async (gradelevel,classname,email) => {
     body: JSON.stringify({ 
         gradelevel:gradelevel,
         classname:classname,
-        emails:emails,
-        students:students
+        teachers:emails,
+        students:students,
+        url:url
      }),
   });
   if (!res.ok) {
