@@ -71,16 +71,23 @@ React.useEffect(() => {
 }, []);
 
 const [classes, setClasses] = useState([]);
+// const [projects, setProjects] = React.useState([]);
+const teacherClasses = [];
+const urls = [];
 async function getclasses (){
   const classlist = await classList();
   setClasses(classlist);
-  const teacherClasses = [];
   classlist.forEach((classItem, index) => {
     if (classItem.teachers && classItem.teachers.includes(teacherEmail)) {
-      teacherClasses.push(classItem.classname); // assuming each class has a property 'className'
+      teacherClasses.push(classItem.classname);
+      urls.push(classItem.url);
     }
   });
-  console.log("tc", teacherClasses);
+  console.log("tc", teacherClasses, urls);
+  const newclass = teacherClasses.map((className, index) => {
+    return { name: className, url: urls[index] };
+  });
+  setClasses(newclass);
 }
 
 React.useEffect(() => {
@@ -101,12 +108,7 @@ React.useEffect(() => {
   const addHandler = (event) => {
     handleaddclass(true)
   };
-  const projects = [
-    { name: "680 Master's Project", url: "https://img.freepik.com/free-vector/hand-drawn-flat-design-book-spine_23-2149320036.jpg?t=st=1709261183~exp=1709264783~hmac=2efd3dbc235fce0fad44b2c4bf801a70430e37fe8ee6c4232cc8cba03faa1e1f&w=740" },
-    { name: "520 Cryptography", url: "https://img.freepik.com/free-photo/international-day-education-cartoon-style_23-2151007489.jpg?t=st=1709261711~exp=1709265311~hmac=37ea9db374f17989af9bdd3f2aacfbb7ac89de75b4b3e351a1439d3402b65054&w=740" },
-    { name: "610 Artificial Intelligence", url: "https://img.freepik.com/free-photo/front-view-educational-objects-arrangement_23-2148721256.jpg?t=st=1709261774~exp=1709265374~hmac=d9af9b550d3101e5227371de558a93ca21dc0b4ec7ec4a3512f9842c668ea717&w=740" },
-  ];
-  
+
   function ProjectCard({ projectName, projectUrl }) {
     const [projectname, setProjectname] = React.useState(null)
     const [projecturl, setProjecturl] = React.useState(null)
@@ -226,7 +228,7 @@ React.useEffect(() => {
        </Grid>
        <Grid container spacing={2} style={{position:'relative',width:'80%', marginLeft:'10%', marginTop:'3%'}}>
           <Grid container spacing={4} justifyContent="center">
-            {projects.map((project, index) => (
+            {classes.map((project, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <ProjectCard projectName={project.name} projectUrl={project.url} />
               </Grid>
