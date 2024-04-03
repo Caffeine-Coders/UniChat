@@ -58,11 +58,11 @@ export default function NewClassroom(){
           alert("Please fill all the details.");
           return;
         } 
-        else if (emailAndName.length === 0) {
+        // else if (emailAndName.length === 0) {
      
-          alert("Please upload a valid CSV file.");
-          return;
-        } 
+        //   alert("Please upload a valid CSV file.");
+        //   return;
+        // } 
         else {
           
           console.log("class name",className);
@@ -84,7 +84,12 @@ export default function NewClassroom(){
             const urls = ["https://img.freepik.com/free-vector/hand-drawn-flat-design-book-spine_23-2149320036.jpg?t=st=1709261183~exp=1709264783~hmac=2efd3dbc235fce0fad44b2c4bf801a70430e37fe8ee6c4232cc8cba03faa1e1f&w=740","https://img.freepik.com/free-photo/international-day-education-cartoon-style_23-2151007489.jpg?t=st=1709261711~exp=1709265311~hmac=37ea9db374f17989af9bdd3f2aacfbb7ac89de75b4b3e351a1439d3402b65054&w=740","https://img.freepik.com/free-photo/front-view-educational-objects-arrangement_23-2148721256.jpg?t=st=1709261774~exp=1709265374~hmac=d9af9b550d3101e5227371de558a93ca21dc0b4ec7ec4a3512f9842c668ea717&w=740"];
             const randomUrl = urls[Math.floor(Math.random() * urls.length)];
             console.log("rurl", randomUrl);
+            if (selectedSemester.length != 0){
             addClass(classNumber,className,emailid,randomUrl,selectedYear + " " +selectedSemester)
+            }
+            else{
+              addClass(classNumber,className,emailid,randomUrl,selectedYear )
+            }
             router.push('/teacher/classroom')
         //   csvParser(files)
         }
