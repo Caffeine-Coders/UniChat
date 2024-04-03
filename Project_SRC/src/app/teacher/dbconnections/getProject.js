@@ -1,5 +1,5 @@
-export const ProjectList = async (classname,classnumber,classyear) => {
-    console.log("here in get ",classname,classnumber,classyear)
+export const ProjectList = async (classname,classnumber,classyear,semails,temails) => {
+    console.log("here in get ",classname,classnumber,classyear,semails,temails)
     const res = await fetch(`./api/getprojects`, {
       method: "POST",
       headers: {
@@ -8,7 +8,9 @@ export const ProjectList = async (classname,classnumber,classyear) => {
       body:JSON.stringify({ 
         classname:classname,
         classnumber:classnumber,
-        classyear:classyear
+        classyear:classyear,
+        semails:semails,
+        temails:temails
         })
     });
     if (!res.ok) {
