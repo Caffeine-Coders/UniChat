@@ -1,4 +1,4 @@
-export const addClass = async (gradelevel,classname,email,url) => {
+export const addClass = async (gradelevel,classname,email,url, term) => {
     let emails=[]
     emails.push(email)
     let students=[]
@@ -14,7 +14,8 @@ export const addClass = async (gradelevel,classname,email,url) => {
         teachers:emails,
         students:students,
         projects:projects,
-        url:url
+        url:url,
+        term: term
      }),
   });
   if (!res.ok) {

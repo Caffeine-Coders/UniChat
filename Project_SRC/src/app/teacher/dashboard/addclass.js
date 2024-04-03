@@ -4,6 +4,10 @@ import Container from '@mui/material/Container';
 import { styled } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
 import Papa from 'papaparse';
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
 import { useRouter } from 'next/navigation';
 import { Button } from "@mui/material";
 import {addClass} from '../dbconnections/addClass'
@@ -34,6 +38,16 @@ export default function NewClassroom(){
           }
         }
       }, []);
+    
+      const [selectedYear, setSelectedYear] = React.useState("")
+      const [selectedSemester,setSelectedSemester] = React.useState("")
+      const handleYear = (event) =>{
+        setSelectedYear(event.target.value)
+      }
+      const handleSemester = (event) =>{
+        setSelectedSemester(event.target.value)
+      }
+
     const handleSubmit = (event) => {
       
         event.preventDefault();
@@ -70,7 +84,7 @@ export default function NewClassroom(){
             const urls = ["https://img.freepik.com/free-vector/hand-drawn-flat-design-book-spine_23-2149320036.jpg?t=st=1709261183~exp=1709264783~hmac=2efd3dbc235fce0fad44b2c4bf801a70430e37fe8ee6c4232cc8cba03faa1e1f&w=740","https://img.freepik.com/free-photo/international-day-education-cartoon-style_23-2151007489.jpg?t=st=1709261711~exp=1709265311~hmac=37ea9db374f17989af9bdd3f2aacfbb7ac89de75b4b3e351a1439d3402b65054&w=740","https://img.freepik.com/free-photo/front-view-educational-objects-arrangement_23-2148721256.jpg?t=st=1709261774~exp=1709265374~hmac=d9af9b550d3101e5227371de558a93ca21dc0b4ec7ec4a3512f9842c668ea717&w=740"];
             const randomUrl = urls[Math.floor(Math.random() * urls.length)];
             console.log("rurl", randomUrl);
-            addClass(classNumber,className,emailid,randomUrl)
+            addClass(classNumber,className,emailid,randomUrl,selectedYear + " " +selectedSemester)
             router.push('/teacher/classroom')
         //   csvParser(files)
         }
@@ -110,7 +124,7 @@ export default function NewClassroom(){
         }
   
       }
-
+    
     return (
         
         <div class="p-8 backdrop-filter backdrop-blur-sm bg-opacity-80 rounded-2xl w-3/4 mx-auto">
@@ -136,6 +150,41 @@ export default function NewClassroom(){
                         class="after:content[''] pointer-events-none absolute left-0  -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-lg font-normal leading-tight  transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-lg peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:after:scale-x-100 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                         Class Name
                         </label>
+                    </div>
+                    <div class="relative h-11 w-full min-w-[200px] mt-7">
+                     <FormControl variant="standard" sx={{ minWidth:'45%',marginRight:'10%', color:'inherit'}}>
+                      <InputLabel id="demo-simple-select-standard-label" sx={{color:'inherit'}}>Academic Year</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={selectedYear}
+                        onChange={handleYear}
+                        label="Year"
+                      > 
+                        <MenuItem value={"2023"}>2023</MenuItem>                       
+                        <MenuItem value={"2024"}>2024</MenuItem>
+                        <MenuItem value={"2025"}>2025</MenuItem>
+                        <MenuItem value={"2026"}>2026</MenuItem>
+                       </Select>
+                    </FormControl>
+                    <FormControl variant="standard" sx={{ minWidth:'45%', color:'inherit'}}>
+                      <InputLabel id="demo-simple-select-standard-label" sx={{color:'inherit'}}>Academic Semester (If Applicable)</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={selectedSemester}
+                        onChange={handleSemester}
+                        label="Semester"
+                      > 
+                        <MenuItem value=""><em>None</em></MenuItem>
+                        <hr></hr>
+                        <MenuItem value={"Spring"}>Spring</MenuItem>
+                        <MenuItem value={"Summer"}>Summer</MenuItem>
+                        <MenuItem value={"Fall"}>Fall</MenuItem>
+                        <MenuItem value={"Winter"}>Winter</MenuItem>
+
+                       </Select>
+                    </FormControl>
                     </div>
                     <div class="flex items-center justify-center w-full mt-8">
                     <Button
