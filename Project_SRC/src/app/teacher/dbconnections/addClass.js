@@ -1,9 +1,8 @@
-export const addClass = async (gradelevel,classname,email,url,students,term) => {
+export const addClass = async (gradelevel,classname,email,url,student,term) => {
     let emails=[]
     emails.push(email)
     let projects=[]
-    // let students=[]
-    // students.push(student)
+    let parsedstudents = JSON.parse(student)
   const res = await fetch(`./api/addclass`, {
     method: "POST",
     headers: {
@@ -13,7 +12,7 @@ export const addClass = async (gradelevel,classname,email,url,students,term) => 
         gradelevel:gradelevel,
         classname:classname,
         teachers:emails,
-        students:students,
+        students:parsedstudents,
         projects:projects,
         url:url,
         term: term
