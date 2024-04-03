@@ -301,13 +301,26 @@ export default function Content() {
         textAlign: 'center',
         color: theme.palette.text.secondary,
       }));
-      
-      const users = [
-        { name: 'Forum Dipen Shah', email: 'somemeial@gmail.com' },
-        { name: 'Dheeraj Kumar Thanda', email: 'somemeial@gmail.com' },
-        { name: 'Sai Vishnu Anudeep Kadiyala', email: 'somemeial@gmail.com' },
-        { name: 'Satwik Bhasin', email: 'somemeial@gmail.com' },
-      ];
+      let studentemailsString;
+      let studentnamesString;
+      let teacheremailsString;
+      let teachernamesString;
+      if (typeof window!== 'undefined'){
+        studentemailsString = localStorage.getItem("studentemails")
+        studentnamesString = localStorage.getItem("studentnames")
+        teacheremailsString = localStorage.getItem("teacheremails")
+      }
+
+      let studentemailsString1 = '["Dheeraj ","Dheeraj Kumar T","Forum Shah"]';
+      console.log("studentemails",studentnamesString)
+      let studentemails = studentemailsString.split(',');
+      let teacheremails = teacheremailsString.split(',');
+      let users = studentemails.map((email, index) => {
+        return { name: 'ran', email: email };
+      });
+      let tusers = teacheremails.map((email, index) => {
+        return { name: 'ran', email: email };
+      });
   return (
     <>
      <Box sx={{ display: 'flex' }}>
@@ -451,16 +464,18 @@ sx={{ position: 'absolute', right: 8, top: 8 }}
       ))}
     </CustomTabPanel>
     <CustomTabPanel value={value} index={1}>
-    <div class="  mt-4 rounded-lg flex justify-between space-between">
-            <h4 class="flex ">
-            <img class="ml-4 mr-4 w-6 h-6 rounded-full" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""/>
-            Mei-Hwa Chen
+    {tusers.map((user, index) => (
+        <div key={index}>
+          <div className="mt-4 rounded-lg flex justify-between space-between">
+            <h4 className="flex ">
+              <img className="ml-4 mr-4 w-6 h-6 rounded-full" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""/>
+              {user.name}
             </h4>
-            <h4 class="mr-4">mchen@gmail.com</h4>
-            
+            <h4 className="mr-4">{user.email}</h4>
+          </div>
+          {index < users.length - 1 && <hr className="mt-4 h-px bg-gray-400 border-0"></hr>}
         </div>
-        <hr class=" mt-4 h-px  bg-gray-400 border-0"></hr>
-        
+      ))}
     </CustomTabPanel>
     </Box>    
     </DialogContentText>
