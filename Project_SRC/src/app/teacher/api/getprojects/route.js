@@ -40,6 +40,7 @@ export async function POST(request) {
       snames.push(student.name)
       }
     }
+    
     if (typeof window !== 'undefined'){
       localStorage.setItem("teachernames",tnames, () =>{
 

@@ -78,7 +78,8 @@ export default function NewClassroom(){
                 JSON.parse(localStorage.getItem("classnumber"));
             });
             const studentemails = JSON.stringify(studentemail);
-            localStorage.setItem("studentemails", studentemails, () => {
+            const se=studentemail.join(",");
+            localStorage.setItem("studentemails", se, () => {
                 JSON.parse(localStorage.getItem("studentemails"));
             });
             const studentnames = JSON.stringify(studentname);
