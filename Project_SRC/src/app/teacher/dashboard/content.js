@@ -75,6 +75,7 @@ export default function Content() {
   const teacherClasses = [];
   const urls = [];
   const years = [];
+  const gradelevels = [];
   async function getclasses (){
     const classlist = await classList();
     setClasses(classlist);
@@ -83,11 +84,12 @@ export default function Content() {
         teacherClasses.push(classItem.classname);
         urls.push(classItem.url);
         years.push('Spring 2024');
+        gradelevels.push(classItem.gradelevel);
       }
     });
     console.log("tc", teacherClasses, urls);
     const newclass = teacherClasses.map((className, index) => {
-      return { name: className, url: urls[index], year: years[index]};
+      return { name: className, url: urls[index], year: years[index], gradelevel: gradelevels[index]};
     });
     setClasses(newclass);
   }
@@ -111,17 +113,25 @@ export default function Content() {
     handleaddclass(true)
   };
 
-  function ProjectCard({ projectName, projectUrl, projectYear }) {
+  function ProjectCard({ projectName, projectUrl, projectYear, projectGrade }) {
     const [projectname, setProjectname] = React.useState(null)
     const [projecturl, setProjecturl] = React.useState(null)
     const [projectyear, setProjectyear] = React.useState(null)
+    const [projectgrade, setProjectgrade] = React.useState(null)
     const handleprojectclick = () => {
       setProjectname(projectName);
       setProjecturl(projectUrl);
       setProjectyear(projectYear)
+      setProjectgrade(projectGrade)
       console.log("pn", projectName, projectUrl);
       localStorage.setItem("classname", projectName, () => {
         JSON.parse(localStorage.getItem("classname"));
+      });
+      localStorage.setItem("classyear", projectYear, () => {
+        JSON.parse(localStorage.getItem("classyear"));
+      });
+      localStorage.setItem("classnumber", projectGrade, () => {
+        JSON.parse(localStorage.getItem("classnumber"));
       });
       router.push('/teacher/classroom');
     };
@@ -136,7 +146,7 @@ export default function Content() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div" sx={{textAlign:'center'}}>
-            {projectName}
+           {projectGrade} - {projectName}
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{textAlign:'center'}}>
             {projectYear}
@@ -237,7 +247,7 @@ export default function Content() {
           <Grid container spacing={4} justifyContent="center">
             {classes.map((project, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
-                <ProjectCard projectName={project.name} projectUrl={project.url} projectYear={project.year} />
+                <ProjectCard projectName={project.name} projectUrl={project.url} projectYear={project.year} projectGrade={project.gradelevel} />
               </Grid>
             ))}
           </Grid>

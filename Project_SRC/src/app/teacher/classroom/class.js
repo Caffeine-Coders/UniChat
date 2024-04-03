@@ -32,8 +32,14 @@ export default function Class() {
         const storedClassname = localStorage.getItem("classname");
         const storedClassnumber = localStorage.getItem("classnumber");
         if (storedClassname && storedClassnumber) {
-          setClassname(JSON.parse(storedClassname));
-          setClassnumber(JSON.parse(storedClassnumber));
+          const parsedClassname = storedClassname[0] === '"' && storedClassname[storedClassname.length - 1] === '"' 
+            ? storedClassname.slice(1, -1) 
+            : storedClassname;
+          const parsedClassnumber = storedClassnumber[0] === '"' && storedClassnumber[storedClassnumber.length - 1] === '"' 
+            ? storedClassnumber.slice(1, -1) 
+            : storedClassnumber;
+          setClassname(parsedClassname);
+          setClassnumber(parsedClassnumber);
         }
       }
     }, []);
