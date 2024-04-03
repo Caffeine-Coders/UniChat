@@ -61,41 +61,43 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 export default function Content() {
   const router = useRouter();
   const [teacherEmail, setteacher] = React.useState('');
-React.useEffect(() => {
-  if (typeof window !== 'undefined') {
-    const storedTname = localStorage.getItem("Temail");
-    if (storedTname) {
-      setteacher(JSON.parse(storedTname));
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedTname = localStorage.getItem("Temail");
+      if (storedTname) {
+        setteacher(JSON.parse(storedTname));
+      }
     }
-  }
-}, []);
+  }, []);
 
-const [classes, setClasses] = useState([]);
-// const [projects, setProjects] = React.useState([]);
-const teacherClasses = [];
-const urls = [];
-async function getclasses (){
-  const classlist = await classList();
-  setClasses(classlist);
-  classlist.forEach((classItem, index) => {
-    if (classItem.teachers && classItem.teachers.includes(teacherEmail)) {
-      teacherClasses.push(classItem.classname);
-      urls.push(classItem.url);
+  const [classes, setClasses] = useState([]);
+  // const [projects, setProjects] = React.useState([]);
+  const teacherClasses = [];
+  const urls = [];
+  const years = [];
+  async function getclasses (){
+    const classlist = await classList();
+    setClasses(classlist);
+    classlist.forEach((classItem, index) => {
+      if (classItem.teachers && classItem.teachers.includes(teacherEmail)) {
+        teacherClasses.push(classItem.classname);
+        urls.push(classItem.url);
+        years.push('Spring 2024');
+      }
+    });
+    console.log("tc", teacherClasses, urls);
+    const newclass = teacherClasses.map((className, index) => {
+      return { name: className, url: urls[index], year: years[index]};
+    });
+    setClasses(newclass);
+  }
+
+  React.useEffect(() => {
+    if (teacherEmail) {
+      getclasses();
     }
-  });
-  console.log("tc", teacherClasses, urls);
-  const newclass = teacherClasses.map((className, index) => {
-    return { name: className, url: urls[index] };
-  });
-  setClasses(newclass);
-}
-
-React.useEffect(() => {
-  if (teacherEmail) {
-    getclasses();
-  }
-}, [teacherEmail]);
-  
+  }, [teacherEmail]);
+    
 
   
   const [name1,setName1] = React.useState(null)
@@ -109,12 +111,14 @@ React.useEffect(() => {
     handleaddclass(true)
   };
 
-  function ProjectCard({ projectName, projectUrl }) {
+  function ProjectCard({ projectName, projectUrl, projectYear }) {
     const [projectname, setProjectname] = React.useState(null)
     const [projecturl, setProjecturl] = React.useState(null)
+    const [projectyear, setProjectyear] = React.useState(null)
     const handleprojectclick = () => {
       setProjectname(projectName);
       setProjecturl(projectUrl);
+      setProjectyear(projectYear)
       console.log("pn", projectName, projectUrl);
       localStorage.setItem("classname", projectName, () => {
         JSON.parse(localStorage.getItem("classname"));
@@ -133,6 +137,9 @@ React.useEffect(() => {
         <CardContent>
           <Typography gutterBottom variant="h5" component="div" sx={{textAlign:'center'}}>
             {projectName}
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{textAlign:'center'}}>
+            {projectYear}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -230,7 +237,7 @@ React.useEffect(() => {
           <Grid container spacing={4} justifyContent="center">
             {classes.map((project, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
-                <ProjectCard projectName={project.name} projectUrl={project.url} />
+                <ProjectCard projectName={project.name} projectUrl={project.url} projectYear={project.year} />
               </Grid>
             ))}
           </Grid>
