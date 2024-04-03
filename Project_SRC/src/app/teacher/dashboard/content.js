@@ -83,7 +83,7 @@ export default function Content() {
       if (classItem.teachers && classItem.teachers.includes(teacherEmail)) {
         teacherClasses.push(classItem.classname);
         urls.push(classItem.url);
-        years.push('Spring 2024');
+        years.push(classItem.term);
         gradelevels.push(classItem.gradelevel);
       }
     });
