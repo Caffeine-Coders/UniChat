@@ -25,11 +25,15 @@ export default function Class() {
   const [classname, setClassname] = React.useState('');
     const [classnumber, setClassnumber] = React.useState('');
     const[classyear,setClassyear]= React.useState('');
-    const [foundprojects, setProjects] = React.useState([]);
+    const [projects, setProjects] = React.useState([]);
+    // let projects = [];
     const handleCreate = () =>{
      
     }
-  
+    const projectgetter = async(parsedClassname, parsedClassnumber, parsedClassyear) =>{
+        const tempprojects = await ProjectList(parsedClassname,parsedClassnumber,parsedClassyear)
+          setProjects(tempprojects)
+    }
     React.useEffect(() => {
       if (typeof window !== 'undefined') {
         const storedClassname = localStorage.getItem("classname");
@@ -47,8 +51,8 @@ export default function Class() {
           setClassnumber(parsedClassnumber);
           setClassyear(storedClassyear)
           console.log("got it",parsedClassname,parsedClassnumber,parsedClassyear)
-          setProjects(ProjectList(parsedClassname,parsedClassnumber,parsedClassyear))
-          console.log("listtt",foundprojects)
+          projectgetter(parsedClassname,parsedClassnumber,parsedClassyear)
+          
         }
       }
     }, []);
@@ -94,7 +98,7 @@ export default function Class() {
       },
     },
   }));
-  const projects = foundprojects
+  
   // const projects = [
     // { name: "Project 1", url: "https://img.freepik.com/free-photo/people-generating-images-using-artificial-intelligence-laptop_23-2150794334.jpg?t=st=1710251710~exp=1710255310~hmac=0b18455c08ed0ae7910919240ef8786b0412a664f39e0ac9e30584e8c3262fe1&w=740" },
     // { name: "Project 2", url: "https://img.freepik.com/free-vector/college-project-concept-illustration_114360-10541.jpg?t=st=1710252174~exp=1710255774~hmac=5dce400ab6a19f1596bd819ad10df08f6aa335a222f545e57d356afc6ba6024b&w=740" },
