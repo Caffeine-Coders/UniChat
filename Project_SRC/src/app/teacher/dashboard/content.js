@@ -76,6 +76,8 @@ export default function Content() {
   const urls = [];
   const years = [];
   const gradelevels = [];
+  const studentemails=[];
+  const teacheremails=[];
   async function getclasses (){
     const classlist = await classList();
     setClasses(classlist);
@@ -85,11 +87,13 @@ export default function Content() {
         urls.push(classItem.url);
         years.push(classItem.term);
         gradelevels.push(classItem.gradelevel);
+        studentemails.push(classItem.students);
+        teacheremails.push(classItem.teachers);
       }
     });
     console.log("tc", teacherClasses, urls);
     const newclass = teacherClasses.map((className, index) => {
-      return { name: className, url: urls[index], year: years[index], gradelevel: gradelevels[index]};
+      return { name: className, url: urls[index], year: years[index], gradelevel: gradelevels[index], students: studentemails[index], teachers: teacheremails[index]};
     });
     setClasses(newclass);
   }
@@ -113,16 +117,20 @@ export default function Content() {
     handleaddclass(true)
   };
 
-  function ProjectCard({ projectName, projectUrl, projectYear, projectGrade }) {
+  function ProjectCard({ projectName, projectUrl, projectYear, projectGrade, projectStudents, projectTeachers}) {
     const [projectname, setProjectname] = React.useState(null)
     const [projecturl, setProjecturl] = React.useState(null)
     const [projectyear, setProjectyear] = React.useState(null)
     const [projectgrade, setProjectgrade] = React.useState(null)
+    const [projectstudents, setProjectstudents] = React.useState(null)
+    const [projectteachers, setProjectteachers] = React.useState(null)
     const handleprojectclick = () => {
       setProjectname(projectName);
       setProjecturl(projectUrl);
       setProjectyear(projectYear)
       setProjectgrade(projectGrade)
+      setProjectstudents(projectStudents)
+      setProjectteachers(projectTeachers)
       console.log("pn", projectName, projectUrl);
       localStorage.setItem("classname", projectName, () => {
         JSON.parse(localStorage.getItem("classname"));
@@ -132,6 +140,12 @@ export default function Content() {
       });
       localStorage.setItem("classnumber", projectGrade, () => {
         JSON.parse(localStorage.getItem("classnumber"));
+      });
+      localStorage.setItem("studentemails", projectStudents, () => {
+        JSON.parse(localStorage.getItem("studentemails"));
+      });
+      localStorage.setItem("teacheremails", projectTeachers, () => {
+        JSON.parse(localStorage.getItem("teacheremails"));
       });
       router.push('/teacher/classroom');
     };
@@ -247,7 +261,7 @@ export default function Content() {
           <Grid container spacing={4} justifyContent="center">
             {classes.map((project, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
-                <ProjectCard projectName={project.name} projectUrl={project.url} projectYear={project.year} projectGrade={project.gradelevel} />
+                <ProjectCard projectName={project.name} projectUrl={project.url} projectYear={project.year} projectGrade={project.gradelevel} projectStudents={project.students} projectTeachers={project.teachers} />
               </Grid>
             ))}
           </Grid>
