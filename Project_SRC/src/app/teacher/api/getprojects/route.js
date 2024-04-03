@@ -14,14 +14,18 @@ export async function POST(request) {
     console.log("projects",classes)
     const projects = classes.flatMap(cls => cls.projects);
     const projectcollection = db.collection("projects")
-    const objid = new ObjectId(projects[0])
-    const project = await projectcollection.find({_id:objid})
-    console.log("proj",project)
+    const projectdata = []
+    for(const projectid of projects){
+        const project = await projectcollection.findOne({ _id: new ObjectId(projectid)})
+        console.log("proj",project)
+        projectdata.push(project)
+    }
+    
 
   if (classes) {
-    console.log("all projects", project)
+    console.log("all projects", projectdata)
     
-    return NextResponse.json(project)
+    return NextResponse.json(projectdata)
     }
     
   else {
