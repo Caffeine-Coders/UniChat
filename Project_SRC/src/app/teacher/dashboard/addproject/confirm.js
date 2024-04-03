@@ -15,8 +15,8 @@ export default function Confirm({forback, projectData}){
     let projectgoal="";
     if (typeof window !== 'undefined') {
         projectname = localStorage.getItem("projectname") ? JSON.parse(localStorage.getItem("projectname")) : "";
-        gradelevel = localStorage.getItem("gradelevel") ? JSON.parse(localStorage.getItem("gradelevel")) : "";
-        subjectareas = localStorage.getItem("subjectareas") ? JSON.parse(localStorage.getItem("subjectareas")) : "";
+        gradelevel = localStorage.getItem("classnumber") ? JSON.parse(localStorage.getItem("classnumber")) : "";
+        subjectareas = localStorage.getItem("classname") ? localStorage.getItem("classname") : "";
         projectgoal = localStorage.getItem("projectgoal") ? JSON.parse(localStorage.getItem("projectgoal")) : "";
     }
     console.log("projectData from confirm", projectname, gradelevel, subjectareas, projectgoal);

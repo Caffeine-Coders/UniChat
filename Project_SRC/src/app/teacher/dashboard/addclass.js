@@ -52,7 +52,8 @@ export default function NewClassroom(){
       
         event.preventDefault();
       
-        const emailAndName = getEmailAndName();
+        const studentemail = getEmails();
+        const studentname = getNames();
         if (!className.trim() || !classNumber.trim()) {
    
           alert("Please fill all the details.");
@@ -66,7 +67,8 @@ export default function NewClassroom(){
         else {
           
           console.log("class name",className);
-          console.log("email name",emailAndName);
+          console.log("email name",studentemail);
+          console.log("names", studentname);
           const classname = JSON.stringify(className);
             localStorage.setItem("classname", classname, () => {
                 JSON.parse(localStorage.getItem("classname"));
@@ -75,9 +77,13 @@ export default function NewClassroom(){
             localStorage.setItem("classnumber", classnumber, () => {
                 JSON.parse(localStorage.getItem("classnumber"));
             });
-            const emailname = JSON.stringify(emailAndName);
-            localStorage.setItem("emailname", emailname, () => {
-                JSON.parse(localStorage.getItem("emailname"));
+            const studentemails = JSON.stringify(studentemail);
+            localStorage.setItem("studentemails", studentemails, () => {
+                JSON.parse(localStorage.getItem("studentemails"));
+            });
+            const studentnames = JSON.stringify(studentname);
+            localStorage.setItem("studentnames", studentnames, () => {
+                JSON.parse(localStorage.getItem("studentnames"));
             });
             console.log("hereee")
             console.log("email id is ",emailid)
@@ -85,23 +91,31 @@ export default function NewClassroom(){
             const randomUrl = urls[Math.floor(Math.random() * urls.length)];
             console.log("rurl", randomUrl);
             if (selectedSemester.length != 0){
-            addClass(classNumber,className,emailid,randomUrl,selectedYear + " " +selectedSemester)
+            addClass(classNumber,className,emailid,randomUrl,studentemails,selectedYear + " " +selectedSemester)
             }
             else{
-              addClass(classNumber,className,emailid,randomUrl,selectedYear )
+              addClass(classNumber,className,emailid,randomUrl,studentemails,selectedYear )
             }
             router.push('/teacher/classroom')
         //   csvParser(files)
         }
     }
-    const getEmailAndName = () => {
+    const getEmails = () => {
         if (parsedData) {
           return parsedData.map(row => {
             if (row['Email Address']) {
-              return {
-                email: row['Email Address'],
-                name: row['First Name'] + ' ' + row['Last Name'],
-              };
+              return row['Email Address'];
+            }
+            return null;
+          }).filter(entry => entry !== null);
+        }
+        return [];
+      };
+      const getNames = () => {
+        if (parsedData) {
+          return parsedData.map(row => {
+            if (row['Email Address']) {
+              return row['First Name'] + ' ' + row['Last Name'];
             }
             return null;
           }).filter(entry => entry !== null);

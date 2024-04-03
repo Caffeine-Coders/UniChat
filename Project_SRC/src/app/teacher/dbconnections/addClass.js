@@ -1,8 +1,9 @@
-export const addClass = async (gradelevel,classname,email,url, term) => {
+export const addClass = async (gradelevel,classname,email,url,students,term) => {
     let emails=[]
     emails.push(email)
-    let students=[]
     let projects=[]
+    // let students=[]
+    // students.push(student)
   const res = await fetch(`./api/addclass`, {
     method: "POST",
     headers: {
