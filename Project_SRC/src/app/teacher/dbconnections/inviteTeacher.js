@@ -1,0 +1,18 @@
+export const addTeacher = async (inviteList,number,name,year) => {
+    console.log("here in invite teachers",inviteList)
+  const res = await fetch(`./api/inviteteacher`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ 
+        inviteList: inviteList,
+        number:number,
+        name:name,
+        year:year
+     }),
+  });
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`);
+  }
+};

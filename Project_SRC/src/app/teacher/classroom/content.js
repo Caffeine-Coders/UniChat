@@ -44,6 +44,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { Button } from "@mui/material";
 import {getMembers} from "../dbconnections/getNames"
+import {addTeacher} from "../dbconnections/inviteTeacher"
 const drawerWidth = 240;
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -346,11 +347,18 @@ export default function Content() {
       let tusers = teacheremails.map((email, index) => {
         return { name: teachernames[index], email: email };
       });
-
+      const teacheradder = async(teacherinvites) =>{
+        const classnum = localStorage.getItem("classnumber")
+        const classname = localStorage.getItem("classname")
+        const classyear = localStorage.getItem("classyear")
+        await addTeacher(teacherinvites,classnum,classname,classyear)
+        await namegetter()
+      }
       let teacherinvites;
       const handleTeacherInvite = () => {
         teacherinvites = temails.filter((email) => !teacheremails.includes(email));
         console.log("emils are ",teacherinvites);
+        teacheradder(teacherinvites)
         setTeacherInvite(false)
       }
 
