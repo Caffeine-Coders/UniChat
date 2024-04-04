@@ -102,11 +102,15 @@ export default function Class() {
     },
   }));
   const detailsgetter = async(projectName) =>{
-    await getProject(projectName)
+    const details = await getProject(projectName)
+    console.log("details",details)
+    localStorage.setItem("projectname",details.projectName)
+    localStorage.setItem("projectgoal",details.projectDescription)
   }
   function ProjectCard({ projectName, projectUrl }) {
     const handleprojectclick = async() => {
       await detailsgetter(projectName)
+  
       router.push('/teacher/classroom/projectdetails');
     };
 
