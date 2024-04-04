@@ -94,20 +94,6 @@ export default function Details({fornext, forback, loader}){
     "https://img.freepik.com/free-vector/college-project-concept-illustration_114360-10541.jpg?t=st=1710252174~exp=1710255774~hmac=5dce400ab6a19f1596bd819ad10df08f6aa335a222f545e57d356afc6ba6024b&w=740", 
     "https://img.freepik.com/free-photo/people-generating-images-using-artificial-intelligence-laptop_23-2150794334.jpg?t=st=1710251710~exp=1710255310~hmac=0b18455c08ed0ae7910919240ef8786b0412a664f39e0ac9e30584e8c3262fe1&w=740",
     ];
-    const handleNext = () => {
-        if(projectgoal !== ''){
-            loader(gradelevel, subjectareas, projectgoal);
-            const pgoal = JSON.stringify(projectgoal);
-            localStorage.setItem("projectgoal", pgoal, () => {
-                JSON.parse(localStorage.getItem("projectgoal"));
-            });
-            let random = Math.floor(Math.random() * urls.length);
-            localStorage.setItem("projectimage", urls[random], () => {
-                localStorage.getItem("projectimage");
-            });
-            fornext();
-        }
-    }
     const handleDrive = () =>{
         driveInstance.handleopenPicker()
     }
@@ -191,8 +177,6 @@ export default function Details({fornext, forback, loader}){
           let index = teacherlist.indexOf(email);
           return teacheremaillist[index]
         })
-        selectedemails.push(defaultteacher)
-        teacherchecked.push(defaultteachername)
         if (typeof window !== 'undefined'){
           localStorage.setItem("invitedTeacher",teacherchecked,()=>{
           })
@@ -204,6 +188,37 @@ export default function Details({fornext, forback, loader}){
          
         }
       }
+      const handleNext = () => {
+        if(projectgoal !== ''){
+            loader(gradelevel, subjectareas, projectgoal);
+            const pgoal = JSON.stringify(projectgoal);
+            localStorage.setItem("projectgoal", pgoal, () => {
+                JSON.parse(localStorage.getItem("projectgoal"));
+            });
+            let random = Math.floor(Math.random() * urls.length);
+            localStorage.setItem("projectimage", urls[random], () => {
+                localStorage.getItem("projectimage");
+            });
+            if (typeof window!== 'undefined'){
+              let tnames = localStorage.getItem("invitedTeacher")
+              tnames=tnames.split(',')
+              let temails = localStorage.getItem("invitedTeacherEmail")
+              temails=temails.split(',')
+              if (!tnames) tnames = [];
+              if (!temails) temails = [];
+              let cleanedDefaultTeacherName = defaultteachername.replace(/"/g, '');
+              let cleanedDefaultTeacher = defaultteacher.replace(/"/g, '');
+
+              tnames.push(cleanedDefaultTeacherName);
+              temails.push(cleanedDefaultTeacher);
+              localStorage.setItem("invitedTeacher",tnames,()=>{
+              })
+              localStorage.setItem("invitedTeacherEmail",temails,()=>{
+              })
+            }
+            fornext();
+        }
+    }
     const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -245,6 +260,7 @@ export default function Details({fornext, forback, loader}){
       },
     },
   }));
+  
   
     return (
             <>
