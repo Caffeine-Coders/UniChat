@@ -349,7 +349,7 @@ export default function Content() {
 
       let teacherinvites;
       const handleTeacherInvite = () => {
-        teacherinvites = emails.filter((email) => !teacheremails.includes(email));
+        teacherinvites = temails.filter((email) => !teacheremails.includes(email));
         console.log("emils are ",teacherinvites);
         setTeacherInvite(false)
       }
