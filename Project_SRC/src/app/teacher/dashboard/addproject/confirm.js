@@ -3,10 +3,22 @@ import React, { useState, useEffect } from "react";
 // import { Box, Button, Grid, IconButton, TextField, Typography } from '@mui/material'
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-
+import {addNewProject} from '../../dbconnections/addproject'
 export default function Confirm({forback, projectData}){
     const router = useRouter()
-    const handleContinue = () => {
+    const projectadder = async() =>{
+        const projectname = localStorage.getItem("projectname")
+        const projectgoal = localStorage.getItem("projectgoal")
+        const invitedteacher = localStorage.getItem("invitedTeacherEmail")
+        const invitedstudent  = localStorage.getItem("invitedStudentEmail")
+        const nativechat = localStorage.getItem("nativeChat")
+        const cname = localStorage.getItem("classname")
+        const cnum = localStorage.getItem("classnumber")
+        const cyear = localStorage.getItem("classyear")
+        await addNewProject(projectname,projectgoal,invitedteacher,invitedstudent,nativechat,cname,cnum,cyear)
+    }
+    const handleContinue = async() => {
+        await projectadder()
         router.push('/teacher/classroom/projectdetails');
     }
     let projectname="";
