@@ -231,7 +231,7 @@ export default function Content() {
         }
         else if (indexval == 2){
             
-            namegetter()
+           
            
             setMembers(true)
 
@@ -297,7 +297,9 @@ export default function Content() {
             setSelectedIndex(indexfromlocal)
             handleListItemClick(indexfromlocal)
           }
+
         }
+        namegetter()
       }, []);
       const handleToggle = (value) => () => {
           const currentIndex = checked.indexOf(value);
