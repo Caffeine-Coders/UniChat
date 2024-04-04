@@ -179,7 +179,7 @@ export default function Class() {
           <Grid container spacing={3} justifyContent="center">
             {projects.map((project, index) => (
               <Grid item xs={12} sm={6} md={3} key={index}>
-                <ProjectCard projectName={project.projectName} />
+                <ProjectCard projectName={project.projectName} projectUrl={project.url}/>
               </Grid>
             ))}
           </Grid>) : null}

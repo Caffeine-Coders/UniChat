@@ -11,17 +11,17 @@ console.log("dataaaa in add project",slist,tlist)
 
   // Get the collection you want to work with
   const collection = db.collection("projects");
-  const result = await collection.insertOne({projectName:data.pname,projectDescription: data.pgoal, studentIds : slist, teacherIds : tlist, nativeChat : data.chat, discordServerId: "", url : ""})
+  const result = await collection.insertOne({projectName:data.pname,projectDescription: data.pgoal, studentIds : slist, teacherIds : tlist, nativeChat : data.chat, discordServerId: "", url : data.url})
     let pid = result.insertedId
     pid = pid.toString()
-    const ids = [pid]
+    // const ids = [pid]
     const newcollection = db.collection("classes")
     const targetclass = await newcollection.findOne({gradelevel:data.cnum, classname:data.cname, term:data.cyear})
-    console.log("heree in pid",ids , targetclass._id)
+    console.log("heree in pid" , targetclass._id)
     const done = await newcollection.updateOne(
         { _id: targetclass._id },
         
-        { $push: { projects:  {$each : ids}  } }
+        { $push: { projects:  pid  } }
     );
     console.log("doneeee",done)
 return new Response("Class added successfully", { status: 200 });

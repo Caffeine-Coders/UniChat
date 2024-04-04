@@ -15,8 +15,9 @@ export default function Confirm({forback, projectData}){
         const cname = localStorage.getItem("classname")
         const cnum = localStorage.getItem("classnumber")
         const cyear = localStorage.getItem("classyear")
+        const imgurl = localStorage.getItem("projectimage")
         console.log("sending request")
-        await addNewProject(projectname,projectgoal,invitedteacher,invitedstudent,nativechat,cname,cnum,cyear)
+        await addNewProject(projectname,projectgoal,invitedteacher,invitedstudent,nativechat,cname,cnum,cyear,imgurl)
     }
     const handleContinue = async() => {
         await projectadder()

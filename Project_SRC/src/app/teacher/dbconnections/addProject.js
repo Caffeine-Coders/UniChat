@@ -1,4 +1,4 @@
-export const addNewProject = async (pname,pgoal,teacherlist,studentlist,chat,cname,cnum,cyear) => {
+export const addNewProject = async (pname,pgoal,teacherlist,studentlist,chat,cname,cnum,cyear,url) => {
   console.log("here in addproject file")
   const res = await fetch(`./api/addproject`, {
 
@@ -14,7 +14,8 @@ export const addNewProject = async (pname,pgoal,teacherlist,studentlist,chat,cna
       chat:chat,
       cname:cname,
       cnum:cnum,
-      cyear:cyear
+      cyear:cyear,
+      url:url
      }),
   });
   if (!res.ok) {
