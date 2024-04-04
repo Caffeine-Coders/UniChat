@@ -26,11 +26,15 @@ export default function Confirm({forback, projectData}){
     let gradelevel="";
     let subjectareas="";
     let projectgoal="";
+    let students="";
+    let teachers="";
     if (typeof window !== 'undefined') {
         projectname = localStorage.getItem("projectname") ? JSON.parse(localStorage.getItem("projectname")) : "";
         gradelevel = localStorage.getItem("classnumber") ? JSON.parse(localStorage.getItem("classnumber")) : "";
         subjectareas = localStorage.getItem("classname") ? localStorage.getItem("classname") : "";
         projectgoal = localStorage.getItem("projectgoal") ? JSON.parse(localStorage.getItem("projectgoal")) : "";
+        students = localStorage.getItem("invitedStudent") ? localStorage.getItem("invitedStudent") : "";
+        teachers = localStorage.getItem("invitedTeacher") ? localStorage.getItem("invitedTeacher") : "";
     }
     console.log("projectData from confirm", projectname, gradelevel, subjectareas, projectgoal);
     return (
@@ -70,20 +74,20 @@ export default function Confirm({forback, projectData}){
                         <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value={projectgoal}/> 
                         </div>
                     </div>
-                    <div class="flex mt-4">
+                    {/* <div class="flex mt-4">
                         <button class="flex-shrink-0 z-10 w-40 inline-flex items-center py-2.5 px-4 text-md font-medium text-center text-gray-900 bg-gray-100 border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 " disabled>
                             Google Drive
                         </button>
                         <div class="relative w-full">
                         <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value="drive.google.com/drive/0/12345"/> 
                         </div>
-                    </div>
+                    </div> */}
                     <div class="flex mt-4">
                         <button class="flex-shrink-0 z-10 w-40 inline-flex items-center py-2.5 px-4 text-md font-medium text-center text-gray-900 bg-gray-100 border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 " disabled>
                             Co-Instructor
                         </button>
                         <div class="relative w-full">
-                        <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value="xyz@gmail.com"/> 
+                        <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value={teachers}/> 
                         </div>
                     </div>
                     <div class="flex mt-4">
@@ -91,7 +95,7 @@ export default function Confirm({forback, projectData}){
                             Students
                         </button>
                         <div class="relative w-full">
-                        <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value="student1@gmail.com, student2@gmail.com, student3@gmail.com"/> 
+                        <input class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 rounded-e-lg rounded-s-gray-100 rounded-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 cursor-not-allowed" disabled value={students}/> 
                         </div>
                     </div>
 
