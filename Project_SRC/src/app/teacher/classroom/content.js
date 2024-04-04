@@ -326,17 +326,20 @@ export default function Content() {
         studentemailsString = localStorage.getItem("studentemails")
         studentnamesString = localStorage.getItem("studentnames")
         teacheremailsString = localStorage.getItem("teacheremails")
+        teachernamesString = localStorage.getItem("teachernames")
       }
 
       // let studentemailsString1 = '["Dheeraj ","Dheeraj Kumar T","Forum Shah"]';
       console.log("studentemails",studentnamesString)
       let studentemails = studentemailsString.split(',');
       let teacheremails = teacheremailsString.split(',');
+      let studentnames = studentnamesString.split(',');
+      let teachernames = teachernamesString.split(',');
       let users = studentemails.map((email, index) => {
-        return { name: 'ran', email: email };
+        return { name: studentnames[index], email: email };
       });
       let tusers = teacheremails.map((email, index) => {
-        return { name: 'ran', email: email };
+        return { name: teachernames[index], email: email };
       });
   return (
     <>
@@ -490,7 +493,7 @@ sx={{ position: 'absolute', right: 8, top: 8 }}
             </h4>
             <h4 className="mr-4">{user.email}</h4>
           </div>
-          {index < users.length - 1 && <hr className="mt-4 h-px bg-gray-400 border-0"></hr>}
+          {index < tusers.length - 1 && <hr className="mt-4 h-px bg-gray-400 border-0"></hr>}
         </div>
       ))}
     </CustomTabPanel>
