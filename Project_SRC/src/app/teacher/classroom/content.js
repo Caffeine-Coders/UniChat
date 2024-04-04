@@ -351,7 +351,23 @@ export default function Content() {
       const handleTeacherInvite = () => {
         teacherinvites = temails.filter((email) => !teacheremails.includes(email));
         console.log("emils are ",teacherinvites);
+        teacheremails.push(...teacherinvites);
+        localStorage.setItem("teacheremails", teacheremails, () => {
+          JSON.parse(localStorage.getItem("teacheremails"));
+        });
         setTeacherInvite(false)
+        window.location.reload()
+      }
+      let studentinvites;
+      const handleStudentInvite = () => {
+        studentinvites = semails.filter((email) => !studentemails.includes(email));
+        console.log("emils are ",studentinvites);
+        studentemails.push(...studentinvites);
+        localStorage.setItem("studentemails", studentemails, () => {
+          JSON.parse(localStorage.getItem("studentemails"));
+        });
+        setStudentInvite(false)
+        window.location.reload()
       }
 
 
@@ -575,7 +591,7 @@ sx={{ position: 'absolute', right: 8 }}
                   }
               }}
                 emails={semails}
-                onChange={(emails) => setsEmails(semails)}
+                onChange={(emails) => setsEmails(emails)}
                 autoFocus={true}
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
@@ -640,7 +656,7 @@ sx={{ position: 'absolute', right: 8 }}
 </DialogContent>
 
 </div>
-<button class=" w-4/6 flex mx-auto mb-4 items-center justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
+<button class=" w-4/6 flex mx-auto mb-4 items-center justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2" onClick={handleStudentInvite}>
                                             Invite
                                           </button>
 </Dialog>
