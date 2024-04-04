@@ -208,9 +208,18 @@ export default function Details({fornext, forback, loader}){
               if (!temails) temails = [];
               let cleanedDefaultTeacherName = defaultteachername.replace(/"/g, '');
               let cleanedDefaultTeacher = defaultteacher.replace(/"/g, '');
-
-              tnames.push(cleanedDefaultTeacherName);
-              temails.push(cleanedDefaultTeacher);
+              
+              if (tnames[0] === '') {
+                tnames[0] = cleanedDefaultTeacherName;
+              } else {
+                tnames.push(cleanedDefaultTeacherName);
+              }
+              
+              if (temails[0] === '') {
+                temails[0] = cleanedDefaultTeacher;
+              } else {
+                temails.push(cleanedDefaultTeacher);
+              }
               localStorage.setItem("invitedTeacher",tnames,()=>{
               })
               localStorage.setItem("invitedTeacherEmail",temails,()=>{
