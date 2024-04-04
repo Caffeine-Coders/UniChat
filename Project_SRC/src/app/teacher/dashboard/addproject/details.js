@@ -201,9 +201,14 @@ export default function Details({fornext, forback, loader}){
             });
             if (typeof window!== 'undefined'){
               let tnames = localStorage.getItem("invitedTeacher")
+              if (tnames){
               tnames=tnames.split(',')
+              }
+
               let temails = localStorage.getItem("invitedTeacherEmail")
+              if (temails){
               temails=temails.split(',')
+              }
               if (!tnames) tnames = [];
               if (!temails) temails = [];
               let cleanedDefaultTeacherName = defaultteachername.replace(/"/g, '');
