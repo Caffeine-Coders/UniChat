@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 // import { Box, Button, Grid, IconButton, TextField, Typography } from '@mui/material'
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import {addNewProject} from '../../dbconnections/addproject'
+import {addNewProject} from '../../dbconnections/addProject'
 export default function Confirm({forback, projectData}){
     const router = useRouter()
     const projectadder = async() =>{
@@ -15,6 +15,7 @@ export default function Confirm({forback, projectData}){
         const cname = localStorage.getItem("classname")
         const cnum = localStorage.getItem("classnumber")
         const cyear = localStorage.getItem("classyear")
+        console.log("sending request")
         await addNewProject(projectname,projectgoal,invitedteacher,invitedstudent,nativechat,cname,cnum,cyear)
     }
     const handleContinue = async() => {

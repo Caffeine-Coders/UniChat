@@ -1,5 +1,7 @@
 export const addNewProject = async (pname,pgoal,teacherlist,studentlist,chat,cname,cnum,cyear) => {
+  console.log("here in addproject file")
   const res = await fetch(`./api/addproject`, {
+
     method: "POST",
     headers: {
       "Content-Type": "application/json",

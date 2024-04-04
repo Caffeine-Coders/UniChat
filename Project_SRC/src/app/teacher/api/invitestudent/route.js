@@ -11,7 +11,7 @@ console.log("route file",data.inviteList)
   const collection = db.collection("classes");
   const classdata = await collection.findOne({gradelevel:data.number, classname: data.name, term: data.year})
   const result = await collection.updateOne(
-    { _id: classdata._id }, // Assuming _id is the unique identifier of your class document
+    { _id: classdata._id }, 
     { $push: { students: { $each: data.inviteList } } }
 );
 return new Response("Class added successfully", { status: 200 });
