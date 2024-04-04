@@ -45,6 +45,7 @@ import Tab from '@mui/material/Tab';
 import { Button } from "@mui/material";
 import {getMembers} from "../dbconnections/getNames"
 import {addTeacher} from "../dbconnections/inviteTeacher"
+import {addStudent} from "../dbconnections/inviteStudent"
 const drawerWidth = 240;
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -354,11 +355,18 @@ export default function Content() {
         await addTeacher(teacherinvites,classnum,classname,classyear)
         await namegetter()
       }
+      const studentadder = async(studentinvites) =>{
+        const classnum = localStorage.getItem("classnumber")
+        const classname = localStorage.getItem("classname")
+        const classyear = localStorage.getItem("classyear")
+        await addStudent(studentinvites,classnum,classname,classyear)
+        await namegetter()
+      }
       let teacherinvites;
-      const handleTeacherInvite = () => {
+      const handleTeacherInvite = async() => {
         teacherinvites = temails.filter((email) => !teacheremails.includes(email));
         console.log("emils are ",teacherinvites);
-        teacheradder(teacherinvites)
+        await teacheradder(teacherinvites)
         teacheremails.push(...teacherinvites);
         localStorage.setItem("teacheremails", teacheremails, () => {
           JSON.parse(localStorage.getItem("teacheremails"));
@@ -367,9 +375,10 @@ export default function Content() {
         window.location.reload()
       }
       let studentinvites;
-      const handleStudentInvite = () => {
+      const handleStudentInvite = async() => {
         studentinvites = semails.filter((email) => !studentemails.includes(email));
         console.log("emils are ",studentinvites);
+        await studentadder(studentinvites)
         studentemails.push(...studentinvites);
         localStorage.setItem("studentemails", studentemails, () => {
           JSON.parse(localStorage.getItem("studentemails"));
