@@ -21,6 +21,7 @@ import { styled, alpha, useTheme } from '@mui/material/styles';
 import { useRouter } from 'next/navigation';
 import {ProjectList} from '../dbconnections/getProject'
 import {getProject} from '../dbconnections/getProjectDetails'
+import { getMembers } from '../dbconnections/getNames';
 export default function Class() {
   const router = useRouter();
   const [classname, setClassname] = React.useState('');
@@ -107,6 +108,18 @@ export default function Class() {
     localStorage.setItem("projectname",details.projectName)
     localStorage.setItem("projectgoal",details.projectDescription)
     localStorage.setItem("nativeChat",details.nativeChat)
+    console.log("details here",details.teacherIds,details.studentIds)
+    localStorage.setItem("projectTemails",details.teacherIds)
+    localStorage.setItem("projectSemails",details.studentIds)
+    const semail = localStorage.getItem("projectSemails")
+    const temail = localStorage.getItem("projectTemails")
+    const names = await getMembers(semail,temail)
+    // const names = await getMembers(details.studentIds,details.teacherIds)
+    console.log("names",names)
+    const {snames,tnames } = names
+    localStorage.setItem("projectTnames",tnames)
+    localStorage.setItem("projectSnames",snames)
+    console.log("split working",snames,tnames)
   }
   function ProjectCard({ projectName, projectUrl }) {
     const handleprojectclick = async() => {

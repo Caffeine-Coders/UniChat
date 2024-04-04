@@ -49,27 +49,37 @@ const [value, setValue] = React.useState(0);
     setValue(newValue);
   };
 const [memberStudents, setMemberStudents] = React.useState([]) 
+const [memberStudentsEmails, setMemberStudentsEmails] = React.useState([]) 
 const [memberTeachers, setMemberTeachers] = React.useState([])
+const [memberTeachersEmails, setMemberTeachersEmails] = React.useState([])
 const [pname,setpname] = React.useState("")
 const [pgoal,setpgoal] = React.useState("")
 const [grade,setgrade] = React.useState("")
 const [subject,setsubject] = React.useState("")
 let tempData=[]
 let tempTData = []
+let tempEmail = []
+let tempTEmail = []
   React.useEffect(() => {
       if (typeof window !== 'undefined') {
-        tempData  = localStorage.getItem('invitedStudent')
-        tempTData = localStorage.getItem('invitedTeacher')
+        tempData  = localStorage.getItem('projectSnames')
+        tempTData = localStorage.getItem('projectTnames')
+        tempEmail = localStorage.getItem('projectSemails')
+        tempTEmail = localStorage.getItem('projectTemails')
         if (tempData!==null && (tempData.length)>0){
         const tempArray = tempData.split(',')
         console.log("arr",tempArray)
         setMemberStudents(tempArray)
+        const temp2Array = tempEmail.split(',')
+        setMemberStudentsEmails(temp2Array)
         console.log("members found",memberStudents)
         }
         if (tempTData!==null && (tempTData.length)>0){
           const tempTArray = tempTData.split(',')
           console.log("got it teacher",tempTArray)
           setMemberTeachers(tempTArray)
+          const tempT2Array = tempTEmail.split(',')
+          setMemberTeachersEmails(tempT2Array)
         }
       }
       const pname = localStorage.getItem("projectname").replace(/"/g, "")
@@ -161,7 +171,7 @@ let tempTData = []
                   <span style={{ fontSize: 'inherit' }}>{student}</span>
                 </h3>
                 <div className="flex items-center text-xl">
-                  <h3 className="mr-4">somemeial@gmail.com</h3>
+                  <h3 className="mr-4">{memberStudentsEmails[index]}</h3>
                   <button style={{ backgroundColor: 'transparent', border: 'none', padding: '5px' }}>
                     <DeleteIcon style={{ fontSize: 'inherit' }} />
                   </button>
@@ -181,7 +191,7 @@ let tempTData = []
                   <span style={{ fontSize: 'inherit' }}>{teacher}</span>
                 </h3>
                 <div className="flex items-center text-xl">
-                  <h3 className="mr-4">somemeial@gmail.com</h3>
+                  <h3 className="mr-4">{memberTeachersEmails[index]}</h3>
                   <button style={{ backgroundColor: 'transparent', border: 'none', padding: '5px' }}>
                     <DeleteIcon style={{ fontSize: 'inherit' }} />
                   </button>
