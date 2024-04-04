@@ -50,6 +50,10 @@ const [value, setValue] = React.useState(0);
   };
 const [memberStudents, setMemberStudents] = React.useState([]) 
 const [memberTeachers, setMemberTeachers] = React.useState([])
+const [pname,setpname] = React.useState("")
+const [pgoal,setpgoal] = React.useState("")
+const [grade,setgrade] = React.useState("")
+const [subject,setsubject] = React.useState("")
 let tempData=[]
 let tempTData = []
   React.useEffect(() => {
@@ -68,6 +72,14 @@ let tempTData = []
           setMemberTeachers(tempTArray)
         }
       }
+      const pname = localStorage.getItem("projectname").replace(/"/g, "")
+      setpname(pname)
+      const pgoal = localStorage.getItem("projectgoal").replace(/"/g,"")
+      setpgoal(pgoal)
+      const grade = localStorage.getItem("classnumber")
+      setgrade(grade)
+      const subject = localStorage.getItem("classname")
+      setsubject(subject)
   }, []);
 
 
@@ -103,9 +115,9 @@ let tempTData = []
                 padding: '20px',
                 color: 'white',
               }}>
-                <h3 style={{ fontWeight: 'bolder', fontSize: '40px', letterSpacing: '2px' }}>UniChat Project!</h3>
-                <span style={{}}>Grade Level : Masters</span><br/>
-                <span style={{}}>Subject Areas : Software Engineering</span>
+                <h3 style={{ fontWeight: 'bolder', fontSize: '40px', letterSpacing: '2px' }}>{pname}!</h3>
+                <span style={{}}>Grade Level : {grade}</span><br/>
+                <span style={{}}>Subject Areas : {subject}</span>
               </div>
             </div>
         </Grid>
@@ -120,7 +132,7 @@ let tempTData = []
           <Divider variant="middle" sx={{color:'black'}}/>
           <div class="ml-6">
             <Typography variant="body1" component="p" sx={{fontSize:'20px'}}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.    
+              {pgoal}
             </Typography>
           </div>
         </Grid>
@@ -178,31 +190,6 @@ let tempTData = []
                <hr class=" mt-4 h-px  bg-gray-400 border-0"></hr>
                </>
             ))}
-            {/* <div class="mt-4 rounded-lg flex justify-between space-between">
-              <h3 class="flex text-xl"  >
-                <PersonIcon style={{ fontSize: 'inherit' }} />
-                <span style={{ fontSize: 'inherit' }}>Prof. Forum Dipen Shah</span>
-              </h3>
-              <div class="flex items-center text-xl">
-                <h3 class="mr-4">somemeial@gmail.com</h3>
-                <button style={{ backgroundColor: 'transparent', border: 'none', padding: '5px' }}>
-                  <DeleteIcon style={{ fontSize: 'inherit' }} />
-                </button>
-              </div>
-            </div>
-            <hr class=" mt-4 h-px  bg-gray-400 border-0"></hr>
-            <div class="mt-4 rounded-lg flex justify-between space-between">
-              <h3 class="flex text-xl"  >
-                <PersonIcon style={{ fontSize: 'inherit' }} />
-                <span style={{ fontSize: 'inherit' }}>Prof. Dheeraj Kumar Thanda</span>
-              </h3>
-              <div class="flex items-center text-xl">
-                <h3 class="mr-4">somemeial@gmail.com</h3>
-                <button style={{ backgroundColor: 'transparent', border: 'none', padding: '5px' }}>
-                  <DeleteIcon style={{ fontSize: 'inherit' }} />
-                </button>
-              </div>
-            </div> */}
             </CustomTabPanel>
           </Box>
           </div>
