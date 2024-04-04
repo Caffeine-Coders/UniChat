@@ -272,7 +272,6 @@ export default function Content() {
         setTeacherInvite(true)
       }
     }
-    const studentlist = ['Sai Vishnu Anudeep Kadiyala' , 'Satwik Bhasin', 'Rachel Green', 'Michael Scott']
     const handlemembersClose = () => {
         setMembers(false);
     };
@@ -343,6 +342,18 @@ export default function Content() {
       let tusers = teacheremails.map((email, index) => {
         return { name: teachernames[index], email: email };
       });
+
+      let teacherinvites;
+      const handleTeacherInvite = () => {
+        teacherinvites = emails.filter((email) => !teacheremails.includes(email));
+        console.log("emils are ",teacherinvites);
+        setTeacherInvite(false)
+      }
+
+
+
+
+
   return (
     <>
      <Box sx={{ display: 'flex' }}>
@@ -733,7 +744,7 @@ sx={{ position: 'absolute', right: 8 }}
 
 
 </div>
-<button class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2">
+<button class="w-4/6 mx-auto mb-4 justify-center font-semibold tracking-wider  rounded-2xl bg-opacity-60 text-black bg-discordpurple-0 px-4 py-2" onClick={handleTeacherInvite}>
       Invite
     </button>
 </Dialog>
