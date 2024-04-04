@@ -20,6 +20,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { styled, alpha, useTheme } from '@mui/material/styles';
 import { useRouter } from 'next/navigation';
 import {ProjectList} from '../dbconnections/getProject'
+import {getProject} from '../dbconnections/getProjectDetails'
 export default function Class() {
   const router = useRouter();
   const [classname, setClassname] = React.useState('');
@@ -100,9 +101,12 @@ export default function Class() {
       },
     },
   }));
-  
+  const detailsgetter = async(projectName) =>{
+    await getProject(projectName)
+  }
   function ProjectCard({ projectName, projectUrl }) {
-    const handleprojectclick = () => {
+    const handleprojectclick = async() => {
+      await detailsgetter(projectName)
       router.push('/teacher/classroom/projectdetails');
     };
 
