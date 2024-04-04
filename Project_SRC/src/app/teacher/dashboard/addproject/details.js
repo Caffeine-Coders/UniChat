@@ -49,6 +49,7 @@ export default function Details({fornext, forback, loader}){
         }
     }, []);
     const [studentchecked, setstudentChecked] = React.useState([]);
+    const [studentemailchecked, setstudentemailChecked] = React.useState([]);
     const handlestudentToggle = (value) => () => {
       const currentIndex = studentchecked.indexOf(value);
       const newChecked = [...studentchecked];
@@ -142,10 +143,16 @@ export default function Details({fornext, forback, loader}){
     }
 
     const inviteStudentHandler = () =>{
-        console.log("heree", studentchecked)
+        // let getemails = studentchecked.split(',')
+        let selectedemails = studentchecked.map((email) => {
+          let index = studentlist.indexOf(email);
+          return studentemaillist[index]
+        })
+        console.log("student here",selectedemails)
         if (typeof window !== 'undefined'){
           localStorage.setItem("invitedStudent", studentchecked, () => {
-          
+              });
+          localStorage.setItem("invitedStudentEmail", selectedemails, () => {
               });
           const tempdata = localStorage.getItem("invitedStudent")
           console.log("from local",tempdata)
@@ -172,9 +179,14 @@ export default function Details({fornext, forback, loader}){
     }
       const inviteTeacherHandler = () =>{
         console.log("teacher here",teacherchecked)
+        let selectedemails = teacherchecked.map((email) => {
+          let index = teacherlist.indexOf(email);
+          return teacheremaillist[index]
+        })
         if (typeof window !== 'undefined'){
           localStorage.setItem("invitedTeacher",teacherchecked,()=>{
-  
+          })
+          localStorage.setItem("invitedTeacherEmail",selectedemails,()=>{
           })
           const tempdata = localStorage.getItem("invitedTeacher")
           console.log("from local",tempdata)
