@@ -85,26 +85,27 @@ export default function Details({fornext, forback, loader}){
     const newChecked = allChecked ? [] : [...teacherlist];
     setteacherChecked(newChecked);
   };
+    const urls = ["https://img.freepik.com/free-photo/people-generating-images-using-artificial-intelligence-laptop_23-2150794334.jpg?t=st=1710251710~exp=1710255310~hmac=0b18455c08ed0ae7910919240ef8786b0412a664f39e0ac9e30584e8c3262fe1&w=740",
+    "https://img.freepik.com/free-vector/college-project-concept-illustration_114360-10541.jpg?t=st=1710252174~exp=1710255774~hmac=5dce400ab6a19f1596bd819ad10df08f6aa335a222f545e57d356afc6ba6024b&w=740", 
+    "https://img.freepik.com/free-vector/web-development-concept-with-programmer-ar_107791-17049.jpg?t=st=1710252429~exp=1710256029~hmac=4150b91e1f40f61675e16e0d974a202899f1fef8cd31cf613aadd6b47d11c171&w=740",
+    "https://img.freepik.com/free-vector/happy-students-pupils-watching-study-webinar-isolated-flat-illustration_74855-14070.jpg?t=st=1710252513~exp=1710256113~hmac=e043a78e8104845d08dc4c4f41a5f677332bd26325aca883c2600e7f571a42b7&w=740",
+    "https://img.freepik.com/free-vector/web-development-concept-with-programmer-ar_107791-17049.jpg?t=st=1710252429~exp=1710256029~hmac=4150b91e1f40f61675e16e0d974a202899f1fef8cd31cf613aadd6b47d11c171&w=740",
+    "https://img.freepik.com/free-vector/happy-students-pupils-watching-study-webinar-isolated-flat-illustration_74855-14070.jpg?t=st=1710252513~exp=1710256113~hmac=e043a78e8104845d08dc4c4f41a5f677332bd26325aca883c2600e7f571a42b7&w=740", 
+    "https://img.freepik.com/free-vector/college-project-concept-illustration_114360-10541.jpg?t=st=1710252174~exp=1710255774~hmac=5dce400ab6a19f1596bd819ad10df08f6aa335a222f545e57d356afc6ba6024b&w=740", 
+    "https://img.freepik.com/free-photo/people-generating-images-using-artificial-intelligence-laptop_23-2150794334.jpg?t=st=1710251710~exp=1710255310~hmac=0b18455c08ed0ae7910919240ef8786b0412a664f39e0ac9e30584e8c3262fe1&w=740",
+    ];
     const handleNext = () => {
-        if(gradelevel !== '' && subjectareas !== '' && projectgoal !== ''){
-            console.log("gradelevel", gradelevel);
-            console.log("subjectareas", subjectareas);
-            console.log("projectgoal", projectgoal);
+        if(projectgoal !== ''){
             loader(gradelevel, subjectareas, projectgoal);
-            const glevel = JSON.stringify(gradelevel);
-            const sareas = JSON.stringify(subjectareas);
             const pgoal = JSON.stringify(projectgoal);
-            localStorage.setItem("gradelevel", glevel, () => {
-                JSON.parse(localStorage.getItem("gradelevel"));
-            });
-            localStorage.setItem("subjectareas", sareas, () => {
-                JSON.parse(localStorage.getItem("subjectareas"));
-            });
             localStorage.setItem("projectgoal", pgoal, () => {
                 JSON.parse(localStorage.getItem("projectgoal"));
             });
+            let random = Math.floor(Math.random() * urls.length);
+            localStorage.setItem("projectimage", urls[random], () => {
+                localStorage.getItem("projectimage");
+            });
             fornext();
-
         }
     }
     const handleDrive = () =>{
@@ -272,14 +273,15 @@ export default function Details({fornext, forback, loader}){
                         </label>
                     </div>
                     <div class="relative h-11 w-full min-w-[200px] mt-7">
-                    <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">Messaging</InputLabel>
+                    <FormControl fullWidth required={true}>
+                      <InputLabel id="demo-simple-select-label" required={true}>Messaging</InputLabel>
                       <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         label="Messaging"
                         value={messaging}
                         onChange={handleMessenger}
+                        required={true}
                       >
                         <MenuItem value={"10"}>Use Discord Server</MenuItem>
                         <MenuItem value={"20"}>Use UniChat Messaging</MenuItem>
