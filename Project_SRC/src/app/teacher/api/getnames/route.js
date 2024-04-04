@@ -7,7 +7,7 @@ export async function POST(request) {
     const data = await request.json();
     const temails = data.temails.split(",")
     const semails = data.semails.split(",") 
-    console.log("route here",data, "bsdna")
+    console.log("route here",data)
     
   // Connect to the MongoDB database
     const db = client.db("universityatalbanyDB");
