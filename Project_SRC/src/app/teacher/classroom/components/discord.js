@@ -17,9 +17,13 @@ import {
     MessageSeparator
 } from "@chatscope/chat-ui-kit-react"; 
 export default function Discord() {
-    let msgoption = 0
+    let msgoption = 10
   if (typeof window!== 'undefined'){
-    msgoption = localStorage.getItem("messageoption")
+    let nativeChat = localStorage.getItem("nativeChat")
+    if (nativeChat === true || nativeChat === "true"){
+
+        msgoption = 20
+    }
     console.log("found this",msgoption)
     
   }
@@ -30,7 +34,7 @@ export default function Discord() {
             <span class="flex text-sm" >
             <ArrowBackIcon style={{height:'20px'}}/> Classroom</span>
             </a>
-            {msgoption==="10" ? 
+            {msgoption===10 ? 
        <div style={{ height: '85vh', width: '100%', borderRadius: '10px', overflow: 'hidden', position: 'relative' }}>
         
         <iframe
