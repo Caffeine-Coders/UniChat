@@ -120,7 +120,8 @@ export default function Details({fornext, forback, loader}){
     const studentemaillist = studentemailsString.split(',');
     const teacherlist = teachernamesString.split(',');
     const teacheremaillist = teacheremailsString.split(',');
-    let defaultindex = teacheremaillist.indexOf(defaultteacher);
+    let cleanedDefaultTeacher = defaultteacher.replace(/"/g, '');
+    let defaultindex = teacheremaillist.indexOf(cleanedDefaultTeacher);
     teacherlist.splice(defaultindex,1);
     teacheremaillist.splice(defaultindex,1);
     const handlestudent = () => {
