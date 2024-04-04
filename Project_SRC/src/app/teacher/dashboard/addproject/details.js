@@ -114,8 +114,20 @@ export default function Details({fornext, forback, loader}){
     }
     const [inviteTeacher,setTeacherInvite] = useState(false)
     const [inviteStudent,setStudentInvite] = useState(false)
-    const studentlist = ['Sai Vishnu Anudeep Kadiyala' , 'Satwik Bhasin', 'Rachel Green', 'Michael Scott']
-    const teacherlist = ['Mei-Hwa Chen', 'Forum Dipen Shah', 'Dheeraj Kumar Thanda']
+    let studentemailsString;
+    let studentnamesString;
+    let teacheremailsString;
+    let teachernamesString;
+    if (typeof window!== 'undefined'){
+      studentemailsString = localStorage.getItem("studentemails")
+      studentnamesString = localStorage.getItem("studentnames")
+      teacheremailsString = localStorage.getItem("teacheremails")
+      teachernamesString = localStorage.getItem("teachernames")
+    }
+    const studentlist = studentnamesString.split(',');
+    const studentemaillist = studentemailsString.split(',');
+    const teacherlist = teachernamesString.split(',');
+    const teacheremaillist = teacheremailsString.split(',');
     const handlestudent = () => {
         setStudentInvite(true)
     }
@@ -146,11 +158,16 @@ export default function Details({fornext, forback, loader}){
       const val = event.target.value
       setMessaging(val)
       // if (typeof window!== 'undefined'){
-        localStorage.setItem("messageoption",val, ()=>{
-          // console.log("done")
-          const verify = localStorage.getItem("messageoption")
-          console.log("got this",verify)
-        })
+        if (val === "10"){
+          localStorage.setItem("nativeChat",false, ()=>{
+            localStorage.getItem("nativeChat")
+          })
+        }
+        else{
+          localStorage.setItem("nativeChat",true, ()=>{
+            localStorage.getItem("nativeChat")
+          })
+        }
       // }
     }
       const inviteTeacherHandler = () =>{
@@ -260,12 +277,6 @@ export default function Details({fornext, forback, loader}){
                        
                     </div>
                     <div class="items-center mx-auto content-center justify-center flex mt-10">
-                        <button onClick={handleDrive} class="border-2 border-black h-32 w-40 rounded-xl items-center bg-white ">
-                            <div class="flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" data-name="Layer 1" viewBox="0 0 32 32" id="google-drive"><path fill="#4285f4" d="M29.5,21l-3.1708,5.5489A3.07,3.07,0,0,1,23.6459,28H8.3541a3.07,3.07,0,0,1-2.6833-1.4511L4.3687,24.27,9.7578,21Z"></path><path fill="#00ac47" d="M12.3822,4.13a3.2262,3.2262,0,0,0-1.7067,1.4276L2.9591,18.76a3.07,3.07,0,0,0-.1012,3.0489l1.53,2.4658L9.7579,21,16,10.32Z"></path><path fill="#0066da" d="M9.7578,21H2.568a2.6543,2.6543,0,0,0,.29.8089L4.38,24.2632l-.0115.007L5.6709,26.549A2.8267,2.8267,0,0,0,7.008,27.6974L9.7578,21l-.0081.0049Z"></path><path fill="#ffba00" d="M19.6068,4.13a3.2256,3.2256,0,0,1,1.7066,1.4276L29.03,18.76a3.07,3.07,0,0,1,.1013,3.0489l-1.5295,2.4658L22.2311,21,15.9889,10.32Z"></path><path fill="#ea4435" d="M22.2311,21h7.19a2.6541,2.6541,0,0,1-.29.8089l-1.5224,2.4544.0116.007L26.3181,26.549a2.8272,2.8272,0,0,1-1.3371,1.1484L22.2312,21l.0081.0049Z"></path><path fill="#188038" d="M19.6155,4.1342l.0023-.004a2.7726,2.7726,0,0,0-.3609-.0983L16,4l-3.2569.0319a2.7726,2.7726,0,0,0-.3609.0983,3.0224,3.0224,0,0,0-.367.1666L15.9889,10.32,19.977,4.2993A3.03,3.03,0,0,0,19.6155,4.1342Z"></path></svg>
-                            </div>
-                            Google Drive
-                        </button>
                         
                         <button class="border-2 border-black h-32 w-40 rounded-xl ml-8  bg-white" onClick={handleTeacher}>
                             <div class="flex items-center justify-center">
