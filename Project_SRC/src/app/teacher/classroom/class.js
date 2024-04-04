@@ -106,6 +106,7 @@ export default function Class() {
     console.log("details",details)
     localStorage.setItem("projectname",details.projectName)
     localStorage.setItem("projectgoal",details.projectDescription)
+    localStorage.setItem("nativeChat",details.nativeChat)
   }
   function ProjectCard({ projectName, projectUrl }) {
     const handleprojectclick = async() => {
