@@ -43,6 +43,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { Button } from "@mui/material";
+import {getMembers} from "../dbconnections/getNames"
 const drawerWidth = 240;
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -200,6 +201,18 @@ export default function Content() {
     const handleLogout = () => {
         signoutinstance.signout();
       }
+    const namegetter = async() =>{
+        const semails = localStorage.getItem("studentemails")
+        const temails = localStorage.getItem("teacheremails")
+        
+        console.log("trial got here",semails,temails)
+        const temp2 = await getMembers(semails,temails)
+        console.log("tempp in content",temp2)
+        const {snames,tnames} = temp2
+        console.log("split done",snames,tnames)
+        localStorage.setItem("teachernames",tnames)
+        localStorage.setItem("studentnames",snames)
+    }
       const handleListItemClick = (index) => { 
         
         console.log("clicked",index)
@@ -217,7 +230,11 @@ export default function Content() {
             setNewProject(false)
         }
         else if (indexval == 2){
+            
+            namegetter()
+           
             setMembers(true)
+
         }
       };
   
@@ -311,7 +328,7 @@ export default function Content() {
         teacheremailsString = localStorage.getItem("teacheremails")
       }
 
-      let studentemailsString1 = '["Dheeraj ","Dheeraj Kumar T","Forum Shah"]';
+      // let studentemailsString1 = '["Dheeraj ","Dheeraj Kumar T","Forum Shah"]';
       console.log("studentemails",studentnamesString)
       let studentemails = studentemailsString.split(',');
       let teacheremails = teacheremailsString.split(',');

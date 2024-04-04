@@ -8,9 +8,9 @@ export async function GET(request) {
   // Get the collection you want to work with
     const collection = db.collection("classes");
     const classes = await collection.find().toArray()
-    console.log("classes",classes)
+    // console.log("classes",classes)
   if (classes) {
-    console.log("all classes", classes)
+    // console.log("all classes", classes)
     return NextResponse.json(classes)
     }
     

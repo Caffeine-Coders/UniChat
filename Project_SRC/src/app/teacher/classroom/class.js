@@ -30,8 +30,8 @@ export default function Class() {
     const handleCreate = () =>{
      
     }
-    const projectgetter = async(parsedClassname, parsedClassnumber, parsedClassyear,semails,temails) =>{
-        const tempprojects = await ProjectList(parsedClassname,parsedClassnumber,parsedClassyear,semails,temails)
+    const projectgetter = async(parsedClassname, parsedClassnumber, parsedClassyear) =>{
+        const tempprojects = await ProjectList(parsedClassname,parsedClassnumber,parsedClassyear)
           setProjects(tempprojects)
     }
     React.useEffect(() => {
@@ -50,10 +50,10 @@ export default function Class() {
           setClassname(parsedClassname);
           setClassnumber(parsedClassnumber);
           setClassyear(storedClassyear)
-          const semails = localStorage.getItem("studentemails")
-          const temails = localStorage.getItem("teacheremails")
-          console.log("got it",parsedClassname,parsedClassnumber,parsedClassyear,semails,temails)
-          projectgetter(parsedClassname,parsedClassnumber,parsedClassyear,semails,temails) 
+          // const semails = localStorage.getItem("studentemails")
+          // const temails = localStorage.getItem("teacheremails")
+          console.log("got it",parsedClassname,parsedClassnumber,parsedClassyear)
+          projectgetter(parsedClassname,parsedClassnumber,parsedClassyear) 
         }
       }
     }, []);

@@ -6,9 +6,9 @@ import { ObjectId } from "mongodb";
 export async function POST(request) {
     const data = await request.json();
     
-    const temails = data.temails.split(",")
-    const semails = data.semails.split(",") 
-    console.log("route here")
+    // const temails = data.temails.split(",")
+    // const semails = data.semails.split(",") 
+    // console.log("route here")
     
   // Connect to the MongoDB database
     const db = client.db("universityatalbanyDB");
@@ -24,36 +24,36 @@ export async function POST(request) {
         // console.log("proj",project)
         projectdata.push(project)
     }
-    const teachercollection = db.collection("teachers")
-    const tnames = []
-    for (const teacheremail of temails){
-      const teacher = await teachercollection.findOne({email: teacheremail})
-      if (teacher){
-      tnames.push(teacher.name)
-      }
-    }
-    const studentcollection = db.collection("students")
-    const snames = []
-    for (const studentemail of semails){
-      const student = await studentcollection.findOne({email: studentemail})
-      if (student){
-      snames.push(student.name)
-      }
-    }
+    // const teachercollection = db.collection("teachers")
+    // const tnames = []
+    // for (const teacheremail of temails){
+    //   const teacher = await teachercollection.findOne({email: teacheremail})
+    //   if (teacher){
+    //   tnames.push(teacher.name)
+    //   }
+    // }
+    // const studentcollection = db.collection("students")
+    // const snames = []
+    // for (const studentemail of semails){
+    //   const student = await studentcollection.findOne({email: studentemail})
+    //   if (student){
+    //   snames.push(student.name)
+    //   }
+    // }
     
-    if (typeof window !== 'undefined'){
-      localStorage.setItem("teachernames",tnames, () =>{
+    // if (typeof window !== 'undefined'){
+    //   localStorage.setItem("teachernames",tnames, () =>{
 
-      })
-      localStorage.setItem("studentnames",snames, () =>{
+    //   })
+    //   localStorage.setItem("studentnames",snames, () =>{
 
-      })
-    }
+    //   })
+    // }
     // localStorage.setItem("teachernames",tnames)
   if (classes) {
     // console.log("all projects", projectdata)
-    console.log("tnames",tnames)
-    console.log("snames",snames)
+    // console.log("tnames",tnames)
+    // console.log("snames",snames)
     return NextResponse.json(projectdata)
     }
     
