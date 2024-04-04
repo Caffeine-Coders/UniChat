@@ -34,6 +34,7 @@ export default function Class() {
         const tempprojects = await ProjectList(parsedClassname,parsedClassnumber,parsedClassyear)
           setProjects(tempprojects)
     }
+    console.log("projects",projects)
     React.useEffect(() => {
       if (typeof window !== 'undefined') {
         const storedClassname = localStorage.getItem("classname");
@@ -174,13 +175,14 @@ export default function Class() {
       </Grid> 
   
       <Grid style={{position:'relative', marginTop:'3%', width:'100%', marginLeft:'30px'}}>
+        {projects[0]!==null ? (
           <Grid container spacing={3} justifyContent="center">
             {projects.map((project, index) => (
               <Grid item xs={12} sm={6} md={3} key={index}>
                 <ProjectCard projectName={project.projectName} />
               </Grid>
             ))}
-          </Grid>
+          </Grid>) : null}
         </Grid> 
       <Grid item xs={12} sx={{display:'flex', justifyContent: 'center'}}>
           <Pagination count={5}  renderItem={(item) => (

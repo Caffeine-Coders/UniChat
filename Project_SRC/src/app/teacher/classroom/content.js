@@ -340,14 +340,23 @@ export default function Content() {
       console.log("studentemails",studentnamesString)
       let studentemails = studentemailsString.split(',');
       let teacheremails = teacheremailsString.split(',');
-      let studentnames = studentnamesString.split(',');
-      let teachernames = teachernamesString.split(',');
-      let users = studentemails.map((email, index) => {
-        return { name: studentnames[index], email: email };
-      });
-      let tusers = teacheremails.map((email, index) => {
-        return { name: teachernames[index], email: email };
-      });
+      let studentnames;
+      let users =[];
+      let tusers = [];
+      if(studentnamesString){
+        studentnames = studentnamesString.split(',');
+        users = studentemails.map((email, index) => {
+          return { name: studentnames[index], email: email };
+        });
+      }
+      let teachernames;
+      if(teachernamesString){ 
+        teachernames = teachernamesString.split(',');
+        tusers = teacheremails.map((email, index) => {
+          return { name: teachernames[index], email: email };
+        });
+      }
+
       const teacheradder = async(teacherinvites) =>{
         const classnum = localStorage.getItem("classnumber")
         const classname = localStorage.getItem("classname")

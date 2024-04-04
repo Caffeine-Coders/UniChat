@@ -120,16 +120,23 @@ export default function Details({fornext, forback, loader}){
     let studentnamesString;
     let teacheremailsString;
     let teachernamesString;
+    let defaultteacher;
+    let defaultteachername;
     if (typeof window!== 'undefined'){
       studentemailsString = localStorage.getItem("studentemails")
       studentnamesString = localStorage.getItem("studentnames")
       teacheremailsString = localStorage.getItem("teacheremails")
       teachernamesString = localStorage.getItem("teachernames")
+      defaultteacher = localStorage.getItem("Temail")
+      defaultteachername = localStorage.getItem("Tname")
     }
     const studentlist = studentnamesString.split(',');
     const studentemaillist = studentemailsString.split(',');
     const teacherlist = teachernamesString.split(',');
     const teacheremaillist = teacheremailsString.split(',');
+    let defaultindex = teacheremaillist.indexOf(defaultteacher);
+    teacherlist.splice(defaultindex,1);
+    teacheremaillist.splice(defaultindex,1);
     const handlestudent = () => {
         setStudentInvite(true)
     }
@@ -184,6 +191,8 @@ export default function Details({fornext, forback, loader}){
           let index = teacherlist.indexOf(email);
           return teacheremaillist[index]
         })
+        selectedemails.push(defaultteacher)
+        teacherchecked.push(defaultteachername)
         if (typeof window !== 'undefined'){
           localStorage.setItem("invitedTeacher",teacherchecked,()=>{
           })
