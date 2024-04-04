@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import {addNewProject} from '../../dbconnections/addProject'
+import { getMembers } from "../../dbconnections/getNames";
+import {getProject} from '../../dbconnections/getProjectDetails'
 export default function Confirm({forback, projectData}){
     const router = useRouter()
     const projectadder = async() =>{
@@ -18,6 +20,23 @@ export default function Confirm({forback, projectData}){
         const imgurl = localStorage.getItem("projectimage")
         console.log("sending request")
         await addNewProject(projectname,projectgoal,invitedteacher,invitedstudent,nativechat,cname,cnum,cyear,imgurl)
+        const details = await getProject(projectname)
+    console.log("details",details)
+    localStorage.setItem("projectname",details.projectName)
+    localStorage.setItem("projectgoal",details.projectDescription)
+    localStorage.setItem("nativeChat",details.nativeChat)
+    console.log("details here",details.teacherIds,details.studentIds)
+    localStorage.setItem("projectTemails",details.teacherIds)
+    localStorage.setItem("projectSemails",details.studentIds)
+    const semail = localStorage.getItem("projectSemails")
+    const temail = localStorage.getItem("projectTemails")
+    const names = await getMembers(semail,temail)
+    // const names = await getMembers(details.studentIds,details.teacherIds)
+    console.log("names",names)
+    const {snames,tnames } = names
+    localStorage.setItem("projectTnames",tnames)
+    localStorage.setItem("projectSnames",snames)
+    console.log("split working",snames,tnames)
     }
     const handleContinue = async() => {
         await projectadder()
