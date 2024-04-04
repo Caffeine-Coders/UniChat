@@ -260,6 +260,8 @@ export default function Content() {
     const [inviteStudent,setStudentInvite] = useState(false)
     const [value, setValue] = React.useState(0);
     const [inviteTeacher,setTeacherInvite] = useState(false)
+    const [semails, setsEmails] = React.useState([]);
+    const [temails, settEmails] = React.useState([]);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -277,12 +279,14 @@ export default function Content() {
         setMembers(false);
     };
     const handleInviteClose = () =>{
+      setsEmails([])
       setStudentInvite(false)
     }
     const handleTeacherClose = () =>{
+      settEmails([])
       setTeacherInvite(false)
     }
-    const [emails, setEmails] = React.useState([]);
+    
     const [focused, setFocused] = React.useState(false);
       const [checked, setChecked] = React.useState([1]);
       const [name1, setName1] = React.useState(null);
@@ -559,8 +563,8 @@ sx={{ position: 'absolute', right: 8 }}
 
                   }
               }}
-                emails={emails}
-                onChange={(emails) => setEmails(emails)}
+                emails={semails}
+                onChange={(emails) => setsEmails(semails)}
                 autoFocus={true}
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
@@ -580,7 +584,7 @@ sx={{ position: 'absolute', right: 8 }}
                         </div>
                         </div>
                 
-      {emails.map((email,index)=>(
+      {semails.map((email,index)=>(
         <div key={index} class="w-4/5 mx-auto  mt-4 rounded-lg flex justify-between space-between">
         <h4 class="flex ">
             {email}
@@ -589,24 +593,6 @@ sx={{ position: 'absolute', right: 8 }}
         </div>
 
 ))}
-            
-                        {/* <TableContainer component={Paper} style={{maxHeight:'250px',overflowY:'auto'}}>
-          <Table aria-label="simple table">
-           
-            <TableBody>
-              {emails.map((email, index) => (
-                <TableRow key={index} sx={{justifyContent:'space-between'}}>
-                  <TableCell component="th" scope="row">
-                    {email}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    <DeleteOutlineIcon/>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer> */}
    </Box>  
     </CustomTabPanel>
     <CustomTabPanel value={value} index={1}>
@@ -675,10 +661,6 @@ sx={{ position: 'absolute', right: 8 }}
     <Box sx={{ width: '100%', height:'100%' }}>
     <div class="flex items-center justify-center w-4/5 mx-auto mb-4">
                     <div
-                        
-                      
-                        // tabIndex={-1}
-                        // startIcon={<CloudUploadIcon />}
                         sx={{justifyContent:'justify', alignItems:'center', color: 'black', background:'transparent'}}
                         >
                         <div class="flex flex-col items-center justify-center w-full h-auto border-2 border-black px-4 border-dashed rounded-lg cursor-pointer ">
@@ -694,8 +676,8 @@ sx={{ position: 'absolute', right: 8 }}
 
                   }
               }}
-                emails={emails}
-                onChange={(emails) => setEmails(emails)}
+                emails={temails}
+                onChange={(emails) => settEmails(emails)}
                 autoFocus={true}
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
@@ -715,7 +697,7 @@ sx={{ position: 'absolute', right: 8 }}
                         </div>
                         </div>
                 
-      {emails.map((email,index)=>(
+      {temails.map((email,index)=>(
         <div key={index} class="w-4/5 mx-auto mt-4 rounded-lg flex justify-between space-between">
         <h4 class="flex ">
             {email}
