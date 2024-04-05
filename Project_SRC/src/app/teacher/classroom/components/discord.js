@@ -16,6 +16,7 @@ import {
     ConversationHeader, 
     MessageSeparator
 } from "@chatscope/chat-ui-kit-react"; 
+import Nativechat from "./nativechat.js";
 export default function Discord() {
     let msgoption = 10
   if (typeof window!== 'undefined'){
@@ -43,80 +44,81 @@ export default function Discord() {
         />
       </div> 
  :
+        <Nativechat/>
 
-      <div style={{height: '85vh', width: '100%', borderRadius: '20px', overflow: 'hidden', position: 'relative' }}>
-        <div style={{ position: "relative", height:'100%', borderRadius: '10px' }}>
-            <MainContainer>
-                <ChatContainer>
-                <ConversationHeader >
-                    {/* <Avatar
-                        name="ChatGPT"
-                        src="https://static.vecteezy.com/system/resources/previews/022/227/364/original/openai-chatgpt-logo-icon-free-png.png"
-                    /> */}
-                    <ConversationHeader.Content 
-                        userName="UniChat" 
-                    />
-                </ConversationHeader>
-                <MessageList>
-                <MessageSeparator content="25 January 2024" />
-                <Message.Header sender="Dheeraj"/>
-                    <Message
-                    model={{
-                        direction: 'incoming',
-                        message: "whos doing chatbot",
-                        sentTime: "just now",
-                        sender: "Dheeraj",
-                        render: () => <IncomingWithHeaderStory />
-                    }}
-                    />
+    //   <div style={{height: '85vh', width: '100%', borderRadius: '20px', overflow: 'hidden', position: 'relative' }}>
+    //     <div style={{ position: "relative", height:'100%', borderRadius: '10px' }}>
+    //         <MainContainer>
+    //             <ChatContainer>
+    //             <ConversationHeader >
+    //                 {/* <Avatar
+    //                     name="ChatGPT"
+    //                     src="https://static.vecteezy.com/system/resources/previews/022/227/364/original/openai-chatgpt-logo-icon-free-png.png"
+    //                 /> */}
+    //                 <ConversationHeader.Content 
+    //                     userName="UniChat" 
+    //                 />
+    //             </ConversationHeader>
+    //             <MessageList>
+    //             <MessageSeparator content="25 January 2024" />
+    //             <Message.Header sender="Dheeraj"/>
+    //                 <Message
+    //                 model={{
+    //                     direction: 'incoming',
+    //                     message: "whos doing chatbot",
+    //                     sentTime: "just now",
+    //                     sender: "Dheeraj",
+    //                     render: () => <IncomingWithHeaderStory />
+    //                 }}
+    //                 />
                     
-                    <Message.Header sender="Forum"/>
-                    <Message
-                    model={{
-                        direction: 'incoming',
-                        message: `I am doing it`,
-                        sentTime: "just now",
-                        sender: "Forum",
-                        render: () => <IncomingWithHeaderStory />
-                    }}
-                    />
-                    <MessageSeparator content="30 January 2024" />
-                    <Message.Header sender="Forum"/>
-                    <Message
-                    model={{
-                        direction: 'incoming',
-                        message: "I have a question on this chatbot thing",
-                        sentTime: "just now",
-                        sender: "Joe",
-                        render: () => <IncomingWithHeaderStory />
-                    }}
-                    />
-                    <Message.Header sender="Dheeraj"/>
-                    <Message
-                    model={{
-                        direction: 'incoming',
-                        message: `What is it?`,
-                        sentTime: "just now",
-                        sender: "Dheeraj",
-                        render: () => <IncomingWithHeaderStory />
-                    }}
-                    />
-                    <Message
-                    model={{
-                        direction: 'outgoing',
-                        message: `Hello Students!`,
-                        sentTime: "just now",
-                        sender: "Professor 1",
-                        render: () => <OutgoingWithHeaderStory />
-                    }}
-                    />
-                </MessageList>
-                <Search placeholder="Search..." />
-                <MessageInput sendButton='hidden' attachButton='hidden' placeholder='Search here...'/>
-                </ChatContainer>
-            </MainContainer>
-            </div>
-      </div>
+    //                 <Message.Header sender="Forum"/>
+    //                 <Message
+    //                 model={{
+    //                     direction: 'incoming',
+    //                     message: `I am doing it`,
+    //                     sentTime: "just now",
+    //                     sender: "Forum",
+    //                     render: () => <IncomingWithHeaderStory />
+    //                 }}
+    //                 />
+    //                 <MessageSeparator content="30 January 2024" />
+    //                 <Message.Header sender="Forum"/>
+    //                 <Message
+    //                 model={{
+    //                     direction: 'incoming',
+    //                     message: "I have a question on this chatbot thing",
+    //                     sentTime: "just now",
+    //                     sender: "Joe",
+    //                     render: () => <IncomingWithHeaderStory />
+    //                 }}
+    //                 />
+    //                 <Message.Header sender="Dheeraj"/>
+    //                 <Message
+    //                 model={{
+    //                     direction: 'incoming',
+    //                     message: `What is it?`,
+    //                     sentTime: "just now",
+    //                     sender: "Dheeraj",
+    //                     render: () => <IncomingWithHeaderStory />
+    //                 }}
+    //                 />
+    //                 <Message
+    //                 model={{
+    //                     direction: 'outgoing',
+    //                     message: `Hello Students!`,
+    //                     sentTime: "just now",
+    //                     sender: "Professor 1",
+    //                     render: () => <OutgoingWithHeaderStory />
+    //                 }}
+    //                 />
+    //             </MessageList>
+    //             <Search placeholder="Search..." />
+    //             <MessageInput sendButton='hidden' attachButton='hidden' placeholder='Search here...'/>
+    //             </ChatContainer>
+    //         </MainContainer>
+    //         </div>
+    //   </div>
 }
       </>
   );
