@@ -3,13 +3,13 @@ import { client, connectToMongoDB } from "../../dbconnections/mongo.js"
 
 export async function POST(request) {
 const data = await request.json()
-console.log("route file",data.studentname)
+console.log("route file data for class",data)
   // Connect to the MongoDB database
   const db = client.db("universityatalbanyDB");
 
   // Get the collection you want to work with
   const collection = db.collection("classes");
-   await collection.insertOne(data)
+   await collection.insertOne({gradelevel:data.gradelevel, classname: data.classname, teachers: data.teachers, students : data.students, projects: data.projects, url : data.url, term: data.term})
   const newcollection = db.collection("students")
   let pointer = 0
   for(const email of data.students){
