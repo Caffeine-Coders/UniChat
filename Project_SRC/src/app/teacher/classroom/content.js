@@ -229,8 +229,6 @@ export default function Content() {
             localStorage.removeItem("invitedTeacherEmail")
             localStorage.removeItem("invitedStudent")
             localStorage.removeItem("invitedStudentEmail")
-            
-
             setNewProject(true)
             setAllProjects(false)
         }
