@@ -26,7 +26,10 @@ export async function POST(request) {
     const studentcollection = db.collection("students")
     const snames = []
     for (const studentemail of semails){
-      const student = await studentcollection.findOne({email: studentemail})
+      let student = await studentcollection.findOne({email: studentemail})
+      if (!student){
+        student = await studentcollection.findOne({_id: new ObjectId(studentemail)})
+      }
       if (student){
       snames.push(student.name)
       }

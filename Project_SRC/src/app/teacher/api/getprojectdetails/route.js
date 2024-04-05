@@ -9,10 +9,19 @@ export async function POST(request) {
   
     const db = client.db("universityatalbanyDB");
     const collection = db.collection("projects");
-    const project = await collection.findOne({projectName : data.projectname})
-
-
-  if (project) {
+    let project = await collection.findOne({projectName : data.projectname})
+    const stdid = project.studentIds
+    const studentcollection = db.collection("students")
+    let stdemails = []
+    for ( const ids in stdid){
+      console.log("ids",ids)
+      const response = await studentcollection.findOne({_id: new ObjectId(stdid[ids])})
+      stdemails.push(response.email)
+    }
+    console.log("got emails",stdemails)
+    delete project["studentIds"]
+    project["studentIds"] = stdemails
+    if (project) {
     console.log("project found ",project)
     return NextResponse.json(project)
     }

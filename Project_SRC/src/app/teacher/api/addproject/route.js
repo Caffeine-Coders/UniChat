@@ -15,10 +15,10 @@ console.log("dataaaa in add project",slist,tlist)
   const studentcollection = db.collection("students")
   const newcollection =  db.collection("classes")
   for (const email in slist){
-    console.log("emails",slist[email])
+    // console.log("emails",slist[email])
     const response = await studentcollection.findOne({email:slist[email]})
     if (response){
-    console.log("response",response._id.toString())
+    // console.log("response",response._id.toString())
     sids.push(response._id.toString())
     }
   }
@@ -26,11 +26,11 @@ console.log("dataaaa in add project",slist,tlist)
     let pid = result.insertedId
     pid = pid.toString()
     // const ids = [pid]
-    console.log("got pid",data.cnum, data.cname, data.cyear)
+    // console.log("got pid",data.cnum, data.cname, data.cyear)
     const cnum = data.cnum.replace(/"/g, "")
     const cname = data.cname.replace(/"/g,"")
     const targetclass = await newcollection.findOne({gradelevel:cnum, classname:cname, term:data.cyear})
-    console.log("heree in pid" , targetclass)
+    // console.log("heree in pid" , targetclass)
     const done = await newcollection.updateOne(
         { _id: targetclass._id },
         
