@@ -231,6 +231,14 @@ export default function Details({fornext, forback, loader}){
               localStorage.setItem("invitedTeacherEmail",temails,()=>{
               })
             }
+            if (studentlist.length === 0){
+              if (typeof window !== 'undefined'){
+                localStorage.setItem("invitedStudent", "", () => {
+                    });
+                localStorage.setItem("invitedStudentEmail", "", () => {
+                    });
+              }
+            }
             fornext();
         }
     }

@@ -223,6 +223,14 @@ export default function Content() {
         });
         if (indexval == 0 ){
           setSelectedIndex(index);
+            localStorage.removeItem("projectname")
+            localStorage.removeItem("projectgoal")
+            localStorage.removeItem("invitedTeacher")
+            localStorage.removeItem("invitedTeacherEmail")
+            localStorage.removeItem("invitedStudent")
+            localStorage.removeItem("invitedStudentEmail")
+            
+
             setNewProject(true)
             setAllProjects(false)
         }
