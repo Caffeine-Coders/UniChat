@@ -18,8 +18,8 @@ console.log("dataaaa in add project",slist,tlist)
     console.log("emails",slist[email])
     const response = await studentcollection.findOne({email:slist[email]})
     if (response){
-    console.log("response",response._id)
-    sids.push(response._id)
+    console.log("response",response._id.toString())
+    sids.push(response._id.toString())
     }
   }
   const result = await collection.insertOne({projectName:data.pname,projectDescription: data.pgoal, studentIds : sids, teacherIds : tlist, nativeChat : data.chat, discordServerId: "", url : data.url})
