@@ -150,7 +150,7 @@ export default function content() {
                   aria-labelledby="alert-dialog-title"
                   aria-describedby="alert-dialog-description"
                 >
-                  <DialogTitle id="alert-dialog-title" sx={{backgroundColor:'#efebf3', marginBottom:'4px'}}>
+                  <DialogTitle id="alert-dialog-title" sx={{backgroundColor:'#F4F4F4', marginBottom:'4px'}}>
                     {"Account Request Submitted!"}
                   </DialogTitle>
                   <DialogContent>
