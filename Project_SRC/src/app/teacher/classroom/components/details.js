@@ -63,9 +63,9 @@ let tempTEmail = []
   React.useEffect(() => {
       if (typeof window !== 'undefined') {
         tempData  = localStorage.getItem('projectSnames')
-        tempTData = localStorage.getItem('projectTnames')
+        tempTData = localStorage.getItem('teachernames')
         tempEmail = localStorage.getItem('projectSemails')
-        tempTEmail = localStorage.getItem('projectTemails')
+        tempTEmail = localStorage.getItem('teacheremails')
         if (tempData!==null && (tempData.length)>0){
         const tempArray = tempData.split(',')
         console.log("arr",tempArray)
