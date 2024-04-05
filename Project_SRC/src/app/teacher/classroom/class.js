@@ -206,14 +206,14 @@ export default function Class() {
             ))}
           </Grid>) : null}
         </Grid> 
-      <Grid item xs={12} sx={{display:'flex', justifyContent: 'center'}}>
+      {/* <Grid item xs={12} sx={{display:'flex', justifyContent: 'center'}}>
           <Pagination count={5}  renderItem={(item) => (
               <PaginationItem
               slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
               {...item}
               />
           )}/>
-      </Grid>
+      </Grid> */}
   </Grid>
 
 

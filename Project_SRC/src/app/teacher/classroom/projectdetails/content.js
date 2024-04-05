@@ -176,15 +176,15 @@ export default function Content(){
       if(index === 5){
         driveInstance.handleopenPicker()
       }
-      if (index === 6){
-        setChat(false)
-        setDiscord(false)
-        setviewprojects(false)
-        setaddproject(false)
-        setviewclassroom(false)
-        setGpt(false)
-        setGrades(true)
-      }
+      // if (index === 6){
+      //   setChat(false)
+      //   setDiscord(false)
+      //   setviewprojects(false)
+      //   setaddproject(false)
+      //   setviewclassroom(false)
+      //   setGpt(false)
+      //   setGrades(true)
+      // }
     };
     const [inviteTeacher,setTeacherInvite] = useState(false)
     const [inviteStudent,setStudentInvite] = useState(false)
@@ -324,7 +324,7 @@ export default function Content(){
         }
       }
     }, []);
-    const sidebar=['Project Details','Messaging','Group Chat','ChatGPT','Individual Chat','Google Drive', 'Grades']
+    const sidebar=['Project Details','Messaging','Group Chat','ChatGPT','Individual Chat','Google Drive']
     const lowerhalf = ['Add Students', 'Add Co-Instructors']
     const Search = styled('div')(({ theme }) => ({
       position: 'relative',
@@ -414,7 +414,7 @@ export default function Content(){
 </svg>:''}
                     {index === 4 ? <PermIdentityIcon/> : null}
                     {index === 5 ? <AddToDriveIcon /> : null}
-                    {index === 6 ? <GradingIcon/>: null}
+                    {/* {index === 6 ? <GradingIcon/>: null} */}
                   </ListItemIcon>
                   <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
                   {index === 1 && open && !onmessage ? <KeyboardArrowDownIcon/>:null}

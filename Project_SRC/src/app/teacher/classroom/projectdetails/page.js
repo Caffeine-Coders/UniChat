@@ -38,7 +38,7 @@ export default function Projectdetails() {
       }, []);
     
     return (
-        <div style={{background:'#efebf3', minHeight:'100vh'}}>
+        <div style={{background:'#F4F4F4', minHeight:'100vh'}}>
             
             {showDocView ?(
                 <Box
