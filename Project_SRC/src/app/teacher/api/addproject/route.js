@@ -22,7 +22,8 @@ console.log("dataaaa in add project",slist,tlist)
     sids.push(response._id.toString())
     }
   }
-  const result = await collection.insertOne({projectName:data.pname,projectDescription: data.pgoal, studentIds : sids, teacherIds : tlist, nativeChat : data.chat, discordServerId: "", url : data.url})
+
+  const result = await collection.insertOne({projectName:data.pname,projectDescription: data.pgoal, studentIds : sids, teacherIds : tlist, nativeChat : Boolean(data.chat), discordServerId: "1217972638920609922", url : data.url})
     let pid = result.insertedId
     pid = pid.toString()
     // const ids = [pid]

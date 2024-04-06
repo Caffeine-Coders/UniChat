@@ -39,7 +39,7 @@ export default function Discord() {
        <div style={{ height: '85vh', width: '100%', borderRadius: '10px', overflow: 'hidden', position: 'relative' }}>
         
         <iframe
-          src={`https://e.widgetbot.io/channels/1217972638920609922/1217972639553945771`}
+          src={`https://e.widgetbot.io/channels/1217972638920609922`}
           style={{ border: 'none', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
         />
       </div> 
