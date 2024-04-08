@@ -16,7 +16,7 @@ import {
   import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
   import { getChatGPTResponse } from "../../../Services/ChatGPT/ChatGPT_Routines";
   import ShortcutIcon from '@mui/icons-material/Shortcut';
-export default function Chatbot({isOpen}) {
+export default function Chatbot({isOpen,messageString}) {
     const [isVisible, setIsVisible] = useState(isOpen);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState(messageString);
