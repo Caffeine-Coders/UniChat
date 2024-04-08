@@ -38,10 +38,10 @@ export default function Chatbot({isOpen}) {
         ]);
 
         setIsLoading(true);
-        // const response = await getChatGPTResponse(newMessage, []);
+        const response = await getChatGPTResponse(newMessage, []);
         setMessages((prevMessages) => [
             ...prevMessages,
-            { text: "response.data", sender: "chatgpt" },
+            { text: response.data, sender: "chatgpt" },
         ]);
         setIsLoading(false);
         setNewMessage("");
