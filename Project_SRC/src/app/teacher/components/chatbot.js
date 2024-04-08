@@ -15,7 +15,8 @@ import {
   import SendIcon from "@mui/icons-material/Send";
   import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
   import { getChatGPTResponse } from "../../../Services/ChatGPT/ChatGPT_Routines";
-export default function Chatbot({isOpen,messageString}) {
+  import ShortcutIcon from '@mui/icons-material/Shortcut';
+export default function Chatbot({isOpen}) {
     const [isVisible, setIsVisible] = useState(isOpen);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState(messageString);
@@ -140,33 +141,67 @@ export default function Chatbot({isOpen,messageString}) {
                 maxHeight: "380px",
               }}
             >
-              {[...messages].reverse().map((message, index) => (
-                <Box
-                  key={index}
-                  onClick={() => handlePrintMessage(message.text)}
-                  sx={{
-                    backgroundColor:
-                      message.sender === "user"
-                        ? "#c3e8df"
-                        : "white",
-                    p: 1,
-                    borderRadius: 2,
-                    m: 1,
-                    alignSelf:
-                      message.sender === "user" ? "flex-end" : "flex-start",
-                    maxWidth: "80%",
-                  }}
-                >
-                  <Typography
+              {[...messages].reverse().map((message, reversedIndex) => {
+                const index = messages.length - 1 - reversedIndex; // calculate the index in the original array
+                return (
+                  <Box
+                    key={index}
                     sx={{
-                      color: (theme) => theme.palette.primary.whites,
-                      fontSize: 15,
+                      backgroundColor:
+                        message.sender === "user"
+                          ? "#c3e8df"
+                          : "transparent",
+                      p: 1,
+                      borderRadius: 2,
+                      m: 1,
+                      alignSelf:
+                        message.sender === "user" ? "flex-end" : "flex-start",
+                      maxWidth: "80%",
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
                     }}
                   >
-                    {message.text}
-                  </Typography>
-                </Box>
-              ))}
+                    <Typography
+                      sx={{
+                        color: (theme) => theme.palette.primary.whites,
+                        fontSize: 15,
+                      }}
+                      onMouseOver={(e) => e.currentTarget.nextSibling.firstChild.style.opacity = 1} 
+                      onMouseOut={(e) => e.currentTarget.nextSibling.firstChild.style.opacity = 0}
+                    >
+                      {message.text}
+                    </Typography>
+                    {message.sender !== "user" && (
+                    <div style={{
+                      display: 'inline-block', 
+                      borderRadius: '50%', 
+                      transition: 'background-color 0.3s ease', 
+                      marginLeft: '5px',
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#dcdcdc'} 
+                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = ''} 
+                    >
+                      <img 
+                        src="https://cdn.icon-icons.com/icons2/510/PNG/512/forward_icon-icons.com_50385.png" 
+                        alt="Forward Icon"
+                        style={{ 
+                          width: '20px',
+                          height: '20px', 
+                          marginLeft: '1px', 
+                          cursor: 'pointer', 
+                          transition: 'filter 0.3s ease',
+                          opacity: '0',
+                        }} 
+                        onMouseOver={(e) => e.currentTarget.style.opacity = 1}
+                        onMouseOut={(e) => e.currentTarget.style.opacity = 0} 
+                        onClick={() => console.log(`Clicked message index: ${index} message: ${messages[index].text}`)} 
+                      />
+                    </div>
+                    )}
+                  </Box>
+                );
+              })}
             </Box>
           )}
         <Box
