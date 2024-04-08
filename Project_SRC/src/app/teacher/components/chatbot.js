@@ -15,10 +15,10 @@ import {
   import SendIcon from "@mui/icons-material/Send";
   import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
   import { getChatGPTResponse } from "../../../Services/ChatGPT/ChatGPT_Routines";
-export default function Chatbot({isOpen}) {
+export default function Chatbot({isOpen,messageString}) {
     const [isVisible, setIsVisible] = useState(isOpen);
     const [messages, setMessages] = useState([]);
-    const [newMessage, setNewMessage] = useState("");
+    const [newMessage, setNewMessage] = useState(messageString);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -50,7 +50,10 @@ export default function Chatbot({isOpen}) {
     if (!isVisible) {
         return null;
     }
-        
+    const handlePrintMessage = (messageText) => {
+      console.log("here",messageText);
+  };
+  
     return (
         <Box sx={{ zIndex: 1 }}>
       <Draggable
@@ -140,6 +143,7 @@ export default function Chatbot({isOpen}) {
               {[...messages].reverse().map((message, index) => (
                 <Box
                   key={index}
+                  onClick={() => handlePrintMessage(message.text)}
                   sx={{
                     backgroundColor:
                       message.sender === "user"

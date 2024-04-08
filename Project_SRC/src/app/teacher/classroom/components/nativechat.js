@@ -5,8 +5,8 @@ import { MainContainer, ChatContainer, MessageList, Message, MessageInput, Sideb
 import { useState, useEffect } from 'react';
 import ConvoList from "../../../../Components/NativeChat/ConvoList.jsx"
 import {getStudentData} from "../../../../Services/Student/StudentData.js"
-
-
+import ShortcutIcon from '@mui/icons-material/Shortcut';
+import Chatbot from '../../components/chatbot.js';
 function Nativechat() {
     let studentIds = [];
     let projectname;
@@ -17,7 +17,7 @@ function Nativechat() {
         projectDescription = localStorage.getItem("projectgoal");
         studentIds.push(studentId);
     }
-    console.log("from native",studentIds, projectname, projectDescription);
+    // console.log("from native",studentIds, projectname, projectDescription);
     // const {project} = props;
     // const studentIds = project.studentIds;
     // const projectname = project.projectName;
@@ -30,7 +30,7 @@ function Nativechat() {
     // const [messageData, setMessageData] = useState([])
     const [messageInputValue, setMessageInputValue] = useState("");
     const [typingIndicator, setTypingIndicator] = useState("")
-
+    
     const [messageData, setMessageData] = useState([
         {
             message: "Hello!",
@@ -82,19 +82,44 @@ function Nativechat() {
         setMessageData(prevMessageData => [...prevMessageData, newMessage]); // Append the new message to the messageData array
         setMessageInputValue(""); // Clear the message input value after sending
     };
-
-    
-    console.log(image, name, info);
+    const [chatgpt,togglechatgpt] = React.useState(false)
+    const[selectedmessage,setselectedmessage] = React.useState("")
+    let trial = ""
+    const clickHandler = async(clickedIndex) =>{
+        console.log("clicked: index ->",clickedIndex)
+        console.log("message is ",messageData[clickedIndex].message)
+        setselectedmessage(messageData[clickedIndex].message)
+        
+        togglechatgpt(!chatgpt)
+        console.log("here msg",selectedmessage)
+        console.log("state",chatgpt)
+    }
+    // console.log(image, name, info);
     return (
+        <>
+<dialog 
+open={chatgpt}
+style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
+>
+
+                   <Chatbot isOpen={chatgpt} messageString = {selectedmessage} />
+                  
+</dialog>
         <div style={{ width: '100%', height: "100%" ,  borderRadius: 3 }}>
+        
             <MainContainer responsive style={{ borderRadius: 3 }}>
+                
                 {/* -------------------------- sidebar work ---------------------- */}
+               
                 <Sidebar position="left" scrollable={true}>
+                   
                     <ConversationList>
+                        
                         <ConvoList image={image}
                             name={name}
                             info={info} />
                     </ConversationList>
+
                 </Sidebar>
 
                 {/* --------------------- Chat work ------------------------------ */}
@@ -111,26 +136,33 @@ function Nativechat() {
                                 return (
                                     message.sender === "Anudeep Sai" ?
                             
-                                        <div key={index}>
+                                        <div key={index} style={{display:'flex' , justifyContent:'flex-end', alignItems:'center'}}>
                                             <Message model={{
                                                 message: message.message,
                                                 sentTime: message.sentTime,
                                                 sender: message.sender,
                                                 direction: "outgoing"
                                             }}>
-                                                <Avatar src={image[1]} />
-                                            </Message>
+                                            </Message>  
+                                            <ShortcutIcon style={{marginTop:'15px', fontSize:'20px', cursor:'pointer'}}  onClick = {() => clickHandler(index)}/>  
+                                            
                                         </div>
                                         :
-                                        <div key={index} >
+                                        <div key={index} style={{display:'flex', width:'fit-content'}} >
+ 
                                             <Message model={{
                                                 message: message.message,
                                                 sentTime: message.sentTime,
                                                 sender: message.sender,
                                                 direction: "incoming"
-                                            }}>
+                                            }}
+                                         
+                                            >
+
                                                 <Avatar src={image[0]} />
+
                                             </Message>
+                                            <ShortcutIcon style={{marginTop:'15px', fontSize:'20px',cursor:'pointer', float:'left'}} onClick = {() => clickHandler(index)}/>  
                                         </div>
                                     )
                             })
@@ -141,6 +173,8 @@ function Nativechat() {
                 </ChatContainer>
             </MainContainer>
         </div>
+
+            </>
     );
 }
 
