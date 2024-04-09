@@ -20,7 +20,7 @@ import {
   import {getgptchat} from '../dbconnections/getgptchat'
 export default function Chatbot({isOpen}) {
     const [isVisible, setIsVisible] = useState(isOpen);
-    const [newMessage, setNewMessage] = useState("");
+    const [newMessage, setNewMessage] = useState();
     const [isLoading, setIsLoading] = useState(false);
     let name;
     let sendmsg;
@@ -38,6 +38,7 @@ export default function Chatbot({isOpen}) {
         sendmsg = localStorage.getItem('sendmessage');
         const email = localStorage.getItem("Temail")
         // if (gptgetter(email)){
+        msg = localStorage.getItem('gptmessages');
         if (msg.length > 0) {
           let matches = msg.match(/"(.*?)"/g);
           if (matches) {
@@ -45,6 +46,9 @@ export default function Chatbot({isOpen}) {
                 text: message,
                 sender: index%2===0 ? name : 'chatgpt'
             }));
+          }
+          else {
+            msgarray = [];
           }
         // }
       }
@@ -64,14 +68,14 @@ export default function Chatbot({isOpen}) {
    
     const handleCloseChatGPT = async() => {
         let msgdata = localStorage.getItem("gptmessages")
-        if (msgdata){
+        if (msgdata.length > 0){
           msgdata = msgdata.match(/"(.*?)"/g).map(message => message.replace(/"/g, ''))
+        
+          console.log("msgs here",msgdata)
+          const temail = localStorage.getItem("Temail")
+          await appendGPT(msgdata,temail)
         }
-        console.log("msgs here",msgdata)
-        const temail = localStorage.getItem("Temail")
-        await appendGPT(msgdata,temail)
         setIsVisible(false);
-
     };
 
     const handleSendMessage = async () => {
