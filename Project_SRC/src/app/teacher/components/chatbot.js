@@ -167,8 +167,16 @@ export default function Chatbot({isOpen,messageString}) {
                         color: (theme) => theme.palette.primary.whites,
                         fontSize: 15,
                       }}
-                      onMouseOver={(e) => e.currentTarget.nextSibling.firstChild.style.opacity = 1} 
-                      onMouseOut={(e) => e.currentTarget.nextSibling.firstChild.style.opacity = 0}
+                      onMouseOver={(e) => {
+                        if (e.currentTarget.nextSibling && e.currentTarget.nextSibling.firstChild) {
+                          e.currentTarget.nextSibling.firstChild.style.opacity = 1;
+                        }
+                      }}
+                      onMouseOut={(e) => {
+                        if (e.currentTarget.nextSibling && e.currentTarget.nextSibling.firstChild) {
+                          e.currentTarget.nextSibling.firstChild.style.opacity = 0;
+                        }
+                      }}
                     >
                       {message.text}
                     </Typography>
