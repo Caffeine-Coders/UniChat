@@ -202,12 +202,14 @@ export default function Chatbot({isOpen}) {
                       display: 'flex',
                       flexDirection: 'row',
                       alignItems: 'center',
+                      justifyContent: 'space-between',
                     }}
                   >
                     <Typography
                       sx={{
                         color: (theme) => theme.palette.primary.whites,
                         fontSize: 15,
+                        flex: 1,
                       }}
                       onMouseOver={(e) => {
                         if (e.currentTarget.nextSibling && e.currentTarget.nextSibling.firstChild) {
