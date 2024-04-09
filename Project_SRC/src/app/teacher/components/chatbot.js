@@ -19,26 +19,41 @@ import {
   import {appendGPT} from '../dbconnections/storegpt'
 export default function Chatbot({isOpen}) {
     const [isVisible, setIsVisible] = useState(isOpen);
-    const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     let name;
     let sendmsg;
     let msg;
+    let msgarray=[];
     if (typeof window !== 'undefined') {
         name = localStorage.getItem('Tname');
+        name=name.replace(/"/g, "")
         sendmsg = localStorage.getItem('sendmessage');
         msg = localStorage.getItem('gptmessages');
-
-        name=name.replace(/"/g, "")
+        if (msg) {
+          msgarray = msg.match(/"(.*?)"/g).map(message => message.replace(/"/g, '')).map((message,index)=>({
+              text: message,
+              sender: index%2===0 ? name : 'chatgpt'
+          }));
+        }
+        
     }
+    const [messages, setMessages] = useState(msgarray);
     if (sendmsg) {
         setNewMessage(sendmsg);
         localStorage.removeItem('sendmessage');
     }
-    // if (msg) {
-    //     setMessages(JSON.parse(msg));
-    // }
+  //   useEffect(() => {
+  //     if (msg) {
+  //         msgarray = msg.match(/"(.*?)"/g).map(message => message.replace(/"/g, '')).map((message,index)=>({
+  //             text: message,
+  //             sender: index%2===0 ? name : 'chatgpt'
+  //         }));
+  //         console.log("here array is ",array);
+  //         // setMessages(array);
+  //     }
+  // }, [msg]);
+    
     useEffect(() => {
         setIsVisible(isOpen);
     }, [isOpen]);
@@ -73,7 +88,7 @@ export default function Chatbot({isOpen}) {
     if (!isVisible) {
         return null;
     }
-    const messagesJson = messages.map(message => message.text);
+    const messagesJson = messages.map(message => `"${message.text}"`).join(",");
     localStorage.setItem('gptmessages', messagesJson);
   //   const handlePrintMessage = (messageText) => {
   //   console.log("here",messageText);
