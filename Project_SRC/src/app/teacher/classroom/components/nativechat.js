@@ -84,18 +84,21 @@ function Nativechat() {
     };
     const [chatgpt,togglechatgpt] = React.useState(false)
     const[selectedmessage,setselectedmessage] = React.useState("")
-    let trial = ""
+    const[selectedindex1,setselectedindex1] = React.useState(0)
+    const [trial, setTrial] = React.useState(0);
     const clickHandler = async(clickedIndex) =>{
+        setTrial(clickedIndex);
         console.log("clicked: index ->",clickedIndex)
         console.log("message is ",messageData[clickedIndex].message)
+        if (typeof window !== 'undefined') {
+            localStorage.setItem("sendmessage", messageData[clickedIndex].message);
+        }
         setselectedmessage(messageData[clickedIndex].message)
-        
+        setselectedindex1(clickedIndex)
         togglechatgpt(!chatgpt)
-        trial = selectedmessage
         console.log("here msg",selectedmessage, trial)
         console.log("state",chatgpt)
     }
-    // console.log(image, name, info);
     return (
         <>
 <dialog 
@@ -103,7 +106,7 @@ open={chatgpt}
 style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
 >
 
-                   <Chatbot isOpen={chatgpt} messageString = {trial} />
+                   <Chatbot isOpen={chatgpt} />
                   
 </dialog>
         <div style={{ width: '100%', height: "100%" ,  borderRadius: 3 }}>

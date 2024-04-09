@@ -128,7 +128,7 @@ export default function Navdash() {
     </Box>
     </Toolbar>
     </div>
-    {openChatGPT && <Chatbot isOpen={openChatGPT} messageString={""}/>}
+    {openChatGPT && <Chatbot isOpen={openChatGPT}/>}
   </AppBar>   
     )
   }

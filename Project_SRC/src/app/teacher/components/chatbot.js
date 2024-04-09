@@ -16,20 +16,26 @@ import {
   import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
   import { getChatGPTResponse } from "../../../Services/ChatGPT/ChatGPT_Routines";
   import ShortcutIcon from '@mui/icons-material/Shortcut';
-export default function Chatbot({isOpen,messageString}) {
+export default function Chatbot({isOpen}) {
     const [isVisible, setIsVisible] = useState(isOpen);
     const [messages, setMessages] = useState([]);
-    const [newMessage, setNewMessage] = useState(messageString);
+    const [newMessage, setNewMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     let name;
+    let sendmsg;
     if (typeof window !== 'undefined') {
         name = localStorage.getItem('Tname');
+        sendmsg = localStorage.getItem('sendmessage');
         name=name.replace(/"/g, "")
+    }
+    if (sendmsg) {
+        setNewMessage(sendmsg);
+        localStorage.removeItem('sendmessage');
     }
     useEffect(() => {
         setIsVisible(isOpen);
     }, [isOpen]);
-
+   
     const handleCloseChatGPT = () => {
         setIsVisible(false);
     };
@@ -55,9 +61,9 @@ export default function Chatbot({isOpen,messageString}) {
     if (!isVisible) {
         return null;
     }
-    console.log("messages",messages)
+    // console.log("messages",messages)
     const messagesJson = JSON.stringify(messages);
-  localStorage.setItem('messages', messagesJson);
+  // localStorage.setItem('messages', messagesJson);
     const handlePrintMessage = (messageText) => {
       console.log("here",messageText);
   };
