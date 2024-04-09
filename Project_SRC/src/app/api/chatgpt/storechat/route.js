@@ -2,12 +2,13 @@ import { NextResponse } from "next/server";
 import { client } from "../../../../Services/MongoDB_Routines";
 import { ObjectId } from 'mongodb';
 
-export async function PUT(request) {
+export async function POST(request) {
     
     try
     {
         const {databasename, projectID, messages} = await request.json();
-
+        console.log("Request received:", databasename, projectID, messages);
+        
         await client.connect();
         console.log("Connected to MongoDB");
 

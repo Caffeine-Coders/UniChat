@@ -12,7 +12,7 @@ import Draggable from "react-draggable";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
 import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
-import { getChatGPTResponse, storeChatGPTResponse } from "../../Services/ChatGPT/ChatGPT_Routines";
+import { getChatGPTResponse, getChatGPTResponseFromDB, storeChatGPTResponse } from "../../Services/ChatGPT/ChatGPT_Routines";
 import Image from "next/image";
 
 import axios from "axios";
@@ -23,6 +23,9 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const [getMessageHistory, setMessageHistory] = useState([]);
+
 
   useEffect(() => {
     setIsVisible(isOpen);
@@ -35,6 +38,41 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
     }
   }, [chatGPTOperation]);
 
+  useEffect(() => {
+    if(localStorage.getItem("projectID") !== null) {
+      const projectID = localStorage.getItem("projectID");
+      const databasename = "universityatalbanyDB";
+  
+      // Define an async function
+      const updateChat = async () => {
+        const response = await storeChatGPTResponse(projectID, databasename, messages);
+        console.log(response);
+      };
+  
+      // Call the async function
+      updateChat();
+    }
+  },[messages])
+
+
+  useEffect(() => {
+    if(localStorage.getItem("projectID") !== null) {
+      const projectID = localStorage.getItem("projectID");
+      const databasename = "universityatalbanyDB";
+  
+      // Define an async function
+      const getChat = async () => {
+        const response = await getChatGPTResponseFromDB(projectID, databasename);
+        console.log(response);
+        setMessageHistory(response);
+      };
+  
+      // Call the async function
+      getChat();
+      console.log(getMessageHistory);
+    }
+  },[])
+      
   const handleCloseChatGPT = () => {
     setIsVisible(false);
   };
@@ -46,30 +84,6 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
         { text: newMessage, sender: "user" },
       ]);
 
-      var data = new FormData();
-      data.append(
-        "file",
-        "https://drive.google.com/file/d/14C75rkRgId219kIFaN_zDdCHHDq9nX8v/viewƒ"
-      );
-
-      var config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: "https://api.pdfrest.com/extracted-text",
-        headers: {
-          "Api-Key": "6bd7c51e-1402-4c38-8f40-3b0c2bf6017a",
-          ...data.getHeaders(),
-        },
-        data: data,
-      };
-
-      axios(config)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
       const response = await getChatGPTResponse(newMessage, []);
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -90,9 +104,12 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
       setIsLoading(false);
       setNewMessage("");
       
-      storeChatGPTResponse(localStorage.getItem("projectID"), "universityatalbanyDB", messages);
-    }
+
+      }
+     
   };
+
+
 
   if (!isVisible) {
     return null;
@@ -234,7 +251,7 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
               onChange={(e) => setNewMessage(e.target.value)}
               disabled={isLoading}
               onKeyDown={(e) => {
-                if (e.key === "Enter") handleSendMessage();
+                if (e.key === "Enter") {handleSendMessage}
               }}
               sx={{
                 color: (theme) => theme.palette.primary.whites,
@@ -247,7 +264,7 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
-                    onClick={handleSendMessage}
+                    onClick={() => {handleSendMessage}}
                     sx={{
                       color: (theme) => theme.palette.primary.whites,
                       "&:hover": {

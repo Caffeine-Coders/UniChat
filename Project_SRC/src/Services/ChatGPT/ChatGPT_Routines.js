@@ -33,9 +33,13 @@ export async function storeChatGPTResponse(projectID, databasename, messages) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ projectID, databasename, messages }),
+    body: JSON.stringify({ 
+      projectID: projectID, 
+      databasename: databasename, 
+      messages: messages 
+    }),
   });
-
+  console.log(response);
   const data = await response.json();
   return data;
 }
@@ -46,5 +50,6 @@ export async function getChatGPTResponseFromDB(projectID, databasename) {
   );
 
   const data = await response.json();
+  console.log(data);
   return data;
 }
