@@ -171,7 +171,7 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
                                     )
                             })
                         }
-                        <TypingIndicator content="Satwik Bhasin is typing" />
+                        {/* <TypingIndicator content="Satwik Bhasin is typing" /> */}
                     </MessageList>
                     <MessageInput placeholder="Type message here" value={messageInputValue} onChange={val => setMessageInputValue(val)} onSend={onSend} />
                 </ChatContainer>

@@ -16,6 +16,7 @@ import {
   import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
   import { getChatGPTResponse } from "../../../Services/ChatGPT/ChatGPT_Routines";
   import ShortcutIcon from '@mui/icons-material/Shortcut';
+  import {appendGPT} from '../dbconnections/storegpt'
 export default function Chatbot({isOpen}) {
     const [isVisible, setIsVisible] = useState(isOpen);
     const [messages, setMessages] = useState([]);
@@ -42,8 +43,13 @@ export default function Chatbot({isOpen}) {
         setIsVisible(isOpen);
     }, [isOpen]);
    
-    const handleCloseChatGPT = () => {
+    const handleCloseChatGPT = async() => {
+        const msgdata = localStorage.getItem("gptmessages").split(",")
+        console.log("msgs here",msgdata)
+        const temail = localStorage.getItem("Temail")
+
         setIsVisible(false);
+        await appendGPT(msgdata,temail)
     };
 
     const handleSendMessage = async () => {
