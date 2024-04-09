@@ -17,6 +17,7 @@ export default function DocView({ selectedDoc, selectedDocId }) {
   const [isIframeLoaded, setIsIframeLoaded] = useState(false);
   const [openChatGPT, setOpenChatGPT] = useState(false);
   const [chatGPTOperation, setChatGPTOperation] = useState("");
+  const [docData, setDocData] = useState({});
 
   const handleCloseDocView = () => {
     localStorage.setItem("selectedDoc", "noDocSelected");
@@ -30,12 +31,13 @@ export default function DocView({ selectedDoc, selectedDocId }) {
     setIsIframeLoaded(true);
   };
 
-  const handleSummarize = () => {
-    getDoc(selectedDocId);
+  const handleSummarize = async () => {
+    const [docNameReceived, docDataReceived] = await getDoc(selectedDocId);
+    setDocData({ docName: docNameReceived, docContent: docDataReceived });
     setChatGPTOperation("summarize");
     setOpenChatGPT(true);
   };
-  
+
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -255,7 +257,11 @@ export default function DocView({ selectedDoc, selectedDocId }) {
         )}
       </Box>
       {openChatGPT && (
-        <ChatGPTBox chatGPTOperation={chatGPTOperation} isOpen={true} document={selectedDoc}/>
+        <ChatGPTBox
+          chatGPTOperation={chatGPTOperation}
+          isOpen={true}
+          document={JSON.stringify(docData)}
+        />
       )}
     </ThemeProvider>
   );

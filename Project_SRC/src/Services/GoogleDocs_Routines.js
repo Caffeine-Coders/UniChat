@@ -16,18 +16,20 @@ export const getDoc = async (selectedDocId) => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data = await response.json();
-    data.body.content.forEach((contentItem, contentIndex) => {
+    const file = await response.json();
+    const fileName = file.title;
+    let textFromFile = "";
+    file.body.content.forEach((contentItem) => {
       if (contentItem.paragraph) {
-        contentItem.paragraph.elements.forEach((element, elementIndex) => {
+        contentItem.paragraph.elements.forEach((element) => {
           if (element.textRun) {
-            console.log(
-              `Content ${contentIndex}, Element ${elementIndex}: ${element.textRun.content}`
-            );
+            textFromFile += element.textRun.content;
           }
         });
       }
     });
+    console.log(textFromFile);
+    return [fileName, textFromFile];
   } catch (error) {
     console.error("Error:", error);
   }

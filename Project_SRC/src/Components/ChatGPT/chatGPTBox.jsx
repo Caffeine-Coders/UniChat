@@ -15,9 +15,6 @@ import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
 import { getChatGPTResponse } from "../../Services/ChatGPT/ChatGPT_Routines";
 import Image from "next/image";
 
-import axios from "axios";
-import FormData from "form-data";
-
 const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
   const [isVisible, setIsVisible] = useState(isOpen);
   const [messages, setMessages] = useState([]);
@@ -26,54 +23,69 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
 
   useEffect(() => {
     setIsVisible(isOpen);
-  }, [isOpen]);
+    const fetchData = async () => {
+      if (chatGPTOperation === "summarize") {
+        setIsLoading(true);
+        const docName = JSON.parse(document).docName;
+        const docContent = JSON.parse(document).docContent;
+        const newMessage = `Summarize this document briefly: ${docName}`;
 
-  useEffect(() => {
-    if (chatGPTOperation === "summarize") {
-      setNewMessage(`Summarize this document briefly: ${document}`);
-      handleSendMessage();
-    }
-  }, [chatGPTOperation]);
+        const messageExists = messages.some(
+          (message) => message.text === newMessage && message.sender === "user"
+        );
+
+        if (messageExists) {
+          setIsLoading(false);
+          return;
+        }
+
+        setMessages([
+          ...messages,
+          {
+            text: newMessage,
+            sender: "user",
+          },
+        ]);
+
+        const summary = await sendToChatGPTandGetResponse(
+          `Summarize this document briefly: ${docContent}`,
+          []
+        );
+
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { text: summary, sender: "chatgpt" },
+        ]);
+
+        setIsLoading(false);
+        setNewMessage("");
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleCloseChatGPT = () => {
     setIsVisible(false);
   };
 
+  const sendToChatGPTandGetResponse = async (message, []) => {
+    const response = await getChatGPTResponse(message, []);
+    return response.data;
+  };
+
   const handleSendMessage = async () => {
+    setIsLoading(true);
     if (newMessage.trim() !== "") {
       setMessages((prevMessages) => [
         ...prevMessages,
         { text: newMessage, sender: "user" },
       ]);
 
-      var data = new FormData();
-      data.append(
-        "file",
-        "https://drive.google.com/file/d/14C75rkRgId219kIFaN_zDdCHHDq9nX8v/viewƒ"
-      );
-
-      var config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: "https://api.pdfrest.com/extracted-text",
-        headers: {
-          "Api-Key": "6bd7c51e-1402-4c38-8f40-3b0c2bf6017a",
-          ...data.getHeaders(),
-        },
-        data: data,
-      };
-
-      axios(config)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      const response = await getChatGPTResponse(newMessage, []);
+      const response = await sendToChatGPTandGetResponse(newMessage, []);
       setMessages((prevMessages) => [
         ...prevMessages,
-        { text: response.data, sender: "chatgpt" },
+        { text: response, sender: "chatgpt" },
       ]);
 
       if (
@@ -112,7 +124,7 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
             width: 350,
             height: 500,
             backgroundColor: (theme) => theme.palette.primary.main,
-            boxShadow: "0px 4px 10px #699385", // Use #699385 for the shadow color
+            boxShadow: "0px 4px 10px #699385",
           }}
           sx={{ backgroundColor: (theme) => theme.palette.primary.main }}
         >
@@ -246,6 +258,7 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
                 <InputAdornment position="end">
                   <IconButton
                     onClick={handleSendMessage}
+                    disabled={isLoading}
                     sx={{
                       color: (theme) => theme.palette.primary.whites,
                       "&:hover": {

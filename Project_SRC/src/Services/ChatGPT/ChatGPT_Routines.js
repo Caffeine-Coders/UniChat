@@ -21,7 +21,7 @@ export async function getChatGPTResponse(message, messagehistory) {
     },
     body: JSON.stringify({ messages: messagehistory }),
   });
-
+  
   const data = await response.json();
   return data;
 }
