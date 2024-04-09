@@ -5,6 +5,8 @@ import { MainContainer, ChatContainer, MessageList, Message, MessageInput, Sideb
 import { useState, useEffect } from 'react';
 import ConvoList from "./ConvoList.jsx"
 import {getStudentData} from "../../Services/Student/StudentData.js"
+import logounichat from "../../Assets/UnichatLogo.png"
+import {AddMessage} from "../../Services/NativeChat_Routines/MessageRoutines.js"
 
 function Nativechat(props) {
     
@@ -17,32 +19,10 @@ function Nativechat(props) {
     const [image, setImage] = useState([]);
     const [name, setName] = useState([]);
     const [info, setInfo] = useState([]);
-    // const [messageData, setMessageData] = useState([])
     const [messageInputValue, setMessageInputValue] = useState("");
     const [typingIndicator, setTypingIndicator] = useState("")
 
-    const [messageData, setMessageData] = useState([
-        {
-            message: "Hello!",
-            sentTime: "2024-03-14T09:00:00Z",
-            sender: "Satwik Bhasin"
-        },
-        {
-            message: "Hi there!",
-            sentTime: "2024-03-14T09:05:00Z",
-            sender: "Anudeep Sai"
-        },
-        {
-            message: "How are you?",
-            sentTime: "2024-03-14T09:10:00Z",
-            sender: "Anudeep Sai"
-        },
-        {
-            message: "I have a question in the project you are working on. Can you help me with that?",
-            sentTime: "2024-03-14T09:15:00Z",
-            sender: "Satwik Bhasin"
-        },
-    ]);
+    const [messageData, setMessageData] = useState([]);
     
     useEffect(() => {
         if (studentIds.length > 0) {
@@ -62,19 +42,19 @@ function Nativechat(props) {
         }
     }, [studentIds]);
 
-    const onSend = () => {
-        const currentTime = new Date().toISOString(); // Get the current time
+    const onSend = async() => {
         const newMessage = {
-            message: messageInputValue,
-            sentTime: currentTime,
-            sender: "You" // Assuming the message is sent by the current user
-        };
+            messageData: messageInputValue,
+            sender: localStorage.getItem("studentName") // Assuming the message is sent by the current user
+        }; 
         setMessageData(prevMessageData => [...prevMessageData, newMessage]); // Append the new message to the messageData array
         setMessageInputValue(""); // Clear the message input value after sending
+        const data =  await AddMessage("universityatalbanyDB", project[0]._id, newMessage); // Add the new message to the database
+        console.log(data);
     };
 
     
-    console.log(image, name, info);
+     
     return (
         <div style={{ width: '100%', height: "100%" ,  borderRadius: 3 }}>
             <MainContainer responsive style={{ borderRadius: 3 }}>
@@ -97,13 +77,13 @@ function Nativechat(props) {
                     <MessageList>
                         <MessageSeparator content="CHAT" />
                         {
-                            messageData.map((message, index) => {
+                            messageData.length>0 ? messageData.map((message, index) => {
                                 return (
-                                    message.sender === "Anudeep Sai" ?
+                                    message.sender === localStorage.getItem("studentName") ?
                             
                                         <div key={index}>
                                             <Message model={{
-                                                message: message.message,
+                                                message: message.messageData,
                                                 sentTime: message.sentTime,
                                                 sender: message.sender,
                                                 direction: "outgoing"
@@ -114,7 +94,7 @@ function Nativechat(props) {
                                         :
                                         <div key={index} >
                                             <Message model={{
-                                                message: message.message,
+                                                message: message.messageData,
                                                 sentTime: message.sentTime,
                                                 sender: message.sender,
                                                 direction: "incoming"
@@ -123,9 +103,19 @@ function Nativechat(props) {
                                             </Message>
                                         </div>
                                     )
-                            })
+                            }):
+                            <div>
+                                <Message model={{
+                                    message: "No message yet, Have good chat...build beautiful projects...",
+                                    sentTime: new Date().toISOString(),
+                                    sender: "UniChat Bot",
+                                    direction: "incoming"
+                                }}>
+                                    <Avatar src={logounichat.src} />
+                                </Message>
+                            </div>
                         }
-                        <TypingIndicator content="Satwik Bhasin is typing" />
+                        {/* <TypingIndicator content="Satwik Bhasin is typing" /> */}
                     </MessageList>
                     <MessageInput placeholder="Type message here" value={messageInputValue} onChange={val => setMessageInputValue(val)} onSend={onSend} />
                 </ChatContainer>
