@@ -120,11 +120,7 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
         { text: newMessage, sender: "user" },
       ]);
 
-<<<<<<< HEAD
       const response = await sendToChatGPTandGetResponse(newMessage, []);
-=======
-      const response = await getChatGPTResponse(newMessage, []);
->>>>>>> refs/remotes/origin/Student
       setMessages((prevMessages) => [
         ...prevMessages,
         { text: response, sender: "chatgpt" },
@@ -304,12 +300,8 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
-<<<<<<< HEAD
                     onClick={handleSendMessage}
                     disabled={isLoading}
-=======
-                    onClick={() => {handleSendMessage}}
->>>>>>> refs/remotes/origin/Student
                     sx={{
                       color: (theme) => theme.palette.primary.whites,
                       "&:hover": {
