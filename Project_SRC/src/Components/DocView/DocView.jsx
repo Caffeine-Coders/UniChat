@@ -31,7 +31,7 @@ export default function DocView({ selectedDoc, selectedDocId }) {
   };
 
   const handleSummarize = () => {
-    // getDoc(selectedDocId);
+    getDoc(selectedDocId);
     setChatGPTOperation("summarize");
     setOpenChatGPT(true);
   };
@@ -255,7 +255,7 @@ export default function DocView({ selectedDoc, selectedDocId }) {
         )}
       </Box>
       {openChatGPT && (
-        <ChatGPTBox chatGPTOperation={chatGPTOperation} isOpen={true} />
+        <ChatGPTBox chatGPTOperation={chatGPTOperation} isOpen={true} document={selectedDoc}/>
       )}
     </ThemeProvider>
   );

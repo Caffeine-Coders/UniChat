@@ -24,6 +24,7 @@
     "@next-auth/prisma-adapter": "^1.0.7",
     "@react-email/components": "0.0.15",
     "bson": "^6.6.0",
+    "axios": "^1.6.8",
     "faunadb": "^4.8.0",
     "firebase": "^10.6.0",
     "firebase-admin": "^12.0.0",
