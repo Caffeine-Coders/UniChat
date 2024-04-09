@@ -9,6 +9,13 @@ console.log("route file",data)
 
   // Get the collection you want to work with
   const collection = db.collection("teachers");
-//    await collection.insertOne(data)
+    const res = await collection.findOne({email : data.email.replace(/"/g,"")})
+    console.log("res found", res)
+// res.gpt.push(data.messages)
+res.gpt = data.messages
+await collection.updateOne(
+    {email:res.email},
+    {$set : {gpt : res.gpt}}
+)
 return new Response("User added successfully", { status: 200 });
 }

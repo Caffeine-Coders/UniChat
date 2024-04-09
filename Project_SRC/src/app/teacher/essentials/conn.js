@@ -13,6 +13,7 @@ async function userChecker(user){
     } else if(userClassification.type == "Verified False"){
         return "in db and false"
     } else{
+        
         return "in db and true"
     }
 

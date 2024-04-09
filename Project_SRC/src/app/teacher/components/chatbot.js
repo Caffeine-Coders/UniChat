@@ -17,6 +17,7 @@ import {
   import { getChatGPTResponse } from "../../../Services/ChatGPT/ChatGPT_Routines";
   import ShortcutIcon from '@mui/icons-material/Shortcut';
   import {appendGPT} from '../dbconnections/storegpt'
+  import {getgptchat} from '../dbconnections/getgptchat'
 export default function Chatbot({isOpen}) {
     const [isVisible, setIsVisible] = useState(isOpen);
     const [newMessage, setNewMessage] = useState("");
@@ -25,10 +26,18 @@ export default function Chatbot({isOpen}) {
     let sendmsg;
     let msg;
     let msgarray=[];
+    const gptgetter = async(email)=>{
+      const data = await getgptchat(email)
+      console.log("got this in chatbot ",data)
+      localStorage.setItem("gptmessages",JSON.stringify(data))
+    }
+    
     if (typeof window !== 'undefined') {
         name = localStorage.getItem('Tname');
         name=name.replace(/"/g, "")
         sendmsg = localStorage.getItem('sendmessage');
+        const email = localStorage.getItem("Temail")
+        if (gptgetter(email)){
         msg = localStorage.getItem('gptmessages');
         if (msg) {
           msgarray = msg.match(/"(.*?)"/g).map(message => message.replace(/"/g, '')).map((message,index)=>({
@@ -36,7 +45,7 @@ export default function Chatbot({isOpen}) {
               sender: index%2===0 ? name : 'chatgpt'
           }));
         }
-        
+      }
     }
     const [messages, setMessages] = useState(msgarray);
     if (sendmsg) {
@@ -53,9 +62,11 @@ export default function Chatbot({isOpen}) {
   //         // setMessages(array);
   //     }
   // }, [msg]);
-    
+  
     useEffect(() => {
-        setIsVisible(isOpen);
+      const email = localStorage.getItem("Temail")
+      gptgetter(email)
+      setIsVisible(isOpen);
     }, [isOpen]);
    
     const handleCloseChatGPT = async() => {

@@ -8,7 +8,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { CircularProgress } from '@mui/material';
-
 export default function content() {
     const router = useRouter()
     const loginInstance = Signuplogin()
@@ -22,7 +21,7 @@ export default function content() {
     const focusHandler = (event) =>{
            setLoading(false)
     }
-    const handeGoogle =  (event) =>{
+    const handeGoogle = (event) =>{
         event.preventDefault()
         setLoading(true)
         window.addEventListener("focus",focusHandler)
@@ -44,6 +43,7 @@ export default function content() {
         const Temail = JSON.stringify(email);
         localStorage.setItem("Temail", Temail, () => {
             const retrievedEmail = JSON.parse(localStorage.getItem("Temail"));
+            
         });
         const photoURL = JSON.stringify(photourl);
         localStorage.setItem("photoURL", photoURL, () => {
@@ -55,6 +55,7 @@ export default function content() {
         });
         setLoading(false)
         if (verificationStatus=="in db and true"){
+            
             router.push("/teacher/dashboard")
         } else if (verificationStatus=="in db and false"){
             setOpen(true)
