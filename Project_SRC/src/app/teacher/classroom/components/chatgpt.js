@@ -81,8 +81,8 @@ export default function Chatgpt() {
                 </React.Fragment>
                 ))}
                 </MessageList>
-                <Search placeholder="Search..." />
-                <MessageInput sendButton='hidden' attachButton='hidden' placeholder='Search here...'/>
+                {/* <Search placeholder="Search..." />
+                <MessageInput sendButton='hidden' attachButton='hidden' placeholder='Search here...'/> */}
                 </ChatContainer>
             </MainContainer>
             </div>
