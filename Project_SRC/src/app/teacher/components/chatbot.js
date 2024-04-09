@@ -21,7 +21,11 @@ export default function Chatbot({isOpen,messageString}) {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState(messageString);
     const [isLoading, setIsLoading] = useState(false);
-
+    let name;
+    if (typeof window !== 'undefined') {
+        name = localStorage.getItem('Tname');
+        name=name.replace(/"/g, "")
+    }
     useEffect(() => {
         setIsVisible(isOpen);
     }, [isOpen]);
@@ -34,7 +38,7 @@ export default function Chatbot({isOpen,messageString}) {
         if (newMessage.trim() !== "") {
         setMessages((prevMessages) => [
             ...prevMessages,
-            { text: newMessage, sender: "user" },
+            { text: newMessage, sender: name },
         ]);
 
         setIsLoading(true);
@@ -51,6 +55,9 @@ export default function Chatbot({isOpen,messageString}) {
     if (!isVisible) {
         return null;
     }
+    console.log("messages",messages)
+    const messagesJson = JSON.stringify(messages);
+  localStorage.setItem('messages', messagesJson);
     const handlePrintMessage = (messageText) => {
       console.log("here",messageText);
   };
@@ -148,14 +155,14 @@ export default function Chatbot({isOpen,messageString}) {
                     key={index}
                     sx={{
                       backgroundColor:
-                        message.sender === "user"
+                        message.sender === name
                           ? "#c3e8df"
                           : "transparent",
                       p: 1,
                       borderRadius: 2,
                       m: 1,
                       alignSelf:
-                        message.sender === "user" ? "flex-end" : "flex-start",
+                        message.sender === name ? "flex-end" : "flex-start",
                       maxWidth: "80%",
                       display: 'flex',
                       flexDirection: 'row',
@@ -180,7 +187,7 @@ export default function Chatbot({isOpen,messageString}) {
                     >
                       {message.text}
                     </Typography>
-                    {message.sender !== "user" && (
+                    {message.sender !== name && (
                     <div style={{
                       display: 'inline-block', 
                       borderRadius: '50%', 
