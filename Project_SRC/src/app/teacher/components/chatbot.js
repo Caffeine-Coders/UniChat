@@ -32,7 +32,7 @@ export default function Chatbot ({ chatGPTOperation, document, onClose }) {
   let msgarray=[];
   if(typeof window !== "undefined"){
     msg = localStorage.getItem("gptmessages");
-    if (msg.length > 0) {
+    if (msg && msg.length > 0) {
       let matches = msg.match(/"(.*?)"/g);
       if (matches) {
         msgarray = matches.map(message => message.replace(/"/g, '')).map((message,index)=>({
@@ -54,10 +54,10 @@ export default function Chatbot ({ chatGPTOperation, document, onClose }) {
         const docName = JSON.parse(document).docName;
         const docContent = JSON.parse(document).docContent;
         const newMessage = `Summarize this document: ${docName}`;
-        const divergentMessages = [...messages];
+        // const divergentMessages = [...messages];
 
-        messages.push({ role: "user", content: newMessage });
 
+        const divergentMessages = [...messages]
         divergentMessages.push({
           role: "user",
           content: `Summarize this document briefly: ${docContent}`,

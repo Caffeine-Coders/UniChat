@@ -12,6 +12,7 @@ import { getDoc } from "../../Services/GoogleDocs_Routines";
 import ChatGPTBox from "../ChatGPT/chatGPTBox";
 
 export default function DocView({ selectedDoc, selectedDocId }) {
+  console.log("in student",selectedDocId)
   const { theme } = useContext(ThemeContext);
   const [showGPTOptions, setShowGPTOptions] = useState(false);
   const [isIframeLoaded, setIsIframeLoaded] = useState(false);
