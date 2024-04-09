@@ -55,6 +55,25 @@ function Nativechat() {
     ]);
     
     useEffect(() => {
+        const messageAdded = localStorage.getItem("messageAdded");
+
+    if (messageAdded === "false") {
+        // Check if "sharedmsg" exists in localStorage
+        const sharedMsg = localStorage.getItem("sharedmsg");
+        if (sharedMsg) {
+            // Create a new message object with the shared message
+            const newMessage = {
+                message: sharedMsg,
+                sentTime: new Date().toISOString(), // Assuming the current time
+                sender: "Anudeep Sai" // Set the sender to Anudeep Sai
+            };
+            // Append the new message to the messageData array
+            setMessageData(prevMessageData => [...prevMessageData, newMessage]);
+
+            // Set messageAdded flag in localStorage to indicate that the message has been added
+            localStorage.setItem("messageAdded", "true");
+        }
+    }
         if (studentIds.length > 0) {
             Promise.all(studentIds.map(async (studentId) => {
                 const studentData = await getStudentData("universityatalbanyDB", studentId);

@@ -256,7 +256,12 @@ export default function Chatbot({isOpen}) {
                         }} 
                         onMouseOver={(e) => e.currentTarget.style.opacity = 1}
                         onMouseOut={(e) => e.currentTarget.style.opacity = 0} 
-                        onClick={() => console.log(`Clicked message index: ${index} message: ${messages[index].text}`)} 
+                        onClick={()=>{localStorage.setItem("sharedmsg",messages[index].text);
+                        localStorage.setItem("messageAdded","false"); 
+                        window.location.reload();
+                      }
+                      }
+                        // onClick={() => console.log(`Clicked message index: ${index} message: ${messages[index].text}`)} 
                       />
                     </div>
                     )}
