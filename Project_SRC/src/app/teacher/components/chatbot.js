@@ -38,12 +38,14 @@ export default function Chatbot({isOpen}) {
         sendmsg = localStorage.getItem('sendmessage');
         const email = localStorage.getItem("Temail")
         // if (gptgetter(email)){
-        msg = localStorage.getItem('gptmessages');
         if (msg.length > 0) {
-          msgarray = msg.match(/"(.*?)"/g).map(message => message.replace(/"/g, '')).map((message,index)=>({
-              text: message,
-              sender: index%2===0 ? name : 'chatgpt'
-          }));
+          let matches = msg.match(/"(.*?)"/g);
+          if (matches) {
+            msgarray = matches.map(message => message.replace(/"/g, '')).map((message,index)=>({
+                text: message,
+                sender: index%2===0 ? name : 'chatgpt'
+            }));
+          }
         // }
       }
     }
