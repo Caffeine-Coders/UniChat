@@ -9,7 +9,8 @@ export const addUser = async (username,emailid,schoolname) => {
         name:username,
         email: emailid,
         school: schoolname,
-        status: false
+        status: false,
+        gpt: []
      }),
   });
   if (!res.ok) {

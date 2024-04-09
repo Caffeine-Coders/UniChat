@@ -1,6 +1,9 @@
+const cururl = window.location.href
+const isproject = cururl.endsWith("/projectdetails")
+const fetchurl = isproject? `../api/getgpt` : `./api/getgpt`
 export const getgptchat = async (email) => {
     console.log("here in get gptchat ",email)
-    const res = await fetch(`./api/getgpt`, {
+    const res = await fetch(fetchurl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
