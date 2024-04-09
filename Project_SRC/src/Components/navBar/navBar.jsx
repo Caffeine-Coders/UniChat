@@ -108,6 +108,10 @@ export default function NavBar() {
     setOpenChatGPT(!openChatGPT);
   };
 
+  const handleChatGPTClose = () => {
+    setOpenChatGPT(false);
+  };
+
   const [anchorEl, setAnchorEl] = useState(null);
   const openProfileMenu = Boolean(anchorEl);
   const handleClickProfile = (event) => {
@@ -267,7 +271,7 @@ export default function NavBar() {
           </Box>
         </Toolbar>
       </AppBar>
-      {openChatGPT && <ChatGPTBox isOpen={openChatGPT} />}
+      {openChatGPT && <ChatGPTBox isOpen={openChatGPT} onClose={handleChatGPTClose} />}
     </ThemeProvider>
   );
 }

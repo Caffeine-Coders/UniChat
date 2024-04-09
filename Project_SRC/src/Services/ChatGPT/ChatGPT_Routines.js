@@ -1,18 +1,4 @@
-"use client";
-export async function getChatGPTResponse(message, messagehistory) {
-  messagehistory.length > 0
-    ? messagehistory.push({
-        role: "user",
-        content: message,
-      })
-    : (messagehistory = [
-        {
-          role: "user",
-          content: message,
-        },
-      ]);
-
-  console.log(messagehistory);
+export async function getChatGPTResponse(messagehistory) {
 
   const response = await fetch(`/api/chatgpt/chat`, {
     method: "POST",

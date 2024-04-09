@@ -53,6 +53,7 @@
     "react-helmet-async": "^2.0.4",
     "react-iframe": "^1.8.5",
     "react-intersection-observer": "^9.8.1",
+    "react-linkify": "^1.0.0-alpha",
     "react-multi-email": "^1.0.22",
     "react-transition-group": "^4.4.5",
     "resend": "^3.2.0",
