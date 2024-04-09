@@ -207,6 +207,7 @@ export default function Chatbot({isOpen}) {
                       p: 1,
                       borderRadius: 2,
                       m: 1,
+                      mb:3,
                       alignSelf:
                         message.sender === name ? "flex-end" : "flex-start",
                       maxWidth: "80%",
@@ -277,7 +278,7 @@ export default function Chatbot({isOpen}) {
                 mt: 33,
                 width: "95%",
                 ml: 1,
-                height: 40,
+                
                 borderRadius: 3,
                 backgroundColor: "white",
                 color: "black",
@@ -289,6 +290,8 @@ export default function Chatbot({isOpen}) {
               value={isLoading ? "Thinking..." : newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               disabled={isLoading}
+              maxRows={3}
+              multiline
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleSendMessage();
               }}
