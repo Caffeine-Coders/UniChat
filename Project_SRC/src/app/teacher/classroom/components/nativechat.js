@@ -91,7 +91,8 @@ function Nativechat() {
         setselectedmessage(messageData[clickedIndex].message)
         
         togglechatgpt(!chatgpt)
-        console.log("here msg",selectedmessage)
+        trial = selectedmessage
+        console.log("here msg",selectedmessage, trial)
         console.log("state",chatgpt)
     }
     // console.log(image, name, info);
@@ -102,7 +103,7 @@ open={chatgpt}
 style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
 >
 
-                   <Chatbot isOpen={chatgpt} messageString = {selectedmessage} />
+                   <Chatbot isOpen={chatgpt} messageString = {trial} />
                   
 </dialog>
         <div style={{ width: '100%', height: "100%" ,  borderRadius: 3 }}>

@@ -21,10 +21,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 export default function Chatgpt() {
-    let messages1 = []
+    // let messages1 = []
     React.useEffect(() => {
         if (typeof window !== 'undefined') {
-            messages1 = JSON.parse(localStorage.getItem("messages"));
+            const messages1 = JSON.parse(localStorage.getItem("messages"));
         }
     }, []);
     
