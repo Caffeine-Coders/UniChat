@@ -26,25 +26,25 @@ export default function Chatbot({isOpen}) {
     let sendmsg;
     let msg;
     let msgarray=[];
-    const gptgetter = async(email)=>{
-      const data = await getgptchat(email)
-      console.log("got this in chatbot ",data)
-      localStorage.setItem("gptmessages",JSON.stringify(data))
-    }
+    // const gptgetter = async(email)=>{
+    //   const data = await getgptchat(email)
+    //   console.log("got this in chatbot ",data)
+    //   localStorage.setItem("gptmessages",JSON.stringify(data))
+    // }
     
     if (typeof window !== 'undefined') {
         name = localStorage.getItem('Tname');
         name=name.replace(/"/g, "")
         sendmsg = localStorage.getItem('sendmessage');
         const email = localStorage.getItem("Temail")
-        if (gptgetter(email)){
+        // if (gptgetter(email)){
         msg = localStorage.getItem('gptmessages');
         if (msg) {
           msgarray = msg.match(/"(.*?)"/g).map(message => message.replace(/"/g, '')).map((message,index)=>({
               text: message,
               sender: index%2===0 ? name : 'chatgpt'
           }));
-        }
+        // }
       }
     }
     const [messages, setMessages] = useState(msgarray);
@@ -64,8 +64,8 @@ export default function Chatbot({isOpen}) {
   // }, [msg]);
   
     useEffect(() => {
-      const email = localStorage.getItem("Temail")
-      gptgetter(email)
+      // const email = localStorage.getItem("Temail")
+      // gptgetter(email)
       setIsVisible(isOpen);
     }, [isOpen]);
    
