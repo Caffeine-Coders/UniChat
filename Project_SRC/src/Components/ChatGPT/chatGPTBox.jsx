@@ -12,7 +12,7 @@ import Draggable from "react-draggable";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
 import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
-import { getChatGPTResponse } from "../../Services/ChatGPT/ChatGPT_Routines";
+import { getChatGPTResponse, storeChatGPTResponse } from "../../Services/ChatGPT/ChatGPT_Routines";
 import Image from "next/image";
 
 import axios from "axios";
@@ -89,6 +89,8 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
       }
       setIsLoading(false);
       setNewMessage("");
+      
+      storeChatGPTResponse(localStorage.getItem("projectID"), "universityatalbanyDB", messages);
     }
   };
 
