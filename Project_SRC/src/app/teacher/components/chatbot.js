@@ -23,15 +23,21 @@ export default function Chatbot({isOpen}) {
     const [isLoading, setIsLoading] = useState(false);
     let name;
     let sendmsg;
+    let msg;
     if (typeof window !== 'undefined') {
         name = localStorage.getItem('Tname');
         sendmsg = localStorage.getItem('sendmessage');
+        msg = localStorage.getItem('gptmessages');
+
         name=name.replace(/"/g, "")
     }
     if (sendmsg) {
         setNewMessage(sendmsg);
         localStorage.removeItem('sendmessage');
     }
+    // if (msg) {
+    //     setMessages(JSON.parse(msg));
+    // }
     useEffect(() => {
         setIsVisible(isOpen);
     }, [isOpen]);
@@ -61,12 +67,11 @@ export default function Chatbot({isOpen}) {
     if (!isVisible) {
         return null;
     }
-    // console.log("messages",messages)
-    const messagesJson = JSON.stringify(messages);
-  // localStorage.setItem('messages', messagesJson);
-    const handlePrintMessage = (messageText) => {
-      console.log("here",messageText);
-  };
+    const messagesJson = messages.map(message => message.text);
+    localStorage.setItem('gptmessages', messagesJson);
+  //   const handlePrintMessage = (messageText) => {
+  //   console.log("here",messageText);
+  // };
   
     return (
         <Box sx={{ zIndex: 1 }}>
