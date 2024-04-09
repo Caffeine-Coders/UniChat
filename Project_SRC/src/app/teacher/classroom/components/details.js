@@ -60,6 +60,7 @@ let tempData=[]
 let tempTData = []
 let tempEmail = []
 let tempTEmail = []
+let chat = []
   React.useEffect(() => {
       if (typeof window !== 'undefined') {
         tempData  = localStorage.getItem('projectSnames')

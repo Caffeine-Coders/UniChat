@@ -111,6 +111,8 @@ export default function Class() {
     console.log("details here",details.teacherIds,details.studentIds)
     localStorage.setItem("projectTemails",details.teacherIds)
     localStorage.setItem("projectSemails",details.studentIds)
+    console.log("details got mmsgs",details.msgs)
+    localStorage.setItem("messages",JSON.stringify(details.msgs))
     const semail = localStorage.getItem("projectSemails")
     const temail = localStorage.getItem("projectTemails")
     const names = await getMembers(semail,temail)
