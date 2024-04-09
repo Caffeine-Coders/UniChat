@@ -18,7 +18,9 @@ import {
   import ShortcutIcon from '@mui/icons-material/Shortcut';
   import {appendGPT} from '../dbconnections/storegpt'
   import {getgptchat} from '../dbconnections/getgptchat'
-export default function Chatbot({isOpen}) {
+  import Image from "next/image";
+  import Linkify from "react-linkify";
+export default function Chatbot({chatGPTOperation, document, onClose}) {
     const [isVisible, setIsVisible] = useState(isOpen);
     const [newMessage, setNewMessage] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +33,75 @@ export default function Chatbot({isOpen}) {
     //   console.log("got this in chatbot ",data)
     //   localStorage.setItem("gptmessages",JSON.stringify(data))
     // }
-    
+    useEffect(() => {
+      const fetchData = async () => {
+        setIsVisible(true);
+        if (chatGPTOperation === "summarize") {
+          setIsLoading(true);
+          const docName = JSON.parse(document).docName;
+          const docContent = JSON.parse(document).docContent;
+          const newMessage = `Summarize this document: ${docName}`;
+          const divergentMessages = [...messages];
+  
+          messages.push({ role: "user", content: newMessage });
+  
+          divergentMessages.push({
+            role: "user",
+            content: `Summarize this document briefly: ${docContent}`,
+          });
+  
+          const summary = await sendToChatGPTandGetResponse(divergentMessages);
+  
+          messages.push({ role: "assistant", content: summary });
+  
+          setIsLoading(false);
+          setNewMessage("");
+        } else if (chatGPTOperation === "resources") {
+          setIsLoading(true);
+          const docName = JSON.parse(document).docName;
+          const docContent = JSON.parse(document).docContent;
+          const newMessage = `Get resources for this document: ${docName}`;
+          const divergentMessages = [...messages];
+  
+          messages.push({ role: "user", content: newMessage });
+  
+          divergentMessages.push({
+            role: "user",
+            content: `Get relevant and working internet resources for this document: ${docContent}`,
+          });
+  
+          const resources = await sendToChatGPTandGetResponse(divergentMessages);
+  
+          messages.push({ role: "assistant", content: resources });
+  
+          setIsLoading(false);
+          setNewMessage("");
+        } else if (chatGPTOperation === "keyConcepts") {
+          setIsLoading(true);
+          const docName = JSON.parse(document).docName;
+          const docContent = JSON.parse(document).docContent;
+          const newMessage = `Evaluate key concepts from this document: ${docName}`;
+          const divergentMessages = [...messages];
+  
+          divergentMessages.push({
+            role: "user",
+            content: `Evaluate key concepts as pointers from this document: ${docContent}`,
+          });
+  
+          messages.push({ role: "user", content: newMessage });
+  
+          const keyConcepts = await sendToChatGPTandGetResponse(divergentMessages);
+  
+          messages.push({ role: "assistant", content: keyConcepts });
+  
+          setIsLoading(false);
+          setNewMessage("");
+        }
+      };
+  
+      fetchData();
+    }, [chatGPTOperation]);
+  
     if (typeof window !== 'undefined') {
         name = localStorage.getItem('Tname');
         name=name.replace(/"/g, "")
