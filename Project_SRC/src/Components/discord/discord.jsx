@@ -107,8 +107,11 @@ export default function Discord({ props }) {
                           cursor: "pointer",
                         }}
                         onClick={() => {
+                          console.log(project);
+                          localStorage.setItem('projectID', project._id)
                           if (project.nativeChat) {
                             localStorage.setItem("chatPlatform", "native");
+                            localStorage.setItem("projectName", project.projectName);
                           } else {
                             localStorage.setItem("chatPlatform", "discord");
                             localStorage.setItem(
