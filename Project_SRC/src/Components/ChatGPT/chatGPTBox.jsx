@@ -12,7 +12,7 @@ import Draggable from "react-draggable";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
 import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
-import { getChatGPTResponse } from "../../Services/ChatGPT/ChatGPT_Routines";
+import { getChatGPTResponse, getChatGPTResponseFromDB, storeChatGPTResponse } from "../../Services/ChatGPT/ChatGPT_Routines";
 import Image from "next/image";
 
 const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
@@ -20,6 +20,9 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const [getMessageHistory, setMessageHistory] = useState([]);
+
 
   useEffect(() => {
     setIsVisible(isOpen);
@@ -65,6 +68,41 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if(localStorage.getItem("projectID") !== null) {
+      const projectID = localStorage.getItem("projectID");
+      const databasename = "universityatalbanyDB";
+  
+      // Define an async function
+      const updateChat = async () => {
+        const response = await storeChatGPTResponse(projectID, databasename, messages);
+        console.log(response);
+      };
+  
+      // Call the async function
+      updateChat();
+    }
+  },[messages])
+
+
+  useEffect(() => {
+    if(localStorage.getItem("projectID") !== null) {
+      const projectID = localStorage.getItem("projectID");
+      const databasename = "universityatalbanyDB";
+  
+      // Define an async function
+      const getChat = async () => {
+        const response = await getChatGPTResponseFromDB(projectID, databasename);
+        console.log(response);
+        setMessageHistory(response);
+      };
+  
+      // Call the async function
+      getChat();
+      console.log(getMessageHistory);
+    }
+  },[])
+      
   const handleCloseChatGPT = () => {
     setIsVisible(false);
   };
@@ -82,7 +120,11 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
         { text: newMessage, sender: "user" },
       ]);
 
+<<<<<<< HEAD
       const response = await sendToChatGPTandGetResponse(newMessage, []);
+=======
+      const response = await getChatGPTResponse(newMessage, []);
+>>>>>>> refs/remotes/origin/Student
       setMessages((prevMessages) => [
         ...prevMessages,
         { text: response, sender: "chatgpt" },
@@ -101,8 +143,13 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
       }
       setIsLoading(false);
       setNewMessage("");
-    }
+      
+
+      }
+     
   };
+
+
 
   if (!isVisible) {
     return null;
@@ -244,7 +291,7 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
               onChange={(e) => setNewMessage(e.target.value)}
               disabled={isLoading}
               onKeyDown={(e) => {
-                if (e.key === "Enter") handleSendMessage();
+                if (e.key === "Enter") {handleSendMessage}
               }}
               sx={{
                 color: (theme) => theme.palette.primary.whites,
@@ -257,8 +304,12 @@ const ChatGPTBox = ({ isOpen, chatGPTOperation, document }) => {
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
+<<<<<<< HEAD
                     onClick={handleSendMessage}
                     disabled={isLoading}
+=======
+                    onClick={() => {handleSendMessage}}
+>>>>>>> refs/remotes/origin/Student
                     sx={{
                       color: (theme) => theme.palette.primary.whites,
                       "&:hover": {
