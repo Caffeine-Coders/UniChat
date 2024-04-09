@@ -8,7 +8,7 @@ export async function POST(request) {
     {
         const {databasename, projectID, messages} = await request.json();
         console.log("Request received:", databasename, projectID, messages);
-        
+
         await client.connect();
         console.log("Connected to MongoDB");
 
@@ -36,12 +36,9 @@ export async function POST(request) {
         console.error("Error:", err);
         return NextResponse.json({ status: 500, message: err });
     }
-    finally{
-        await client.close();
-    }
 }
 
-export async function GET() {
+export async function GET(request) {
     try{
         const url = new URL(request.url);
         const projectID = new URLSearchParams(url.search).get("projectID");
@@ -53,7 +50,7 @@ export async function GET() {
         console.log("Selected database:", databasename);
         const collection = database.collection("projects");
         const filter = { _id: ObjectId.createFromHexString(projectID) };
-        const result = await collection.findOne(filter).toArray();
+        const result = await collection.findOne(filter);
 
         if (result) {
             console.log("Messages retrieved successfully.");
@@ -68,8 +65,5 @@ export async function GET() {
     catch(err){
         console.error("Error:", err);
         return NextResponse.json({ status: 500, message: err });
-    }
-    finally{
-        await client.close();
     }
 }

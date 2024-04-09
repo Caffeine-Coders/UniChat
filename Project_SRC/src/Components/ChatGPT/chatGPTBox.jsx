@@ -27,6 +27,7 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [getMessageHistory, setMessageHistory] = useState([]);
+  var messageHistoryRetreived = false;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,24 +99,25 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   }, [chatGPTOperation]);
 
   useEffect(() => {
-    if (localStorage.getItem("projectID") !== null) {
-      const projectID = localStorage.getItem("projectID");
-      const databasename = "universityatalbanyDB";
-
-      // Define an async function
-      const updateChat = async () => {
-        const response = await storeChatGPTResponse(
-          projectID,
-          databasename,
-          messages
-        );
-        console.log(response);
-      };
-
-      // Call the async function
-      updateChat();
+    console.log(messages.length, localStorage.getItem("projectID"));
+      if (localStorage.getItem("projectID") !== null && messages.length > 0) {
+        const projectID = localStorage.getItem("projectID");
+        const databasename = "universityatalbanyDB";
+  
+        // Define an async function
+        const updateChat = async () => {
+          const response = await storeChatGPTResponse(
+            projectID,
+            databasename,
+            messages
+          );
+          console.log(response);
+        };
+  
+        // Call the async function
+        updateChat();
     }
-  }, [messages]);
+  }, [messages.length]);
 
   useEffect(() => {
     if (localStorage.getItem("projectID") !== null) {
@@ -134,7 +136,7 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
 
       // Call the async function
       getChat();
-      console.log(getMessageHistory);
+      console.log("message history", getMessageHistory);
     }
   }, []);
 
