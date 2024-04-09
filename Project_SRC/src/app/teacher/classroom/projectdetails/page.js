@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import "../../components/dash.css"
 import Box from '@mui/material/Box';
 import DocView from "../components/docview";
+// import DocView from "../../../../Components/DocView/DocView.jsx"
 import ThemeContext from "../../../../Components/Contexts/themeContext.jsx";
 export default function Projectdetails() {
     const [selectedDoc, setSelectedDoc] = useState("noDocSelected");
