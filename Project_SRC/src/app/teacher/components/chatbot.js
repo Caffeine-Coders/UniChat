@@ -59,12 +59,15 @@ export default function Chatbot({isOpen}) {
     }, [isOpen]);
    
     const handleCloseChatGPT = async() => {
-        const msgdata = localStorage.getItem("gptmessages").split(",")
+        let msgdata = localStorage.getItem("gptmessages")
+        if (msgdata){
+          msgdata = msgdata.match(/"(.*?)"/g).map(message => message.replace(/"/g, ''))
+        }
         console.log("msgs here",msgdata)
         const temail = localStorage.getItem("Temail")
-
-        setIsVisible(false);
         await appendGPT(msgdata,temail)
+        setIsVisible(false);
+
     };
 
     const handleSendMessage = async () => {
