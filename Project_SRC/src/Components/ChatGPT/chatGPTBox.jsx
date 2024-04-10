@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   IconButton,
   Typography,
@@ -29,7 +29,6 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
 
   const [getMessageHistory, setMessageHistory] = useState([]);
   const prevMessageHistoryRef = useRef();
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,7 +87,9 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
 
         messages.push({ role: "user", content: newMessage });
 
-        const keyConcepts = await sendToChatGPTandGetResponse(divergentMessages);
+        const keyConcepts = await sendToChatGPTandGetResponse(
+          divergentMessages
+        );
 
         messages.push({ role: "assistant", content: keyConcepts });
 
@@ -100,38 +101,40 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
     fetchData();
   }, [chatGPTOperation]);
 
-
-
   useEffect(() => {
     console.log(messages.length, localStorage.getItem("projectID"));
-      if (localStorage.getItem("projectID") !== null && messages.length > 0) {
-        const projectID = localStorage.getItem("projectID");
-        const databasename = "universityatalbanyDB";
-  
-        // Define an async function
-        const updateChat = async () => {
-          const response = await storeChatGPTResponse(
-            projectID,
-            databasename,
-            messages
-          );
-          console.log(response);
-        };
-  
-        // Call the async function
-        updateChat();
+    if (localStorage.getItem("projectID") !== null && messages.length > 0) {
+      console.log(
+        "projectID while sending to database: " +
+          localStorage.getItem("projectID")
+      );
+      const projectID = localStorage.getItem("projectID");
+      const databasename = "universityatalbanyDB";
+
+      // Define an async function
+      const updateChat = async () => {
+        const response = await storeChatGPTResponse(
+          projectID,
+          databasename,
+          messages
+        );
+        console.log(response);
+      };
+
+      // Call the async function
+      updateChat();
     }
   }, [messages.length]);
 
   useEffect(() => {
-      prevMessageHistoryRef.current = getMessageHistory;
+    prevMessageHistoryRef.current = getMessageHistory;
   }, []);
-  
+
   useEffect(() => {
     if (localStorage.getItem("projectID") !== null) {
       const projectID = localStorage.getItem("projectID");
       const databasename = "universityatalbanyDB";
-  
+
       // Define an async function
       const getChat = async () => {
         const response = await getChatGPTResponseFromDB(
@@ -142,16 +145,25 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
         setMessageHistory(response);
         console.log(getMessageHistory);
       };
-  
+
       // Call the async function
       getChat();
     }
   }, []);
-  
+
   useEffect(() => {
-    const iterableMessageHistory = Array.isArray(getMessageHistory) ? getMessageHistory : [];
-    if (iterableMessageHistory.length > 0 && JSON.stringify(prevMessageHistoryRef.current) !== JSON.stringify(iterableMessageHistory)) {
-      setMessages(prevMessages => [...prevMessages, ...iterableMessageHistory]);
+    const iterableMessageHistory = Array.isArray(getMessageHistory)
+      ? getMessageHistory
+      : [];
+    if (
+      iterableMessageHistory.length > 0 &&
+      JSON.stringify(prevMessageHistoryRef.current) !==
+        JSON.stringify(iterableMessageHistory)
+    ) {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        ...iterableMessageHistory,
+      ]);
       prevMessageHistoryRef.current = iterableMessageHistory;
     }
   }, [getMessageHistory]);
@@ -164,7 +176,6 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   };
 
   const sendToChatGPTandGetResponse = async (messageHistory) => {
-    console.log(messageHistory);
     const response = await getChatGPTResponse(messageHistory);
     return response.data;
   };

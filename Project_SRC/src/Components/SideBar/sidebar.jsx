@@ -90,7 +90,11 @@ const SideBar = ({ projects }) => {
   const handleHomeClick = () => {
     localStorage.setItem("discordServerId", "noProjectSelected");
     localStorage.setItem("chatPlatform", "discord");
+    localStorage.setItem("projectID", null);
     setIsAccordionOpen(false);
+    console.log(
+      "projectID after clicking home: " + localStorage.getItem("projectID")
+    );
   };
 
   const [openPicker, data] = useDrivePicker();
@@ -303,6 +307,7 @@ const SideBar = ({ projects }) => {
                         />
                       }
                       onClick={() => {
+                        localStorage.setItem("projectID", project._id);
                         if (project.nativeChat) {
                           localStorage.setItem("chatPlatform", "native");
                         } else {
