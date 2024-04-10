@@ -27,8 +27,6 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [getMessageHistory, setMessageHistory] = useState([]);
-  var messageHistoryRetrieved = false;
-
   const prevMessageHistoryRef = useRef();
   
 
