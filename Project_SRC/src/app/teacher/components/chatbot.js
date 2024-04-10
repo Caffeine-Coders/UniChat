@@ -20,18 +20,20 @@ import Image from "next/image";
 import Linkify from "react-linkify";
 import {appendGPT} from '../dbconnections/storegpt'
 import {getgptchat} from '../dbconnections/getgptchat'
-export default function Chatbot ({ chatGPTOperation, document, onClose }) {
-  const [isVisible, setIsVisible] = useState(true);
+export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
+  const [isVisible, setIsVisible] = useState(isOpen);
   
   const [newMessage, setNewMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  
   const [getMessageHistory, setMessageHistory] = useState([]);
   var messageHistoryRetreived = false;
   let msg;
   let msgarray=[];
+  let sendmsg;
   if(typeof window !== "undefined"){
     msg = localStorage.getItem("gptmessages");
+    sendmsg = localStorage.getItem("sendmessage");
     if (msg && msg.length > 0) {
       let matches = msg.match(/"(.*?)"/g);
       if (matches) {
@@ -46,6 +48,15 @@ export default function Chatbot ({ chatGPTOperation, document, onClose }) {
     }
   }
   const [messages, setMessages] = useState(msgarray);
+  if (sendmsg) {
+    setNewMessage(sendmsg);
+    localStorage.removeItem('sendmessage');
+  }
+  useEffect(() => {
+    // const email = localStorage.getItem("Temail")
+    // gptgetter(email)
+    setIsVisible(isOpen);
+  }, [isOpen]);
   useEffect(() => {
     const fetchData = async () => {
       setIsVisible(true);
@@ -168,9 +179,9 @@ export default function Chatbot ({ chatGPTOperation, document, onClose }) {
             }
           console.log("from cose",messages)
           setIsVisible(false);
-          if (onClose) {
-            onClose();
-          }
+        //   if (typeof onClose === 'function') {
+        //     onClose();
+        // }
         };
 
         const sendToChatGPTandGetResponse = async (messageHistory) => {
