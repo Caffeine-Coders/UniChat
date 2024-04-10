@@ -19,6 +19,7 @@ import {
 } from "../../Services/ChatGPT/ChatGPT_Routines";
 import Image from "next/image";
 import Linkify from "react-linkify";
+import { get } from "http";
 
 const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -123,9 +124,9 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   }, [messages.length]);
 
   useEffect(() => {
-    prevMessageHistoryRef.current = getMessageHistory;
+      prevMessageHistoryRef.current = getMessageHistory;
   }, []);
-
+  
   useEffect(() => {
     if (localStorage.getItem("projectID") !== null) {
       const projectID = localStorage.getItem("projectID");
@@ -139,6 +140,7 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
         );
         console.log(response);
         setMessageHistory(response);
+        console.log(getMessageHistory);
       };
   
       // Call the async function
@@ -147,10 +149,12 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   }, []);
   
   useEffect(() => {
-      if (JSON.stringify(prevMessageHistoryRef.current) !== JSON.stringify(getMessageHistory)) {
-        setMessages(prevMessages => [...prevMessages, ...getMessageHistory]);
-      }
-    }, [getMessageHistory]);
+    const iterableMessageHistory = Array.isArray(getMessageHistory) ? getMessageHistory : [];
+    if (iterableMessageHistory.length > 0 && JSON.stringify(prevMessageHistoryRef.current) !== JSON.stringify(iterableMessageHistory)) {
+      setMessages(prevMessages => [...prevMessages, ...iterableMessageHistory]);
+      prevMessageHistoryRef.current = iterableMessageHistory;
+    }
+  }, [getMessageHistory]);
 
   const handleCloseChatGPT = () => {
     setIsVisible(false);

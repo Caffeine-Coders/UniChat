@@ -36,6 +36,6 @@ export async function getChatGPTResponseFromDB(projectID, databasename) {
   );
 
   const data = await response.json();
-  console.log(data.messages);
-  return data.messages;
+  console.log(data.chatgptmessages);
+  return data.chatgptmessages;
 }
