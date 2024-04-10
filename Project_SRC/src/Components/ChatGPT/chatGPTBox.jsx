@@ -103,11 +103,7 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
 
   useEffect(() => {
     console.log(messages.length, localStorage.getItem("projectID"));
-    if (localStorage.getItem("projectID") !== null && messages.length > 0) {
-      console.log(
-        "projectID while sending to database: " +
-          localStorage.getItem("projectID")
-      );
+    if (localStorage.getItem("projectID") !== "null" && messages.length > 0) {
       const projectID = localStorage.getItem("projectID");
       const databasename = "universityatalbanyDB";
 
@@ -216,6 +212,14 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
             x: window.innerWidth / 2 - 175,
             y: window.innerHeight / 2 - 250,
           }}
+          onStart={(event, data) => {
+            // Check if the target element is the text
+            if (event.target.tagName === "P" || event.target.tagName === "A") {
+              // If it is, prevent dragging
+              event.preventDefault();
+              event.stopPropagation();
+            }
+          }}
         >
           <Paper
             style={{
@@ -294,6 +298,7 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
                   mt: 2,
                   maxHeight: "380px",
                   wordWrap: "break-word",
+                  userSelect: "text",
                 }}
               >
                 {[...messages].reverse().map((message, index) => (
@@ -308,6 +313,7 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
                       alignSelf:
                         message.role === "user" ? "flex-end" : "flex-start",
                       maxWidth: "70%",
+                      userSelect: "text",
                     }}
                   >
                     {message.content.split("\n").map((line, index) => (
@@ -317,6 +323,7 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
                           color: (theme) => theme.palette.primary.whites,
                           fontFamily: "'Kode Mono', monospace",
                           fontSize: 12,
+                          userSelect: "text",
                         }}
                       >
                         <Linkify

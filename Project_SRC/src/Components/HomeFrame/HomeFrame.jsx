@@ -38,7 +38,7 @@ export default function HomeComponent() {
       localStorage.setItem("chatPlatform", "noProjectSelected");
       localStorage.setItem("discordServerId", "noProjectSelected");
       setDiscordServerId("noProjectSelected");
-      localStorage.setItem("projectID", null);
+      localStorage.setItem("projectID", "null");
     } else {
       localStorage.setItem("discordServerId", "noProjectsFound");
       setDiscordServerId("noProjectsFound");

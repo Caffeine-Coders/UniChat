@@ -90,7 +90,7 @@ const SideBar = ({ projects }) => {
   const handleHomeClick = () => {
     localStorage.setItem("discordServerId", "noProjectSelected");
     localStorage.setItem("chatPlatform", "discord");
-    localStorage.setItem("projectID", null);
+    localStorage.setItem("projectID", "null");
     setIsAccordionOpen(false);
     console.log(
       "projectID after clicking home: " + localStorage.getItem("projectID")
