@@ -294,7 +294,9 @@ export default function Chatbot ({ chatGPTOperation, document, onClose }) {
                         // wordWrap: "break-word",
                       }}
                     >
-                      {[...messages].reverse().map((message, index) => (
+                      {[...messages].reverse().map((message, reversedIndex) => {
+                        const index = messages.length - 1 - reversedIndex; // calculate the index in the original array
+                        return (
                         <Box
                           key={index}
                           sx={{
@@ -371,7 +373,7 @@ export default function Chatbot ({ chatGPTOperation, document, onClose }) {
                             }} 
                             onMouseOver={(e) => e.currentTarget.style.opacity = 1}
                             onMouseOut={(e) => e.currentTarget.style.opacity = 0} 
-                            onClick={()=>{localStorage.setItem("sharedmsg",messages[index].text);
+                            onClick={()=>{localStorage.setItem("sharedmsg",messages[index].content);
                             localStorage.setItem("messageAdded","false"); 
                             window.location.reload();
                           }
@@ -380,10 +382,10 @@ export default function Chatbot ({ chatGPTOperation, document, onClose }) {
                           />
                         </div>
                         )}
-                      
-                    {/* ))} */}
+
                         </Box>
-                      ))}
+                        );
+                      })}
                     </Box>
                   )}
                   <Box
