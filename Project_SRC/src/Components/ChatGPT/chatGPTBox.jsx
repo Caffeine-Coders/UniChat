@@ -212,14 +212,7 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
             x: window.innerWidth / 2 - 175,
             y: window.innerHeight / 2 - 250,
           }}
-          onStart={(event, data) => {
-            // Check if the target element is the text
-            if (event.target.tagName === "P" || event.target.tagName === "A") {
-              // If it is, prevent dragging
-              event.preventDefault();
-              event.stopPropagation();
-            }
-          }}
+          handle=".drag-handle"
         >
           <Paper
             style={{
@@ -243,6 +236,7 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
                 borderRadius: "5px 5px 0 0",
                 padding: "0 10px",
               }}
+              className="drag-handle"
             >
               <IconButton
                 onClick={handleCloseChatGPT}
