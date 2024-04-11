@@ -66,9 +66,9 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
         const docName = JSON.parse(document).docName;
         const docContent = JSON.parse(document).docContent;
         const newMessage = `Summarize this document: ${docName}`;
-        // const divergentMessages = [...messages];
         const divergentMessages = [...messages]
-        if (messages[messages.length-1].content !== newMessage) {
+
+        if (messages.length === 0 || messages[messages.length-1].content !== newMessage) {
           messages.push({role:"user", content: newMessage})
         }
         
@@ -91,7 +91,7 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
         const newMessage = `Get resources for this document: ${docName}`;
         const divergentMessages = [...messages];
 
-        if (messages[messages.length-1].content !== newMessage) {
+        if (messages.length === 0 || messages[messages.length-1].content !== newMessage) {
           messages.push({role:"user", content: newMessage})
         }
 
@@ -118,7 +118,7 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
           content: `Evaluate key concepts as pointers from this document: ${docContent}`,
         });
 
-        if (messages[messages.length-1].content !== newMessage) {
+        if (messages.length === 0 || messages[messages.length-1].content !== newMessage) {
           messages.push({role:"user", content: newMessage})
         }
         const keyConcepts = await sendToChatGPTandGetResponse(divergentMessages);
