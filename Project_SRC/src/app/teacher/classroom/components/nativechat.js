@@ -33,6 +33,11 @@ function Nativechat() {
     
     const [messageData, setMessageData] = useState([
         {
+            message: "Hello Students!",
+            sentTime: "2024-03-14T09:00:00Z",
+            sender: "Anudeep Sai"
+        },
+        {
             message: "Hello!",
             sentTime: "2024-03-14T09:00:00Z",
             sender: "Satwik Bhasin"
@@ -40,17 +45,23 @@ function Nativechat() {
         {
             message: "Hi there!",
             sentTime: "2024-03-14T09:05:00Z",
-            sender: "Anudeep Sai"
+            sender: "Dheeraj"
         },
+    
         {
-            message: "How are you?",
-            sentTime: "2024-03-14T09:10:00Z",
-            sender: "Anudeep Sai"
-        },
-        {
-            message: "I have a question in the project you are working on. Can you help me with that?",
+            message: "I have a question in the project. Can you help me with that?",
             sentTime: "2024-03-14T09:15:00Z",
             sender: "Satwik Bhasin"
+        },
+        {
+            message: "what is Tailwind CSS?",
+            sentTime: "2024-03-14T09:15:00Z",
+            sender: "Satwik Bhasin"
+        },
+        {
+            message: "Even I am not sure can you help professor?",
+            sentTime: "2024-03-14T09:15:00Z",
+            sender: "Dheeraj"
         },
     ]);
     
@@ -153,13 +164,18 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
                     </ConversationHeader>
 
                     <MessageList>
+
                         <MessageSeparator content="CHAT" />
+                        
                         {
+                            
                             messageData.map((message, index) => {
                                 return (
-                                    message.sender === "Anudeep Sai" ?
-                            
+
+                                    message.sender === "Anudeep Sai" ? 
+
                                         <div key={index} style={{display:'flex' , justifyContent:'flex-end', alignItems:'center'}}>
+                                        
                                             <Message model={{
                                                 message: message.message,
                                                 sentTime: message.sentTime,
@@ -171,8 +187,11 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
                                             
                                         </div>
                                         :
+                                            <>
+                                            
+                                                <Message.Header sender={message.sender}/>
                                         <div key={index} style={{display:'flex', width:'fit-content'}} >
- 
+                                            {/* <span style={{fontSize: '12px', marginBottom: '5px'}}>{message.sender}</span> */}
                                             <Message model={{
                                                 message: message.message,
                                                 sentTime: message.sentTime,
@@ -182,11 +201,12 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
                                          
                                             >
 
-                                                <Avatar src={image[0]} />
+                                                {/* <Avatar src={image[0]} /> */}
 
                                             </Message>
                                             <ShortcutIcon style={{marginTop:'15px', fontSize:'20px',cursor:'pointer', float:'left'}} onClick = {() => clickHandler(index)}/>  
                                         </div>
+                                        </>
                                     )
                             })
                         }
