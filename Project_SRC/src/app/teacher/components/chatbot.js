@@ -68,7 +68,10 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
         const newMessage = `Summarize this document: ${docName}`;
         // const divergentMessages = [...messages];
         const divergentMessages = [...messages]
-        messages.push({role:"user", content: newMessage})
+        if (messages[messages.length-1].content !== newMessage) {
+          messages.push({role:"user", content: newMessage})
+        }
+        
 
         divergentMessages.push({
           role: "user",
@@ -88,7 +91,9 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
         const newMessage = `Get resources for this document: ${docName}`;
         const divergentMessages = [...messages];
 
-        messages.push({ role: "user", content: newMessage });
+        if (messages[messages.length-1].content !== newMessage) {
+          messages.push({role:"user", content: newMessage})
+        }
 
         divergentMessages.push({
           role: "user",
@@ -113,8 +118,9 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
           content: `Evaluate key concepts as pointers from this document: ${docContent}`,
         });
 
-        messages.push({ role: "user", content: newMessage });
-
+        if (messages[messages.length-1].content !== newMessage) {
+          messages.push({role:"user", content: newMessage})
+        }
         const keyConcepts = await sendToChatGPTandGetResponse(divergentMessages);
 
         messages.push({ role: "assistant", content: keyConcepts });
@@ -348,7 +354,7 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
                                 }
                               }}
                             >
-                              {/* <Linkify
+                              <Linkify
                                 componentDecorator={(
                                   decoratedHref,
                                   decoratedText,
@@ -358,9 +364,9 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
                                     {decoratedText}
                                   </a>
                                 )}
-                              > */}
+                              >
                                 <pre style={{whiteSpace: "pre-wrap", fontSize: 14, fontFamily: 'initial'}}>{message.content}</pre>
-                              {/* </Linkify> */}
+                              </Linkify>
                             </Typography>
                           
                          {message.role !== "user" && (
