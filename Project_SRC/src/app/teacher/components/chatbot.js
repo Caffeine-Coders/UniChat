@@ -84,6 +84,8 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
 
         setIsLoading(false);
         setNewMessage("");
+        const messagesJson = messages.map(message => `"${message.content}"`).join(",");
+        localStorage.setItem('gptmessages', messagesJson);
       } else if (chatGPTOperation === "resources") {
         setIsLoading(true);
         const docName = JSON.parse(document).docName;
@@ -106,6 +108,8 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
 
         setIsLoading(false);
         setNewMessage("");
+        const messagesJson = messages.map(message => `"${message.content}"`).join(",");
+        localStorage.setItem('gptmessages', messagesJson);
       } else if (chatGPTOperation === "keyConcepts") {
         setIsLoading(true);
         const docName = JSON.parse(document).docName;
@@ -127,6 +131,8 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
 
         setIsLoading(false);
         setNewMessage("");
+        const messagesJson = messages.map(message => `"${message.content}"`).join(",");
+        localStorage.setItem('gptmessages', messagesJson);
       }
     };
 
@@ -221,10 +227,11 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
 
             setIsLoading(false);
             setNewMessage("");
+            const messagesJson = messages.map(message => `"${message.content}"`).join(",");
+            localStorage.setItem('gptmessages', messagesJson);
           }
         };
-        const messagesJson = messages.map(message => `"${message.content}"`).join(",");
-        localStorage.setItem('gptmessages', messagesJson);
+
         return (
           isVisible && (
             <Box sx={{ zIndex: 1 }}>
