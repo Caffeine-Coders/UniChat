@@ -27,14 +27,15 @@ async function userAdd(name,email,schoolname){
 export function Signuplogin(){
     const router = useRouter()
     const provider = new GoogleAuthProvider()
-    // provider.addScope("https://www.googleapis.com/auth/drive");
-    // provider.addScope("https://www.googleapis.com/auth/documents");
+    provider.addScope("https://www.googleapis.com/auth/drive");
+    provider.addScope("https://www.googleapis.com/auth/documents");
     async function googleLogin() {
         try {
             const result = await signInWithPopup(auth, provider);
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
             sessionStorage.setItem("googletoken", token);
+            sessionStorage.setItem("googleAccessToken", token);
             // sessionStorage.setItem("googleAccessToken", ya29.a0Ad52N3_Jn1OEJVzekX2qdraT8tRxbkhvZIiWHmt8cuRqGZ77hDJNZ_EqVLBTtTHnXCUqnEckhwullSzWA_w5v9Uh-cMmRgxy_-YT3IpwL3QkyZk8wScihMs4NPixuMshoQ45d-bWU50umYeHSwiXPXob4u7JmPNz9ZYaCgYKAQQSARISFQHGX2MiMH5vm8n4yXtPkQ2tNxjc5g0170);
             const user = result.user;
             let name = user.displayName;

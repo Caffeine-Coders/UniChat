@@ -13,14 +13,14 @@ export function Drivecomponent() {
     }
     }, []);
   function handleopenPicker ()  {
-    // const apiToken = sessionStorage.getItem("googletoken");
+    const apiToken = sessionStorage.getItem("googleAccessToken");
     // console.log("api token",googletoken)
     openPicker({
       clientId: '627377626990-dh0rifs0dih0c2ttl6l6f6garog9vebt.apps.googleusercontent.com',
       developerKey: 'AIzaSyBvze5ee8eCbgBmy9uqFQutYFYB3ydhZCA',
       viewId: "DOCS",
       showUploadView: true,
-      // token: apiToken,
+      token: apiToken,
       showUploadFolders: true,
       supportDrives: true,
       multiselect: true,
