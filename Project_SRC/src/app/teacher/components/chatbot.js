@@ -67,9 +67,9 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
         const docContent = JSON.parse(document).docContent;
         const newMessage = `Summarize this document: ${docName}`;
         // const divergentMessages = [...messages];
-
-
         const divergentMessages = [...messages]
+        messages.push({role:"user", content: newMessage})
+
         divergentMessages.push({
           role: "user",
           content: `Summarize this document briefly: ${docContent}`,

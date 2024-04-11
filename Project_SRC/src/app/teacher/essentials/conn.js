@@ -29,8 +29,6 @@ export function Signuplogin(){
     const provider = new GoogleAuthProvider()
     provider.addScope("https://www.googleapis.com/auth/drive");
     provider.addScope("https://www.googleapis.com/auth/documents");
-    provider.addScope("https://www.googleapis.com/auth/drive");
-    provider.addScope("https://www.googleapis.com/auth/documents");
     async function googleLogin() {
         try {
             const result = await signInWithPopup(auth, provider);
