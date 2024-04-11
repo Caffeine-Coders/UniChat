@@ -10,7 +10,7 @@ import chatgpt_logo from "../../../../Assets/chatgpt-bw.png";
 import sublist_icon from "../../../../Assets/sublist_icon.png";
 import { getDoc } from "../../../../Services/GoogleDocs_Routines";
 import ChatGPTBox from "../../../../Components/ChatGPT/chatGPTBox.jsx"
-import Chatbot from "../../components/chatbot.js";
+import Chatbot from "../../../../Components/ChatGPT/chatGPTBox.jsx";
 export default function DocView({ selectedDoc, selectedDocId }) {
   // sessionStorage.setItem("googleAccessToken", "ya29.a0Ad52N3_Jn1OEJVzekX2qdraT8tRxbkhvZIiWHmt8cuRqGZ77hDJNZ_EqVLBTtTHnXCUqnEckhwullSzWA_w5v9Uh-cMmRgxy_-YT3IpwL3QkyZk8wScihMs4NPixuMshoQ45d-bWU50umYeHSwiXPXob4u7JmPNz9ZYaCgYKAQQSARISFQHGX2MiMH5vm8n4yXtPkQ2tNxjc5g0170");
   // const { theme } = useContext(ThemeContext);
