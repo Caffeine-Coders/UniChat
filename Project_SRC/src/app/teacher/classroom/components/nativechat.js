@@ -153,9 +153,12 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
                     </ConversationHeader>
 
                     <MessageList>
+                        
                         <MessageSeparator content="CHAT" />
                         {
+                            
                             messageData.map((message, index) => {
+                                
                                 return (
                                     message.sender === "Anudeep Sai" ?
                             
@@ -171,6 +174,8 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
                                             
                                         </div>
                                         :
+                                        <>
+                                        <Message.Header sender={message.sender}/>
                                         <div key={index} style={{display:'flex', width:'fit-content'}} >
  
                                             <Message model={{
@@ -182,11 +187,12 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
                                          
                                             >
 
-                                                <Avatar src={image[0]} />
+                                                {/* <Avatar src={image[0]} /> */}
 
                                             </Message>
                                             <ShortcutIcon style={{marginTop:'15px', fontSize:'20px',cursor:'pointer', float:'left'}} onClick = {() => clickHandler(index)}/>  
                                         </div>
+                                        </>
                                     )
                             })
                         }
