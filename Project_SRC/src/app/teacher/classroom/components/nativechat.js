@@ -164,12 +164,13 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
                     </ConversationHeader>
 
                     <MessageList>
-
+                        
                         <MessageSeparator content="CHAT" />
                         
                         {
                             
                             messageData.map((message, index) => {
+                                
                                 return (
 
                                     message.sender === "Anudeep Sai" ? 
@@ -187,9 +188,8 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
                                             
                                         </div>
                                         :
-                                            <>
-                                            
-                                                <Message.Header sender={message.sender}/>
+                                        <>
+                                        <Message.Header sender={message.sender}/>
                                         <div key={index} style={{display:'flex', width:'fit-content'}} >
                                             {/* <span style={{fontSize: '12px', marginBottom: '5px'}}>{message.sender}</span> */}
                                             <Message model={{

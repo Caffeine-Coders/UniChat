@@ -20,6 +20,7 @@ import Image from "next/image";
 import Linkify from "react-linkify";
 import {appendGPT} from '../dbconnections/storegpt'
 import {getgptchat} from '../dbconnections/getgptchat'
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
   const [isVisible, setIsVisible] = useState(isOpen);
   
@@ -316,7 +317,7 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
                             p: 1,
                             borderRadius: 2,
                             m: 1,
-                            mb:3,
+                            // mb:3,
                             alignSelf:
                               message.role === "user" ? "flex-end" : "flex-start",
                             maxWidth: "80%",
@@ -326,14 +327,15 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
                             justifyContent: 'space-between',
                           }}
                         >
-                          {message.content.split("\n").map((line, index) => (
+                          {/* {message.content.split("\n").map((line, index) => ( */}
                             <Typography
                               key={index}
                               sx={{
                                 color: (theme) => theme.palette.primary.whites,
-                                fontFamily: "'Kode Mono', monospace",
-                                fontSize: 12,
+                                // fontFamily: "'Kode Mono', monospace",
+                                fontSize: 15,
                                 flex: 1,
+                                wordWrap: "break-word",
                               }}
                               onMouseOver={(e) => {
                                 if (e.currentTarget.nextSibling && e.currentTarget.nextSibling.firstChild) {
@@ -346,7 +348,7 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
                                 }
                               }}
                             >
-                              <Linkify
+                              {/* <Linkify
                                 componentDecorator={(
                                   decoratedHref,
                                   decoratedText,
@@ -356,11 +358,11 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
                                     {decoratedText}
                                   </a>
                                 )}
-                              >
-                                {line}
-                              </Linkify>
+                              > */}
+                                <pre style={{whiteSpace: "pre-wrap", fontSize: 14, fontFamily: 'initial'}}>{message.content}</pre>
+                              {/* </Linkify> */}
                             </Typography>
-                          ))}
+                          
                          {message.role !== "user" && (
                         <div style={{
                           display: 'inline-block', 
@@ -400,67 +402,74 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
                     </Box>
                   )}
                   <Box
-                  sx={{
-                      position: "absolute",
-                      bottom: 10,
-                      justifyContent: "flex-start",
-                      alignItems: "center",
-                      display: "flex",
-                      mt: 33,
-                      width: "95%",
-                      ml: 1,
-                      
-                      borderRadius: 3,
-                      backgroundColor: "white",
-                      color: "black",
-                      border: "1px solid black"
-                  }}
-              >
-                  <InputBase
-                    placeholder="Message ChatGPT..."
-                    value={isLoading ? "Thinking..." : newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    disabled={isLoading}
-                    maxRows={3}
-                    multiline
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") handleSendMessage();
-                    }}
+            sx={{
+                position: "absolute",
+                bottom: 10,
+                justifyContent: "flex-start",
+                alignItems: "center",
+                display: "flex",
+                mt: 33,
+                width: "95%",
+                ml: 1,
+                height: 40,
+                borderRadius: 3,
+                backgroundColor: "white",
+                color: "black",
+                border: "1px solid black"
+            }}
+        >
+            <InputBase
+              placeholder="Message ChatGPT..."
+              value={isLoading ? "Thinking..." : newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              disabled={isLoading}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleSendMessage();
+              }}
+              sx={{
+                color: "black",
+                fontSize: 14,
+                flexGrow: 1,
+                ml: 1,
+                mr: 1,
+              }}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleSendMessage}
                     sx={{
-                      color: "black",
-                      fontSize: 14,
-                      flexGrow: 1,
-                      ml: 1,
-                      mr: 1,
+                      color: (theme) => theme.palette.primary.whites,
+                      "&:hover": {
+                        backgroundColor: "transparent",
+                      },
                     }}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            onClick={handleSendMessage}
-                            disabled={isLoading || !newMessage.trim()}
-                            sx={{
-                              color: (theme) => theme.palette.primary.whites,
-                              "&:hover": {
-                                backgroundColor: "transparent",
-                              },
-                            }}
-                          >
-                            {isLoading ? (
-                              <CircularProgress
-                                sx={{
-                                  backgroundColor: (theme) =>
-                                    theme.palette.primary.main,
+                  >
+                    {isLoading ? (
+                      <CircularProgress
+                        sx={{
+                          backgroundColor: "black",
+                        }}
+                        size={14}
+                      />
+                    ) : (
+                    <IconButton
+                        onClick={handleSendMessage}
+                        sx={{
+                            color: (theme) => theme.palette.primary.whites,
+                                    "&:hover": {
+                                        // backgroundColor: "black",
+                                        // border: "1px solid black",
+                                    },
                                 }}
-                                size={14}
-                              />
-                            ) : (
-                              <SendIcon />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                    />
-                  </Box>
+                            >
+                                <ArrowUpwardIcon />
+                            </IconButton>
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </Box>
                 </Paper>
               </Draggable>
             </Box>
