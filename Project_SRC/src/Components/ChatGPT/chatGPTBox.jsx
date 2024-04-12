@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef} from "react";
 import {
   IconButton,
   Typography,
@@ -19,6 +19,7 @@ import {
 } from "../../Services/ChatGPT/ChatGPT_Routines";
 import Image from "next/image";
 import Linkify from "react-linkify";
+import { get } from "http";
 
 const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -27,7 +28,8 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [getMessageHistory, setMessageHistory] = useState([]);
-  var messageHistoryRetreived = false;
+  const prevMessageHistoryRef = useRef();
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,6 +100,8 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
     fetchData();
   }, [chatGPTOperation]);
 
+
+
   useEffect(() => {
     console.log(messages.length, localStorage.getItem("projectID"));
       if (localStorage.getItem("projectID") !== null && messages.length > 0) {
@@ -120,10 +124,14 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   }, [messages.length]);
 
   useEffect(() => {
+      prevMessageHistoryRef.current = getMessageHistory;
+  }, []);
+  
+  useEffect(() => {
     if (localStorage.getItem("projectID") !== null) {
       const projectID = localStorage.getItem("projectID");
       const databasename = "universityatalbanyDB";
-
+  
       // Define an async function
       const getChat = async () => {
         const response = await getChatGPTResponseFromDB(
@@ -132,13 +140,21 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
         );
         console.log(response);
         setMessageHistory(response);
+        console.log(getMessageHistory);
       };
-
+  
       // Call the async function
       getChat();
-      console.log("message history", getMessageHistory);
     }
   }, []);
+  
+  useEffect(() => {
+    const iterableMessageHistory = Array.isArray(getMessageHistory) ? getMessageHistory : [];
+    if (iterableMessageHistory.length > 0 && JSON.stringify(prevMessageHistoryRef.current) !== JSON.stringify(iterableMessageHistory)) {
+      setMessages(prevMessages => [...prevMessages, ...iterableMessageHistory]);
+      prevMessageHistoryRef.current = iterableMessageHistory;
+    }
+  }, [getMessageHistory]);
 
   const handleCloseChatGPT = () => {
     setIsVisible(false);

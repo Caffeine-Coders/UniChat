@@ -18,7 +18,7 @@ export async function POST(request) {
         const filter = { _id: ObjectId.createFromHexString(projectID) };
         const updateDoc = {
             $set: {
-                messages: messages
+                chatgptmessages: messages
             },
         };
         const result = await collection.updateOne(filter, updateDoc);
