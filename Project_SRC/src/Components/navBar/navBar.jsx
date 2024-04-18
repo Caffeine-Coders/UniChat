@@ -28,7 +28,7 @@ import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import ThemeContext from "../Contexts/themeContext";
 import AuthContext from "../Contexts/authContext";
-import ChatGPTBox from "../ChatGPT/chatGPTBox";
+import ChatGPTBox from "../ChatGPT/ChatGPTBox";
 
 const StyledButton = styled(Button)(({ theme }) => ({
   width: "135px",
