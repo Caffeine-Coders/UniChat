@@ -7,6 +7,8 @@ import ConvoList from "../../../../Components/NativeChat/ConvoList.jsx"
 import {getStudentData} from "../../../../Services/Student/StudentData.js"
 import ShortcutIcon from '@mui/icons-material/Shortcut';
 import Chatbot from '../../components/chatbot.js';
+import {sendMessage} from "../../dbconnections/appendMessage.js"
+// import { AddMessage } from '../../../../Services/NativeChat_Routines/MessageRoutines.js';
 function Nativechat() {
     let studentIds = [];
     let projectname;
@@ -30,42 +32,23 @@ function Nativechat() {
     // const [messageData, setMessageData] = useState([])
     const [messageInputValue, setMessageInputValue] = useState("");
     const [typingIndicator, setTypingIndicator] = useState("")
-    
+   
+
     const [messageData, setMessageData] = useState([
-        {
-            message: "Hello Students!",
-            sentTime: "2024-03-14T09:00:00Z",
-            sender: "Anudeep Sai"
-        },
-        {
-            message: "Hello!",
-            sentTime: "2024-03-14T09:00:00Z",
-            sender: "Satwik Bhasin"
-        },
-        {
-            message: "Hi there!",
-            sentTime: "2024-03-14T09:05:00Z",
-            sender: "Dheeraj"
-        },
-    
-        {
-            message: "I have a question in the project. Can you help me with that?",
-            sentTime: "2024-03-14T09:15:00Z",
-            sender: "Satwik Bhasin"
-        },
-        {
-            message: "what is Tailwind CSS?",
-            sentTime: "2024-03-14T09:15:00Z",
-            sender: "Satwik Bhasin"
-        },
-        {
-            message: "Even I am not sure can you help professor?",
-            sentTime: "2024-03-14T09:15:00Z",
-            sender: "Dheeraj"
-        },
+       
     ]);
+    const localmsgs = JSON.parse(localStorage.getItem("nativemessages"))
+        const formattedmsgs = localmsgs.map(msg => ({
+            message: msg.content,
+            sender: msg.role
+        }))
     
+    const currentuser = localStorage.getItem("Tname").replace(/"/g,"")
+    // console.log("current user",currentuser)
     useEffect(() => {
+       
+        // console.log("formated ",formattedmsgs)
+        setMessageData(formattedmsgs)
         const messageAdded = localStorage.getItem("messageAdded");
 
     if (messageAdded === "false") {
@@ -76,7 +59,7 @@ function Nativechat() {
             const newMessage = {
                 message: sharedMsg,
                 sentTime: new Date().toISOString(), // Assuming the current time
-                sender: "Anudeep Sai" // Set the sender to Anudeep Sai
+                sender: currentuser // Set the sender to Anudeep Sai
             };
             // Append the new message to the messageData array
             setMessageData(prevMessageData => [...prevMessageData, newMessage]);
@@ -85,32 +68,33 @@ function Nativechat() {
             localStorage.setItem("messageAdded", "true");
         }
     }
-        if (studentIds.length > 0) {
-            Promise.all(studentIds.map(async (studentId) => {
-                const studentData = await getStudentData("universityatalbanyDB", studentId);
-                return studentData[0];
-            })).then((students) => {
-                const studentImages = students.map((student) => student.photoUrl);
-                const studentNames = students.map((student) => student.name);
-                const studentEmails = students.map((student) => student.email);
-                setImage(studentImages);
-                setName(studentNames);
-                setInfo(studentEmails);
-            }).catch((error) => {
-                console.error("Error fetching student data:", error);
-            });
-        }
+        // if (studentIds.length > 0) {
+        //     Promise.all(studentIds.map(async (studentId) => {
+        //         const studentData = await getStudentData("universityatalbanyDB", studentId);
+        //         return studentData[0];
+        //     })).then((students) => {
+        //         const studentImages = students.map((student) => student.photoUrl);
+        //         const studentNames = students.map((student) => student.name);
+        //         const studentEmails = students.map((student) => student.email);
+        //         setImage(studentImages);
+        //         setName(studentNames);
+        //         setInfo(studentEmails);
+        //     }).catch((error) => {
+        //         console.error("Error fetching student data:", error);
+        //     });
+        // }
     }, [studentIds]);
 
-    const onSend = () => {
+    const onSend = async() => {
         const currentTime = new Date().toISOString(); // Get the current time
         const newMessage = {
             message: messageInputValue,
             sentTime: currentTime,
-            sender: "You" // Assuming the message is sent by the current user
+            sender: currentuser // Assuming the message is sent by the current user
         };
         setMessageData(prevMessageData => [...prevMessageData, newMessage]); // Append the new message to the messageData array
         setMessageInputValue(""); // Clear the message input value after sending
+        await sendMessage("universityatalbanyDB",localStorage.getItem("projectID").replace(/"/g,""),newMessage)
     };
     const [chatgpt,togglechatgpt] = React.useState(false)
     const[selectedmessage,setselectedmessage] = React.useState("")
@@ -173,7 +157,7 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
                                 
                                 return (
 
-                                    message.sender === "Anudeep Sai" ? 
+                                    message.sender === currentuser ? 
 
                                         <div key={index} style={{display:'flex' , justifyContent:'flex-end', alignItems:'center'}}>
                                         
