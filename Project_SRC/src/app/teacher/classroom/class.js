@@ -115,7 +115,7 @@ export default function Class() {
     console.log("details for nativechat",JSON.stringify(details.messages))
     localStorage.setItem("nativemessages",JSON.stringify(details.messages))
     console.log("details got mmsgs",details.msgs)
-    localStorage.setItem("messages",JSON.stringify(details.msgs))
+    localStorage.setItem("messages",JSON.stringify(details.chatgptmessages))
     const semail = localStorage.getItem("projectSemails")
     const temail = localStorage.getItem("projectTemails")
     const names = await getMembers(semail,temail)

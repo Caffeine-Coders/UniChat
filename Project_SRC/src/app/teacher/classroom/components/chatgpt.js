@@ -115,12 +115,10 @@ export default function Chatgpt() {
                 ))):(
                     messages.filter((message, index) => {
                         if (message.sender === selname) {
-                          // Print the message from the selected sender
                           console.log("message", index, message);
                           return true;
                         }
                     
-                        // Check if the previous message was from the selected sender and this message is from ChatGPT
                         if (index > 0 && messages[index - 1].sender === selname && message.sender === "ChatGPT") {
                           return true;
                         }
