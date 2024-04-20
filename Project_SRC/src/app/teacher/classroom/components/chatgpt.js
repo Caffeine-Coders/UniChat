@@ -17,20 +17,26 @@ import {
     MessageSeparator
 } from "@chatscope/chat-ui-kit-react"; 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
+import IconButton from '@mui/material/IconButton';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import Tooltip from '@mui/material/Tooltip';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
+import ListItemIcon from '@mui/material/ListItemIcon';
 
 
 export default function Chatgpt() {
     const [messages1, setMessages1] = React.useState([]);
+    const [selname, setSelname] = React.useState('All');
     React.useEffect(() => {
         if (typeof window !== 'undefined') {
             const msg1 = JSON.parse(localStorage.getItem("messages"));
             setMessages1(msg1);
         }
     }, []);
-
-    console.log("msg1", messages1);
-    console.log("msg1", messages1[0]);
+    let snames = localStorage.getItem("studentnames");
+    snames = snames.split(",").map((name) => name.trim());
     let messages=[]
     messages1.map((msg) => {
         messages.push({
@@ -38,6 +44,20 @@ export default function Chatgpt() {
             message: msg.content,
         });
     });
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const handleFilter = (name) => {
+        setSelname(name);
+        console.log("name", name);
+    }
+    console.log("selname", selname)
+    console.log("messages", messages)
   return (
     <>
      <a href='/teacher/classroom'>
@@ -57,9 +77,21 @@ export default function Chatgpt() {
                     <ConversationHeader.Content 
                         userName="ChatGPT" 
                     />
+                    <ConversationHeader.Actions>
+                    <Tooltip title="Filter">
+                        <IconButton color="black" 
+                        onClick={handleClick}
+                        aria-label="filter list" 
+                        aria-controls={open ? 'account-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}>
+                            <FilterListIcon />
+                        </IconButton>
+                        </Tooltip>
+                    </ConversationHeader.Actions>
                 </ConversationHeader>
                 <MessageList>
-                {messages.map((message, index) => (
+                {selname==="All" ? (messages.map((message, index) => (
                 <React.Fragment key={index}>
                     {message.sender !== "ChatGPT" ? (<Message.Header sender={message.sender}/>):null}
                     
@@ -80,7 +112,43 @@ export default function Chatgpt() {
                     />
                     )}
                 </React.Fragment>
-                ))}
+                ))):(
+                    messages.filter((message, index) => {
+                        if (message.sender === selname) {
+                          // Print the message from the selected sender
+                          console.log("message", index, message);
+                          return true;
+                        }
+                    
+                        // Check if the previous message was from the selected sender and this message is from ChatGPT
+                        if (index > 0 && messages[index - 1].sender === selname && message.sender === "ChatGPT") {
+                          return true;
+                        }
+                    
+                        return false;
+                      }).map((message, index) => (
+                        <React.Fragment key={index}>
+                          {message.sender !== "ChatGPT" ? (<Message.Header sender={message.sender}/>):null}
+                          
+                          {message.sender !== "ChatGPT" ? (
+                          <Message
+                            model={{
+                            message: message.message,
+                            sender: message.sender,
+                            direction: "incoming"
+                            }}
+                          />
+                          ) : (
+                          <Message
+                            model={{
+                            message: message.message,
+                            sender: message.sender,
+                            }}
+                          />
+                          )}
+                        </React.Fragment>
+                      ))
+                    )}
                 </MessageList>
                 {/* <Search placeholder="Search..." />
                 <MessageInput sendButton='hidden' attachButton='hidden' placeholder='Search here...'/> */}
@@ -88,6 +156,50 @@ export default function Chatgpt() {
             </MainContainer>
             </div>
       </div>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            mt: 1.5,
+            '& .MuiAvatar-root': {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            '&::before': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <MenuItem onClick={()=>handleFilter("All")}>
+            All
+        </MenuItem>
+        {snames.map((name, index) => (
+            <MenuItem key={index} onClick={() => handleFilter(name)}>
+                {name}
+            </MenuItem>
+        ))}
+      </Menu>
       </>
   );
 }
