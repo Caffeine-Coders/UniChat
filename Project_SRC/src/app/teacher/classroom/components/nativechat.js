@@ -63,9 +63,10 @@ function Nativechat() {
             };
             // Append the new message to the messageData array
             setMessageData(prevMessageData => [...prevMessageData, newMessage]);
-
             // Set messageAdded flag in localStorage to indicate that the message has been added
             localStorage.setItem("messageAdded", "true");
+            sendMessage("universityatalbanyDB",localStorage.getItem("projectid").replace(/"/g,""),newMessage)
+
         }
     }
         // if (studentIds.length > 0) {
@@ -88,13 +89,13 @@ function Nativechat() {
     const onSend = async() => {
         const currentTime = new Date().toISOString(); // Get the current time
         const newMessage = {
-            message: messageInputValue,
+            content: messageInputValue,
             sentTime: currentTime,
-            sender: currentuser // Assuming the message is sent by the current user
+            role: currentuser // Assuming the message is sent by the current user
         };
         setMessageData(prevMessageData => [...prevMessageData, newMessage]); // Append the new message to the messageData array
         setMessageInputValue(""); // Clear the message input value after sending
-        await sendMessage("universityatalbanyDB",localStorage.getItem("projectID").replace(/"/g,""),newMessage)
+        await sendMessage("universityatalbanyDB",localStorage.getItem("projectid").replace(/"/g,""),newMessage)
     };
     const [chatgpt,togglechatgpt] = React.useState(false)
     const[selectedmessage,setselectedmessage] = React.useState("")

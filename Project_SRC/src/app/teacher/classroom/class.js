@@ -106,6 +106,7 @@ export default function Class() {
     const details = await getProject(projectName)
     console.log("details",details)
     localStorage.setItem("projectname",details.projectName)
+    localStorage.setItem("projectid",details._id)
     localStorage.setItem("projectgoal",details.projectDescription)
     localStorage.setItem("nativeChat",details.nativeChat)
     console.log("details here",details.teacherIds,details.studentIds)

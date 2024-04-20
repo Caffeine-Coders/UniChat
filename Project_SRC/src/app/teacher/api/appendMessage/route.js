@@ -9,6 +9,7 @@ export async function POST(request) {
     const db = client.db("universityatalbanyDB");
     const collection = db.collection("projects");
     const response = await collection.findOne({_id: new ObjectId(data.projectID)})
+    console.log("found this ",response)
     const updated = [...response.messages,data.message]
     await collection.updateOne(
         { _id : new ObjectId(data.projectID)},
