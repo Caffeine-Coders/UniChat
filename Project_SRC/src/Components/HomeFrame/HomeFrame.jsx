@@ -10,7 +10,7 @@ import ThemeContext from "../Contexts/themeContext.jsx";
 import { darktheme } from "../Themes/Themes.jsx";
 import { useState, useContext, useEffect } from "react";
 import AuthContext, { AuthProvider } from "../Contexts/authContext.jsx";
-import { fetchStudentProjects } from "../../Services/ProjectWork/Project_Routines.js"
+import { fetchStudentProjects } from "../../Services/ProjectWork/Project_Routines.js";
 import { ThemeProvider } from "styled-components";
 import DocView from "../DocView/DocView.jsx";
 import Nativechat from "../NativeChat/Nativechat.jsx";
@@ -28,13 +28,17 @@ export default function HomeComponent() {
   const [showDocView, setShowDocView] = useState(false);
 
   const getStudentProjects = async () => {
-    const fetchedProjects = await fetchStudentProjects("universityatalbanyDB", studentId);
+    const fetchedProjects = await fetchStudentProjects(
+      "universityatalbanyDB",
+      studentId
+    );
     setProjects(fetchedProjects);
     console.log(fetchedProjects);
     if (fetchedProjects) {
       localStorage.setItem("chatPlatform", "noProjectSelected");
       localStorage.setItem("discordServerId", "noProjectSelected");
       setDiscordServerId("noProjectSelected");
+      localStorage.setItem("projectID", "null");
     } else {
       localStorage.setItem("discordServerId", "noProjectsFound");
       setDiscordServerId("noProjectsFound");
@@ -50,8 +54,8 @@ export default function HomeComponent() {
       const chatPlatform = localStorage.getItem("chatPlatform");
       if (chatPlatform === "discord") {
         const discordId = localStorage.getItem("discordServerId");
-          setChatPlatform("discord");
-          setDiscordServerId(discordId);
+        setChatPlatform("discord");
+        setDiscordServerId(discordId);
       } else if (chatPlatform === "native") {
         setChatPlatform("native");
         setDiscordServerId("noProjectSelected");
@@ -187,7 +191,7 @@ export default function HomeComponent() {
                   {chatPlatform === "discord" ? (
                     <Discord props={[discordServerId, projects]} />
                   ) : (
-                    <Nativechat project={projects}/>
+                    <Nativechat project={projects} />
                   )}
                 </ThemeContext.Provider>
               </Box>
