@@ -30,11 +30,12 @@ export default function Chatgpt() {
     }, []);
 
     console.log("msg1", messages1);
+    console.log("msg1", messages1[0]);
     let messages=[]
     messages1.map((msg) => {
         messages.push({
-            sender: msg[0]=="gpt"? "ChatGPT": msg[0],
-            message: msg[1],
+            sender: msg.role=="assistant"? "ChatGPT": msg.role,
+            message: msg.content,
         });
     });
   return (

@@ -31,7 +31,7 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isTextSelected, setIsTextSelected] = useState(false);
   const [selectedText, setSelectedText] = useState("");
-
+  const name = localStorage.getItem("studentName");
   const [getMessageHistory, setMessageHistory] = useState([]);
   const prevMessageHistoryRef = useRef();
 
@@ -70,11 +70,11 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
         const docContent = JSON.parse(document).docContent;
         const newMessage = `Summarize this document: ${docName}`;
         const divergentMessages = [...messages];
-
-        messages.push({ role: "user", content: newMessage });
+        
+        messages.push({ role: name, content: newMessage });
 
         divergentMessages.push({
-          role: "user",
+          role: name,
           content: `Summarize this document briefly: ${docContent}`,
         });
 
@@ -91,10 +91,10 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
         const newMessage = `Get resources for this document: ${docName}`;
         const divergentMessages = [...messages];
 
-        messages.push({ role: "user", content: newMessage });
+        messages.push({ role: name, content: newMessage });
 
         divergentMessages.push({
-          role: "user",
+          role: name,
           content: `Get relevant and working internet resources for this document: ${docContent}`,
         });
 
@@ -112,11 +112,11 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
         const divergentMessages = [...messages];
 
         divergentMessages.push({
-          role: "user",
+          role: name,
           content: `Evaluate key concepts as pointers from this document: ${docContent}`,
         });
 
-        messages.push({ role: "user", content: newMessage });
+        messages.push({ role: name, content: newMessage });
 
         const keyConcepts = await sendToChatGPTandGetResponse(
           divergentMessages
@@ -210,7 +210,7 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   const handleSendMessage = async () => {
     setIsLoading(true);
     if (newMessage.trim() !== "") {
-      messages.push({ role: "user", content: newMessage });
+      messages.push({ role: name, content: newMessage });
 
       const response = await sendToChatGPTandGetResponse(messages);
 
@@ -333,12 +333,12 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
                       key={index}
                       sx={{
                         backgroundColor:
-                          message.role === "user" ? "#1A1D1F" : "#699385",
+                          message.role !=="assistant" ? "#1A1D1F" : "#699385",
                         p: 1,
                         borderRadius: 1,
                         m: 1,
                         alignSelf:
-                          message.role === "user" ? "flex-end" : "flex-start",
+                          message.role !=="assistant" ? "flex-end" : "flex-start",
                         maxWidth: "70%",
                         userSelect: "text",
                       }}
