@@ -8,10 +8,36 @@ import {getStudentData} from "../../../../Services/Student/StudentData.js"
 import ShortcutIcon from '@mui/icons-material/Shortcut';
 import Chatbot from '../../components/chatbot.js';
 import {sendMessage} from "../../dbconnections/appendMessage.js"
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import Tooltip from '@mui/material/Tooltip';
+
 // import { AddMessage } from '../../../../Services/NativeChat_Routines/MessageRoutines.js';
 function Nativechat() {
     let studentIds = [];
     let projectname;
+    const [selname, setSelname] = React.useState('All');
+    let snames = localStorage.getItem("studentnames");
+    snames = snames.split(",").map((name) => name.trim());
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = () => {
+        
+        // setAnchorEl(event.currentTarget);
+    };
+    const filterClick = (event) => { 
+        // open = true;
+        setAnchorEl(event.currentTarget)
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const handleFilter = (name) => {
+        setSelname(name);
+        console.log("name", name);
+    }
     let projectDescription;
     if (typeof window !== 'undefined') {
         const studentId = localStorage.getItem("studentId");
@@ -145,14 +171,32 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
                 <ChatContainer>
                     <ConversationHeader>
                         <ConversationHeader.Back />
-                        <ConversationHeader.Content userName={projectname} info={projectDescription} />
-                    </ConversationHeader>
+                        <ConversationHeader.Content userName={projectname} info={projectDescription}  />
+                        <ConversationHeader.Actions>
+                        <Tooltip title="Filter">
 
+                            <FilterListIcon style={{ cursor: 'pointer' }} onClick={filterClick}/>
+                            </Tooltip>
+                            {/* <ShortcutIcon onClick={() => filterClick(event)}/> */}
+                    {/* <Tooltip title="Filter">
+                        <IconButton color="black" 
+                        onClick={() => filterClick()}
+                        // aria-label="filter list" 
+                        // aria-controls={open ? 'account-menu' : undefined}
+                        // aria-haspopup="true"
+                        // aria-expanded={open ? 'true' : undefined}>
+                        >
+                            <FilterListIcon />
+                        </IconButton>
+                        </Tooltip> */}
+                    </ConversationHeader.Actions>
+                    </ConversationHeader>
+                    
                     <MessageList>
                         
                         <MessageSeparator content="CHAT" />
                         
-                        {
+                        {selname==="All" ? (
                             
                             messageData.map((message, index) => {
                                 
@@ -194,13 +238,97 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
                                         </>
                                     )
                             })
-                        }
+                        ):(
+                            messageData.filter(message => message.sender === selname).map((message, index) => {
+                                return (
+
+                                    message.sender === currentuser ? 
+
+                                        <div key={index} style={{display:'flex' , justifyContent:'flex-end', alignItems:'center'}}>
+                                        
+                                            <Message model={{
+                                                message: message.message,
+                                                sentTime: message.sentTime,
+                                                sender: message.sender,
+                                                direction: "outgoing"
+                                            }}>
+                                            </Message>  
+                                            <ShortcutIcon style={{marginTop:'15px', fontSize:'20px', cursor:'pointer'}}  onClick = {() => clickHandler(index)}/>  
+                                            
+                                        </div>
+                                        :
+                                        <>
+                                        <Message.Header sender={message.sender}/>
+                                        <div key={index} style={{display:'flex', width:'fit-content'}} >
+                                            {/* <span style={{fontSize: '12px', marginBottom: '5px'}}>{message.sender}</span> */}
+                                            <Message model={{
+                                                message: message.message,
+                                                sentTime: message.sentTime,
+                                                sender: message.sender,
+                                                direction: "incoming"
+                                            }}
+                                         
+                                            >
+
+                                                {/* <Avatar src={image[0]} /> */}
+
+                                            </Message>
+                                            <ShortcutIcon style={{marginTop:'15px', fontSize:'20px',cursor:'pointer', float:'left'}} onClick = {() => clickHandler(index)}/>  
+                                        </div>
+                                        </>
+                                    )
+                            })
+                        )}
                         {/* <TypingIndicator content="Satwik Bhasin is typing" /> */}
                     </MessageList>
                     <MessageInput placeholder="Type message here" value={messageInputValue} onChange={val => setMessageInputValue(val)} onSend={onSend} />
                 </ChatContainer>
             </MainContainer>
         </div>
+        <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            mt: 1.5,
+            '& .MuiAvatar-root': {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            '&::before': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <MenuItem onClick={()=>handleFilter("All")}>
+            All
+        </MenuItem>
+        {snames.map((name, index) => (
+            <MenuItem key={index} onClick={() => handleFilter(name)}>
+                {name}
+            </MenuItem>
+        ))}
+      </Menu>
 
             </>
     );
