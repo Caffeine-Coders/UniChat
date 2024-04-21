@@ -20,7 +20,9 @@ function Nativechat() {
     let projectname;
     const [selname, setSelname] = React.useState('All');
     let snames = localStorage.getItem("studentnames");
+    if (snames){
     snames = snames.split(",").map((name) => name.trim());
+    }
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = () => {
@@ -64,12 +66,17 @@ function Nativechat() {
        
     ]);
     const localmsgs = JSON.parse(localStorage.getItem("nativemessages"))
-        const formattedmsgs = localmsgs.map(msg => ({
+    let formattedmsgs
+    if (localmsgs){
+        formattedmsgs = localmsgs.map(msg => ({
             message: msg.content,
             sender: msg.role
         }))
-    
-    const currentuser = localStorage.getItem("Tname").replace(/"/g,"")
+    }
+    let currentuser = localStorage.getItem("Tname")
+    if (currentuser){
+        currentuser = currentuser.replace(/"/g,"")
+    }
     // console.log("current user",currentuser)
     useEffect(() => {
        
