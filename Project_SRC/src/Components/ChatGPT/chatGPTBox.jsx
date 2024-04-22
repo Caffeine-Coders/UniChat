@@ -15,7 +15,7 @@ import SendIcon from "@mui/icons-material/Send";
 import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
 import ClearIcon from "@mui/icons-material/Clear";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
-import PostAddIcon from '@mui/icons-material/PostAdd';
+import PostAddIcon from "@mui/icons-material/PostAdd";
 import {
   getChatGPTResponse,
   getChatGPTResponseFromDB,
@@ -31,6 +31,8 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isTextSelected, setIsTextSelected] = useState(false);
   const [selectedText, setSelectedText] = useState("");
+  const [isReplying, setIsReplying] = useState(false);
+  const [context, setContext] = useState("");
 
   const [getMessageHistory, setMessageHistory] = useState([]);
   const prevMessageHistoryRef = useRef();
@@ -438,11 +440,10 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
                   <IconButton
                     color="primary"
                     onClick={() => {
-                      setNewMessage(
-                        "Using this as context: " +
-                          selectedText +
-                          " address this: "
-                      );
+                      setSelectedText("");
+                      setIsTextSelected(false);
+                      setIsReplying(true);
+                      setContext(selectedText);
                     }}
                     size="small"
                   >
@@ -457,7 +458,7 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
                         mr: 1,
                       }}
                     >
-                      Create Context
+                      Reply
                     </Typography>
                     <PostAddIcon />
                   </IconButton>
@@ -465,11 +466,12 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
               )}
               <Box
                 sx={{
-                  position: "absolute",
+                  position: "fixed",
                   bottom: 10,
                   justifyContent: "flex-start",
                   alignItems: "center",
                   display: "flex",
+                  flexDirection: "column",
                   mt: 33,
                   width: 320,
                   height: 40,
@@ -479,6 +481,17 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
                   color: (theme) => theme.palette.primary.textcolor,
                 }}
               >
+                {isReplying && (
+                  <Paper
+                    sx={{
+                      width: "100%",
+                      padding: 1,
+                      marginBottom: 1,
+                    }}
+                  >
+                    {selectedText}
+                  </Paper>
+                )}
                 <InputBase
                   placeholder="Ask Here"
                   value={isLoading ? "Thinking..." : newMessage}
