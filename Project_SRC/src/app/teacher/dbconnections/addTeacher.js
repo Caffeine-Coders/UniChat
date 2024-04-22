@@ -1,6 +1,6 @@
 export const addUser = async (username,emailid,schoolname) => {
     console.log("here in add details",username,emailid,schoolname)
-  const res = await fetch(`./api/adduser`, {
+  const res = await fetch(`/api/teacherapi/adduser`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

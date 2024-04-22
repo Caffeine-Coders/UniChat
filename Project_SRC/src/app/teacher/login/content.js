@@ -24,7 +24,9 @@ export default function content() {
     const handeGoogle = (event) =>{
         event.preventDefault()
         setLoading(true)
+        if (typeof window !== 'undefined'){
         window.addEventListener("focus",focusHandler)
+        }
         loginInstance.googleLogin().then((data)=>{
         const verificationStatus = data.verificationStatus
         const name = data.name

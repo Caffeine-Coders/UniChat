@@ -1,5 +1,5 @@
 "use client"
-import {auth, db, provider} from '../dbconnections/firebase'
+import {auth2, db2, provider} from '../dbconnections/firebase'
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut} from "firebase/auth"
 import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { useRouter } from 'next/navigation';
@@ -31,7 +31,7 @@ export function Signuplogin(){
     provider.addScope("https://www.googleapis.com/auth/documents");
     async function googleLogin() {
         try {
-            const result = await signInWithPopup(auth, provider);
+            const result = await signInWithPopup(auth2, provider);
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
             sessionStorage.setItem("googletoken", token);
@@ -54,7 +54,7 @@ export function Signuplogin(){
 
     async function signout(){
         try{
-            await signOut(auth)
+            await signOut(auth2)
             localStorage.clear()
             console.log("signed out")
             router.push('/teacher/login')
@@ -65,7 +65,7 @@ export function Signuplogin(){
     
     async function unauthsignout(){
         try{
-            await signOut(auth)
+            await signOut(auth2)
             localStorage.clear()
             console.log("signed out")
             // router.push('/te@cher/')
@@ -82,7 +82,7 @@ export function Signuplogin(){
     function loginaccount(email, password) {
     let statusVal
 
-    const q =  query(collection(db, "teacher"), where("email", "==", email));
+    const q =  query(collection(db2, "teacher"), where("email", "==", email));
     getDocs(q).then((querySnapshot)=>{
         querySnapshot.forEach((doc)=>{
             console.log(doc.data().status)
@@ -104,7 +104,9 @@ export function Signuplogin(){
             }
             else{
                 console.log("user not approved")
+                if (typeof window !== 'undefined'){
                 window.alert("User is not approved yet!") 
+                }
             }
             })
         }).catch((error)=>{

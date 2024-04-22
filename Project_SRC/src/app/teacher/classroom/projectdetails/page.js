@@ -1,10 +1,13 @@
 "use client";
-import Content from "./content"
+// import Content from "./content"
+import dynamic from "next/dynamic"
+const Content = dynamic(()=>import('./content'),{ssr: false})
+const DocView = dynamic(()=>import('../components/docview'),{ssr: false})
 import React, { useEffect, useState, useContext } from 'react';
 
 import "../../components/dash.css"
 import Box from '@mui/material/Box';
-import DocView from "../components/docview";
+// import DocView from "../components/docview";
 import ThemeContext from "../../../../Components/Contexts/themeContext.jsx";
 import { darktheme } from "../../../../Components/Themes/Themes.jsx";
 export default function Projectdetails() {
@@ -32,11 +35,15 @@ export default function Projectdetails() {
       }, [selectedDoc]);
     
       useEffect(() => {
+        if (typeof window!=='undefined'){
+
+        
         window.onbeforeunload = () =>
           localStorage.setItem("selectedDoc", "noDocSelected");
         return () => {
           window.onbeforeunload = null;
         };
+      }
       }, []);
     
     return (

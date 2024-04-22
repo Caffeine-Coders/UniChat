@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app';
+// import app from '../../../../config';
 // Import the functions you need from the SDKs you need
 import {getAuth} from 'firebase/auth'
 // import { getAnalytics } from "firebase/analytics";
@@ -6,8 +7,8 @@ import { getFirestore } from "firebase/firestore";
 import { GoogleAuthProvider } from "firebase/auth";
 
 // const provider = new GoogleAuthProvider();
-
-const firebaseConfig = {
+let app1
+const firebaseConfig2 = {
   apiKey: "AIzaSyCJqfIb3Wdot0u0NTJunwTEmz9nOiDGdvw",
   authDomain: "unichat-ea4ea.firebaseapp.com",
   projectId: "unichat-ea4ea",
@@ -18,10 +19,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app)
-export const db = getFirestore(app)
+app1 = initializeApp(firebaseConfig2,"app1");
+export const auth2 = getAuth(app1)
+export const db2 = getFirestore(app1)
 // export const provider = new GoogleAuthProvider()
 
 // const analytics = getAnalytics(app);
-export default app
+export default app1

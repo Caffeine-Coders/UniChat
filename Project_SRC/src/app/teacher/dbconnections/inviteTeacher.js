@@ -1,6 +1,6 @@
 export const addTeacher = async (inviteList,number,name,year) => {
     console.log("here in invite teachers",inviteList)
-  const res = await fetch(`./api/inviteteacher`, {
+  const res = await fetch(`/api/teacherapi/inviteteacher`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -1,5 +1,7 @@
-import React from 'react';
-import Content from './content.js';
+"use client"
+import dynamic from "next/dynamic"
+const Content = dynamic(()=>import('./content.js'),{ssr: false})
+// import Content from './content.js';
 import "../components/dash.css"
 export default function Classroom() {
   return (

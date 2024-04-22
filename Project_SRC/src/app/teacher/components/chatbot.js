@@ -401,7 +401,9 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
                             onMouseOut={(e) => e.currentTarget.style.opacity = 0} 
                             onClick={()=>{localStorage.setItem("sharedmsg",messages[index].content);
                             localStorage.setItem("messageAdded","false"); 
+                            if (typeof window !== 'undefined'){
                             window.location.reload();
+                            }
                           }
                           }
                             // onClick={() => console.log(`Clicked message index: ${index} message: ${messages[index].text}`)} 

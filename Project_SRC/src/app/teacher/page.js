@@ -1,7 +1,7 @@
-"use client"
-import { useRouter } from 'next/navigation';
+import Login from './login/page'
 export default function Teacher() {
-  const router = useRouter()
-  router.push("/teacher/login")
+  return(
+    <Login/>
+  )
 }
 

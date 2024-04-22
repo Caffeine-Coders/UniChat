@@ -1,6 +1,6 @@
 export const createFolderOptions = async()=>{
     console.log("here in add Folder");
-    const res = await fetch(`./api/addfolder`,{
+    const res = await fetch(`/api/teacherapi/addfolder`,{
         method:'POST',
         headers:{
             "Content-Type":"application/json",

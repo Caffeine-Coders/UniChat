@@ -273,7 +273,9 @@ export default function Content(){
         console.log("from local",tempdata)
       
         setStudentInvite(false)
+        if (typeof window !=='undefined'){
         window.location.reload()
+        }
       }
     }
 
@@ -297,7 +299,9 @@ export default function Content(){
         const tempdata = localStorage.getItem("invitedTeacher")
         console.log("from local",tempdata)
         setTeacherInvite(false)
+        if (typeof window !=='undefined'){
         window.location.reload()
+        }
       }
     }
     React.useEffect(() => {
