@@ -351,6 +351,7 @@ const SideBar = ({ projects }) => {
 
         <ListItem>
           <ListItemButton
+            disabled
             sx={{
               "&:hover": {
                 backgroundColor: (theme) => theme.palette.primary.hover,
@@ -424,6 +425,7 @@ const SideBar = ({ projects }) => {
         />
         <ListItem>
           <ListItemButton
+            disabled
             sx={{
               "&:hover": {
                 backgroundColor: (theme) => theme.palette.primary.hover,
