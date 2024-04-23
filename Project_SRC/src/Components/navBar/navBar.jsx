@@ -100,7 +100,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const StyledSearchIcon = styled(SearchIcon)(({ theme }) => ({}));
 
-export default function NavBar() {
+export default function NavBar({ projects }) {
   const router = new useRouter();
   const [openChatGPT, setOpenChatGPT] = useState(false);
 
@@ -271,7 +271,13 @@ export default function NavBar() {
           </Box>
         </Toolbar>
       </AppBar>
-      {openChatGPT && <ChatGPTBox isOpen={openChatGPT} onClose={handleChatGPTClose} />}
+      {openChatGPT && (
+        <ChatGPTBox
+          isOpen={openChatGPT}
+          onClose={handleChatGPTClose}
+          projects={projects}
+        />
+      )}
     </ThemeProvider>
   );
 }
