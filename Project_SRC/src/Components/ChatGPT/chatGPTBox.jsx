@@ -240,6 +240,7 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
       setNewMessage("");
     }
     setIsExporting(true);
+    setIsExporting(true);
   };
 
   const handleExport = async () => {
