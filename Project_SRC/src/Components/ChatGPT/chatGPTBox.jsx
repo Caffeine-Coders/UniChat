@@ -31,7 +31,7 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isTextSelected, setIsTextSelected] = useState(false);
   const [selectedText, setSelectedText] = useState("");
-  const name = localStorage.getItem("studentName");  const [isReplying, setIsReplying] = useState(false);
+  const [isReplying, setIsReplying] = useState(false);
   const [context, setContext] = useState("");
 
   const [getMessageHistory, setMessageHistory] = useState([]);
@@ -73,10 +73,10 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
         const newMessage = `Summarize this document: ${docName}`;
         const divergentMessages = [...messages];
         
-        messages.push({ role: name, content: newMessage });
+        messages.push({ role: "user", content: newMessage });
 
         divergentMessages.push({
-          role: name,
+          role: "user",
           content: `Summarize this document briefly: ${docContent}`,
         });
 
@@ -93,10 +93,10 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
         const newMessage = `Get resources for this document: ${docName}`;
         const divergentMessages = [...messages];
 
-        messages.push({ role: name, content: newMessage });
+        messages.push({ role: "user", content: newMessage });
 
         divergentMessages.push({
-          role: name,
+          role: "user",
           content: `Get relevant and working internet resources for this document: ${docContent}`,
         });
 
@@ -114,11 +114,11 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
         const divergentMessages = [...messages];
 
         divergentMessages.push({
-          role: name,
+          role: "user",
           content: `Evaluate key concepts as pointers from this document: ${docContent}`,
         });
 
-        messages.push({ role: name, content: newMessage });
+        messages.push({ role: "user", content: newMessage });
 
         const keyConcepts = await sendToChatGPTandGetResponse(
           divergentMessages
@@ -212,7 +212,7 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   const handleSendMessage = async () => {
     setIsLoading(true);
     if (newMessage.trim() !== "") {
-      messages.push({ role: name, content: newMessage });
+      messages.push({ role: "user", content: newMessage });
 
       const response = await sendToChatGPTandGetResponse(messages);
 
