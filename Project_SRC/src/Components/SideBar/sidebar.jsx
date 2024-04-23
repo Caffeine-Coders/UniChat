@@ -3,7 +3,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import { ThemeProvider } from "@emotion/react";
-import { lighttheme, darktheme } from "../Themes/Themes";
+import { lighttheme, darktheme } from "../Themes/themes.jsx";
 import { Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";

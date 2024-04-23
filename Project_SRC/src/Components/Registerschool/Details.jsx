@@ -8,7 +8,7 @@ import { ThemeProvider } from '@emotion/react';
 import Image from 'next/image';
 import RegisterLogo from "../../Assets/Register.png";
 import LandingNav from '../LandingNav/LandingNav';
-import { darktheme } from '../Themes/Themes';
+import { darktheme } from '../Themes/themes.jsx';
  
 import {NewRequest} from "../../Services/admin/Request_Approval.js"
 import { useRouter } from 'next/navigation';
