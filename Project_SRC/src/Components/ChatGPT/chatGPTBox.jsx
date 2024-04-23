@@ -23,6 +23,10 @@ import {
 } from "../../Services/ChatGPT/ChatGPT_Routines";
 import Image from "next/image";
 import Linkify from "react-linkify";
+import { createDoc } from "../../Services/GoogleDocs_Routines";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
 
 const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -33,7 +37,8 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   const [selectedText, setSelectedText] = useState("");
   const [isReplying, setIsReplying] = useState(false);
   const [context, setContext] = useState("");
-
+  const [isExporting, setIsExporting] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const [getMessageHistory, setMessageHistory] = useState([]);
   const prevMessageHistoryRef = useRef();
 
@@ -234,7 +239,20 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
       setIsLoading(false);
       setNewMessage("");
     }
+    setIsExporting(true);
   };
+
+  const handleExport = async () => {
+    const documentName = "ChatGPT_Transcript_"+ new Date().toISOString();
+    const content = messages.map((message, index) => 
+    (message.role === "assistant" ? "Assistant: " : "User: ") + message.content + ((index + 1) % 2 === 0 ? "\n" : "")
+    ).join("\n");
+    console.log(content);
+    const datareturned = await createDoc(documentName, content);
+    console.log(datareturned);
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 3000);
+  }
 
   return (
     isVisible && (
@@ -304,6 +322,20 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
                 >
                   ChatGPT
                 </Typography>
+                <IconButton
+                  onClick={handleExport}
+                  sx={{
+                    position: "absolute",
+                    right: 0,
+                    color: (theme) => theme.palette.primary.whites,
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                    },
+                  }}
+                  disabled={!isExporting}
+                >
+                  <FileDownloadIcon />
+                </IconButton>
               </Box>
               {messages.length === 0 ? (
                 <Box
@@ -464,6 +496,18 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
                   </IconButton>
                 </Box>
               )}
+              {
+                showAlert && 
+                <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" sx={{
+                  mt: 4,
+                  ml:4,
+                  mr:4,
+                  borderRadius: 2,
+
+                }}>
+                  Here is a gentle confirmation that your transcript is saved to Google Docs
+                </Alert>
+              }
               <Box
                 sx={{
                   position: "fixed",
