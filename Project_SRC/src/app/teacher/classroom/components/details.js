@@ -60,6 +60,7 @@ let tempData=[]
 let tempTData = []
 let tempEmail = []
 let tempTEmail = []
+let chat = []
   React.useEffect(() => {
       if (typeof window !== 'undefined') {
         tempData  = localStorage.getItem('projectSnames')
@@ -82,9 +83,17 @@ let tempTEmail = []
           setMemberTeachersEmails(tempT2Array)
         }
       }
-      const pname = localStorage.getItem("projectname").replace(/"/g, "")
+      
+      let pname = localStorage.getItem("projectname")
+      if (pname){
+        pname = pname.replace(/"/g, "")
+      }
       setpname(pname)
-      const pgoal = localStorage.getItem("projectgoal").replace(/"/g,"")
+
+      let pgoal = localStorage.getItem("projectgoal")
+      if (pgoal){
+        pgoal = pgoal.replace(/"/g,"")
+      }
       setpgoal(pgoal)
       const grade = localStorage.getItem("classnumber")
       setgrade(grade)

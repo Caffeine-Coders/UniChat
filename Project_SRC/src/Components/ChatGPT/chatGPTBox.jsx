@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   IconButton,
   Typography,
@@ -7,11 +7,17 @@ import {
   Paper,
   InputAdornment,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import Draggable from "react-draggable";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
 import chatGPTLogo from "../../Assets/ChatGPT_icon.png";
+import ClearIcon from "@mui/icons-material/Clear";
+import FileCopyIcon from "@mui/icons-material/FileCopy";
+import ReplyIcon from "@mui/icons-material/Reply";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 import {
   getChatGPTResponse,
   getChatGPTResponseFromDB,
@@ -19,17 +25,52 @@ import {
 } from "../../Services/ChatGPT/ChatGPT_Routines";
 import Image from "next/image";
 import Linkify from "react-linkify";
-import { get } from "http";
+import { createDoc } from "../../Services/GoogleDocs_Routines";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
 
-const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
+const ChatGPTBox = ({ chatGPTOperation, document, onClose, projects }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isTextSelected, setIsTextSelected] = useState(false);
+  const [selectedText, setSelectedText] = useState("");
+  const [isReplying, setIsReplying] = useState(false);
+  const [context, setContext] = useState("");
 
+  const [selectedProject, setSelectedProject] = useState("Private");
+  const [isExporting, setIsExporting] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const [getMessageHistory, setMessageHistory] = useState([]);
   const prevMessageHistoryRef = useRef();
-  
+
+  const chatGPTBoxRef = useRef();
+
+  useEffect(() => {
+    const handleMouseUp = () => {
+      const selectedTextByUser = window.getSelection().toString();
+      if (selectedTextByUser.length > 0) {
+        setIsTextSelected(true);
+        setSelectedText(selectedTextByUser);
+        navigator.clipboard.writeText("");
+      } else {
+        setIsTextSelected(false);
+        setSelectedText("");
+      }
+    };
+
+    if (chatGPTBoxRef.current) {
+      chatGPTBoxRef.current.addEventListener("mouseup", handleMouseUp);
+
+      return () => {
+        if (chatGPTBoxRef.current) {
+          chatGPTBoxRef.current.removeEventListener("mouseup", handleMouseUp);
+        }
+      };
+    }
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,7 +129,9 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
 
         messages.push({ role: "user", content: newMessage });
 
-        const keyConcepts = await sendToChatGPTandGetResponse(divergentMessages);
+        const keyConcepts = await sendToChatGPTandGetResponse(
+          divergentMessages
+        );
 
         messages.push({ role: "assistant", content: keyConcepts });
 
@@ -100,58 +143,87 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
     fetchData();
   }, [chatGPTOperation]);
 
+  // useEffect(() => {
+  //   console.log(messages.length, localStorage.getItem("projectID"));
+  //   if (localStorage.getItem("projectID") !== "null" && messages.length > 0) {
+  //     const projectID = localStorage.getItem("projectID");
+  //     const databasename = "universityatalbanyDB";
 
+  //     // Define an async function
+  //     const updateChat = async () => {
+  //       const response = await storeChatGPTResponse(
+  //         projectID,
+  //         databasename,
+  //         messages
+  //       );
+  //       console.log(response);
+  //     };
 
-  useEffect(() => {
-    console.log(messages.length, localStorage.getItem("projectID"));
-      if (localStorage.getItem("projectID") !== null && messages.length > 0) {
-        const projectID = localStorage.getItem("projectID");
-        const databasename = "universityatalbanyDB";
-  
-        // Define an async function
-        const updateChat = async () => {
-          const response = await storeChatGPTResponse(
-            projectID,
-            databasename,
-            messages
-          );
-          console.log(response);
-        };
-  
-        // Call the async function
-        updateChat();
-    }
-  }, [messages.length]);
+  //     // Call the async function
+  //     updateChat();
+  //   }
+  // }, [messages.length]);
 
-  useEffect(() => {
-      prevMessageHistoryRef.current = getMessageHistory;
-  }, []);
-  
-  useEffect(() => {
-    if (localStorage.getItem("projectID") !== null) {
-      const projectID = localStorage.getItem("projectID");
+  // Inside your component
+  const handleProjectChange = async (event) => {
+    const project = event.target.value;
+    console.log("project is: " + JSON.stringify(project));
+
+    setSelectedProject(project);
+
+    if (project._id !== "null" && messages.length > 0) {
       const databasename = "universityatalbanyDB";
-  
-      // Define an async function
-      const getChat = async () => {
-        const response = await getChatGPTResponseFromDB(
-          projectID,
-          databasename
-        );
-        console.log(response);
-        setMessageHistory(response);
-        console.log(getMessageHistory);
-      };
-  
-      // Call the async function
-      getChat();
+
+      //await storeChatGPTResponse(project._id, databasename, messages);
+      const response = await getChatGPTResponseFromDB(
+        project._id,
+        databasename
+      );
+      setMessageHistory(response);
+      console.log("messageHistory is: " + getMessageHistory);
+    } else {
+      console.log("nope")
     }
-  }, []);
-  
+  };
+
   useEffect(() => {
-    const iterableMessageHistory = Array.isArray(getMessageHistory) ? getMessageHistory : [];
-    if (iterableMessageHistory.length > 0 && JSON.stringify(prevMessageHistoryRef.current) !== JSON.stringify(iterableMessageHistory)) {
-      setMessages(prevMessages => [...prevMessages, ...iterableMessageHistory]);
+    prevMessageHistoryRef.current = getMessageHistory;
+  }, []);
+
+  // useEffect(() => {
+  //   if (localStorage.getItem("projectID") !== null) {
+  //     const projectID = localStorage.getItem("projectID");
+  //     const databasename = "universityatalbanyDB";
+
+  //     // Define an async function
+  //     const getChat = async () => {
+  //       const response = await getChatGPTResponseFromDB(
+  //         projectID,
+  //         databasename
+  //       );
+  //       console.log(response);
+  //       setMessageHistory(response);
+  //       console.log(getMessageHistory);
+  //     };
+
+  //     // Call the async function
+  //     getChat();
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    const iterableMessageHistory = Array.isArray(getMessageHistory)
+      ? getMessageHistory
+      : [];
+    if (
+      iterableMessageHistory.length > 0 &&
+      JSON.stringify(prevMessageHistoryRef.current) !==
+        JSON.stringify(iterableMessageHistory)
+    ) {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        ...iterableMessageHistory,
+      ]);
       prevMessageHistoryRef.current = iterableMessageHistory;
     }
   }, [getMessageHistory]);
@@ -164,7 +236,6 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   };
 
   const sendToChatGPTandGetResponse = async (messageHistory) => {
-    console.log(messageHistory);
     const response = await getChatGPTResponse(messageHistory);
     return response.data;
   };
@@ -172,7 +243,15 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
   const handleSendMessage = async () => {
     setIsLoading(true);
     if (newMessage.trim() !== "") {
-      messages.push({ role: "user", content: newMessage });
+      let finalMessage = newMessage;
+      if (isReplying) {
+        finalMessage =
+          "You said '" + context + "' so answer this: " + newMessage;
+        setIsReplying(false);
+        setContext("");
+      }
+      console.log(finalMessage);
+      messages.push({ role: "user", content: finalMessage });
 
       const response = await sendToChatGPTandGetResponse(messages);
 
@@ -194,204 +273,397 @@ const ChatGPTBox = ({ chatGPTOperation, document, onClose }) => {
       setIsLoading(false);
       setNewMessage("");
     }
+    setIsExporting(true);
+    setIsExporting(true);
   };
+
+  const handleExport = async () => {
+    const documentName = "ChatGPT_Transcript_"+ new Date().toISOString();
+    const content = messages.map((message, index) => 
+    (message.role === "assistant" ? "Assistant: " : "User: ") + message.content + ((index + 1) % 2 === 0 ? "\n" : "")
+    ).join("\n");
+    console.log(content);
+    const datareturned = await createDoc(documentName, content);
+    console.log(datareturned);
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 3000);
+  }
 
   return (
     isVisible && (
-      <Box sx={{ zIndex: 1 }}>
-        <Draggable
-          bounds={{ left: 0, top: 0, right: 1090, bottom: 295 }}
-          defaultPosition={{
-            x: window.innerWidth / 2 - 175,
-            y: window.innerHeight / 2 - 250,
-          }}
-        >
-          <Paper
-            style={{
-              position: "relative",
-              borderTop: 10,
-              width: 350,
-              height: 500,
-              backgroundColor: (theme) => theme.palette.primary.main,
-              boxShadow: "0px 4px 10px #699385",
+      <div ref={chatGPTBoxRef}>
+        <Box sx={{ zIndex: 1 }}>
+          <Draggable
+            bounds={{ left: 0, top: 0, right: 1090, bottom: 295 }}
+            defaultPosition={{
+              x: window.innerWidth / 2 - 175,
+              y: window.innerHeight / 2 - 250,
             }}
-            sx={{ backgroundColor: (theme) => theme.palette.primary.main }}
+            handle=".drag-handle"
           >
-            <Box
-              sx={{
+            <Paper
+              style={{
                 position: "relative",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#1A1D1F",
-                color: (theme) => theme.palette.primary.whites,
-                borderRadius: "5px 5px 0 0",
-                padding: "0 10px",
+                borderTop: 10,
+                width: 500,
+                height: 600,
+                backgroundColor: (theme) => theme.palette.primary.main,
+                boxShadow: "0px 4px 10px #699385",
               }}
+              sx={{ backgroundColor: (theme) => theme.palette.primary.main }}
             >
-              <IconButton
-                onClick={handleCloseChatGPT}
-                sx={{
-                  position: "absolute",
-                  left: 0,
-                  color: (theme) => theme.palette.primary.whites,
-                  "&:hover": {
-                    backgroundColor: "transparent",
-                  },
-                }}
-              >
-                <CloseIcon />
-              </IconButton>
-              <IconButton color="inherit" disabled>
-                <Image
-                  src={chatGPTLogo}
-                  alt="ChatGPT Icon"
-                  width={24}
-                  height={24}
-                />
-              </IconButton>
-              <Typography
-                variant="h4"
-                sx={{
-                  color: (theme) => theme.palette.primary.whites,
-                  fontFamily: "'Kode Mono', monospace",
-                  fontSize: 20,
-                }}
-                padding={1}
-              >
-                ChatGPT
-              </Typography>
-            </Box>
-            {messages.length === 0 ? (
               <Box
                 sx={{
+                  position: "relative",
+                  display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  display: "flex",
-                  mt: 15,
-                }}
-              >
-                <Typography variant="h5">Ask your first question</Typography>
-              </Box>
-            ) : (
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column-reverse",
-                  alignItems: "flex-end",
-                  overflowY: "scroll",
-                  mt: 2,
-                  maxHeight: "380px",
-                  wordWrap: "break-word",
-                }}
-              >
-                {[...messages].reverse().map((message, index) => (
-                  <Box
-                    key={index}
-                    sx={{
-                      backgroundColor:
-                        message.role === "user" ? "#1A1D1F" : "#699385",
-                      p: 1,
-                      borderRadius: 1,
-                      m: 1,
-                      alignSelf:
-                        message.role === "user" ? "flex-end" : "flex-start",
-                      maxWidth: "70%",
-                    }}
-                  >
-                    {message.content.split("\n").map((line, index) => (
-                      <Typography
-                        key={index}
-                        sx={{
-                          color: (theme) => theme.palette.primary.whites,
-                          fontFamily: "'Kode Mono', monospace",
-                          fontSize: 12,
-                        }}
-                      >
-                        <Linkify
-                          componentDecorator={(
-                            decoratedHref,
-                            decoratedText,
-                            key
-                          ) => (
-                            <a target="_blank" href={decoratedHref} key={key}>
-                              {decoratedText}
-                            </a>
-                          )}
-                        >
-                          {line}
-                        </Linkify>
-                      </Typography>
-                    ))}
-                  </Box>
-                ))}
-              </Box>
-            )}
-            <Box
-              sx={{
-                position: "absolute",
-                bottom: 10,
-                justifyContent: "flex-start",
-                alignItems: "center",
-                display: "flex",
-                mt: 33,
-                width: 320,
-                height: 40,
-                ml: 2,
-                borderRadius: 2,
-                backgroundColor: "#699385",
-                color: (theme) => theme.palette.primary.textcolor,
-              }}
-            >
-              <InputBase
-                placeholder="Ask Here"
-                value={isLoading ? "Thinking..." : newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                disabled={isLoading}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && newMessage.trim()) {
-                    handleSendMessage();
-                  }
-                }}
-                sx={{
+                  backgroundColor: "#1A1D1F",
                   color: (theme) => theme.palette.primary.whites,
-                  fontFamily: "'Kode Mono', monospace",
-                  fontSize: 14,
-                  flexGrow: 1,
-                  ml: 1,
-                  mr: 1,
+                  borderRadius: "5px 5px 0 0",
+                  padding: "0 10px",
+                  flexDirection: "row",
                 }}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={handleSendMessage}
-                      disabled={isLoading || !newMessage.trim()}
+                className="drag-handle"
+              >
+                <IconButton
+                  onClick={handleCloseChatGPT}
+                  sx={{
+                    position: "absolute",
+                    left: 0,
+                    color: (theme) => theme.palette.primary.whites,
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                    },
+                  }}
+                >
+                  <CloseIcon />
+                </IconButton>
+                <IconButton color="inherit" disabled>
+                  <Image
+                    src={chatGPTLogo}
+                    alt="ChatGPT Icon"
+                    width={24}
+                    height={24}
+                  />
+                </IconButton>
+                <Typography
+                  variant="h4"
+                  sx={{
+                    color: (theme) => theme.palette.primary.whites,
+                    fontFamily: "'Kode Mono', monospace",
+                    fontSize: 20,
+                  }}
+                  padding={1}
+                >
+                  ChatGPT
+                </Typography>
+                <Select
+                  size="small"
+                  value={selectedProject}
+                  onChange={handleProjectChange}
+                >
+                  <MenuItem value="Private">Private</MenuItem>
+                  {projects.map((project) => (
+                    <MenuItem value={project}>{project.projectName}</MenuItem>
+                  ))}
+                </Select>
+                <IconButton
+                  onClick={handleExport}
+                  sx={{
+                    position: "absolute",
+                    right: 0,
+                    color: (theme) => theme.palette.primary.whites,
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                    },
+                  }}
+                  disabled={!isExporting}
+                >
+                  <FileDownloadIcon />
+                </IconButton>
+              </Box>
+              {messages.length === 0 ? (
+                <Box
+                  sx={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                    mt: 15,
+                  }}
+                >
+                  <Typography variant="h5">Ask your first question</Typography>
+                </Box>
+              ) : (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column-reverse",
+                    alignItems: "flex-end",
+                    overflowY: "scroll",
+                    mt: 2,
+                    mb: 2,
+                    maxHeight: "380px",
+                    wordWrap: "break-word",
+                    userSelect: "text",
+                  }}
+                >
+                  {[...messages].reverse().map((message, index) => (
+                    <Box
+                      key={index}
                       sx={{
-                        color: (theme) => theme.palette.primary.whites,
-                        "&:hover": {
-                          backgroundColor: "transparent",
-                        },
+                        backgroundColor:
+                          message.role !== "assistant" ? "#1A1D1F" : "#699385",
+                        p: 1,
+                        borderRadius: 1,
+                        m: 1,
+                        alignSelf:
+                          message.role !== "assistant"
+                            ? "flex-end"
+                            : "flex-start",
+                        maxWidth: "70%",
+                        userSelect: "text",
                       }}
                     >
-                      {isLoading ? (
-                        <CircularProgress
+                      {message.content.split("\n").map((line, index) => (
+                        <Typography
+                          key={index}
                           sx={{
-                            backgroundColor: (theme) =>
-                              theme.palette.primary.main,
+                            color: (theme) => theme.palette.primary.whites,
+                            fontFamily: "'Kode Mono', monospace",
+                            fontSize: 12,
+                            userSelect: "text",
                           }}
-                          size={14}
-                        />
-                      ) : (
-                        <SendIcon />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </Box>
-          </Paper>
-        </Draggable>
-      </Box>
+                        >
+                          <Linkify
+                            componentDecorator={(
+                              decoratedHref,
+                              decoratedText,
+                              key
+                            ) => (
+                              <a target="_blank" href={decoratedHref} key={key}>
+                                {decoratedText}
+                              </a>
+                            )}
+                          >
+                            {line}
+                          </Linkify>
+                        </Typography>
+                      ))}
+                    </Box>
+                  ))}
+                </Box>
+              )}
+              {isTextSelected && (
+                <Box
+                  sx={{
+                    position: "absolute",
+                    bottom: 60,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                    width: 320,
+                    height: 40,
+                    ml: 2,
+                    mt: 33,
+                    border: "1px solid #000",
+                    borderRadius: 2,
+                    backgroundColor: "#ffffff",
+                    color: "#000",
+                    zIndex: 10,
+                  }}
+                >
+                  <IconButton
+                    color="primary"
+                    onClick={() => {
+                      setSelectedText("");
+                      setIsTextSelected(false);
+                    }}
+                    size="small"
+                  >
+                    <Typography
+                      sx={{
+                        color: "#000",
+                        fontFamily: "'Kode Mono', monospace",
+                        fontSize: 14,
+                        flexGrow: 1,
+                        ml: 1,
+                        mr: 1,
+                        fontSize: 10,
+                      }}
+                    >
+                      Clear
+                    </Typography>
+                    <ClearIcon />
+                  </IconButton>
+                  <IconButton
+                    color="primary"
+                    onClick={() => {
+                      navigator.clipboard.writeText(selectedText);
+                    }}
+                    size="small"
+                  >
+                    <Typography
+                      sx={{
+                        color: "#000",
+                        fontFamily: "'Kode Mono', monospace",
+                        fontSize: 14,
+                        flexGrow: 1,
+                        ml: 1,
+                        mr: 1,
+                        fontSize: 10,
+                      }}
+                    >
+                      Copy
+                    </Typography>
+                    <FileCopyIcon />
+                  </IconButton>
+                  <IconButton
+                    color="primary"
+                    onClick={() => {
+                      setSelectedText("");
+                      setIsTextSelected(false);
+                      setIsReplying(true);
+                      setContext(selectedText);
+                    }}
+                    size="small"
+                  >
+                    <Typography
+                      sx={{
+                        color: "#000",
+                        fontFamily: "'Kode Mono', monospace",
+                        fontSize: 14,
+                        flexGrow: 1,
+                        fontSize: 10,
+                        ml: 1,
+                        mr: 1,
+                      }}
+                    >
+                      Reply
+                    </Typography>
+                    <ReplyIcon />
+                  </IconButton>
+                </Box>
+              )}
+              {isReplying && (
+                <Box
+                  sx={{
+                    position: "absolute",
+                    bottom: 60,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                    width: 320,
+                    height: 40,
+                    overflow: "hidden",
+                    ml: 2,
+                    mt: 33,
+                    borderRadius: 2,
+                    backgroundColor: (theme) => theme.palette.primary.rare,
+                    zIndex: 10,
+                  }}
+                >
+                  <ReplyIcon fontSize="small" />
+                  <Typography
+                    sx={{
+                      color: (theme) => theme.palette.primary.whites,
+                      fontFamily: "'Kode Mono', monospace",
+                      fontSize: 14,
+                      flexGrow: 1,
+                      fontSize: 10,
+                      ml: 1,
+                      mr: 1,
+                    }}
+                  >
+                    {context}
+                  </Typography>
+                  <IconButton>
+                    <ClearIcon
+                      onClick={() => {
+                        setIsReplying(false);
+                        setContext("");
+                      }}
+                      fontSize="small"
+                    />
+                  </IconButton>
+                </Box>
+              )}
+              {
+                showAlert && 
+                <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" sx={{
+                  mt: 4,
+                  ml:4,
+                  mr:4,
+                  borderRadius: 2,
+
+                }}>
+                  Here is a gentle confirmation that your transcript is saved to Google Docs
+                </Alert>
+              }
+              <Box
+                sx={{
+                  position: "absolute",
+                  bottom: 10,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  alignContent: "center",
+                  display: "flex",
+                  mt: 33,
+                  width: "95%",
+                  height: 40,
+                  borderRadius: 2,
+                  backgroundColor: "#699385",
+                  color: (theme) => theme.palette.primary.textcolor,
+                }}
+              >
+                <InputBase
+                  placeholder="Ask Here"
+                  value={isLoading ? "Thinking..." : newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  disabled={isLoading}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && newMessage.trim()) {
+                      handleSendMessage();
+                    }
+                  }}
+                  sx={{
+                    color: (theme) => theme.palette.primary.whites,
+                    fontFamily: "'Kode Mono', monospace",
+                    fontSize: 14,
+                    flexGrow: 1,
+                  }}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleSendMessage}
+                        disabled={isLoading || !newMessage.trim()}
+                        sx={{
+                          color: (theme) => theme.palette.primary.whites,
+                          "&:hover": {
+                            backgroundColor: "transparent",
+                          },
+                        }}
+                      >
+                        {isLoading ? (
+                          <CircularProgress
+                            sx={{
+                              backgroundColor: (theme) =>
+                                theme.palette.primary.main,
+                            }}
+                            size={14}
+                          />
+                        ) : (
+                          <SendIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </Box>
+            </Paper>
+          </Draggable>
+        </Box>
+      </div>
     )
   );
 };

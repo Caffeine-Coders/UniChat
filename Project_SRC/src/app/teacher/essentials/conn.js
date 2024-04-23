@@ -1,5 +1,5 @@
 "use client"
-import {auth, db, provider} from '../dbconnections/firebase'
+import {auth2, db2, provider} from '../dbconnections/firebase'
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut} from "firebase/auth"
 import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { useRouter } from 'next/navigation';
@@ -13,6 +13,7 @@ async function userChecker(user){
     } else if(userClassification.type == "Verified False"){
         return "in db and false"
     } else{
+        
         return "in db and true"
     }
 
@@ -26,13 +27,15 @@ async function userAdd(name,email,schoolname){
 export function Signuplogin(){
     const router = useRouter()
     const provider = new GoogleAuthProvider()
-
+    provider.addScope("https://www.googleapis.com/auth/drive");
+    provider.addScope("https://www.googleapis.com/auth/documents");
     async function googleLogin() {
         try {
-            const result = await signInWithPopup(auth, provider);
+            const result = await signInWithPopup(auth2, provider);
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
             sessionStorage.setItem("googletoken", token);
+            sessionStorage.setItem("googleAccessToken",token)
             const user = result.user;
             let name = user.displayName;
             let photourl = user.photoURL;
@@ -51,7 +54,7 @@ export function Signuplogin(){
 
     async function signout(){
         try{
-            await signOut(auth)
+            await signOut(auth2)
             localStorage.clear()
             console.log("signed out")
             router.push('/teacher/login')
@@ -62,7 +65,7 @@ export function Signuplogin(){
     
     async function unauthsignout(){
         try{
-            await signOut(auth)
+            await signOut(auth2)
             localStorage.clear()
             console.log("signed out")
             // router.push('/te@cher/')
@@ -79,7 +82,7 @@ export function Signuplogin(){
     function loginaccount(email, password) {
     let statusVal
 
-    const q =  query(collection(db, "teacher"), where("email", "==", email));
+    const q =  query(collection(db2, "teacher"), where("email", "==", email));
     getDocs(q).then((querySnapshot)=>{
         querySnapshot.forEach((doc)=>{
             console.log(doc.data().status)
@@ -101,7 +104,9 @@ export function Signuplogin(){
             }
             else{
                 console.log("user not approved")
+                if (typeof window !== 'undefined'){
                 window.alert("User is not approved yet!") 
+                }
             }
             })
         }).catch((error)=>{

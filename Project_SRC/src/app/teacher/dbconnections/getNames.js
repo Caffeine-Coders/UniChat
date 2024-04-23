@@ -1,6 +1,6 @@
 export const getMembers = async (semails,temails) => {
     console.log("here in get getnames ",semails,temails)
-    const res = await fetch(`./api/getnames`, {
+    const res = await fetch(`/api/teacherapi/getnames`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

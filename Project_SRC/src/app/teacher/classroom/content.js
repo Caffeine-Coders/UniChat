@@ -141,6 +141,8 @@ function CustomTabPanel(props) {
   }
 
 export default function Content() {
+
+  
     if (typeof window!== 'undefined'){
         localStorage.setItem("indexval", 1, () => {
             });
@@ -345,7 +347,9 @@ export default function Content() {
       // let studentemailsString1 = '["Dheeraj ","Dheeraj Kumar T","Forum Shah"]';
       console.log("studentemails",studentnamesString)
       let studentemails = studentemailsString.split(',');
+      if (teacheremailsString){
       let teacheremails = teacheremailsString.split(',');
+      }
       let studentnames;
       let users =[];
       let tusers = [];
@@ -387,7 +391,9 @@ export default function Content() {
           JSON.parse(localStorage.getItem("teacheremails"));
         });
         setTeacherInvite(false)
+        if (typeof window !== 'undefined'){
         window.location.reload()
+        }
       }
       let studentinvites;
       const handleStudentInvite = async() => {
@@ -399,7 +405,9 @@ export default function Content() {
           JSON.parse(localStorage.getItem("studentemails"));
         });
         setStudentInvite(false)
+        if (typeof window !== 'undefined'){
         window.location.reload()
+        }
       }
 
 

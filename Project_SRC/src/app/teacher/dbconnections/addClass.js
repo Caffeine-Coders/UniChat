@@ -4,7 +4,7 @@ export const addClass = async (gradelevel,classname,email,url,student,term) => {
     let projects=[]
     let parsedstudents = JSON.parse(student)
     let studentname = JSON.parse(localStorage.getItem("studentnames"))
-  const res = await fetch(`./api/addclass`, {
+  const res = await fetch(`/api/teacherapi/addclass`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

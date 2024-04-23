@@ -4,11 +4,13 @@ import React, { useState, useEffect } from "react";
 export default function Create({fornext, loader}){
     const [projectname, setProjectname] = useState('');
     useEffect(() => {
+        if (typeof window !== 'undefined'){
         const storedProjectName = JSON.parse(localStorage.getItem("projectname"));
         console.log("storedProjectName", storedProjectName);
         if (storedProjectName) {
             setProjectname(storedProjectName);
         }
+    }
     }, []);
     const handleContinue = () => {
         if(projectname !== ''){

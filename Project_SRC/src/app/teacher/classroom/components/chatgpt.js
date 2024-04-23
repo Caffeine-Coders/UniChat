@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -16,9 +17,47 @@ import {
     MessageSeparator
 } from "@chatscope/chat-ui-kit-react"; 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-// import Search from '@mui/icons-material/Search';
+import IconButton from '@mui/material/IconButton';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import Tooltip from '@mui/material/Tooltip';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
+import ListItemIcon from '@mui/material/ListItemIcon';
+
 
 export default function Chatgpt() {
+    const [messages1, setMessages1] = React.useState([]);
+    const [selname, setSelname] = React.useState('All');
+    React.useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const msg1 = JSON.parse(localStorage.getItem("messages"));
+            setMessages1(msg1);
+        }
+    }, []);
+    let snames = localStorage.getItem("studentnames");
+    snames = snames.split(",").map((name) => name.trim());
+    let messages=[]
+    messages1.map((msg) => {
+        messages.push({
+            sender: msg.role=="assistant"? "ChatGPT": msg.role,
+            message: msg.content,
+        });
+    });
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const handleFilter = (name) => {
+        setSelname(name);
+        console.log("name", name);
+    }
+    console.log("selname", selname)
+    console.log("messages", messages)
   return (
     <>
      <a href='/teacher/classroom'>
@@ -38,66 +77,127 @@ export default function Chatgpt() {
                     <ConversationHeader.Content 
                         userName="ChatGPT" 
                     />
+                    <ConversationHeader.Actions>
+                    <Tooltip title="Filter">
+                        <IconButton color="black" 
+                        onClick={handleClick}
+                        aria-label="filter list" 
+                        aria-controls={open ? 'account-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}>
+                            <FilterListIcon />
+                        </IconButton>
+                        </Tooltip>
+                    </ConversationHeader.Actions>
                 </ConversationHeader>
                 <MessageList>
-                <MessageSeparator content="12 January 2024" />
-                <Message.Header sender="Dheeraj"/>
-                    <Message
-                    model={{
-                        direction: 'incoming',
-                        message: "how to change font in react",
-                        sentTime: "just now",
-                        sender: "Dheeraj",
-                        render: () => <IncomingWithHeaderStory />
-                    }}
-                    />
+                {selname==="All" ? (messages.map((message, index) => (
+                <React.Fragment key={index}>
+                    {message.sender !== "ChatGPT" ? (<Message.Header sender={message.sender}/>):null}
                     
-                   
+                    {message.sender !== "ChatGPT" ? (
                     <Message
-                    model={{
-                        direction: 'outgoing',
-                        message: `In React, you can change the font by applying CSS styles to your components. There are several ways to do this: Global Font Change: You can change the font globally by adding a CSS file or style to your project's root HTML file. This will apply the font to all elements in your application.Component-Level Font Change: If you want to apply different fonts to specific components, you can include inline styles or CSS classes directly within your React components. Here's an example of how you can change the font using inline styles in a React component:
-                        import React from 'react';
-                        const MyComponent = () => {
-                        return (
-                            console.log("Hello World")
-                        );
-                        };
-                        export default MyComponent;
-                        `,
-                        sentTime: "just now",
-                        sender: "Joe",
-                    }}
+                        model={{
+                        message: message.message,
+                        sender: message.sender,
+                        direction: "incoming"
+                        }}
                     />
-                                    <MessageSeparator content="30 January 2024" />
-                    <Message.Header sender="Forum"/>
+                    ) : (
                     <Message
-                    model={{
-                        direction: 'incoming',
-                        message: "How to install React",
-                        sentTime: "just now",
-                        sender: "Joe",
-                    }}
+                        model={{
+                        message: message.message,
+                        sender: message.sender,
+                        }}
                     />
+                    )}
+                </React.Fragment>
+                ))):(
+                    messages.filter((message, index) => {
+                        if (message.sender === selname) {
+                          console.log("message", index, message);
+                          return true;
+                        }
                     
-                    <Message
-                    model={{
-                        direction: 'outgoing',
-                        message: `To install React, you'll need to set up a new React project. React provides a tool called create-react-app which allows you to quickly set up a new React project with all the necessary dependencies and configuration. Here's how you can install React using create-react-app:
-
-                        Install Node.js and npm: React requires Node.js and npm (Node Package Manager) to be installed on your system. You can download and install them from the official Node.js website: Node.js Download.
-                        Create a New React Project: Open your terminal or command prompt, and run the following command to install create-react-app globally:`,
-                        sentTime: "just now",
-                        sender: "Joe",
-                    }}
-                    />
+                        if (index > 0 && messages[index - 1].sender === selname && message.sender === "ChatGPT") {
+                          return true;
+                        }
+                    
+                        return false;
+                      }).map((message, index) => (
+                        <React.Fragment key={index}>
+                          {message.sender !== "ChatGPT" ? (<Message.Header sender={message.sender}/>):null}
+                          
+                          {message.sender !== "ChatGPT" ? (
+                          <Message
+                            model={{
+                            message: message.message,
+                            sender: message.sender,
+                            direction: "incoming"
+                            }}
+                          />
+                          ) : (
+                          <Message
+                            model={{
+                            message: message.message,
+                            sender: message.sender,
+                            }}
+                          />
+                          )}
+                        </React.Fragment>
+                      ))
+                    )}
                 </MessageList>
-                <Search placeholder="Search..." />
-                <MessageInput sendButton='hidden' attachButton='hidden' placeholder='Search here...'/>
+                {/* <Search placeholder="Search..." />
+                <MessageInput sendButton='hidden' attachButton='hidden' placeholder='Search here...'/> */}
                 </ChatContainer>
             </MainContainer>
             </div>
       </div>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            mt: 1.5,
+            '& .MuiAvatar-root': {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            '&::before': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <MenuItem onClick={()=>handleFilter("All")}>
+            All
+        </MenuItem>
+        {snames.map((name, index) => (
+            <MenuItem key={index} onClick={() => handleFilter(name)}>
+                {name}
+            </MenuItem>
+        ))}
+      </Menu>
       </>
   );
 }

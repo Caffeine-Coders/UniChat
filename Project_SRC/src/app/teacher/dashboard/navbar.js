@@ -14,6 +14,7 @@ import {Signuplogin} from '../../teacher/essentials/conn'
 import Chatbot from '../../teacher/components/chatbot'
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
+import { getgptchat } from "../dbconnections/getgptchat";
 import * as React from 'react';
 const drawerWidth = 240;
 
@@ -75,7 +76,11 @@ export default function Navdash() {
     setAnchorElUser(null);
   };
   const [openChatGPT, setOpenChatGPT] = useState(false);
-    const toggleChatGPT = () => {
+    const toggleChatGPT = async() => {
+        const email = localStorage.getItem("Temail")
+        const data = await getgptchat(email)
+        console.log("got this in chatbot ",data)
+        localStorage.setItem("gptmessages",JSON.stringify(data))
         setOpenChatGPT(!openChatGPT);
         
     };

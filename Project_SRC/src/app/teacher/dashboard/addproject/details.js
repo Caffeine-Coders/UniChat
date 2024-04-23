@@ -43,10 +43,12 @@ export default function Details({fornext, forback, loader}){
       }
     }, []);
     useEffect(() => {
+      if (typeof window !== 'undefined'){
         const storedprojectgoal = JSON.parse(localStorage.getItem("projectgoal"));
         if (storedprojectgoal) {
             setProjectgoal(storedprojectgoal);
         }
+      }
     }, []);
     const [studentchecked, setstudentChecked] = React.useState([]);
     const [studentemailchecked, setstudentemailChecked] = React.useState([]);

@@ -1,8 +1,6 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import {auth} from './firebase'
-
 export const classifyUser = async (email) => {
-  const res = await fetch(`./api/checkuser`, {
+  console.log("here in getDetails")
+  const res = await fetch(`/api/teacherapi/checkuser`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

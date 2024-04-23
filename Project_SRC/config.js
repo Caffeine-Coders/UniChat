@@ -17,8 +17,8 @@ const firebaseConfig = {
   appId:  appId,
   measurementId:  measurementId
 };
-
+let app
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+app = initializeApp(firebaseConfig,"app");
 
 export default app;

@@ -1,6 +1,6 @@
 export const ProjectList = async (classname,classnumber,classyear) => {
     console.log("here in get ",classname,classnumber,classyear)
-    const res = await fetch(`./api/getprojects`, {
+    const res = await fetch(`/api/teacherapi/getprojects`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

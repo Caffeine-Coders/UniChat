@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
-import { client, connectToMongoDB } from "../../dbconnections/mongo.js"
+import { client, connectToMongoDB } from "../../../teacher/dbconnections/mongo.js"
 
 export async function POST(request) {
+  console.log("route here")
   const data = await request.json();
 
   // Connect to the MongoDB database
