@@ -9,7 +9,7 @@ import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import chatgpt_logo from "../../Assets/chatgpt-bw.png";
 import sublist_icon from "../../Assets/sublist_icon.png";
 import { getDoc } from "../../Services/GoogleDocs_Routines";
-import ChatGPTBox from "../ChatGPT/chatGPTBox";
+import ChatGPTBox from "../ChatGPT/chatGPTBox.jsx";
 
 export default function DocView({ selectedDoc, selectedDocId }) {
   const { theme } = useContext(ThemeContext);

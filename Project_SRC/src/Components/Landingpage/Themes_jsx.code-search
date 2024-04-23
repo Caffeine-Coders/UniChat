@@ -1,0 +1,19 @@
+# Query: Themes.jsx
+# ContextLines: 1
+
+3 results - 3 files
+
+Project_SRC/src/app/home/page.js:
+  5  import ThemeContext from "../../Components/Contexts/themeContext.jsx";
+  6: import { darktheme } from "../../Components/Themes/themes.jsx";
+  7  import { useState } from "react";
+
+Project_SRC/src/Components/HomeFrame/HomeFrame.jsx:
+   9  import ThemeContext from "../Contexts/themeContext.jsx";
+  10: import { darktheme } from "../Themes/themes.jsx";
+  11  import { useState, useContext, useEffect } from "react";
+
+Project_SRC/src/Components/Landingpage/Landing.jsx:
+  5  import { ThemeConsumer, ThemeProvider } from 'styled-components';
+  6: import { darktheme, lighttheme } from '../Themes/themes.jsx';
+  7  import layerer from '../../Assets/aboutimg2.jpeg';

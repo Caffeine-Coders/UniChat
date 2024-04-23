@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
-import { darktheme } from "../Themes/Themes";
+import { darktheme } from "../Themes/themes.jsx";
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import TabPanel from '@mui/lab/TabPanel';

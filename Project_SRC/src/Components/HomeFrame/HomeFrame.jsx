@@ -7,7 +7,7 @@ import React from "react";
 import SideBar from "../SideBar/Sidebar.jsx";
 import Loader from "../Loading/Loader.jsx";
 import ThemeContext from "../Contexts/themeContext.jsx";
-import { darktheme } from "../Themes/Themes.jsx";
+import { darktheme } from "../Themes/themes.jsx";
 import { useState, useContext, useEffect } from "react";
 import AuthContext, { AuthProvider } from "../Contexts/authContext.jsx";
 import { fetchStudentProjects } from "../../Services/ProjectWork/Project_Routines.js"

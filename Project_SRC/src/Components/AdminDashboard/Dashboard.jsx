@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
-import { darktheme } from "../Themes/Themes";
+import { darktheme } from "../Themes/themes.jsx";
 import ToDo from "../../Assets/ToDo.png";
 import Image from "next/image";
 import LandingNav from "../LandingNav/LandingNav";
