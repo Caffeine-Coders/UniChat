@@ -1,11 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
-import NavBar from "../NavBar/NavBar.jsx";
+import NavBar from "../NavBar/navBar.jsx";
 import Box from "@mui/material/Box";
-import Discord from "../Discord/Discord.jsx";
+import Discord from "../Discord/discord.jsx";
 import React from "react";
-import SideBar from "../SideBar/Sidebar.jsx";
-import Loader from "../Loading/Loader.jsx";
+import SideBar from "../SideBar/sidebar.jsx";
+import Loader from "../Loading/loader.jsx";
 import ThemeContext from "../Contexts/themeContext.jsx";
 import { darktheme } from "../Themes/themes.jsx";
 import { useState, useContext, useEffect } from "react";
