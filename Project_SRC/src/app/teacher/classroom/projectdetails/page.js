@@ -9,7 +9,7 @@ import "../../components/dash.css"
 import Box from '@mui/material/Box';
 // import DocView from "../components/docview";
 import ThemeContext from "../../../../Components/Contexts/themeContext.jsx";
-import { darktheme } from "../../../../Components/Themes/Themes.jsx";
+import { darktheme } from "../../../../Components/Themes/themes.jsx";
 export default function Projectdetails() {
     const [selectedDoc, setSelectedDoc] = useState("noDocSelected");
     const [selectedDocId, setSelectedDocId] = useState("noDocSelected");
