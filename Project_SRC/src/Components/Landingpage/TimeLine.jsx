@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import {Box, ThemeProvider, Typography} from '@mui/material';
-import { darktheme } from '../Themes/Themes';
+import { darktheme } from '../Themes/themes.jsx';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';

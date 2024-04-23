@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import BaseLayer from '../../Assets/Layering/BaseLayerB.png';
 import BaseLayer1 from '../../Assets/Layering/BaseLayer3.png';
 import { ThemeProvider, Typography } from '@mui/material';
-import { darktheme, lighttheme } from '../Themes/Themes';
+import { darktheme, lighttheme } from '../Themes/themes.jsx';
 import { Button } from '@mui/base';
 
 
