@@ -346,9 +346,13 @@ export default function Content() {
 
       // let studentemailsString1 = '["Dheeraj ","Dheeraj Kumar T","Forum Shah"]';
       console.log("studentemails",studentnamesString)
-      let studentemails = studentemailsString.split(',');
+      let studentemails;
+      if (studentemailsString){
+      studentemails = studentemailsString.split(',');
+      }
+      let teacheremails
       if (teacheremailsString){
-      let teacheremails = teacheremailsString.split(',');
+      teacheremails = teacheremailsString.split(',');
       }
       let studentnames;
       let users =[];
