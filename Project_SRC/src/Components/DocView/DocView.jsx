@@ -11,8 +11,8 @@ import sublist_icon from "../../Assets/sublist_icon.png";
 import { getDoc } from "../../Services/GoogleDocs_Routines";
 import ChatGPTBox from "../ChatGPT/chatGPTBox.jsx";
 
-export default function DocView({ selectedDoc, selectedDocId }) {
-  console.log("in student",selectedDocId)
+export default function DocView({ selectedDoc, selectedDocId, projects }) {
+  console.log("in student", selectedDocId);
   const { theme } = useContext(ThemeContext);
   const [showGPTOptions, setShowGPTOptions] = useState(false);
   const [isIframeLoaded, setIsIframeLoaded] = useState(false);
@@ -269,6 +269,7 @@ export default function DocView({ selectedDoc, selectedDocId }) {
           chatGPTOperation={chatGPTOperation}
           document={JSON.stringify(docData)}
           onClose={handleChatGPTClose}
+          projects={projects}
         />
       )}
     </ThemeProvider>
