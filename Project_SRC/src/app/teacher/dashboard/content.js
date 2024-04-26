@@ -14,9 +14,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
-import NewClassroom from '../addclass'
+import NewClassroom from './addclass'
 import { useRouter } from 'next/navigation';
-import { classList } from '../../dbconnections/getClass'
+import { classList } from '../dbconnections/getClass'
 const Search = styled('div')(({ theme }) => ({
   position:'relative',
   marginTop:'1%',

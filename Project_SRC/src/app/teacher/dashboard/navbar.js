@@ -10,11 +10,11 @@ import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import {Signuplogin} from '../../essentials/conn'
-import Chatbot from '../../components/chatbot'
+import {Signuplogin} from '../essentials/conn'
+import Chatbot from '../components/chatbot'
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
-import { getgptchat } from "../../dbconnections/getgptchat";
+import { getgptchat } from "../dbconnections/getgptchat";
 import * as React from 'react';
 const drawerWidth = 240;
 
