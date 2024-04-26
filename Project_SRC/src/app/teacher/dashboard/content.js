@@ -3,8 +3,7 @@ import React, {useState} from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import bg from '../../../../../public/dashimage.jpg'
-// import bg from '../../../../public/dashimage.jpg'
+import bg from '../../../../public/dashimage.jpg'
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
