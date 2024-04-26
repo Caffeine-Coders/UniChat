@@ -12,7 +12,7 @@ import MuiAppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
-import Navdash from '../dashboard/navbar';
+import Navdash from '../dashboard/components/navbar';
 import GroupsIcon from '@mui/icons-material/Groups';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';

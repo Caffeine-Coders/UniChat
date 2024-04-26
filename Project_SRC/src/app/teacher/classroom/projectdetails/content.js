@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import AddToDriveIcon from '@mui/icons-material/AddToDrive';
 import ArticleIcon from '@mui/icons-material/Article';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import Navdash from '../../dashboard/navbar';
+import Navdash from '../../dashboard/components/navbar';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { styled, useTheme, alpha } from '@mui/material/styles';
 import { Drivecomponent } from '../../drive/drivecomponent';

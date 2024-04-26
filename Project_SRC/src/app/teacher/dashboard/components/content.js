@@ -3,7 +3,8 @@ import React, {useState} from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import bg from '../../../../public/dashimage.jpg'
+import bg from '../../../../../public/dashimage.jpg'
+// import bg from '../../../../public/dashimage.jpg'
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
@@ -13,10 +14,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
-import NewClassroom from './addclass'
+import NewClassroom from '../addclass'
 import { useRouter } from 'next/navigation';
-import { classList } from '../dbconnections/getClass'
-
+import { classList } from '../../dbconnections/getClass'
 const Search = styled('div')(({ theme }) => ({
   position:'relative',
   marginTop:'1%',
@@ -170,6 +170,8 @@ export default function Content() {
       </CardActionArea>
     </Card>
   );
+  
+
 }
 
   return (
