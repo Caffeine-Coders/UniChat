@@ -133,6 +133,7 @@ export default function HomeComponent() {
                     <DocView
                       selectedDoc={selectedDoc}
                       selectedDocId={selectedDocId}
+                      projects={projects}
                     />
                   </ThemeContext.Provider>
                 </Box>
