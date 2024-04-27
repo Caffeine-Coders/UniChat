@@ -59,14 +59,14 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 export default function Content() {
   const router = useRouter();
   const [teacherEmail, setteacher] = React.useState('');
-  React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedTname = localStorage.getItem("Temail");
-      if (storedTname) {
-        setteacher(JSON.parse(storedTname));
-      }
-    }
-  }, []);
+  // React.useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     const storedTname = localStorage.getItem("Temail");
+  //     if (storedTname) {
+  //       setteacher(JSON.parse(storedTname));
+  //     }
+  //   }
+  // }, []);
 
   const [classes, setClasses] = useState([]);
   // const [projects, setProjects] = React.useState([]);
@@ -76,35 +76,26 @@ export default function Content() {
   const gradelevels = [];
   const studentemails=[];
   const teacheremails=[];
-  async function getclasses (){
-    const classlist = await classList();
+  
+  const classgetter = async (storedTemail) => {
+    const classlist = await classList(storedTemail);
+    console.log("classlist",classlist)
     setClasses(classlist);
-    classlist.forEach((classItem, index) => {
-      if (classItem.teachers && classItem.teachers.includes(teacherEmail)) {
-        teacherClasses.push(classItem.classname);
-        urls.push(classItem.url);
-        years.push(classItem.term);
-        gradelevels.push(classItem.gradelevel);
-        studentemails.push(classItem.students);
-        teacheremails.push(classItem.teachers);
-      }
-    });
-    console.log("tc", teacherClasses, urls);
-    const newclass = teacherClasses.map((className, index) => {
-      return { name: className, url: urls[index], year: years[index], gradelevel: gradelevels[index], students: studentemails[index], teachers: teacheremails[index]};
-    });
-    setClasses(newclass);
   }
 
   React.useEffect(() => {
-    if (typeof window !== 'undefined'){
-      if(teacherEmail){
-      getclasses();
+    if (typeof window !== 'undefined') {
+      const storedTemail = localStorage.getItem("Temail");
+      if (storedTemail) {
+        setteacher(storedTemail);
+        const parsedTemail = storedTemail[0] === '"' && storedTemail[storedTemail.length - 1] === '"' 
+            ? storedTemail.slice(1, -1) 
+            : storedTemail;
+        // const semails = localStorage.getItem("studentemails")
+        classgetter(parsedTemail) 
       }
-  
-  }
-  }, [teacherEmail]);
-    
+    }
+  }, []);
 
   
   const [name1,setName1] = React.useState(null)
@@ -263,8 +254,9 @@ export default function Content() {
        <Grid container spacing={2} style={{position:'relative',width:'80%', marginLeft:'10%', marginTop:'3%'}}>
           <Grid container spacing={4} justifyContent="center">
             {classes.map((project, index) => (
+              console.log("project",project),
               <Grid item xs={12} sm={6} md={4} key={index}>
-                <ProjectCard projectName={project.name} projectUrl={project.url} projectYear={project.year} projectGrade={project.gradelevel} projectStudents={project.students} projectTeachers={project.teachers} />
+                <ProjectCard projectName={project.classname} projectUrl={project.url} projectYear={project.year} projectGrade={project.gradelevel} projectStudents={project.students} projectTeachers={project.teachers} />
               </Grid>
             ))}
           </Grid>

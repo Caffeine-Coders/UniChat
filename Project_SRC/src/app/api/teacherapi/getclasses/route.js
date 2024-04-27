@@ -1,14 +1,16 @@
 import { NextResponse } from "next/server";
 import { client, connectToMongoDB } from "../../../teacher/dbconnections/mongo.js"
+import { ObjectId } from "mongodb";
 
-export async function GET(request) {
-    console.log("route here")
+export async function POST(request) {
+    const data = await request.json();
+    console.log("route here", data)
   // Connect to the MongoDB database
     const db = client.db("universityatalbanyDB");
   // Get the collection you want to work with
     const collection = db.collection("classes");
-    const classes = await collection.find().toArray()
-    // console.log("classes",classes)
+    const classes = await collection.find({teachers:data.teacheremail}).toArray();
+    console.log("classes",classes)
   if (classes) {
     // console.log("all classes", classes)
     return NextResponse.json(classes)
