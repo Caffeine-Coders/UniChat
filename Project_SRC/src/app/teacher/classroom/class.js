@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
+import Newproject from '../dashboard/addproject/newproject';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 // import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import cl1 from "../../../../public/class1.png"
@@ -29,8 +30,11 @@ export default function Class() {
     const[classyear,setClassyear]= React.useState('');
     const [projects, setProjects] = React.useState([]);
     // let projects = [];
+    const [newproject,setnewproject] = React.useState(false)
     const handleCreate = () =>{
-     
+     console.log("here in handle create")
+      setnewproject(true)
+    
     }
     const projectgetter = async(parsedClassname, parsedClassnumber, parsedClassyear) =>{
         const tempprojects = await ProjectList(parsedClassname,parsedClassnumber,parsedClassyear)
@@ -151,6 +155,7 @@ export default function Class() {
 }
 
     return (
+      newproject ? <Newproject/>:
       <Grid container spacing={4}>
                
       <Grid item xs={12}>
@@ -179,7 +184,7 @@ export default function Class() {
             Create new Project
           </h4>
           {/* <button class="mr-4 bg-discordpurple-300 px-4 rounded-lg font-medium">Create</button> */}
-          <Button onClick={handleCreate()}  variant="contained" style={{marginRight:'10px', borderRadius:'15px', backgroundColor:'#692ea3'}}>
+          <Button onClick={handleCreate}  variant="contained" style={{marginRight:'10px', borderRadius:'15px', backgroundColor:'#692ea3'}}>
             Create 
           <AddCircleOutlineOutlinedIcon  sx={{paddingLeft:'4px', marginLeft:'4px'}}/>
           </Button>

@@ -321,7 +321,7 @@ export default function Content(){
       }
     }, []);
     const sidebar=['Project Details','Messaging','Group Chat','ChatGPT','Google Drive']
-    const lowerhalf = ['Add Students', 'Add Co-Instructors']
+    const lowerhalf = ['Add Students']
     const Search = styled('div')(({ theme }) => ({
       position: 'relative',
       borderRadius: theme.shape.borderRadius,
@@ -445,7 +445,7 @@ export default function Content(){
       
                   >
                     {index === 0 ? <GroupAddIcon/>:''}
-                    {index === 1 ? <PersonAddAltIcon/>:''}
+                    {/* {index === 1 ? <PersonAddAltIcon/>:''} */}
                  
                   </ListItemIcon>
                   <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />

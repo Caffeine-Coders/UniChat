@@ -59,11 +59,11 @@ export default function NewClassroom(){
           alert("Please fill all the details.");
           return;
         } 
-        // else if (emailAndName.length === 0) {
+        else if (!filename) {
      
-        //   alert("Please upload a valid CSV file.");
-        //   return;
-        // } 
+          alert("Please upload a valid CSV file.");
+          return;
+        } 
         else {
           
           console.log("class name",className);
