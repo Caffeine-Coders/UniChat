@@ -38,12 +38,14 @@ export default function Chatgpt() {
     let snames = localStorage.getItem("studentnames");
     snames = snames.split(",").map((name) => name.trim());
     let messages=[]
-    messages1.map((msg) => {
-        messages.push({
-            sender: msg.role=="assistant"? "ChatGPT": msg.role,
-            message: msg.content,
-        });
-    });
+    if (messages1){
+      messages1.map((msg) => {
+          messages.push({
+              sender: msg.role=="assistant"? "ChatGPT": msg.role,
+              message: msg.content,
+          });
+      });
+    }
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {

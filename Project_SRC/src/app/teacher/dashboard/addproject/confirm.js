@@ -50,7 +50,7 @@ export default function Confirm({forback, projectData}){
     let teachers="";
     if (typeof window !== 'undefined') {
         projectname = localStorage.getItem("projectname") ? JSON.parse(localStorage.getItem("projectname")) : "";
-        gradelevel = localStorage.getItem("classnumber") ? JSON.parse(localStorage.getItem("classnumber")) : "";
+        gradelevel = localStorage.getItem("classnumber") ? localStorage.getItem("classnumber") : "";
         subjectareas = localStorage.getItem("classname") ? localStorage.getItem("classname") : "";
         projectgoal = localStorage.getItem("projectgoal") ? JSON.parse(localStorage.getItem("projectgoal")) : "";
         students = localStorage.getItem("invitedStudent") ? localStorage.getItem("invitedStudent") : "";

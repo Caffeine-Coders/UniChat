@@ -98,11 +98,12 @@ export default function Content() {
 
   React.useEffect(() => {
     if (typeof window !== 'undefined'){
-    
+      if(teacherEmail){
       getclasses();
+      }
   
   }
-  }, );
+  }, [teacherEmail]);
     
 
   

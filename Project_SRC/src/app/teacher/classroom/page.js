@@ -1,7 +1,7 @@
 "use client"
-import dynamic from "next/dynamic"
-const Content = dynamic(()=>import('./content.js'),{ssr: false})
-// import Content from './content.js';
+// import dynamic from "next/dynamic"
+// const Content = dynamic(()=>import('./content.js'),{ssr: false})
+import Content from './content.js';
 import "../components/dash.css"
 export default function Classroom() {
   return (

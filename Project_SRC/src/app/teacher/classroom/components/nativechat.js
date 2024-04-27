@@ -65,9 +65,10 @@ function Nativechat() {
     const [messageData, setMessageData] = useState([
        
     ]);
-    const localmsgs = JSON.parse(localStorage.getItem("nativemessages"))
-    let formattedmsgs
-    if (localmsgs){
+    let localmsgs = localStorage.getItem("nativemessages")
+    let formattedmsgs=[]
+    if (localmsgs !== undefined && localmsgs !== null){
+        // localmsgs = JSON.parse(localmsgs)
         formattedmsgs = localmsgs.map(msg => ({
             message: msg.content,
             sender: msg.role
