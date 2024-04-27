@@ -18,7 +18,8 @@ export default function Confirm({forback, projectData}){
         const cnum = localStorage.getItem("classnumber")
         const cyear = localStorage.getItem("classyear")
         const imgurl = localStorage.getItem("projectimage")
-        console.log("sending request")
+        console.log("sending request", nativechat)
+
         await addNewProject(projectname,projectgoal,invitedteacher,invitedstudent,nativechat,cname,cnum,cyear,imgurl)
         const details = await getProject(projectname)
     console.log("details",details)

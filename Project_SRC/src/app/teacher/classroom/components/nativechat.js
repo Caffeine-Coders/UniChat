@@ -67,7 +67,7 @@ function Nativechat() {
     ]);
     let localmsgs = localStorage.getItem("nativemessages")
     let formattedmsgs=[]
-    if (localmsgs !== undefined && localmsgs !== null){
+    if (localmsgs !== undefined && localmsgs !== null && Array.isArray(localmsgs)){
         // localmsgs = JSON.parse(localmsgs)
         formattedmsgs = localmsgs.map(msg => ({
             message: msg.content,

@@ -21,6 +21,7 @@ export default function Discord() {
     let msgoption = 10
   if (typeof window!== 'undefined'){
     let nativeChat = localStorage.getItem("nativeChat")
+    console.log("found this",nativeChat)
     if (nativeChat === true || nativeChat === "true"){
 
         msgoption = 20

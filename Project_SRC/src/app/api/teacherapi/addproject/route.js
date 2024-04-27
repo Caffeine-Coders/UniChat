@@ -6,6 +6,12 @@ export async function POST(request) {
 const data = await request.json()
 const slist = await data.slist.split(",")
 const tlist = await data.tlist.split(",")
+let nativeChat;
+if (data.chat === "false") {
+  nativeChat = false;
+} else {
+  nativeChat = Boolean(data.chat);
+}
 console.log("dataaaa in add project",slist,tlist)
   const db = client.db("universityatalbanyDB");
 
@@ -23,7 +29,7 @@ console.log("dataaaa in add project",slist,tlist)
     }
   }
 
-  const result = await collection.insertOne({projectName:data.pname,projectDescription: data.pgoal, studentIds : sids, teacherIds : tlist, nativeChat : Boolean(data.chat), discordServerId: "1217972638920609922", url : data.url})
+  const result = await collection.insertOne({projectName:data.pname,projectDescription: data.pgoal, studentIds : sids, teacherIds : tlist, nativeChat : nativeChat, discordServerId: "1217972638920609922", url : data.url})
     let pid = result.insertedId
     pid = pid.toString()
     // const ids = [pid]

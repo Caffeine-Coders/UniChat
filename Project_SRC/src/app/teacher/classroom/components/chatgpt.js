@@ -27,18 +27,22 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 
 
 export default function Chatgpt() {
-    const [messages1, setMessages1] = React.useState([]);
+    // const [messages1, setMessages1] = React.useState([]);
+    let messages1 = [];
     const [selname, setSelname] = React.useState('All');
     React.useEffect(() => {
         if (typeof window !== 'undefined') {
-            const msg1 = JSON.parse(localStorage.getItem("messages"));
-            setMessages1(msg1);
+            const msg1 = localStorage.getItem("messages");
+            // setMessages1(msg1);
+            if (msg1 && msg1 !== undefined && msg1 !== null){
+                messages1 = msg1;
+            }
         }
     }, []);
     let snames = localStorage.getItem("studentnames");
     snames = snames.split(",").map((name) => name.trim());
     let messages=[]
-    if (messages1){
+    if (messages1 && messages1!== undefined && messages1!==null && Array.isArray(messages1) && messages1.length>0){
       messages1.map((msg) => {
           messages.push({
               sender: msg.role=="assistant"? "ChatGPT": msg.role,
