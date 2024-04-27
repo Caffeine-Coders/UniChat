@@ -256,7 +256,7 @@ export default function Content() {
             {classes.map((project, index) => (
               console.log("project",project),
               <Grid item xs={12} sm={6} md={4} key={index}>
-                <ProjectCard projectName={project.classname} projectUrl={project.url} projectYear={project.year} projectGrade={project.gradelevel} projectStudents={project.students} projectTeachers={project.teachers} />
+                <ProjectCard projectName={project.classname} projectUrl={project.url} projectYear={project.term} projectGrade={project.gradelevel} projectStudents={project.students} projectTeachers={project.teachers} />
               </Grid>
             ))}
           </Grid>
