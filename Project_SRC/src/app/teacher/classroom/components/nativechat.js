@@ -67,8 +67,8 @@ function Nativechat() {
     ]);
     let localmsgs = localStorage.getItem("nativemessages")
     let formattedmsgs=[]
-    if (localmsgs !== undefined && localmsgs !== null && Array.isArray(localmsgs)){
-        // localmsgs = JSON.parse(localmsgs)
+    if ( localmsgs!=='undefined' && localmsgs!==null){
+        localmsgs = JSON.parse(localmsgs)
         formattedmsgs = localmsgs.map(msg => ({
             message: msg.content,
             sender: msg.role
@@ -331,7 +331,8 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
         <MenuItem onClick={()=>handleFilter("All")}>
             All
         </MenuItem>
-        {snames.map((name, index) => (
+        
+        {snames?.map((name, index) => (
             <MenuItem key={index} onClick={() => handleFilter(name)}>
                 {name}
             </MenuItem>

@@ -40,7 +40,7 @@ export default function Chatgpt() {
         }
     }, []);
     let snames = localStorage.getItem("studentnames");
-    snames = snames.split(",").map((name) => name.trim());
+    snames = snames?.split(",").map((name) => name.trim());
     let messages=[]
     if (messages1 && messages1!== undefined && messages1!==null && Array.isArray(messages1) && messages1.length>0){
       messages1.map((msg) => {
@@ -198,7 +198,7 @@ export default function Chatgpt() {
         <MenuItem onClick={()=>handleFilter("All")}>
             All
         </MenuItem>
-        {snames.map((name, index) => (
+        {snames?.map((name, index) => (
             <MenuItem key={index} onClick={() => handleFilter(name)}>
                 {name}
             </MenuItem>

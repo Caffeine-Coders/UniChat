@@ -209,7 +209,7 @@ export default function Class() {
       <Grid style={{position:'relative', marginTop:'3%', width:'100%', marginLeft:'30px'}}>
         {projects[0]!==null ? (
           <Grid container spacing={3} justifyContent="center">
-            {projects.map((project, index) => (
+            {projects?.map((project, index) => (
               <Grid item xs={12} sm={6} md={3} key={index}>
                 <ProjectCard projectName={project.projectName} projectUrl={project.url}/>
               </Grid>
