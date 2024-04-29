@@ -7,7 +7,7 @@ export async function sendMessage(databasename, projectID, message) {
         },
         body: JSON.stringify({ databasename: databasename, projectID: projectID, message: message }),
     });
-    // const data = await response.json();
-    // return data;
+    const data = await response.json();
+    return data;
     // return "done"
 }

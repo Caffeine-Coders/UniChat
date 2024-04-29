@@ -359,14 +359,14 @@ export default function Content() {
       let tusers = [];
       if(studentnamesString){
         studentnames = studentnamesString.split(',');
-        users = studentemails.map((email, index) => {
+        users = studentemails?.map((email, index) => {
           return { name: studentnames[index], email: email };
         });
       }
       let teachernames;
       if(teachernamesString){ 
         teachernames = teachernamesString.split(',');
-        tusers = teacheremails.map((email, index) => {
+        tusers = teacheremails?.map((email, index) => {
           return { name: teachernames[index], email: email };
         });
       }
@@ -547,7 +547,7 @@ sx={{ position: 'absolute', right: 8, top: 8 }}
           </div>
     </Box>
     <CustomTabPanel value={value} index={0} width="full">
-      {users.map((user, index) => (
+      {users?.map((user, index) => (
         <div key={index}>
           <div className="mt-4 rounded-lg flex justify-between space-between">
             <h4 className="flex ">
@@ -561,7 +561,7 @@ sx={{ position: 'absolute', right: 8, top: 8 }}
       ))}
     </CustomTabPanel>
     <CustomTabPanel value={value} index={1}>
-    {tusers.map((user, index) => (
+    {tusers?.map((user, index) => (
         <div key={index}>
           <div className="mt-4 rounded-lg flex justify-between space-between">
             <h4 className="flex ">
@@ -655,7 +655,7 @@ sx={{ position: 'absolute', right: 8 }}
                         </div>
                         </div>
                 
-      {semails.map((email,index)=>(
+      {semails?.map((email,index)=>(
         <div key={index} class="w-4/5 mx-auto  mt-4 rounded-lg flex justify-between space-between">
         <h4 class="flex ">
             {email}
@@ -768,7 +768,7 @@ sx={{ position: 'absolute', right: 8 }}
                         </div>
                         </div>
                 
-      {temails.map((email,index)=>(
+      {temails?.map((email,index)=>(
         <div key={index} class="w-4/5 mx-auto mt-4 rounded-lg flex justify-between space-between">
         <h4 class="flex ">
             {email}

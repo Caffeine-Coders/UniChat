@@ -30,6 +30,7 @@ export default function Class() {
     const[classyear,setClassyear]= React.useState('');
     const [projects, setProjects] = React.useState([]);
     // let projects = [];
+    // localStorage.removeItem("nativemessages")
     const [newproject,setnewproject] = React.useState(false)
     const handleCreate = () =>{
      console.log("here in handle create")
@@ -107,6 +108,7 @@ export default function Class() {
     },
   }));
   const detailsgetter = async(projectName) =>{
+
     const details = await getProject(projectName)
     console.log("details",details)
     localStorage.setItem("projectname",details.projectName)

@@ -21,6 +21,7 @@ import Linkify from "react-linkify";
 import {appendGPT} from '../dbconnections/storegpt'
 import {getgptchat} from '../dbconnections/getgptchat'
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import { sendMessage } from "../dbconnections/appendMessage";
 export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
   const [isVisible, setIsVisible] = useState(isOpen);
   
@@ -399,11 +400,19 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
                             }} 
                             onMouseOver={(e) => e.currentTarget.style.opacity = 1}
                             onMouseOut={(e) => e.currentTarget.style.opacity = 0} 
-                            onClick={()=>{localStorage.setItem("sharedmsg",messages[index].content);
-                            localStorage.setItem("messageAdded","false"); 
-                            if (typeof window !== 'undefined'){
-                            window.location.reload();
-                            }
+                            onClick={()=>{
+                            sendMessage("universityatalbanyDB",localStorage.getItem("projectid")?.replace(/"/g,""),
+                          {
+                            content: messages[index].content,
+                sentTime: new Date().toISOString(), // Assuming the current time
+                role: localStorage.getItem("Tname")?.replace(/"/g,"")
+                          }
+                          )
+                            //   localStorage.setItem("sharedmsg",messages[index].content);
+                            // localStorage.setItem("messageAdded","false"); 
+                            // if (typeof window !== 'undefined'){
+                            // window.location.reload();
+                            // }
                           }
                           }
                             // onClick={() => console.log(`Clicked message index: ${index} message: ${messages[index].text}`)} 
