@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Tooltip from '@mui/material/Tooltip';
-
+import {getnativechat} from '../../dbconnections/getMessages.js'
 // import { AddMessage } from '../../../../Services/NativeChat_Routines/MessageRoutines.js';
 function Nativechat() {
     let studentIds = [];
@@ -62,9 +62,7 @@ function Nativechat() {
     const [typingIndicator, setTypingIndicator] = useState("")
    
 
-    const [messageData, setMessageData] = useState([
-       
-    ]);
+    const [messageData, setMessageData] = useState([]);
     let localmsgs = localStorage.getItem("nativemessages")
     let formattedmsgs=[]
     if ( localmsgs!=='undefined' && localmsgs!==null){
@@ -83,9 +81,9 @@ function Nativechat() {
        
         // console.log("formated ",formattedmsgs)
         setMessageData(formattedmsgs)
-        const messageAdded = localStorage.getItem("messageAdded");
-
-    if (messageAdded === "false") {
+        // const messageAdded = localStorage.getItem("messageAdded");
+        // const newmsgs = fetchMessages()
+    // if (messageAdded === "false") {
         // Check if "sharedmsg" exists in localStorage
         const sharedMsg = localStorage.getItem("sharedmsg");
         if (sharedMsg) {
@@ -96,13 +94,14 @@ function Nativechat() {
                 sender: currentuser // Set the sender to Anudeep Sai
             };
             // Append the new message to the messageData array
-            setMessageData(prevMessageData => [...prevMessageData, newMessage]);
+            // setMessageData(prevMessageData => [...prevMessageData, newMessage]);
             // Set messageAdded flag in localStorage to indicate that the message has been added
-            localStorage.setItem("messageAdded", "true");
-            sendMessage("universityatalbanyDB",localStorage.getItem("projectid").replace(/"/g,""),newMessage)
-
-        }
+            // localStorage.setItem("messageAdded", "true");
+            // sendMessage("universityatalbanyDB",localStorage.getItem("projectid").replace(/"/g,""),newMessage)
+            
+        // }
     }
+
         // if (studentIds.length > 0) {
         //     Promise.all(studentIds.map(async (studentId) => {
         //         const studentData = await getStudentData("universityatalbanyDB", studentId);
@@ -118,8 +117,14 @@ function Nativechat() {
         //         console.error("Error fetching student data:", error);
         //     });
         // }
-    }, [studentIds]);
+    }, []);
+    const fetchMessages  = async () =>{
+        let newMsg = await getnativechat(localStorage.getItem("projectid").replace(/"/g,""))
+        console.log("here msgs",(newMsg.msgs))
+        return JSON.stringify(newMsg.msgs)
+    }
 
+    
     const onSend = async() => {
         const currentTime = new Date().toISOString(); // Get the current time
         const newMessage = {
@@ -127,7 +132,7 @@ function Nativechat() {
             sentTime: currentTime,
             role: currentuser // Assuming the message is sent by the current user
         };
-        setMessageData(prevMessageData => [...prevMessageData, newMessage]); // Append the new message to the messageData array
+        setMessageData(prevMessageData => [...prevMessageData, {message: newMessage.content , sender: newMessage.role}]); // Append the new message to the messageData array
         setMessageInputValue(""); // Clear the message input value after sending
         await sendMessage("universityatalbanyDB",localStorage.getItem("projectid").replace(/"/g,""),newMessage)
     };
@@ -203,10 +208,10 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
                     <MessageList>
                         
                         <MessageSeparator content="CHAT" />
-                        
+                     
                         {selname==="All" ? (
-                            
-                            messageData.map((message, index) => {
+                        
+                            messageData?.map((message, index) => {
                                 
                                 return (
 
@@ -246,8 +251,8 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
                                         </>
                                     )
                             })
-                        ):(
-                            messageData.filter(message => message.sender === selname).map((message, index) => {
+):(
+                            messageData?.filter(message => message.sender === selname).map((message, index) => {
                                 return (
 
                                     message.sender === currentuser ? 
@@ -287,6 +292,7 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
                                     )
                             })
                         )}
+                  
                         {/* <TypingIndicator content="Satwik Bhasin is typing" /> */}
                     </MessageList>
                     <MessageInput placeholder="Type message here" value={messageInputValue} onChange={val => setMessageInputValue(val)} onSend={onSend} />
@@ -312,7 +318,7 @@ style={{ zIndex: chatgpt ? 9999 : -1, backgroundColor:'transparent' }}
               mr: 1,
             },
             '&::before': {
-              content: '""',
+              content: '',
               display: 'block',
               position: 'absolute',
               top: 0,

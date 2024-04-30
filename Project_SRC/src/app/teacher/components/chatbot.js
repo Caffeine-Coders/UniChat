@@ -408,11 +408,11 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
                 role: localStorage.getItem("Tname")?.replace(/"/g,"")
                           }
                           )
-                            //   localStorage.setItem("sharedmsg",messages[index].content);
+                          localStorage.setItem("sharedmsg",messages[index].content);
                             // localStorage.setItem("messageAdded","false"); 
-                            // if (typeof window !== 'undefined'){
-                            // window.location.reload();
-                            // }
+                            if (typeof window !== 'undefined'){
+                            window.location.reload();
+                            }
                           }
                           }
                             // onClick={() => console.log(`Clicked message index: ${index} message: ${messages[index].text}`)} 
