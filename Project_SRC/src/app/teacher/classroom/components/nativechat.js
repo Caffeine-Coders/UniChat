@@ -94,7 +94,7 @@ function Nativechat() {
                 sender: currentuser // Set the sender to Anudeep Sai
             };
             // Append the new message to the messageData array
-            // setMessageData(prevMessageData => [...prevMessageData, newMessage]);
+            setMessageData(prevMessageData => [...prevMessageData, newMessage]);
             // Set messageAdded flag in localStorage to indicate that the message has been added
             // localStorage.setItem("messageAdded", "true");
             // sendMessage("universityatalbanyDB",localStorage.getItem("projectid").replace(/"/g,""),newMessage)
