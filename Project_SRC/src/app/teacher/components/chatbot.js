@@ -183,14 +183,14 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
   }, []);
 
   const handleCloseChatGPT = async() => {
-    let msgdata = localStorage.getItem("gptmessages")
-      if (msgdata.length > 0){
-        msgdata = msgdata.match(/"(.*?)"/g).map(message => message.replace(/"/g, ''))
+    // let msgdata = localStorage.getItem("gptmessages")
+    //   if (msgdata.length > 0){
+    //     msgdata = msgdata.match(/"(.*?)"/g).map(message => message.replace(/"/g, ''))
       
-        console.log("msgs here",msgdata)
-        const temail = localStorage.getItem("Temail")
-        await appendGPT(msgdata,temail)
-            }
+        // console.log("msgs here",msgdata)
+        // const temail = localStorage.getItem("Temail")
+        // await appendGPT(msgdata,temail)
+            // }
           console.log("from cose",messages)
           setIsVisible(false);
         //   if (typeof onClose === 'function') {
@@ -205,14 +205,15 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
         };
 
         const handleSendMessage = async () => {
+          const temail = localStorage.getItem("Temail")
           setIsLoading(true);
           if (newMessage.trim() !== "") {
             messages.push({ role: "user", content: newMessage });
-
             const response = await sendToChatGPTandGetResponse(messages);
 
             messages.push({ role: "assistant", content: response });
-
+            
+            // await appendGPT(,temail)
             if (
               newMessage === "which planet in the universe have most number of moons?"
             ) {
@@ -228,8 +229,10 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
 
             setIsLoading(false);
             setNewMessage("");
-            const messagesJson = messages.map(message => `"${message.content}"`).join(",");
-            localStorage.setItem('gptmessages', messagesJson);
+            const messagesJson = messages.map(message => `"${message.content}"`).join(",").match(/"(.*?)"/g).map(message => message.replace(/"/g, ''));
+            console.log(messagesJson);
+            // localStorage.setItem('gptmessages', messagesJson);
+            await appendGPT(messagesJson,temail)
           }
         };
 
@@ -404,8 +407,8 @@ export default function Chatbot ({ chatGPTOperation, document, isOpen }) {
                             sendMessage("universityatalbanyDB",localStorage.getItem("projectid")?.replace(/"/g,""),
                           {
                             content: messages[index].content,
-                sentTime: new Date().toISOString(), // Assuming the current time
-                role: localStorage.getItem("Tname")?.replace(/"/g,"")
+                            sentTime: new Date().toISOString(), // Assuming the current time
+                            role: localStorage.getItem("Tname")?.replace(/"/g,"")
                           }
                           )
                           localStorage.setItem("sharedmsg",messages[index].content);
