@@ -232,6 +232,7 @@ const Login = () => {
           }
         } else if (!userClassification.isFirstTimeLogin) {
           router.push("/home");
+          localStorage.setItem("selectedDoc", "noDocSelected");
         }
       } else if (userClassification.type === "Unregistered") {
         // Unregistered/Invalid User
